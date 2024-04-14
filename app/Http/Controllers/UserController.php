@@ -20,4 +20,15 @@ class UserController extends Controller
 
         return redirect()->back()->with('success', 'User verification status updated successfully');
     }
+
+    public function showVerifiedAlumni()
+    {
+        $verifiedAlumni = User::where('user_type', 'Alumni')
+                            ->where('is_email_verified', true)
+                            ->get();
+
+        return view('auth.alumni-list', ['verifiedAlumni' => $verifiedAlumni]);
+    }
+
+
 }

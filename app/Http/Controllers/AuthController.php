@@ -17,4 +17,8 @@ class AuthController extends Controller
     public function approvals() {
         return view("auth.approvals");
     }
+
+    public function alumniList() {
+        return view("auth.alumni-list");
+    }
 }
