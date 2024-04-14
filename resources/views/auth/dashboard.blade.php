@@ -81,7 +81,7 @@
             <div class="val-box">
                 <i class="fa-solid fa-users"></i>
                 <div>
-                    <h3>800</h3>
+                    <h3>{{ $verifiedAlumniCount }}</h3>
                     <span>Alumni</span>
                 </div>
             </div>
