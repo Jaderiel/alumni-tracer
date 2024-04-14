@@ -20,5 +20,18 @@ use App\Http\Controllers\Auth\RegisterController;
 // });
 
 Route::get('/login', [AuthController::class, 'login'])->name('login');
+Route::get('/dashboard', [AuthController::class, 'dashboard'])->name('dashboard');
 Route::post('/register', 'Auth\RegisterController@register')->name('register');
 Route::post('/register', [RegisterController::class, 'register'])->name('register');
+Route::get('/verify-email/{token}', [VerificationController::class, 'verifyEmail'])->name('verify.email');
+Route::post('/login', 'App\Http\Controllers\Auth\LoginController@login')->name('login');
+
+use Illuminate\Support\Facades\Mail;
+use App\Mail\TestEmail;
+
+Route::get('/send-email', function () {
+    Mail::to('recipient@example.com')->send(new TestEmail());
+    return 'Email sent successfully';
+});
+
+
