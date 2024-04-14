@@ -15,6 +15,22 @@
                     <h1>Create Account</h1>
                     <form method="POST" action="{{ route('register') }}">
                 @csrf
+                @if ($errors->any())
+                    <div class="alert alert-danger">
+                        <ul>
+                            @foreach ($errors->all() as $error)
+                            <p>{{ $error }}</p>
+                            @endforeach
+                        </ul>
+                    </div>
+                @endif
+                <div class="input-group">
+                    <select name="user_type" id="user_type" required>
+                            <option value="" selected disabled>User type</option>
+                            <option value="Admin">Admin</option>
+                            <option value="Alumni">Alumni</option>
+                    </select>
+                </div>
                 <div class="input-group">
                     <input type="text" name="first_name" placeholder="First Name" required>
                 </div>

@@ -5,13 +5,16 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\User;
+use Illuminate\Support\Str;
 
 class RegisterController extends Controller
 {
     public function register(Request $request)
     {
+        $token = Str::random(60);
         // Validate the incoming request data
         $request->validate([
+            'user_type' => 'required',
             'first_name' => 'required',
             'last_name' => 'required',
             'course' => 'required',
@@ -23,6 +26,7 @@ class RegisterController extends Controller
 
         // Create and save the new user
         $user = User::create([
+            'user_type' => $request->user_type,
             'first_name' => $request->first_name,
             'middle_name' => $request->middle_name,
             'last_name' => $request->last_name,
@@ -37,11 +41,9 @@ class RegisterController extends Controller
         return redirect(url('/login'))->with('success', 'Registration successful! You can now sign in.');
 
         // Generate a verification token
-        $verificationToken = Str::random(60);
+        $verificationUrl = route('verify.email', ['token' => $token]);
 
-        // Save the verification token to the user record
-        $user->verification_token = $verificationToken;
-        $user->save();
+        Mail::to($request->input('email'))->send(new VerifyEmail($verificationUrl));
 
     }
 }

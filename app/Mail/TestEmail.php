@@ -11,9 +11,8 @@ use Illuminate\Queue\SerializesModels;
 
 class TestEmail extends Mailable
 {
-    public function build()
-{
-    return $this->view('emails.test');
-}
+    public function build(){
+        return $this->view('emails.test');
+    }
 
 }
