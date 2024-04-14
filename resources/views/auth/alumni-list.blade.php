@@ -36,71 +36,72 @@
 
         <div class="find">
             <div class="search-course">
-                <select name="course" id="course">
-                    <option value="" selected disabled>COURSE NAME</option>
-                    <option value="course1">Bachelor of Arts in Broadcasting (BAB)</option>
-                    <option value="course2">Bachelor of Science in Accountancy (BSA)</option>
-                    <option value="course3">BSA Technology (BSAT) | BSA Information Systems (BSAIS)</option>
-                    <option value="course4">Bachelor of Science in Social Work (BSSW)</option>
-                    <option value="course5">Bachelor of Science in Information Systems (BSIS)</option>
-                    <option value="course6">Computer Technology (CT)</option>
-                    <option value="course7">Computer Programming (CP)</option>
-                    <option value="course8">Health Care Services (HCS)</option>
-                    <option value="course9">International Cookery (IC)</option>
-                    <option value="course10">Mass Communication (MC)</option>
-                    <option value="course11">Nursing Student (NS)</option>
-                    <option value="course12">Office Management (OM)</option>
+                <select name="course" id="courseFilter">
+                    <option value="" selected disabled>Course</option>
+                    <option value="all">All</option>
+                    <option value="Bachelor of Arts in Broadcasting">Bachelor of Arts in Broadcasting (BAB)</option>
+                    <option value="Bachelor of Science in Accountancy">Bachelor of Science in Accountancy (BSA)</option>
+                    <option value="Bachelor of Science in Accounting Technology">Bachelor of Science in Accounting Technology (BSAT)</option>
+                    <option value="Bachelor of Science in Accounting Information Systems">Bachelor of Science in Accounting Information Systems (BSAIS)</option>
+                    <option value="Bachelor of Science in Social Work">Bachelor of Science in Social Work (BSSW)</option>
+                    <option value="Bachelor of Science in Information Systems">Bachelor of Science in Information Systems (BSIS)</option>
+                    <option value="Computer Technology">Computer Technology (CT)</option>
+                    <option value="Computer Programming">Computer Programming (CP)</option>
+                    <option value="Health Care Services">Health Care Services (HCS)</option>
+                    <option value="International Cookery">International Cookery (IC)</option>
+                    <option value="Mass Communication">Mass Communication (MC)</option>
+                    <option value="Nursing Student">Nursing Student (NS)</option>
+                    <option value="Office Management">Office Management (OM)</option>
                 </select>
             </div>
             <div class="search-batch">
-                <select name="batch" id="batch">
-                    <option value="" selected disabled>BATCH YEAR</option>
-                    <option value="batch1">2006</option>
-                    <option value="batch2">2007</option>
-                    <option value="batch3">2008</option>
-                    <option value="batch4">2009</option>
-                    <option value="batch5">2010</option>
-                    <option value="batch6">2011</option>
-                    <option value="batch7">2012</option>
-                    <option value="batch8">2013</option>
-                    <option value="batch9">2014</option>
-                    <option value="batch10">2015</option>
-                    <option value="batch11">2016</option>
-                    <option value="batch12">2017</option>
-                    <option value="batch13">2018</option>
-                    <option value="batch14">2019</option>
-                    <option value="batch15">2020</option>
-                    <option value="batch16">2021</option>
-                    <option value="batch17">2022</option>
-                    <option value="batch18">2023</option>
+                <select name="batch" id="batchFilter">
+                    <option value="" selected disabled>Batch</option>
+                    <option value="all">All</option>
+                    <option value="2006">2006</option>
+                    <option value="2007">2007</option>
+                    <option value="2008">2008</option>
+                    <option value="2009">2009</option>
+                    <option value="2010">2010</option>
+                    <option value="2011">2011</option>
+                    <option value="2012">2012</option>
+                    <option value="2013">2013</option>
+                    <option value="2014">2014</option>
+                    <option value="2015">2015</option>
+                    <option value="2016">2016</option>
+                    <option value="2017">2017</option>
+                    <option value="2018">2018</option>
+                    <option value="2019">2019</option>
+                    <option value="2020">2020</option>
+                    <option value="2021">2021</option>
+                    <option value="2022">2022</option>
+                    <option value="2023">2023</option>
                 </select>
             </div>
             <div class="search">
                 <i class="fa-solid fa-search"></i>
-                <input type="text" placeholder="Search...">
+                <input id="searchInput" type="text" placeholder="Search...">
             </div>
         </div>
 
         <div class="board-list">
-            <table width="100%">
+            <table width="100%" id="userTable">
                 <thead>
                     <tr>
                         <td>Name</td>
                         <td>Email</td>
-                        <td>User Type</td>
+                        <td>Course</td>
+                        <td>Batch</td>
                         <td>Action</td>
                     </tr>
                 </thead>
                 <tbody>
                     @foreach($verifiedAlumni as $user)
                     <tr>
-                        <td class="user">
-                            <div class="user-info">
-                                <h5>{{ $user->username }}</h5>
-                            </div>
-                        </td>
-                        <td class="email">{{ $user->email }}</td>
-                        <td class="user-type">{{ $user->user_type }}</td>
+                        <td>{{ $user->first_name }} {{ $user->last_name }}</td>
+                        <td>{{ $user->email }}</td>
+                        <td>{{ $user->course }}</td>
+                        <td>{{ $user->batch }}</td>
                         <td class="action">
                             <a href="#" class="button">View</a>
                         </td>
@@ -109,10 +110,44 @@
                 </tbody>
             </table>
         </div>
+
     </section>
 
     <script>
-        // JavaScript code if needed
+        document.addEventListener("DOMContentLoaded", function() {
+            const searchInput = document.getElementById('searchInput');
+            const courseFilter = document.getElementById('courseFilter');
+            const batchFilter = document.getElementById('batchFilter');
+            const userTable = document.getElementById('userTable').querySelectorAll('tbody tr');
+
+            function filterRows() {
+                const searchTerm = searchInput.value.toLowerCase();
+                const selectedCourse = courseFilter.value.toLowerCase();
+                const selectedBatch = batchFilter.value.toLowerCase();
+
+                userTable.forEach(row => {
+                    const name = row.cells[0].innerText.toLowerCase();
+                    const email = row.cells[1].innerText.toLowerCase();
+                    const course = row.cells[2].innerText.toLowerCase();
+                    const batch = row.cells[3].innerText.toLowerCase();
+
+                    const matchesSearchTerm = name.includes(searchTerm) || email.includes(searchTerm);
+                    const matchesCourseFilter = selectedCourse === 'all' || course.includes(selectedCourse);
+                    const matchesBatchFilter = selectedBatch === 'all' || batch.includes(selectedBatch);
+
+                    if (matchesSearchTerm && matchesCourseFilter && matchesBatchFilter) {
+                        row.style.display = '';
+                    } else {
+                        row.style.display = 'none';
+                    }
+                });
+            }
+
+            searchInput.addEventListener('input', filterRows);
+            courseFilter.addEventListener('change', filterRows);
+            batchFilter.addEventListener('change', filterRows);
+        });
     </script>
+
 </body>
 </html>

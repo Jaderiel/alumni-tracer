@@ -4,7 +4,7 @@
 
         <div class="items">
             <li><i class="fa-solid fa-house"></i><a href="{{ route('dashboard') }}">Dashboard</a></li>
-            <li><i class="fa-solid fa-users"></i><a href="{{ route('auth/alumni-list') }}">Alumni List</a></li>
+            <li><i class="fa-solid fa-users"></i><a href="{{ route('alumni-list') }}">Alumni List</a></li>
             <li><i class="fa-solid fa-calendar-days"></i><a href="events.html">Events</a></li>
             <li><i class="fa-solid fa-briefcase"></i><a href="jobs.html">Jobs</a></li>
             <li><i class="fa-solid fa-image"></i><a href="gallery.html">Gallery</a></li>
