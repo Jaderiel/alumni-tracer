@@ -10,13 +10,16 @@
     <link rel="stylesheet" href="{{ asset('css/dashboard.css') }}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" />
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
-
 </head>
 
 <body>
     <div id="container" class="container">
     <section id="menu">
-        @include('sidenav')
+    @if(Auth::user()->user_type === 'Admin')
+        @include('components.admin-sidenav')
+    @else
+        @include('components.sidenav')
+    @endif
     </section>
 
     <section id="interface">

@@ -41,14 +41,14 @@ class LoginController extends Controller
         'username' => 'required|string',
         'password' => 'required|string',
     ]);
-    
+
     // Attempt to authenticate the user
     $credentials = $request->only('username', 'password');
     if (Auth::attempt($credentials)) {
         $user = Auth::user();
             if (!$user->is_email_verified) {
                 Auth::logout(); // Log out the user
-                return redirect()->back()->withErrors(['message' => 'Your email is not verified. Please verify your email to log in.'])->withInput();
+                return redirect()->back()->withErrors(['message' => 'Your email is not verified. Please wait for the admin to verify your email'])->withInput();
             }
         // Authentication successful
         return redirect()->intended('/dashboard'); // Redirect to the intended page after login
@@ -57,4 +57,12 @@ class LoginController extends Controller
     // Authentication failed
     return redirect()->back()->withErrors(['message' => 'Invalid username or password.'])->withInput();
 }
+
+    public function logout(Request $request) {
+        Auth::logout();
+        $request->session()->invalidate();
+        $request->session()->regenerateToken();
+        return redirect('/login');
+    }
+
 }
