@@ -4,7 +4,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Approvals</title>
-    <link rel="stylesheet" href="{{ asset('css/dashboard.css') }}">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+    <link rel="stylesheet" href="{{ asset('css/alumni.css') }}">
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 </head>
 <body>
     <section id=menu>
@@ -12,33 +16,67 @@
     </section>
 
     <section id="interface">
-        <h1>Approvals</h1>
+
+        @include('components.headernav')
+
+        <h3 class="i-name">Approvals</h3>
 
         <div>
-            <h2>Users pending approval:</h2>
             @if (session('success'))
                 <div class="alert alert-success">
                     {{ session('success') }}
                 </div>
             @endif
             <ul>
-                @foreach($unverifiedUsers as $user)
-                <div style="display: flex; flex-direction: row; padding-left: 50px; padding-right: 50px; justify-content: space-between; margin-top: 10px">
-                    <p>{{ $user->username }}</p>
-                    <p>{{ $user->email }}</p>
-                    @unless($user->is_email_verified)
-                    <form method="POST" action="{{ route('user.updateVerification', ['userId' => $user->id]) }}">
-                            @method('PUT')
-                            @csrf
-                            <button type="submit" style="padding: 10px; border-radius: 10px; background-color: green; color: white;">approve</button>
-                        </form>
-                    @else
-                        <button style="padding: 10px; border-radius: 10px; background-color: gray; color: white;" disabled>approved</button>
-                    @endunless
+                
+                <div class="board-list">
+                    <table width="100%">
+                        <thead>
+                            <tr>
+                                <td>Name</td>
+                                <td>Email</td>
+                                <td>Course</td>
+                                <td>Batch</td>
+                                <td>Action</td>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach($unverifiedUsers as $user)
+                            <tr>
+                                <td>{{ $user->username }}</td>
+                                <td>{{ $user->email }}</td>
+                                <td>{{ $user->course }}</td>
+                                <td>{{ $user->batch }}</td>
+                                @unless($user->is_email_verified)
+                                    <td class="action">
+                                        <a href="#" class="button approve-btn" data-form-id="{{ 'form-'.$user->id }}">Approve</a>
+                                        <form id="{{ 'form-'.$user->id }}" method="POST" action="{{ route('user.updateVerification', ['userId' => $user->id]) }}">
+                                            @method('PUT')
+                                            @csrf
+                                        </form>
+                                    </td>
+                                @else
+                                    <td>
+                                        <button style="padding: 10px; border-radius: 10px; background-color: gray; color: white;" disabled>approved</button>
+                                    </td>
+                                @endunless
+                            </tr>
+                            @endforeach
+                        </tbody>
+                    </table>
                 </div>
-                @endforeach
             </ul>
         </div>
     </section>
+
+    <script>
+        $(document).ready(function() {
+            $('.approve-btn').click(function(e) {
+                e.preventDefault();
+                var formId = $(this).data('form-id');
+                $('#' + formId).submit();
+            });
+        });
+    </script>
 </body>
 </html>
