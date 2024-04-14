@@ -124,7 +124,7 @@
                     const course = row.cells[2].innerText.toLowerCase();
                     const batch = row.cells[3].innerText.toLowerCase();
 
-                    const matchesSearchTerm = name.includes(searchTerm) || email.includes(searchTerm);
+                    const matchesSearchTerm = name.includes(searchTerm) || email.includes(searchTerm) || course.includes(searchTerm) || batch.includes(searchTerm);
                     const matchesCourseFilter = selectedCourse === 'all' || course.includes(selectedCourse);
                     const matchesBatchFilter = selectedBatch === 'all' || batch.includes(selectedBatch);
 
