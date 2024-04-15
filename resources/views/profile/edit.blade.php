@@ -103,6 +103,66 @@
                         </div>
                     </div>
 
+
+                    <div class="inline-group2">
+                    <div class="form-group">
+                        <label for="employment">Employment Status</label>
+                        <select class="form-control" id="employment" name="employment_status">
+                            <option value="employed" {{ $user->employment && $user->employment->is_employed ? 'selected' : '' }}>Employed</option>
+                            <option value="unemployed" {{ (!$user->employment || !$user->employment->is_employed) ? 'selected' : '' }}>Unemployed</option>
+                        </select>
+                    </div>
+    </div>
+    <div class="inline-group2">
+        <div class="form-group">
+            <label for="date">Date of First Employment</label>
+            <input type="date" class="form-control" id="date" name="date_of_first_employment" value="{{ $user->employment ? $user->employment->date_of_first_employment : '' }}">
+        </div>
+        <div class="form-group">
+            <label for="date2">Date of Employment</label>
+            <input type="date" class="form-control" id="date2" name="date_of_employment" value="{{ $user->employment ? $user->employment->date_of_employment : '' }}">
+        </div>
+    </div>
+    <div class="inline-group2">
+        <div class="form-group">
+            <label for="industry">Industry</label>
+            <input type="text" class="form-control" id="industry" name="industry" value="{{ $user->employment ? $user->employment->industry : '' }}">
+        </div>
+        <div class="form-group">
+            <label for="job">Job Title</label>
+            <input type="text" class="form-control" id="job" name="job_title" value="{{ $user->employment ? $user->employment->job_title : '' }}">
+        </div>
+    </div>
+    <div class="inline-group2">
+        <div class="form-group">
+            <label for="company">Company</label>
+            <input type="text" class="form-control" id="company" name="company_name" value="{{ $user->employment ? $user->employment->company_name : '' }}">
+        </div>
+        <div class="form-group">
+            <label for="location">Location</label>
+            <input type="text" class="form-control" id="location" name="company_address" value="{{ $user->employment ? $user->employment->company_address : '' }}">
+        </div>
+    </div>
+    <div class="inline-group2">
+        <div class="form-group">
+            <label for="salary">Salary Per Year</label>
+            <input type="number" class="form-control" id="salary" name="annual_salary" value="{{ $user->employment ? $user->employment->annual_salary : '' }}">
+        </div>
+    </div>
+
+                    <div class="heading">
+                        USER POST-GRADUATION INFORMATION
+                    </div>
+                    <div class="panel-btn">
+                    <div class="inline-group2">
+                        <div class="form-group">
+                            <label for="degree">Degree Status</label>
+                            <input type="text" class="form-control" id="degree" name="degree" value="{{ $user->degree }}">
+                        </div>
+                    </div>
+
+                    </div>
+
     <button type="submit" class="btn btn-primary">Save Changes</button>
     <a href="{{ route('profile') }}" class="btn btn-primary">Back</a>
 </form>

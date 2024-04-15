@@ -118,53 +118,63 @@
                     USER EMPLOYMENT INFORMATION
                 </div>
                 <div class="panel-btn">
-                        <div class="inline-group2">
-                            <div class="form-group">
-                                <label for="employment">Employment Status</label>
-                                <select class="form-control" id="employment">
-                                    <option value="" selected disabled>Employed</option>
-                                    <option value="status1">Employed</option>
-                                    <option value="status2">Unemployed</option>
-                                </select>
-                            </div>
-                        </div>
-                        <div class="inline-group2">
-                                <div class="form-group">
-                                    <label for="date">Date of First Employment</label>
-                                    <input type="date" class="form-control" id="date" placeholder="09/29/2019">
-                                </div>
-                                <div class="form-group">
-                                    <label for="date2">Date of Employment</label>
-                                    <input type="date" class="form-control" id="date2" placeholder="05/25/2022">
-                                </div>
-                        </div>
-                        <div class="inline-group2">
-                            <div class="form-group">
-                                <label for="industry">Industry</label>
-                                <input type="text" class="form-control" id="industry" placeholder="Technology">
-                            </div>
-                            <div class="form-group">
-                                <label for="job">Job Title</label>
-                                <input type="text" class="form-control" id="job" placeholder="UI Designer">
-                            </div>
-                        </div>
-                        <div class="inline-group2">
-                            <div class="form-group">
-                                <label for="company">Company</label>
-                                <input type="text" class="form-control" id="company" placeholder="XYZ Technical Solutions">
-                            </div>
-                            <div class="form-group">
-                                <label for="location">Location</label>
-                                <input type="text" class="form-control" id="location" placeholder="United States">
-                            </div>
-                        </div>
-                        <div class="inline-group2">
-                            <div class="form-group">
-                                <label for="salary">Salary Per Year</label>
-                                <input type="number" class="form-control" id="salary" placeholder="2,700,00">
-                            </div>
-                        </div>
-                    </div>
+    <div class="inline-group2">
+        <div class="form-group">
+            <label for="employment">Employment Status</label>
+            <select class="form-control" id="employment" name="employment_status">
+                <option value="" selected disabled>Choose Employment Status</option>
+                <option value="employed" {{ $user->employment && $user->employment->is_employed ? 'selected' : '' }}>Employed</option>
+<option value="unemployed" {{ (!$user->employment || !$user->employment->is_employed) ? 'selected' : '' }}>Unemployed</option>
+
+            </select>
+        </div>
+    </div>
+    <div class="inline-group2">
+        <div class="form-group">
+            <label for="date">Date of First Employment</label>
+            <input type="date" class="form-control" id="date" name="date_of_first_employment" value="{{ $user->employment ? $user->employment->date_of_first_employment : '' }}" placeholder="Date of First Employment">
+        </div>
+        <div class="form-group">
+            <label for="date2">Date of Employment</label>
+            <input type="date" class="form-control" id="date2" name="date_of_employment" value="{{ $user->employment ? $user->employment->date_of_employment : '' }}" placeholder="Date of Employment">
+        </div>
+    </div>
+    <div class="inline-group2">
+        <div class="form-group">
+            <label for="industry">Industry</label>
+            <input type="text" class="form-control" id="industry" name="industry" value="{{ $user->employment ? $user->employment->industry : '' }}" placeholder="Industry">
+        </div>
+        <div class="form-group">
+            <label for="job">Job Title</label>
+            <input type="text" class="form-control" id="job" name="job_title" value="{{ $user->employment ? $user->employment->job_title : '' }}" placeholder="Job Title">
+        </div>
+    </div>
+    <div class="inline-group2">
+        <div class="form-group">
+            <label for="company">Company</label>
+            <input type="text" class="form-control" id="company" name="company_name" value="{{ $user->employment ? $user->employment->company_name : '' }}" placeholder="Company">
+        </div>
+        <div class="form-group">
+            <label for="location">Location</label>
+            <input type="text" class="form-control" id="location" name="company_address" value="{{ $user->employment ? $user->employment->company_address : '' }}" placeholder="Location">
+        </div>
+    </div>
+    <div class="inline-group2">
+        <div class="form-group">
+            <label for="salary">Salary Per Year (PHP)</label>
+            @if($user->employment && $user->employment->annual_salary)
+                <?php 
+                    $salary_in_peso = number_format($user->employment->annual_salary, 0, ',', ','); 
+                ?>
+                <input type="text" class="form-control" id="salary" name="annual_salary" value="{{ $salary_in_peso }}" readonly>
+            @else
+                <input type="text" class="form-control" id="salary" name="annual_salary" value="" placeholder="Salary Per Year (PHP)" readonly>
+            @endif
+        </div>
+    </div>
+
+</div>
+
 
                     <div class="heading">
                         USER POST-GRADUATION INFORMATION
@@ -173,7 +183,7 @@
                             <div class="inline-group2">
                                 <div class="form-group">
                                     <label for="degree">Degree Status</label>
-                                    <input type="text" class="form-control" id="degree" placeholder="Ph.D. in Psychology">
+                                    <input type="text" class="form-control" id="degree" placeholder="Ph.D. in Psychology" value="{{ Auth::user()->degree }}" readonly>
                                 </div>
                             </div>
                     </div> 
@@ -203,10 +213,13 @@
         <img src="img/trash.png" alt="">
         <h2>Are you sure you want to delete your account?</h2>
             <div class="inline-group3">
-                <button type="button" onclick="closePopup()">NO, CANCEL</button>
-                <a href="login.html">
-                <button class="sure-button" onclick="openPopup">YES, I'M SURE</button>
-                </a>
+                
+                <form id="delete-form" action="{{ route('users.destroy', $userId) }}" method="POST">
+                    <button type="button" onclick="closePopup()">NO, CANCEL</button>
+                    @csrf
+                    @method('DELETE')
+                    <button class="sure-button">YES, I'M SURE</button>
+                </form>
             </div>
     </div>
 
