@@ -101,15 +101,15 @@
                 <div class="forum-section">
                     <div class="left-section">
                         <div class="profile-info">
-                            <img src="./img/Picture1.png" alt="Profile Picture">
+                            <img src="{{ Auth::user()->profile_pic }}" alt="Profile Picture">
                             <div class="user-details">
-                                <p class="profile-name">Monica Ocampo</p>
-                                <p class="profile-course">Bachelor of Science in Information Systems</p>
+                                <p class="profile-name">{{ Auth::user()->first_name }} {{ Auth::user()->last_name }}</p>
+                                <p class="profile-course">{{ Auth::user()->course }}</p>
                             </div>
                         </div>
                     </div> 
                     <div class="center-section">
-                        <p>What's on your mind, Monica?</p>
+                        <p>What's on your mind, {{ Auth::user()->username }}?</p>
                     </div>
                     <div class="right-section">
                         <button type="submit" class="post-button" onclick="openPopup()">MAKE A POST</button>
@@ -131,7 +131,7 @@
                     
                     <div class="center-section2 flex items-center">
                         <p class="mr-2">BATCH 2023-2024</p>
-                        <img src="./img/bsis-sample-3.jpg" alt="Image" class="image-posted"> 
+                        <img src="{{ Auth::user()->profile_pic }}" alt="Image" class="image-posted"> 
                     </div>
 
                     <div class="forum-section2">
@@ -213,30 +213,36 @@
     </section>
 </div>
 
-    <div class="popup" id="popup">
-        <div class="create">
-            <h3>Create Post</h3>
-            <i class="fa-solid fa-circle-xmark" onclick="closePopup()"></i>
-        </div> 
-        <hr>
-            <div class="left-section2">
-                <div class="profile-info2">
-                    <img src="./img/Picture1.png" alt="Profile Picture">
-                    <div class="user-details2">
-                        <p class="profile-name2">Monica Ocampo</p>
-                        <p class="profile-course">Bachelor of Science in Information Systems</p>
-                    </div>
-                </div>
-            </div> 
-            <div class="center-section2">
-                <textarea rows="3" placeholder="What's on your mind, Monica?"></textarea>
+<div class="popup" id="popup">
+    <div class="create">
+        <h3>Create Post</h3>
+        <i class="fa-solid fa-circle-xmark" id="clearButton" onclick="closePopup()"></i>
+    </div> 
+    <hr>
+    <form action="{{ route('dashboard.store') }}" method="POST" enctype="multipart/form-data">
+    @csrf
+    <div class="left-section2">
+        <div class="profile-info2">
+            <img src="{{ Auth::user()->profile_pic }}" alt="Profile Picture">
+            <div class="user-details2">
+                <p class="profile-name2">{{ Auth::user()->first_name }} {{ Auth::user()->last_name }}</p>
+                <p class="profile-course">{{ Auth::user()->course }}</p>
             </div>
-            <div class="add">
-                <h4>Add to your post</h4>
-                <img src="./img/add-image.jpg" alt="add-image">
-            </div>
-            <button type="button" onclick="closePopup()">POST</button>
         </div>
+    </div> 
+    
+        
+        <div class="center-section2">
+            <textarea name="caption" rows="3" placeholder="What's on your mind, {{ Auth::user()->username }}?"></textarea>
+        </div>
+        <div class="add">
+            <!-- <h4>Add to your post</h4> -->
+            <input type="file" name="image" accept="image/*">
+            <!-- Here you can add additional functionality for adding more to the post if needed -->
+        </div>
+        <button type="submit">POST</button>
+    </form>
+</div>
 
         <div class="popup2" id="popup2">
             <div class="edit">

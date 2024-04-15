@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\PostController;
 use App\Http\Controllers\Auth\RegisterController;
 
 Route::get('/login', [AuthController::class, 'login'])->name('login');
@@ -23,6 +24,7 @@ Route::get('/profile/edit', [UserController::class, 'editProfile'])->name('profi
 Route::put('/profile/update', [UserController::class, 'updateProfile'])->name('profile.update');
 Route::get('/profile', [UserController::class, 'showProfile'])->name('profile');
 Route::delete('/users/{id}', [UserController::class, 'destroy'])->name('users.destroy');
+Route::post('/dashboard', [PostController::class, 'store'])->name('dashboard.store');
 
 
 use Illuminate\Support\Facades\Mail;
@@ -32,6 +34,3 @@ Route::get('/send-email', function () {
     Mail::to('jabuela22@gmail.com')->send(new TestEmail());
     return 'Email sent successfully';
 });
-
-
-

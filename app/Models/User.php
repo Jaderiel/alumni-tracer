@@ -20,6 +20,7 @@ class User extends Authenticatable
         'email',
         'username',
         'password',
+        'profile_pic'
     ];
 
     protected $hidden = [
@@ -35,4 +36,16 @@ class User extends Authenticatable
     {
         return $this->hasOne(UserEmployment::class);
     }
+
+    public function posts()
+    {
+        return $this->hasMany(Forum::class);
+    }
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
+
+
 }

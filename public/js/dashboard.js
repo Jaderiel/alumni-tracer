@@ -38,3 +38,15 @@ function closePopup2() {
     container.classList.remove('opacity');
 }
 
+function clearFields() {
+    // Select all input fields, text areas, etc.
+    var inputFields = document.querySelectorAll('input, textarea');
+
+    // Loop through each input field and reset its value to an empty string
+    inputFields.forEach(function(field) {
+        field.value = '';
+    });
+}
+
+// Add an event listener to the clear button
+document.getElementById('clearButton').addEventListener('click', clearFields);
