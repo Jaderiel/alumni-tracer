@@ -21,4 +21,8 @@ class AuthController extends Controller
     public function alumniList() {
         return view("auth.alumni-list");
     }
+
+    public function profile() {
+        return view("auth.profile");
+    }
 }

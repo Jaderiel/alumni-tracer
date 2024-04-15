@@ -1,0 +1,507 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap');
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
+
+body {
+    width: 100%;
+    background: #EFF2FB;
+    position: relative;
+    display: flex;
+}
+
+#menu{
+    background: #162F65;
+    width: 300px;
+    height: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+}
+
+#menu .logo{
+    display: flex;
+    align-items: center;
+    font-size: 90%;
+    color: #fff;
+    padding: 30px 0 0 20px;
+}
+
+#menu .items{
+    margin-top: 30px;
+}
+
+#menu .items li{
+    list-style: none;
+    padding: 10px;
+    transition: 0.3s ease;
+}
+
+#menu .items li:hover{
+    background: #E8C766;
+    cursor: pointer;
+}
+
+#menu .items li i{
+    color: rgb(255, 255, 255);
+    width: 30px;
+    height: 30px;
+    line-height: 30px;
+    text-align: center;
+    font-size: 14px;
+    margin: 0 10px 0 25px;
+}
+
+#menu .items li:hover i,
+#menu .items li:hover a {
+    color: #162F65;
+}
+
+#menu .items li a{
+    color: rgb(255, 255, 255);
+    text-decoration: none;
+    transition: 0.3s ease;
+}
+
+#menu-btn{
+    display: none;
+    cursor: pointer
+}
+
+#interface {
+    width: calc(100% - 300px);
+    margin-left: 300px;
+    position: relative;
+    padding-top: 70px;
+}
+
+#interface .navigation {
+    display: flex;
+    align-items: center;
+    background: #fff;
+    padding: 15px 30px;
+    position: fixed;
+    width: 100%;
+    top: 0;
+    z-index: 1000;
+}
+
+#interface .navigation .profile {
+    display: flex;
+    justify-content: flex-end;
+    align-items:flex-end;
+}
+
+#interface .navigation .profile i {
+    font-size: 19px;
+    font-weight: 400;
+    margin-left: 880px;
+    justify-content: flex-end;
+}
+
+
+#interface .content {
+    padding-top: 70px; 
+}
+
+.i-name{
+    color:#2D55B4;
+    padding: 20px 30px 0 30px;
+    font-size: 24px;
+    font-weight: 700;
+}
+
+#interface.blur, #menu.blur {
+    opacity: 10%;
+    transition: filter 0.5s ease-in-out;
+    pointer-events: none;
+}
+
+.container{
+  width: 95%;
+  height: 80%;
+  border-radius: 10px;
+  overflow: auto;
+  background: #fff;
+  margin: 20px 20px 0 20px;
+}
+
+
+.containerr{
+    width: 95%;
+    height: 92%;
+    border-radius: 10px;
+    overflow: auto;
+    background: #fff;
+    margin: 20px 20px 0 20px;
+  }
+
+.container2{
+    width: 95%;
+    height: 10%;
+    border-radius: 10px;
+    overflow: auto;
+    background: #fff;
+    margin: 20px 20px 0 20px;
+}
+
+
+.panel {
+    width: 95%;
+    margin: 20px;
+    overflow: auto;
+    background: #fff;
+    border: 1px solid #00000086;
+}
+
+.heading {
+    color: #fff;
+    font-size: 15px;
+    font-weight: 400;
+    background: #162F65;
+    text-align: start;
+    padding: 10px 15px;
+}
+
+.panel-btn .row {
+    display: flex;
+    justify-content: flex-end;
+    margin: 10px;
+}
+
+.panel-btn button {
+    border: none;
+    margin: 5px;
+    color: #fff;
+    border-radius: 4px;
+    font-size: 10px;
+    cursor: pointer;
+}
+
+.row a button.edit-button {
+    background: #00A36C; 
+    padding: 3px 7px;
+}
+
+.row a button.edit-button:hover {
+    background: #016443; 
+}
+
+.delete-button {
+    background: #BB0237; 
+    padding: 3px 8px;
+}
+
+.delete-button:hover {
+    background: #850227; 
+}
+
+.row{
+    margin-top: 30px;
+}
+.bio-row {
+    width: 50%;
+    float: left;
+    margin-bottom: 10px;
+    padding: 5px 15px;
+}
+
+.bio-row p span {
+    width: 100px;
+    display: inline-block;
+    font-size: 13px;
+    margin-right: 10px;
+}
+
+.bio-row p {
+    display: inline-block;
+    font-size: 13px;
+    color: #000000ab;
+}
+
+.bold{
+    font-weight: 600;
+}
+
+.inline-group {
+    display: flex;
+    flex-wrap: wrap;
+    margin-bottom: 25px;
+}
+
+.inline-group2 {
+    display: flex;
+    flex-wrap: wrap;
+    margin-top: 25px;
+    margin-bottom: 25px;
+}
+
+.inline-group3 {
+    margin-top: 15px;
+    margin-bottom: 15px;
+}
+
+.form-group {
+    margin-left: 30px;
+    flex: 1;
+}
+
+.form-group label {
+    display: block; 
+    margin-bottom: 5px; 
+    color: #000000cb;
+    font-size: 13px;
+    font-weight: 500;
+}
+
+.form-group input {
+    padding: 5px;
+    border: 1px solid #2D55B4;
+    border-radius: 3px;
+    font-size: 12px;
+}
+
+.form-group select { 
+    padding: 5px;
+    border: 1px solid #2D55B4;
+    border-radius: 3px;
+    color: #000000b2;   
+}
+
+.form-control::placeholder {
+    color: #000000b2;
+}
+
+#first-name, #middle-name, #last-name {
+    width: 220px;
+}
+
+#course{
+    width: 415px; 
+}
+
+.form-group label[for="batch"] { 
+    margin-left: 60px;
+}
+
+#batch {
+    width: 100px; 
+    margin-left: 60px;
+}
+
+#email {
+    width: 415px; 
+}
+
+.form-group label[for="username"] { 
+    margin-left: 60px;
+}
+
+.form-group label[for="confirm-password"] { 
+    margin-left: 60px;
+}
+
+#username{
+    width: 100px; 
+    margin-left: 60px;
+}
+
+#employment{
+    width: 130px; 
+}
+
+#industry{
+    width: 350px; 
+}
+
+#job{
+    width: 350px; 
+}
+
+#company{
+    width: 350px; 
+}
+
+#location{
+    width: 350px; 
+}
+
+#salary{
+    width: 130px; 
+}
+
+#degree{
+    width: 350px; 
+}
+
+#password{
+    width: 220px; 
+}
+
+#confirm-password{
+    width: 220px; 
+    margin-left: 60px;
+}
+
+.form-control {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    background-image: none;
+    pointer-events: none;
+}
+
+.form-control2 {
+    pointer-events: none;
+}
+
+.popup {
+    width: 350px;
+    background: #fff;
+    border-radius: 20px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    position: fixed;
+    top: 55%;
+    left: 55%;
+    transform: translate(-50%, -50%) scale(0.1);
+    text-align: center;
+    visibility: hidden;
+    z-index: 1000; 
+    transition: all 0.5s ease-in-out;
+}
+
+.delete-popup {
+    display: block;
+    visibility: visible;
+    transform: translate(-50%, -50%) scale(1);
+    overflow: hidden;
+}
+
+.popup img{
+    width: 70px;
+    margin-top: 15px;
+}
+
+.popup h2{
+    font-size: 18px;
+    font-weight: 400;
+    margin-left: 40px;
+    margin-right: 40px;
+}
+
+.popup button {
+    width: 30%;
+    height: 30px;
+    background: #9da0a8; 
+    margin-bottom: 15px;
+    color: #fff;
+    border: 0;
+    outline: none;
+    font-size: 10px;
+    border-radius: 4px;
+    box-shadow: 0 5px 5px rgba(0, 0, 0, 0.2);
+    cursor: pointer;
+}
+
+.popup .sure-button {
+    margin-left: 20px;
+    width: 30%;
+    height: 30px;
+    background: #BB0237; 
+    margin-bottom: 15px;
+    color: #fff;
+    border: 0;
+    outline: none;
+    font-size: 10px;
+    border-radius: 4px;
+    box-shadow: 0 5px 5px rgba(0, 0, 0, 0.2);
+    cursor: pointer;
+}
+
+.popup button:hover {
+    background: #75777e; 
+}
+
+.popup .sure-button:hover {
+    background: #850227; 
+}
+
+@media (max-width: 769px) {
+    #menu {
+        width: 270px;
+        position: fixed;
+        left: -270px;
+        transition: 0.3s ease;
+    }
+    #menu.active {
+        left: 0px;
+    }
+    #menu-btn {
+        display: initial;
+    }
+    #interface {
+        width: 100%;
+        margin-left: 0px;
+        display: inline-block;
+        transition: 0.3s ease;
+    }
+    #menu.active~ #interface {
+        width: calc(100% - 270px);
+        margin-left: 270px;
+        transition: 0.3s ease;
+
+    }
+    #interface .navigation {
+        width: 100%;
+    }
+
+    #interface .navigation .profile {
+        width: 100%;
+    }
+
+    .find {
+        padding: 30px 30px 0 10px;
+        justify-content: flex-start;
+    }
+    .find .search-course {
+        padding: 10px 10px;
+        margin: 10px 0 10px 0;
+    }
+
+    .board-list {
+        width: 85%;
+        overflow-x: auto;
+    }
+
+    .panel {
+        width: 90%;
+        padding: 30px 0 10px 0;
+        overflow-x: auto;
+    }
+    table {
+        width: 100%;
+        border-collapse: collapse;
+    }
+}
+
+@media (max-width:477px) {
+    #interface .navigation {
+        padding: 15px;
+    }
+    .i-name {
+        padding: 10px 15px 0 15px;
+    }
+    .values {
+        padding: 10px 15px 0 15px;
+    }
+    .values .val-box {
+        width: 100%;
+        margin: 0;
+    }
+    .board {
+        margin: 0 15px 15px 0;
+    }
+}

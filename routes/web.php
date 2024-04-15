@@ -18,6 +18,7 @@ Route::put('/update-user-verification/{userId}', [UserController::class, 'update
 Route::get('/alumni-list', [UserController::class, 'showVerifiedAlumni'])->name('alumni-list');
 Route::get('/dashboard', [UserController::class, 'showAlumniCount'])->name('dashboard');
 // Route::get('/alumni-list', [AuthController::class, 'alumniList'])->name('alumni-list');
+Route::get('/profile', [AuthController::class, 'profile'])->name('profile');
 
 
 use Illuminate\Support\Facades\Mail;
