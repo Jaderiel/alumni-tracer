@@ -12,7 +12,11 @@
 </head>
 <body>
     <section id=menu>
+    @if(Auth::user()->user_type === 'Admin')
         @include('components.admin-sidenav')
+    @else
+        @include('components.sidenav')
+    @endif
     </section>
 
     <section id="interface">

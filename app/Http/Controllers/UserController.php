@@ -38,4 +38,19 @@ class UserController extends Controller
 
         return view('auth.dashboard', ['verifiedAlumniCount' => $verifiedAlumniCount]);
     }
+
+    public function editProfile()
+    {
+        $user = auth()->user(); // Get the authenticated user
+        
+        // Ensure $user is passed to the view
+        return view('profile.edit', ['user' => $user]);
+    }
+
+    public function updateProfile(Request $request)
+    {
+        $user = auth()->user(); // Get the authenticated user
+        $user->update($request->all());
+        return redirect()->back()->with('success', 'Profile updated successfully.');
+    }
 }

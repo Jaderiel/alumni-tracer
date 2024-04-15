@@ -35,31 +35,33 @@
                 </div>
                 <div class="panel-btn">
                     <div class="row">
-                        <a href="profile-edit.html">
-                            <button class="edit-button" onclick="openPopup"><i class="fa-solid fa-user-pen"></i> Edit</button>
+                        <a href="#">
+                        <button id="edit-profile-button" class="edit-button"><i class="fa-solid fa-user-pen"></i> Edit</button>
                         </a>
                         
                             <button class="delete-button" onclick="deletePopup()"><i class="fa-solid fa-user-xmark"></i> Delete</button>
                     </div>
+
                     <div class="inline-group">
                         <div class="form-group">
                             <label for="first-name">First Name</label>
-                            <input type="text" class="form-control" id="first-name" placeholder="Monica">
+                            <input type="text" class="form-control" id="first-name" placeholder="Monica" value="{{ Auth::user()->first_name }}" readonly>
                         </div>
                         <div class="form-group">
                             <label for="middle-name">Middle Name</label>
-                            <input type="text" class="form-control" id="middle-name" placeholder="Tapion">
+                            <input type="text" class="form-control" id="middle-name" placeholder="" value="{{ Auth::user()->middle_name }}" readonly>
                         </div>
                         <div class="form-group">
                             <label for="last-name">Last Name</label>
-                            <input type="text" class="form-control" id="last-name" placeholder="Ocampo">
+                            <input type="text" class="form-control" id="last-name" placeholder="Ocampo" value="{{ Auth::user()->last_name }}" readonly>
                         </div>
                     </div>
+
                     <div class="inline-group">
                         <div class="form-group">
                             <label for="course">Course</label>
                             <select class="form-control" id="course">
-                                <option value="" selected disabled>Bachelor of Science in Accountancy (BSA)</option>
+                                <option value="{{ Auth::user()->course }}" selected disabled>{{ Auth::user()->course }}</option>
                                 <option value="course1">Bachelor of Arts in Broadcasting (BAB)</option>
                                 <option value="course2">Bachelor of Science in Accountancy (BSA)</option>
                                 <option value="course3">BSA Technology (BSAT) | BSA Information Systems (BSAIS)</option>
@@ -77,7 +79,7 @@
                         <div class="form-group">
                             <label for="batch">Batch</label>
                             <select class="form-control" id="batch">
-                                <option value="" selected disabled>2021</option>
+                                <option value="{{ Auth::user()->batch }}" selected disabled>{{ Auth::user()->batch }}</option>
                                 <option value="batch1">2006</option>
                                 <option value="batch2">2007</option>
                                 <option value="batch3">2008</option>
@@ -99,14 +101,15 @@
                             </select>
                         </div>
                     </div>
+
                     <div class="inline-group">
                         <div class="form-group">
                             <label for="email">Email Address</label>
-                            <input type="email" class="form-control" id="email" placeholder="monicaocampo@student.laverdad.edu.ph">
+                            <input type="email" class="form-control" id="email" placeholder="monicaocampo@student.laverdad.edu.ph" value="{{ Auth::user()->email }}" readonly>
                         </div>
                         <div class="form-group">
                             <label for="username">Username</label>
-                            <input type="text" class="form-control" id="username" placeholder="mocsss321">
+                            <input type="text" class="form-control" id="username" placeholder="mocsss321" value="{{ Auth::user()->username }}" readonly>
                         </div>
                     </div>
                 </div>
@@ -214,4 +217,12 @@
     </script>
 </body>
 <script src="{{ asset('js/profile.js') }}"></script>
+<script>
+    // Attach a click event handler to the edit button
+    $('#edit-profile-button').click(function() {
+        // Implement the edit functionality here
+        // For example, you can redirect the user to an edit profile page
+        window.location.href = "{{ route('profile.edit') }}"; // Replace 'profile.edit' with your actual route name
+    });
+</script>
 </html>

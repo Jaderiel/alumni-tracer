@@ -19,6 +19,8 @@ Route::get('/alumni-list', [UserController::class, 'showVerifiedAlumni'])->name(
 Route::get('/dashboard', [UserController::class, 'showAlumniCount'])->name('dashboard');
 // Route::get('/alumni-list', [AuthController::class, 'alumniList'])->name('alumni-list');
 Route::get('/profile', [AuthController::class, 'profile'])->name('profile');
+Route::get('/profile/edit', [UserController::class, 'editProfile'])->name('profile.edit');
+Route::put('/profile/update', [UserController::class, 'updateProfile'])->name('profile.update');
 
 
 use Illuminate\Support\Facades\Mail;
