@@ -101,7 +101,11 @@
                 <div class="forum-section">
                     <div class="left-section">
                         <div class="profile-info">
-                            <img src="{{ Auth::user()->profile_pic }}" alt="Profile Picture">
+                            @if (Auth::user()->profile_pic)
+                                <img src="{{ Auth::user()->profile_pic }}" alt="Profile Picture" class="w-8 h-8 rounded-full"> <!-- Use the user's profile picture -->
+                            @else
+                                <img src="https://st3.depositphotos.com/6672868/13701/v/450/depositphotos_137014128-stock-illustration-user-profile-icon.jpg" alt="Placeholder Profile Picture" class="w-8 h-8 rounded-full"> <!-- Use the placeholder image -->
+                            @endif
                             <div class="user-details">
                                 <p class="profile-name">{{ Auth::user()->first_name }} {{ Auth::user()->last_name }}</p>
                                 <p class="profile-course">{{ Auth::user()->course }}</p>
@@ -116,55 +120,30 @@
                     </div>
                 </div>
                 <hr>
-
+            @foreach($forumPosts as $post)
                 <div class="forum-section">
                     <div class="left-section flex items-center justify-between">
                         <div class="profile-info flex items-center">
-                            <img src="./img/Picture1.png" alt="Profile Picture" class="w-12 h-12 rounded-full">
+                        @if ($post->user->profile_pic)
+                            <img src="{{ $post->user->profile_pic }}" alt="Profile Picture" class="w-8 h-8 rounded-full"> <!-- Use the user's profile picture -->
+                        @else
+                            <img src="https://st3.depositphotos.com/6672868/13701/v/450/depositphotos_137014128-stock-illustration-user-profile-icon.jpg" alt="Placeholder Profile Picture" class="w-8 h-8 rounded-full"> <!-- Use the placeholder image -->
+                        @endif
                             <div class="user-details">
-                                <p class="profile-name">Monica Ocampo</p>
-                                <p class="profile-course">Bachelor of Science in Information Systems</p>
+                                <p class="profile-name">{{ $post->user->first_name }} {{ $post->user->last_name }}</p>
+                                <p class="profile-course">{{ $post->user->course }}</p>
                             </div>
                         </div>
                         <i class="fas fa-ellipsis-v text-gray-600 ml-" onclick="openPopup2()"></i>
                     </div>
                     
                     <div class="center-section2 flex items-center">
-                        <p class="mr-2">BATCH 2023-2024</p>
-                        <img src="{{ Auth::user()->profile_pic }}" alt="Image" class="image-posted"> 
-                    </div>
-
-                    <div class="forum-section2">
-                        <table>
-                        <thead>
-                            <tr>
-                                <td><i class="fa-regular fa-thumbs-up"></i></td>
-                                <td><i class="fa-solid fa-comment-dots"></i></td>
-                            </tr>
-                        </thead>
-                        </table>
-                    </div>
-
-                </div>
-
-                <div class="forum-section">
-                    <div class="left-section flex items-center justify-between">
-                        <div class="profile-info flex items-center">
-                            <img src="./img/Picture1.png" alt="Profile Picture" class="w-12 h-12 rounded-full">
-                            <div class="user-details">
-                                <p class="profile-name">Monica Ocampo</p>
-                                <p class="profile-course">Bachelor of Science in Information Systems</p>
-                            </div>
-                        </div>
-                        <i class="fas fa-ellipsis-v text-gray-600 ml-" onclick="openPopup2()"></i>
-                    </div>
-                    
-                    <div class="center-section3">
-                        <div class="flex items-center">
-                            <img src="./img/update.jpg" alt="Image" class="image-update small-image">
-                            <p class="mr-2">Update POST-GRADUATION INFORMATION</p>
-                        </div>
-                        <p class="post-grad">Ph.D. in Psychology</p>
+                        <p class="mr-2">{{ $post->caption }}</p>
+                        @if ($post->media_url)
+                            <img src="{{ $post->media_url }}" alt="Image" class="image-posted"> <!-- Use the user's profile picture -->
+                        @else
+                            <p></p> <!-- Use the placeholder image -->
+                        @endif
                     </div>
 
                     <div class="forum-section2">
@@ -178,7 +157,9 @@
                         </table>
                     </div>
                 </div>
+            @endforeach
             </div>
+            
             
             <div class="col-lg-4">
                 <div class="card">

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\User;
 
 class AuthController extends Controller
 {
@@ -11,7 +12,11 @@ class AuthController extends Controller
     }
 
     public function dashboard() {
-        return view("auth.dashboard");
+        $verifiedAlumniCount = User::where('is_email_verified', true)
+            ->where('user_type', 'Alumni')
+            ->count();
+
+        return view('auth.dashboard', ['verifiedAlumniCount' => $verifiedAlumniCount]);
     }
 
     public function approvals() {

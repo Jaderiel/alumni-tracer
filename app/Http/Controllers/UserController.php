@@ -30,15 +30,6 @@ class UserController extends Controller
         return view('auth.alumni-list', ['verifiedAlumni' => $verifiedAlumni]);
     }
 
-    public function showAlumniCount()
-    {
-        $verifiedAlumniCount = User::where('is_email_verified', true)
-            ->where('user_type', 'Alumni')
-            ->count();
-
-        return view('auth.dashboard', ['verifiedAlumniCount' => $verifiedAlumniCount]);
-    }
-
     public function editProfile()
     {
         $user = auth()->user(); // Get the authenticated user
@@ -103,4 +94,5 @@ class UserController extends Controller
 
         return redirect()->route('login')->with('success', 'User deleted successfully.');
     }
+    
 }

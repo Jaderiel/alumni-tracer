@@ -17,7 +17,6 @@ Route::get('/approvals', [AuthController::class, 'approvals'])->name('approvals'
 Route::get('/approvals', 'App\Http\Controllers\ApprovalsController@index')->name('approvals');
 Route::put('/update-user-verification/{userId}', [UserController::class, 'updateVerification'])->name('user.updateVerification');
 Route::get('/alumni-list', [UserController::class, 'showVerifiedAlumni'])->name('alumni-list');
-Route::get('/dashboard', [UserController::class, 'showAlumniCount'])->name('dashboard');
 // Route::get('/alumni-list', [AuthController::class, 'alumniList'])->name('alumni-list');
 Route::get('/profile', [AuthController::class, 'profile'])->name('profile');
 Route::get('/profile/edit', [UserController::class, 'editProfile'])->name('profile.edit');
@@ -25,6 +24,7 @@ Route::put('/profile/update', [UserController::class, 'updateProfile'])->name('p
 Route::get('/profile', [UserController::class, 'showProfile'])->name('profile');
 Route::delete('/users/{id}', [UserController::class, 'destroy'])->name('users.destroy');
 Route::post('/dashboard', [PostController::class, 'store'])->name('dashboard.store');
+Route::get('/dashboard', [PostController::class, 'index'])->name('dashboard');
 
 
 use Illuminate\Support\Facades\Mail;

@@ -8,5 +8,10 @@ class Forum extends Model
 {
     protected $table = 'forum'; 
 
-    protected $fillable = ['user_id', 'caption', 'media_url']; 
+    protected $fillable = ['user_id', 'caption', 'media_url'];
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
 }
