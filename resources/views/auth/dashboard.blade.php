@@ -74,7 +74,7 @@
             <div class="val-box">
                 <i class="fa-solid fa-calendar-days"></i>
                 <div>
-                    <h3>10</h3>
+                    <h3>{{ $eventCount }}</h3>
                     <span>Events</span>
                 </div>
             </div>
@@ -176,25 +176,18 @@
                         </div>
                     </div>
                     
+                    @foreach($announcements as $announcement)
                     <div class="announcement-info">
                         <div>
                             <i class="fa-solid fa-square-check" style="color: green;"></i>
                         </div>
                         <div class="title-desc">
-                            <p class="p-title">ICT WEEK</p>
-                            <P>Lorem ipsum dolor sit amet consectetur adipisicing elit. Doloremque nisi cumque deleniti, eum temporibus nostrum eligendi sint natus?</P>
+                            <p class="p-title">{{ $announcement->ann_title }}</p>
+                            <P>{{ $announcement->ann_details }}</P>
                         </div>
                     </div>
-    
-                    <div class="announcement-info">
-                        <div>
-                            <i class="fa-solid fa-square-check" style="color: green;"></i>
-                        </div>
-                        <div class="title-desc">
-                            <p class="p-title">ICT WEEK</p>
-                            <P>Lorem ipsum dolor sit amet consectetur adipisicing elit. Doloremque nisi cumque deleniti, eum temporibus nostrum eligendi sint natus?</P>
-                        </div>
-                    </div> <br>
+                    @endforeach
+                    <br>
                     </div>
                 </div>
         </div>

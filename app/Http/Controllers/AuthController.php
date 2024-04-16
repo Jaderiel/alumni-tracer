@@ -15,9 +15,11 @@ class AuthController extends Controller
         $verifiedAlumniCount = User::where('is_email_verified', true)
             ->where('user_type', 'Alumni')
             ->count();
-
-        return view('auth.dashboard', ['verifiedAlumniCount' => $verifiedAlumniCount]);
+    
+        // Pass the $verifiedAlumniCount and $announcements variables to the view
+        return view('auth.dashboard', compact('verifiedAlumniCount'));
     }
+    
 
     public function approvals() {
         return view("auth.approvals");

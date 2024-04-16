@@ -5,6 +5,9 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Forum;
 use App\Models\User;
+use App\Models\Announcement;
+use App\Models\Event;
+
 
 class PostController extends Controller
 {
@@ -41,12 +44,14 @@ class PostController extends Controller
         {
             // Retrieve forum posts from the database
             $forumPosts = Forum::all();
+            $eventCount = Event::all()->count();
+            $announcements = Announcement::all();
             $verifiedAlumniCount = User::where('is_email_verified', true)
                 ->where('user_type', 'Alumni')
                 ->count();
 
             // Pass forum posts data to the view
-            return view('auth.dashboard', ['forumPosts' => $forumPosts, 'verifiedAlumniCount' => $verifiedAlumniCount]);
+            return view('auth.dashboard', ['forumPosts' => $forumPosts, 'verifiedAlumniCount' => $verifiedAlumniCount, 'announcements' => $announcements, 'eventCount' => $eventCount]);
         }
 
         public function update(Request $request, $id)
