@@ -116,7 +116,7 @@
                         <p>What's on your mind, {{ Auth::user()->username }}?</p>
                     </div>
                     <div class="right-section">
-                        <button type="submit" class="post-button" onclick="openPopup()">MAKE A POST</button>
+                        <button type="submit" class="post-button" onclick="openPopup0()">MAKE A POST</button>
                     </div>
                 </div>
                 <hr>
@@ -144,14 +144,18 @@
                         @else
                             <p></p> <!-- Use the placeholder image -->
                         @endif
+                        <div class="likers" onclick="openPopup3()">
+                            <img src="http://127.0.0.1:5500/user/img/like.png" alt="Image" class="like"> 
+                            <p id="yuzer">Melanie Lopez and 2 others</p>
+                        </div>
                     </div>
 
                     <div class="forum-section2">
                         <table>
                         <thead>
                             <tr>
-                                <td><i class="fa-regular fa-thumbs-up"></i></td>
-                                <td><i class="fa-solid fa-comment-dots"></i></td>
+                                <td><i id="thumbsUpIcon" class="fa-solid fa-thumbs-up"></i></td>
+                                <td class="comment-button" onclick="openPopup4()"><i class="fa-solid fa-comment-dots"></i></td>
                             </tr>
                         </thead>
                         </table>
@@ -194,14 +198,14 @@
     </section>
 </div>
 
-<div class="popup" id="popup">
+<div class="popup0" id="popup0">
     <div class="create">
         <h3>Create Post</h3>
-        <i class="fa-solid fa-circle-xmark" id="clearButton" onclick="closePopup()"></i>
+        <i class="fa-solid fa-circle-xmark" id="clearButton" onclick="closePopup0()"></i>
     </div> 
     <hr>
     <form action="{{ route('dashboard.store') }}" method="POST" enctype="multipart/form-data">
-    @csrf
+        @csrf
     <div class="left-section2">
         <div class="profile-info2">
             <img src="{{ Auth::user()->profile_pic }}" alt="Profile Picture">
@@ -249,6 +253,111 @@
                 </div>
                 <button type="button" onclick="closePopup2()">SAVE</button>
             </div>
+
+        <div class="popup3" id="popup3">
+            <div class="like">
+                <button class="btn">
+                    <img src="http://127.0.0.1:5500/user/img/like.png" alt="Image">
+                    <p>3</p>
+                </button>
+                <i class="fa-solid fa-circle-xmark" onclick="closePopup3()"></i>
+            </div> 
+            <h3>You can see the total number of reactions to your post.</h3>
+            <div class="panel2">
+                <div class="left-section2">
+                    <div class="profile-info2">
+                        <img src="./img/mel.jpg" alt="Profile Picture">
+                        <div class="user-details2">
+                            <p class="profile-name2">Melanie Lopez</p>
+                            <p class="profile-course2">Bachelor of Science in Information Systems (BSIS)</p>
+                        </div>
+                    </div>
+                </div> 
+                <div class="left-section2">
+                    <div class="profile-info2">
+                        <img src="./img/jeyd.jpg" alt="Profile Picture">
+                        <div class="user-details2">
+                            <p class="profile-name2">Jade Riel Abuela</p>
+                            <p class="profile-course2">Bachelor of Arts in Broadcasting (BAB)</p>
+                        </div>
+                    </div>
+                </div> 
+                <div class="left-section2">
+                    <div class="profile-info2">
+                        <img src="./img/gaspar.jpg" alt="Profile Picture">
+                        <div class="user-details2">
+                            <p class="profile-name2">Daniel Gaspar</p>
+                            <p class="profile-course2">Bachelor of Science in Social Work (BSSW)</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="popup4" id="popup4">
+            <div class="comment">
+                <h3>Monica's Post</h3>
+                <i class="fa-solid fa-circle-xmark" onclick="closePopup4()"></i>
+            </div>
+            <div class="panel4">
+                <div class="comments-container">
+                <div class="left-section2">
+                    <div class="profile-info2">
+                        <img src="./img/mel.jpg" alt="Profile Picture">
+                    </div>
+                    <div class="user-details4">
+                        <p class="profile-name4">Melanie Lopez</p>
+                        <p class="profile-course4">Bachelor of Science in Information Systems (BSIS)</p>
+                        <p class="profile-comment" id="editableComment" contenteditable="false">Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
+                    </div>
+                </div> 
+                <div class="info4">
+                    <p class="time">1h</p>
+                    <p id="taym" class="time" onclick="toggleEdit()">Edit</p>
+                    <p id="taym" class="time" onclick="deletePopup()">Delete</p>
+                </div>
+                <div class="left-section2">
+                    <div class="profile-info2">
+                        <img src="./img/jeyd.jpg" alt="Profile Picture">
+                    </div>
+                    <div class="user-details4">
+                        <p class="profile-name4">Jade Riel Abuela</p>
+                        <p class="profile-course4">Bachelor of Arts in Broadcasting (BAB)</p>
+                        <p class="profile-comment" id="editableComment2" contenteditable="false">Error nihil delectus minima velit. Dolore ad, qui pariatur velit saepe architecto doloremque amet?</p>
+                    </div>
+                    </div>
+                    <div class="info4">
+                        <p class="time">2h</p>
+                        <p id="taym2" class="time" onclick="toggleEdit2()">Edit</p>
+                        <p id="taym" class="time" onclick="deletePopup()">Delete</p>
+                    </div>
+                <div class="left-section2">
+                    <div class="profile-info2">
+                        <img src="./img/gaspar.jpg" alt="Profile Picture">
+                    </div>
+                    <div class="user-details4">
+                        <p class="profile-name4">Daniel Gaspar</p>
+                        <p class="profile-course4">Bachelor of Science in Social Work (BSSW)</p>
+                        <p class="profile-comment" id="editableComment3" contenteditable="false" tabindex="0">Distinctio, deleniti neque doloribus autem cum voluptas odit?</p>
+                    </div>
+                </div> 
+                <div class="info4">
+                    <p class="time">3h</p>
+                    <p id="taym3" class="time" onclick="toggleEdit3()">Edit</p>
+                    <p id="taym" class="time" onclick="deletePopup()">Delete</p>
+                </div>
+                </div>
+                <div class="left-section5">
+                    <div class="profile-info">
+                        <img src="./img/mel.jpg" alt="Profile Picture">
+                    </div>
+                    <div class="user-detailsss">
+                        <input type="text" class="profile-comment" placeholder="Comment as Melanie Lopez" />
+                        <i class="fa-solid fa-paper-plane"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
 
     <script>
         $('#menu-btn').click(function(){
