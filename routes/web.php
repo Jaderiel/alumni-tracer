@@ -5,6 +5,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\EventsController;
+use App\Http\Controllers\JobsController;
 use App\Http\Controllers\Auth\RegisterController;
 
 Route::get('/login', [AuthController::class, 'login'])->name('login');
@@ -30,6 +31,8 @@ Route::put('/dashboard/{id}', [PostController::class, 'update'])->name('dashboar
 Route::put('/update-post/{id}',  [PostController::class, 'update'])->name('update-post');
 
 Route::get('/events', [EventsController::class, 'events'])->name('events');
+
+Route::get('/jobs', [JobsController::class, 'jobs'])->name('jobs');
 
 
 use Illuminate\Support\Facades\Mail;
