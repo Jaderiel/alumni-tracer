@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\PostController;
+use App\Http\Controllers\EventsController;
 use App\Http\Controllers\Auth\RegisterController;
 
 Route::get('/login', [AuthController::class, 'login'])->name('login');
@@ -25,6 +26,10 @@ Route::get('/profile', [UserController::class, 'showProfile'])->name('profile');
 Route::delete('/users/{id}', [UserController::class, 'destroy'])->name('users.destroy');
 Route::post('/dashboard', [PostController::class, 'store'])->name('dashboard.store');
 Route::get('/dashboard', [PostController::class, 'index'])->name('dashboard');
+Route::put('/dashboard/{id}', [PostController::class, 'update'])->name('dashboard.update');
+Route::put('/update-post/{id}',  [PostController::class, 'update'])->name('update-post');
+
+Route::get('/events', [EventsController::class, 'events'])->name('events');
 
 
 use Illuminate\Support\Facades\Mail;

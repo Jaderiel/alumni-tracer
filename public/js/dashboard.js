@@ -26,14 +26,33 @@ function closePopup0() {
     container.classList.remove('opacity');
 }
 
-function openPopup2() {
+function openPopup2(postId, name, caption, profilePic, media, course) {
+    // Set the action attribute of the form
+    var form = document.getElementById('update-post-form');
+    form.action = "{{ route('dashboard.update', ['id' => '']) }}" + postId;
+
+    // Set user details in the popup
+    document.getElementById('profile-name2').textContent = name;
+    document.getElementById('caption').textContent = caption;
+    document.getElementById('profile-pic').src = profilePic ? profilePic : 'https://st3.depositphotos.com/6672868/13701/v/450/depositphotos_137014128-stock-illustration-user-profile-icon.jpg';
+    var mediaElement = document.getElementById('media-url');
+    mediaElement.src = media;
+    // Hide the profile picture if profilePic is empty
+    mediaElement.style.display = media ? 'block' : 'none';
+    document.getElementById('course').textContent = course;
+
+    // Add classes or perform other actions as needed
     popup2.classList.add('open-popup2');
     container.classList.add('opacity');
+    console.log("Clicked on ellipsis icon for post ID: " + postId + ", Name: " + name + ", Caption: " + caption );
 }
 
-function closePopup2() {
+
+
+function closePopup2(postId, name, caption, profilePic, media, course) {
     popup2.classList.remove('open-popup2');
     container.classList.remove('opacity');
+    
 }
 
 function openPopup3() {
@@ -163,3 +182,42 @@ function clearFields() {
 
 // Add an event listener to the clear button
 document.getElementById('clearButton').addEventListener('click', clearFields);
+
+// Add an event listener to the SAVE button
+document.getElementById('update-post-form').addEventListener('submit', function(event) {
+    event.preventDefault(); // Prevent the default form submission behavior
+    
+    // Gather the updated caption value from the textarea
+    var caption = document.getElementById('caption').value;
+    
+    // Construct the data object to be sent in the request
+    var data = {
+        caption: caption
+    };
+    
+    // Send a PUT request to update the post
+    fetch('/update-post/{{ $post->id }}', {
+        method: 'PUT',
+        headers: {
+            'Content-Type': 'application/json',
+            'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+        },
+        body: JSON.stringify(data)
+    })
+    .then(response => {
+        if (!response.ok) {
+            throw new Error('Failed to update post');
+        }
+        return response.json();
+    })
+    .then(data => {
+        console.log('Post updated successfully:', data);
+        // Optionally, close the popup or perform other actions
+        closePopup2();
+    })
+    .catch(error => {
+        console.error('Error updating post:', error);
+        // Optionally, display an error message to the user
+    });
+});
+

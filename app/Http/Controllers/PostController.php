@@ -49,5 +49,19 @@ class PostController extends Controller
             return view('auth.dashboard', ['forumPosts' => $forumPosts, 'verifiedAlumniCount' => $verifiedAlumniCount]);
         }
 
+        public function update(Request $request, $id)
+{
+    // Retrieve the post by ID
+    $post = Post::findOrFail($id);
+    
+    // Update the caption with the new value from the request
+    $post->caption = $request->input('caption');
+    
+    // Save the updated post
+    $post->save();
+    
+    // Optionally, return a response indicating success
+    return response()->json(['message' => 'Post updated successfully']);
+}
 
 }

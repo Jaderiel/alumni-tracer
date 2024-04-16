@@ -120,6 +120,7 @@
                     </div>
                 </div>
                 <hr>
+                
             @foreach($forumPosts as $post)
                 <div class="forum-section">
                     <div class="left-section flex items-center justify-between">
@@ -134,7 +135,9 @@
                                 <p class="profile-course">{{ $post->user->course }}</p>
                             </div>
                         </div>
-                        <i class="fas fa-ellipsis-v text-gray-600 ml-" onclick="openPopup2()"></i>
+                        @if(auth()->check() && (auth()->user()->id == $post->user->id || auth()->user()->user_type == 'Admin'))
+                        <i class="fas fa-ellipsis-v text-gray-600 ml-" style="padding-left: 100px" onclick="openPopup2('{{ $post->id }}', '{{ $post->user->first_name }} {{ $post->user->last_name }}', '{{ $post->caption }}', '{{ $post->user->profile_pic }}', '{{ $post->media_url }}', '{{ $post->user->course }}')"></i>
+                        @endif
                     </div>
                     
                     <div class="center-section2 flex items-center">
@@ -229,30 +232,7 @@
     </form>
 </div>
 
-        <div class="popup2" id="popup2">
-            <div class="edit">
-                <h3>Edit Post</h3>
-                <i class="fa-solid fa-circle-xmark" onclick="closePopup2()"></i>
-            </div> 
-            <hr>
-                <div class="left-section2">
-                    <div class="profile-info2">
-                        <img src="./img/Picture1.png" alt="Profile Picture">
-                        <div class="user-details2">
-                            <p class="profile-name2">Monica Ocampo</p>
-                            <p class="profile-course">Bachelor of Science in Information Systems</p>
-                        </div>
-                    </div>
-                </div> 
-                <div class="center-section2">
-                    <textarea rows="3" placeholder="What's on your mind, Monica?"></textarea>
-                </div>
-                <div class="add">
-                    <h4>Add to your post</h4>
-                    <img src="./img/add-image.jpg" alt="add-image">
-                </div>
-                <button type="button" onclick="closePopup2()">SAVE</button>
-            </div>
+        @include('popups.update-post')
 
         <div class="popup3" id="popup3">
             <div class="like">
