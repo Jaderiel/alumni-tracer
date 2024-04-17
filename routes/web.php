@@ -33,6 +33,7 @@ Route::put('/update-post/{id}',  [PostController::class, 'update'])->name('updat
 Route::get('/events', [EventsController::class, 'events'])->name('events');
 
 Route::get('/jobs', [JobsController::class, 'jobs'])->name('jobs');
+Route::get('/jobs/job-post', [JobsController::class, 'jobPost'])->name('job-post');
 
 
 use Illuminate\Support\Facades\Mail;

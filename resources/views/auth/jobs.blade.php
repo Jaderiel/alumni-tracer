@@ -8,7 +8,7 @@
     <title>Jobs Page</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
     <link rel="stylesheet" href="./bootstrap-4.5.3-dist/css/bootstrap.min.css">
-    <link rel="stylesheet" href="css/jobs.css">
+    <link rel="stylesheet" href="{{ asset('css/jobs.css') }}">
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
     <script src="jquery-3.5.1.min.js"></script>
     <script src="bootstrap/js/bootstrap.min.js"></script>
@@ -25,40 +25,7 @@
     </section>
 
     <section id="interface">
-    <div class="navigation">
-        <div class="n1">
-            <i id="menu-btn" class="fa-solid fa-bars"></i>
-        </div>
-        <div class="profile">
-            <i id="notification-btn" class="fa-solid fa-bell"></i>
-            <div class="notification-dropdown">
-                <ul>
-                    <h4 class="h4-notif">ALL NOTIFICATION</h4> <hr>
-                    <li class="notif-info">
-                        <div class="left-side">
-                            <h4>Monica Ocampo</h4>
-                            <p>BSIS</p>
-                            <p class="status-posted">Post job hiring!!</p>
-                        </div>
-                        <div class="right-side">
-                            <p>2 hours ago</p>
-                        </div>
-                    </li>
-
-                    <li class="notif-info">
-                        <div class="left-side">
-                            <h4>Monica Ocampo</h4>
-                            <p>BSIS</p>
-                            <p>Post job hiring!!</p>
-                        </div>
-                        <div class="right-side">
-                            <p>2 hours ago</p>
-                        </div>
-                    </li>
-                </ul>
-            </div>
-        </div>            
-    </div>
+      @include('components.headernav')
 
         <h3 class="i-name">
             Recent Jobs
@@ -71,7 +38,7 @@
                 <i class="fa-solid fa-search"></i>
                 <input type="text" placeholder="Search...">
             </div>
-            <a href="jobs-post.html"><button class="post-job">Job posting</button></a>
+            <a href="{{ route('job-post') }}"><button class="post-job">Job posting</button></a>
         </div>
 
             <div class="row" >
@@ -203,7 +170,7 @@
                 </div>
                 
                 <textarea class="job-dets" placeholder="Job Description"></textarea>
- 
+
             </div>
 
             <button class="post-button-ann">POST</button>
@@ -219,5 +186,5 @@
     </script>
 
 </body>
-
+<script src="{{ asset('js/header.js') }}"></script>
 </html>
