@@ -32,8 +32,11 @@ Route::put('/update-post/{id}',  [PostController::class, 'update'])->name('updat
 
 Route::get('/events', [EventsController::class, 'events'])->name('events');
 
-Route::get('/jobs', [JobsController::class, 'jobs'])->name('jobs');
-Route::get('/jobs/job-post', [JobsController::class, 'jobPost'])->name('job-post');
+Route::get('/jobs', [JobsController::class, 'jobs'])->name('jobs'); //pagshoshow ng jobs
+Route::get('/jobs/job-post', [JobsController::class, 'jobPost'])->name('job-post'); //pagcecreate ng jobs
+Route::post('/jobs/job-post', [JobsController::class, 'store'])->name('job.store'); //pagsstore ng jobs
+Route::get('/jobs/{job}', [JobsController::class, 'show'])->name('jobs.show');
+Route::put('/jobs/{job}', [JobsController::class, 'update'])->name('jobs.update');
 
 
 use Illuminate\Support\Facades\Mail;

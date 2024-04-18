@@ -7,9 +7,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Jobs Post Page</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
-    <link rel="stylesheet" href="./bootstrap-4.5.3-dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="{{ asset('bootstrap/bootstrap.min.css') }}">
     <link rel="stylesheet" href="{{ asset('css/job-post.css') }}">
-    <script src="jobs.js" defer></script>
 </head>
 
 <body>
@@ -47,40 +46,39 @@
                         </p>
                     </div>
 
+        <form action="{{ route('job.store') }}" method="POST">
+                        @csrf
                     <div class="input-container">
                         <div class="title-input">
-                            <input type="text" class="input-job-title" placeholder="Job Title">
+                            <input type="text" name="job_title" class="input-job-title" placeholder="Job Title">
                         </div>
                         <div class="title-input">
-                            <input type="text" class="input-company" placeholder="Company">
+                            <input type="text" name="company" class="input-company" placeholder="Company">
                         </div>
                         <div class="title-input">
-                            <input type="text" class="input-location" placeholder="Location">
+                            <input type="text" name="job_location" class="input-location" placeholder="Location">
                         </div>
                     </div>
                     
                     <div class="input-container">
-                        <select class="select-job-type">
+                        <select class="select-job-type" name="job_type">
                             <option value="" class="type" disabled selected>Job Type</option>
                             <option value="full-time">Full Time</option>
                             <option value="part-time">Part Time</option>
                         </select>
-                        <select class="select-salary-range">
-                            <option value="" disabled selected>Salary Range</option>
-                            <option value="0-10000">$0 - $10,000</option>
-                            <option value="10001-30000">$10,001 - $30,000</option>
-                        </select>
+                        <input type="text" name="salary" class="input-job-title" placeholder="Salary">
                         <div class="title-input">
-                            <input type="text" class="input-apply-link" placeholder="Link or email where can apply">
+                            <input type="text" name="link" class="input-apply-link" placeholder="Link or email where can apply">
                         </div>
                     </div>
                     
-                    <textarea class="job-details" placeholder="Job Description"></textarea>
+                    <textarea class="job-details" name="job_description" placeholder="Job Description"></textarea>
+                    
     
                 </div>
 
-            <button class="post-button-ann">POST</button>
-            
+            <button class="post-button-ann" type="submit">POST</button>
+        </form>
         </div>
     </div>
     </section>

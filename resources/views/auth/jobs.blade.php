@@ -7,12 +7,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Jobs Page</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
-    <link rel="stylesheet" href="./bootstrap-4.5.3-dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="{{ asset('bootstrap/bootstrap.min.css') }}">
     <link rel="stylesheet" href="{{ asset('css/jobs.css') }}">
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
     <script src="jquery-3.5.1.min.js"></script>
     <script src="bootstrap/js/bootstrap.min.js"></script>
-    <script src="jobs.js" defer></script>
 </head>
 
 <body>
@@ -23,109 +22,6 @@
         @include('components.sidenav')
     @endif
     </section>
-
-    <section id="interface">
-      @include('components.headernav')
-
-        <h3 class="i-name">
-            Recent Jobs
-        </h3>
-
-        <div class="container">
-        <div class="job">
-            <button class="up-job">List of Job posted</button>
-            <div class="search">
-                <i class="fa-solid fa-search"></i>
-                <input type="text" placeholder="Search...">
-            </div>
-            <a href="{{ route('job-post') }}"><button class="post-job">Job posting</button></a>
-        </div>
-
-            <div class="row" >
-              <div class="job-div col-lg-9">
-                <div class="job-details">
-                  <div class="row mb-3">
-                    <div class="col">
-                      <h3 class="title">Junior Programmer</h3>
-                    </div>
-                    <div class="col-auto">
-                        <a href="company-link" class="btn btn-warning text-white mr-2">Apply</a>
-                    </div> 
-                    <i class="fas fa-ellipsis-v text-gray-600 ml-" onclick="openPopup()"></i>
-                  </div>
-                  <div class="row mb-1">
-                    <div class="col-auto">
-                        <i class="fas fa-location-arrow"></i>
-                    </div>
-                    <div class="col">
-                      Manila, Philippines 
-                    </div>
-                  </div>
-                  <div class="row mb-3">
-                    <div class="col-auto">
-                        <i class="fas fa-money-bill"></i> 
-                    </div>
-                    <div class="col">
-                      PHP 50,000 
-                      <i class="fas fa-clock ml-3 mr-2"></i> Full Time
-                    </div>
-                  </div>
-                  <div class="row mb-3">
-                    <div class="col">
-                      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam et purus eget lacus ultricies placerat.</p>
-                    </div>
-                  </div>
-                  <div class="row">
-                    <div class="col">
-                      Posted 3 days ago
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              <div class="job-div col-lg-9">
-                <div class="job-details">
-                  <div class="row mb-3">
-                    <div class="col">
-                      <h3 class="title">Programmer</h3>
-                    </div>
-                    <div class="col-auto">
-                        <a href="company-link" class="btn btn-warning text-white mr-2">Apply</a>
-                    </div> 
-                    <i class="fas fa-ellipsis-v text-gray-600 ml-" onclick="openPopup()"></i>
-                  </div>
-                  <div class="row mb-1">
-                    <div class="col-auto">
-                        <i class="fas fa-location-arrow"></i>
-                    </div>
-                    <div class="col">
-                      Manila, Philippines 
-                    </div>
-                  </div>
-                  <div class="row mb-3">
-                    <div class="col-auto">
-                        <i class="fas fa-money-bill"></i> 
-                    </div>
-                    <div class="col">
-                      PHP 50,000 
-                      <i class="fas fa-clock ml-3 mr-2"></i> Full Time
-                    </div>
-                  </div>
-                  <div class="row mb-3">
-                    <div class="col">
-                      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam et purus eget lacus ultricies placerat.</p>
-                    </div>
-                  </div>
-                  <div class="row">
-                    <div class="col">
-                      Posted 3 days ago
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-        </div>
-    </section>   
 
     <div class="popup" id="popup">
       <div class="create">
@@ -178,6 +74,68 @@
         </div>
       </div>
   </div>
+
+    <section id="interface">
+      @include('components.headernav')
+
+        <h3 class="i-name">
+            Recent Jobs
+        </h3>
+
+        <div class="container">
+        <div class="job">
+            <button class="up-job">List of Job posted</button>
+            <div class="search">
+                <i class="fa-solid fa-search"></i>
+                <input type="text" placeholder="Search...">
+            </div>
+            <a href="{{ route('job-post') }}"><button class="post-job">Job posting</button></a>
+        </div>
+
+        
+            <div class="row" >
+              @foreach($jobs as $job)
+              <div class="job-div col-lg-9">
+                <div class="job-details">
+                  <div class="row mb-3">
+                    <div class="col">
+                      <h3 class="title">{{ $job->job_title}}</h3>
+                    </div>
+                    <div class="col-auto">
+                        <a href="{{ $job->link}}" class="btn btn-warning text-white mr-2">Apply</a>
+                    </div> 
+                    <a href="{{ route('jobs.show', ['job' => $job->id]) }}"><button class="post-job">Edit</button></a>
+                  </div>
+                  <div class="row mb-1">
+                    <div class="col-auto">
+                        <i class="fas fa-location-arrow"></i>
+                    </div>
+                    <div class="col">
+                      {{ $job->job_location}} 
+                    </div>
+                  </div>
+                  <div class="row mb-3">
+                    <div class="col-auto">
+                        <i class="fas fa-money-bill"></i> 
+                    </div>
+                    <div class="col">
+                      {{ $job->salary}}
+                      <i class="fas fa-clock ml-3 mr-2"></i> {{ $job->job_type}}
+                    </div>
+                  </div>
+                  <div class="row mb-3">
+                    <div class="col">
+                      <p>{{ $job->job_description}}</p>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col">
+                      {{ $job->created_at}}
+                    </div>
+                  </div>
+                </div>
+              </div>
+              @endforeach  
     
     <script>
         $('#menu-btn').click(function(){
@@ -187,4 +145,5 @@
 
 </body>
 <script src="{{ asset('js/header.js') }}"></script>
+<script src="{{ asset('js/jobs.js') }}"></script>
 </html>
