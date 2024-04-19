@@ -6,6 +6,7 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\EventsController;
 use App\Http\Controllers\JobsController;
+use App\Http\Controllers\GalleryController;
 use App\Http\Controllers\Auth\RegisterController;
 
 Route::get('/login', [AuthController::class, 'login'])->name('login');
@@ -38,11 +39,6 @@ Route::post('/jobs/job-post', [JobsController::class, 'store'])->name('job.store
 Route::get('/jobs/{job}', [JobsController::class, 'show'])->name('jobs.show');
 Route::put('/jobs/{job}', [JobsController::class, 'update'])->name('jobs.update');
 
-
-use Illuminate\Support\Facades\Mail;
-use App\Mail\TestEmail;
-
-Route::get('/send-email', function () {
-    Mail::to('jabuela22@gmail.com')->send(new TestEmail());
-    return 'Email sent successfully';
-});
+Route::get('/gallery', [GalleryController::class, 'index'])->name('gallery');
+Route::get('/gallery/add-gallery', [GalleryController::class, 'create'])->name('gallery.add');
+Route::post('/gallery/add-gallery', [GalleryController::class, 'store'])->name('gallery.store');
