@@ -55,59 +55,17 @@
             </div>
       
             <div style="display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 15px; margin-top: 10px;" id="filterable-cards">
-                <div style="background-color: white;" data-name="act" data-toggle="modal" data-target="#imageModal" data-image="img/bsis-corndog.jpg">
-                    <img src="http://127.0.0.1:5500/user/img/bsis-corndog.jpg" class="card-img-top img-fluid" alt="Image" data-toggle="modal" data-target="#imageModal">
-                  <div class="card-body">
-                    <h6 class="card-title">ACT 2021-2022</h6>
-                    <i class="fas fa-ellipsis-v text-gray-600 ml-" onclick="openPopup()"></i>
-                  </div>
-                    <p class="card-text">Lorem ipsum dolor..</p>
-                </div>
 
-                <div style="background-color: white;" data-name="act" data-toggle="modal" data-target="#imageModal" data-image="img/bsis-corndog.jpg">
-                    <img src="http://127.0.0.1:5500/user/img/bsis-corndog.jpg" class="card-img-top img-fluid" alt="Image" data-toggle="modal" data-target="#imageModal">
-                  <div class="card-body">
-                    <h6 class="card-title">ACT 2021-2022</h6>
-                    <i class="fas fa-ellipsis-v text-gray-600 ml-" onclick="openPopup()"></i>
-                  </div>
-                    <p class="card-text">Lorem ipsum dolor..</p>
-                </div>
-
-                <div style="background-color: white;" data-name="act" data-toggle="modal" data-target="#imageModal" data-image="img/bsis-corndog.jpg">
-                    <img src="http://127.0.0.1:5500/user/img/bsis-corndog.jpg" class="card-img-top img-fluid" alt="Image" data-toggle="modal" data-target="#imageModal">
-                  <div class="card-body">
-                    <h6 class="card-title">ACT 2021-2022</h6>
-                    <i class="fas fa-ellipsis-v text-gray-600 ml-" onclick="openPopup()"></i>
-                  </div>
-                    <p class="card-text">Lorem ipsum dolor..</p>
-                </div>
-
-                <div style="background-color: white;" data-name="act" data-toggle="modal" data-target="#imageModal" data-image="img/bsis-corndog.jpg">
-                    <img src="http://127.0.0.1:5500/user/img/bsis-corndog.jpg" class="card-img-top img-fluid" alt="Image" data-toggle="modal" data-target="#imageModal">
-                  <div class="card-body">
-                    <h6 class="card-title">ACT 2021-2022</h6>
-                    <i class="fas fa-ellipsis-v text-gray-600 ml-" onclick="openPopup()"></i>
-                  </div>
-                    <p class="card-text">Lorem ipsum dolor..</p>
-                </div>
-
-                <div style="background-color: white;" data-name="act" data-toggle="modal" data-target="#imageModal" data-image="img/bsis-corndog.jpg">
-                    <img src="http://127.0.0.1:5500/user/img/bsis-corndog.jpg" class="card-img-top img-fluid" alt="Image" data-toggle="modal" data-target="#imageModal">
-                  <div class="card-body">
-                    <h6 class="card-title">ACT 2021-2022</h6>
-                    <i class="fas fa-ellipsis-v text-gray-600 ml-" onclick="openPopup()"></i>
-                  </div>
-                    <p class="card-text">Lorem ipsum dolor..</p>
-                </div> 
-
-                <div style="background-color: white;" data-name="act" data-toggle="modal" data-target="#imageModal" data-image="img/bsis-corndog.jpg">
-                    <img src="http://127.0.0.1:5500/user/img/bsis-corndog.jpg" class="card-img-top img-fluid" alt="Image" data-toggle="modal" data-target="#imageModal">
-                  <div class="card-body">
-                    <h6 class="card-title">ACT 2021-2022</h6>
-                    <i class="fas fa-ellipsis-v text-gray-600 ml-" onclick="openPopup()"></i>
-                  </div>
-                    <p class="card-text">Lorem ipsum dolor..</p>
-                </div>
+                @foreach($gallery as $gal)
+                    <div style="background-color: white;" data-name="act" data-toggle="modal" data-target="#imageModal" data-image="img/bsis-corndog.jpg">
+                        <img src="{{$gal->media_url}}" class="card-img-top img-fluid" alt="Image" data-toggle="modal" data-target="#imageModal">
+                    <div class="card-body">
+                        <h6 class="card-title">{{$gal->img_title}}</h6>
+                        <i class="fas fa-ellipsis-v text-gray-600 ml-" onclick="openPopup()"></i>
+                    </div>
+                        <p class="card-text">{{$gal->img_description}}</p>
+                    </div>
+                @endforeach
 
           </div>
 

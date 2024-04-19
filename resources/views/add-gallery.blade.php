@@ -43,6 +43,11 @@
                         CREATE POST
                     </div>
                     <div class="panel-body bio-graph-info">
+                        @if(Session::has('success'))
+                            <div class="alert alert-success" style="display: flex; justify-content: center;">
+                                {{ Session::get('success') }}
+                            </div>
+                        @endif
                         <div class="row">
                             <p class="bold">Fill in the subjects and press ‘POST’ to notify all alumni</p>
                         </div>
@@ -59,7 +64,7 @@
                             <input id="file-upload" type="file" name="image" accept="image/*" class="file-upload">
                         </div>  
                         <textarea placeholder="Image description" name="img_description" class="event-details"></textarea>
-                        <button type="submit">POST</button>
+                        <button type="submit" class="post-button-ann">POST</button>
                     </div>
                 </div>
             </form>

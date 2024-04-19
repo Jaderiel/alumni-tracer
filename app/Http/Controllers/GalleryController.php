@@ -4,11 +4,13 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Gallery;
+use Illuminate\Support\Facades\Session;
 
 class GalleryController extends Controller
 {
     public function index() {
-        return view("auth.gallery");
+        $gallery = Gallery::all();
+        return view("auth.gallery", compact('gallery'));
     }
 
     public function create() {
@@ -42,7 +44,8 @@ class GalleryController extends Controller
             $gallery->media_url = $mediaUrl;
             $gallery->save();
     
-            return redirect()->back()->with('success', 'saved successfully.');
+            Session::flash('success', 'Post saved successfully.');
+            return redirect()->back();
         } catch (\Exception $e) {
             dd($e->getMessage()); 
         }
