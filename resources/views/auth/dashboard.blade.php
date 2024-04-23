@@ -135,29 +135,8 @@
             </div>
             
             
-            <div class="col-lg-4">
-                <div class="card">
-                    <div class="card-body-announcement">
-                        <div class="card-body">
-                            <h4 class="text-center">Upcoming Events</h4>
-                        </div>
-                    </div>
-                    
-                    @foreach($announcements as $announcement)
-                    <div class="announcement-info">
-                        <div>
-                            <i class="fa-solid fa-square-check" style="color: green;"></i>
-                        </div>
-                        <div class="title-desc">
-                            <p class="p-title">{{ $announcement->ann_title }}</p>
-                            <P>{{ $announcement->ann_details }}</P>
-                        </div>
-                    </div>
-                    @endforeach
-                    <br>
-                    </div>
-                </div>
-        </div>
+            @include('components.announcements')
+
     </section>
 </div>
 

@@ -51,9 +51,9 @@
                 
                 <a href="{{ route('gallery.add') }}"><button class="btn mb-2 mx-1" data-filter="">ADD <i class="fas fa-circle-plus "></i></button></a>
 
-              </div>
+                </div>
             </div>
-      
+
             <div style="display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 15px; margin-top: 10px;" id="filterable-cards">
 
                 @foreach($gallery as $gal)
@@ -67,7 +67,7 @@
                     </div>
                 @endforeach
 
-          </div>
+            </div>
 
     </section> 
 
