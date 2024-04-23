@@ -34,7 +34,7 @@
             <div class="val-box">
                 <i class="fa-solid fa-briefcase"></i>
                 <div>
-                    <h3>20</h3>
+                    <h3>{{ $jobCount }}</h3>
                     <span>Job Post</span>
                 </div>
             </div>
