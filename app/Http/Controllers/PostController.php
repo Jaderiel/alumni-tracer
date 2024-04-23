@@ -42,19 +42,23 @@ class PostController extends Controller
     }
 
     public function index()
-        {
-            // Retrieve forum posts from the database
-            $forumPosts = Forum::all();
-            $eventCount = Event::all()->count();
-            $jobCount = Job::all()->count();
-            $announcements = Announcement::all();
-            $verifiedAlumniCount = User::where('is_email_verified', true)
-                ->where('user_type', 'Alumni')
-                ->count();
+    {
+        // Retrieve forum posts from the database, paginated with 5 posts per page
+        $forumPosts = Forum::orderBy('created_at', 'desc')->paginate(5);
+        
+        // Retrieve counts for events, jobs, and verified alumni
+        $eventCount = Event::count();
+        $jobCount = Job::count();
+        $verifiedAlumniCount = User::where('is_email_verified', true)
+            ->where('user_type', 'Alumni')
+            ->count();
 
-            // Pass forum posts data to the view
-            return view('auth.dashboard', ['forumPosts' => $forumPosts, 'verifiedAlumniCount' => $verifiedAlumniCount, 'announcements' => $announcements, 'eventCount' => $eventCount, 'jobCount' => $jobCount]);
-        }
+        // Retrieve announcements
+        $announcements = Announcement::all();
+
+        // Pass data to the view
+        return view('auth.dashboard', compact('forumPosts', 'verifiedAlumniCount', 'announcements', 'eventCount', 'jobCount'));
+    }
 
         public function update(Request $request, $id)
 {

@@ -88,7 +88,7 @@
                 </div>
                 <hr>
                 
-            @foreach($forumPosts as $post)
+            @foreach($forumPosts->sortByDesc('created_at') as $post)
                 <div class="forum-section">
                     <div class="left-section flex items-center justify-between">
                         <div class="profile-info flex items-center">
@@ -132,6 +132,8 @@
                     </div>
                 </div>
             @endforeach
+
+            {{ $forumPosts->links('components.pagination') }}
             </div>
             
             
