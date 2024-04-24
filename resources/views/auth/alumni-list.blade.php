@@ -83,7 +83,6 @@
                 <thead>
                     <tr>
                         <td>Name</td>
-                        <td>Email</td>
                         <td>Course</td>
                         <td>Batch</td>
                         <td>Action</td>
@@ -92,12 +91,27 @@
                 <tbody>
                     @foreach($verifiedAlumni as $user)
                     <tr>
-                        <td>{{ $user->first_name }} {{ $user->last_name }}</td>
-                        <td>{{ $user->email }}</td>
-                        <td>{{ $user->course }}</td>
-                        <td>{{ $user->batch }}</td>
+                        <td>
+                            <div>
+                                <h5>{{ $user->first_name }} {{ $user->last_name }}</h5>
+                                <p>{{ $user->email }}</p>
+                            </div>
+                        </td>
+                        <td>
+                            <div>
+                                <p>{{ $user->course }}</p>
+                            </div>
+                        </td>
+                        <td>
+                            <div>
+                                <p>{{ $user->batch }}</p>
+                            </div>
+                        </td>
                         <td class="action">
                             <a href="#" class="button">View</a>
+                            @if(auth()->check() && (auth()->user()->user_type == 'Admin'))
+                            <button class="delete-button" style="background-color: rgb(156, 0, 0);" onclick="deletePopup()">Delete</button>
+                            @endif
                         </td>
                     </tr>
                     @endforeach

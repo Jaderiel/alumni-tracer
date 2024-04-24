@@ -39,7 +39,6 @@
                         <thead>
                             <tr>
                                 <td>Name</td>
-                                <td>Email</td>
                                 <td>Course</td>
                                 <td>Batch</td>
                                 <td>Action</td>
@@ -48,10 +47,22 @@
                         <tbody>
                             @foreach($unverifiedUsers as $user)
                             <tr>
-                                <td>{{ $user->username }}</td>
-                                <td>{{ $user->email }}</td>
-                                <td>{{ $user->course }}</td>
-                                <td>{{ $user->batch }}</td>
+                            <td>
+                                <div>
+                                    <h5>{{ $user->first_name }} {{ $user->last_name }}</h5>
+                                    <p>{{ $user->email }}</p>
+                                </div>
+                            </td>
+                            <td>
+                                <div>
+                                    <p>{{ $user->course }}</p>
+                                </div>
+                            </td>
+                            <td>
+                                <div>
+                                    <p>{{ $user->batch }}</p>
+                                </div>
+                            </td>
                                 @unless($user->is_email_verified)
                                     <td class="action">
                                         <a href="#" class="button approve-btn" data-form-id="{{ 'form-'.$user->id }}">Approve</a>
