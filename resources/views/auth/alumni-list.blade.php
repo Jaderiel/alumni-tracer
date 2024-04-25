@@ -108,7 +108,7 @@
                             </div>
                         </td>
                         <td class="action">
-                            <a href="#" class="button">View</a>
+                            <a href="{{ route('profile.show', ['id' => $user->id]) }}" class="button">View</a>
                             @if(auth()->check() && (auth()->user()->user_type == 'Admin'))
                             <button class="delete-button" style="background-color: rgb(156, 0, 0);" onclick="deletePopup()">Delete</button>
                             @endif

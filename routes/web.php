@@ -48,3 +48,4 @@ Route::get('/gallery/add-gallery', [GalleryController::class, 'create'])->name('
 Route::post('/gallery/add-gallery', [GalleryController::class, 'store'])->name('gallery.store');
 
 Route::get('/user-profile', [ProfileController::class, 'index'])->name('user-profile');
+Route::get('/show-profile/{id}', [ProfileController::class, 'show'])->name('profile.show');
