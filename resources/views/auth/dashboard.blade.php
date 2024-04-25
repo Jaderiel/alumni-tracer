@@ -103,7 +103,7 @@
                             </div>
                         </div>
                         @if(auth()->check() && (auth()->user()->id == $post->user->id || auth()->user()->user_type == 'Admin'))
-                        <i class="fas fa-ellipsis-v text-gray-600 ml-" style="padding-left: 100px" onclick="openPopup2('{{ $post->id }}', '{{ $post->user->first_name }} {{ $post->user->last_name }}', '{{ $post->caption }}', '{{ $post->user->profile_pic }}', '{{ $post->media_url }}', '{{ $post->user->course }}')"></i>
+                        <i class="fas fa-ellipsis-v text-gray-600 ml-" style="padding-left: 100px" onclick="openEditPopup('{{ $post->id }}', '{{ $post->caption }}')"></i>
                         @endif
                     </div>
                     

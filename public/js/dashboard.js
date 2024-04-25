@@ -27,13 +27,8 @@ function closePopup0() {
 }
 
 function openPopup2(postId, name, caption, profilePic, media, course) {
-    // Set the action attribute of the form
-    var form = document.getElementById('update-post-form');
-    form.action = "{{ route('dashboard.update', ['id' => '']) }}" + postId;
 
-    // Set user details in the popup
     document.getElementById('profile-name2').textContent = name;
-    document.getElementById('caption').textContent = caption;
     document.getElementById('profile-pic').src = profilePic ? profilePic : 'https://st3.depositphotos.com/6672868/13701/v/450/depositphotos_137014128-stock-illustration-user-profile-icon.jpg';
     var mediaElement = document.getElementById('media-url');
     mediaElement.src = media;
@@ -221,3 +216,21 @@ document.getElementById('update-post-form').addEventListener('submit', function(
     });
 });
 
+// Open edit popup
+function openEditPopup(postId, caption) {
+    console.log("Post ID:", postId);
+    // Set the post ID and caption in the edit form
+    document.getElementById('post_id').value = postId;
+    document.getElementById('edited_caption').value = caption;
+    
+    // Show the edit popup
+    document.getElementById('edit-popup').style.display = "block";
+
+    // Set the delete form action with the correct post ID
+    document.getElementById('delete-post-form').action = "/delete-post/" + postId;
+}
+
+// Close edit popup
+function closeEditPopup() {
+    document.getElementById('edit-popup').style.display = "none";
+}

@@ -8,6 +8,7 @@ use App\Http\Controllers\EventsController;
 use App\Http\Controllers\JobsController;
 use App\Http\Controllers\GalleryController;
 use App\Http\Controllers\Auth\RegisterController;
+use App\Http\Controllers\ProfileController;
 
 Route::get('/login', [AuthController::class, 'login'])->name('login');
 Route::get('/dashboard', [AuthController::class, 'dashboard'])->name('dashboard');
@@ -30,6 +31,9 @@ Route::post('/dashboard', [PostController::class, 'store'])->name('dashboard.sto
 Route::get('/dashboard', [PostController::class, 'index'])->name('dashboard');
 Route::put('/dashboard/{id}', [PostController::class, 'update'])->name('dashboard.update');
 Route::put('/update-post/{id}',  [PostController::class, 'update'])->name('update-post');
+Route::post('/update-post', [App\Http\Controllers\PostController::class, 'updatePost'])->name('update.post');
+Route::delete('/delete-post/{id}', [PostController::class, 'delete'])->name('delete.post');
+
 
 Route::get('/events', [EventsController::class, 'events'])->name('events');
 
@@ -42,3 +46,5 @@ Route::put('/jobs/{job}', [JobsController::class, 'update'])->name('jobs.update'
 Route::get('/gallery', [GalleryController::class, 'index'])->name('gallery');
 Route::get('/gallery/add-gallery', [GalleryController::class, 'create'])->name('gallery.add');
 Route::post('/gallery/add-gallery', [GalleryController::class, 'store'])->name('gallery.store');
+
+Route::get('/user-profile', [ProfileController::class, 'index'])->name('user-profile');

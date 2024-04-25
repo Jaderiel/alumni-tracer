@@ -75,4 +75,32 @@ class PostController extends Controller
     return response()->json(['message' => 'Post updated successfully']);
 }
 
+public function updatePost(Request $request) {
+    $post = Forum::findOrFail($request->post_id);
+    $post->caption = $request->edited_caption;
+    $post->save();
+    return redirect()->back()->with('success', 'Post updated successfully!');
+}
+
+public function delete(Request $request, $id) {
+    // Find the post by ID
+    $post = Forum::find($id);
+    
+    // Check if the post exists
+    if (!$post) {
+        return redirect()->back()->with('error', 'Post not found.');
+    }
+    
+    // Attempt to delete the post
+    try {
+        $post->delete();
+    } catch (\Exception $e) {
+        // If an exception occurs during deletion, handle the error
+        return redirect()->back()->with('error', 'An error occurred while deleting the post.');
+    }
+
+    // Redirect back with a success message
+    return redirect()->back()->with('success', 'Post deleted successfully.');
+}
+
 }

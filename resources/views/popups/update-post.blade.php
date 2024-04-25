@@ -1,29 +1,39 @@
-        <form id="update-post-form" method="POST">
+<div class="edit-popup" id="edit-popup" style="display: none;">
+    <div class="edit-content">
+        <h3>Edit Post</h3>
+        <i class="fa-solid fa-circle-xmark" id="clearEditButton" onclick="closeEditPopup()"></i>
+        <hr>
+        <form action="{{ route('update.post') }}" method="POST">
             @csrf
-            @method('PUT')
-            <div class="popup2" id="popup2">
-                <div class="edit">
-                    <h3>Edit Post</h3>
-                    <i class="fa-solid fa-circle-xmark" onclick="closePopup2()"></i>
-                </div> 
-                <hr>
-                    <div class="left-section2">
-                        <div class="profile-info2">
-                            <img id="profile-pic" src="" alt="Profile Picture">
-                            <div class="user-details2">
-                                <p id="profile-name2" class="profile-name2"></p>
-                                <p id="course" class="profile-course"></p>
-                            </div>
-                        </div>
-                    </div> 
-                    <div class="center-section2">
-                        <textarea rows="3" id="caption" placeholder="" name="caption"></textarea>
-                    </div>
-                    <div class="add">
-                        <h4>Add to your post</h4>
-                        <img id="media-url" src="" alt="add-image">
-                    </div>
-                    <button type="submit">SAVE</button>
-                    <button type="button" style="background-color: rgb(170, 45, 45); margin-top: 0;" onclick="closePopup2()">DELETE</button>
+            <!-- Hidden field to store post ID -->
+            <input type="hidden" name="post_id" id="post_id">
+            <div class="center-section2">
+                <textarea name="edited_caption" id="edited_caption" rows="3" placeholder="Edit your post..."></textarea>
             </div>
+            <button type="submit">Save Changes</button>
         </form>
+        
+        <!-- Delete form -->
+        <form id="delete-post-form" action="{{ route('delete.post', ['id' => $post->id]) }}" method="POST">
+            @csrf
+            @method('DELETE')
+            <button type="submit">Delete Post</button>
+        </form>
+    </div>
+</div>
+
+
+<style>
+    .edit-popup {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: white;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 20px;
+    z-index: 9999; /* Ensure it appears above other elements */
+    /* Add additional styling as needed */
+}
+</style>
