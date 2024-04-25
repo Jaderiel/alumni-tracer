@@ -17,7 +17,7 @@
         <form id="delete-post-form" action="{{ route('delete.post', ['id' => $post->id]) }}" method="POST">
             @csrf
             @method('DELETE')
-            <button type="submit">Delete Post</button>
+            <button style="background-color: maroon" type="submit">Delete Post</button>
         </form>
     </div>
 </div>
@@ -25,15 +25,30 @@
 
 <style>
     .edit-popup {
+    width: 400px;
     position: fixed;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
     background-color: white;
     border: 1px solid #ccc;
-    border-radius: 5px;
+    border-radius: 20px;
     padding: 20px;
     z-index: 9999; /* Ensure it appears above other elements */
     /* Add additional styling as needed */
 }
+
+    .edit-popup button {
+        width: 95%;
+        padding: 10px 0;
+        margin: 10px;
+        background-color: #162F65;
+        color: #fff;
+        border: 0;
+        outline: none;
+        font-size: 18px;
+        border-radius: 4px;
+        box-shadow: 0 5px 5px rgba(0, 0, 0, 0.2);
+        cursor: pointer;
+    }
 </style>

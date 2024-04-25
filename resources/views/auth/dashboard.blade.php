@@ -79,9 +79,11 @@
                             </div>
                         </div>
                     </div> 
-                    <div class="center-section">
-                        <p>What's on your mind, {{ Auth::user()->username }}?</p>
-                    </div>
+                    <button style="background-color: transparent; border: none; cursor: pointer; text-align: left;" onclick="openPopup0()">
+                        <div class="center-section">
+                            <p>What's on your mind, {{ Auth::user()->username }}?</p>
+                        </div>
+                    </button>
                     <div class="right-section">
                         <button type="submit" class="post-button" onclick="openPopup0()">MAKE A POST</button>
                     </div>

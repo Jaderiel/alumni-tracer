@@ -340,7 +340,7 @@ textarea {
     cursor: pointer;
 }
 
-.popup2 {
+.editPopup {
     width: 400px;
     background: #fff;
     border-radius: 20px;
@@ -355,24 +355,24 @@ textarea {
     transition: all 0.5s ease-in-out;
 }
 
-.popup2 hr {
+.editPopup hr {
     border-color: #C2C2C2;
 }
 
-.open-popup2 {
+.open-editPopup {
     display: block;
     visibility: visible;
     transform: translate(-50%, -50%) scale(1);
     overflow: hidden;
 }
 
-.popup2 h2{
+.editPopup h2{
     font-size: 38px;
     font-weight: 800;
     margin: 20px;
 }
 
-.popup2 button {
+.editPopup button {
     width: 95%;
     padding: 10px 0;
     margin: 10px;
