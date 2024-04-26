@@ -78,6 +78,12 @@
             </div>
         </div>
 
+            @if (session('success'))
+                <div class="alert alert-success" style="background-color: #d4edda; color: #155724; border-color: #c3e6cb; padding: 15px; margin-bottom: 20px; border: 1px solid transparent; border-radius: .25rem;">
+                    {{ session('success') }}
+                </div>
+            @endif
+
         <div class="board-list">
             <table width="100%" id="userTable">
                 <thead>
@@ -107,10 +113,14 @@
                                 <p>{{ $user->batch }}</p>
                             </div>
                         </td>
-                        <td class="action">
+                        <td class="action" style="display: flex">
                             <a href="{{ route('profile.show', ['id' => $user->id]) }}" class="button">View</a>
                             @if(auth()->check() && (auth()->user()->user_type == 'Admin'))
-                            <button class="delete-button" style="background-color: rgb(156, 0, 0);" onclick="deletePopup()">Delete</button>
+                            <form action="{{ route('user.delete', ['userId' => $user->id]) }}" method="POST">
+                                @method('DELETE')
+                                @csrf
+                                <button type="submit" class="button delete-btn" style="background-color: maroon;">Delete</button>
+                            </form>
                             @endif
                         </td>
                     </tr>
@@ -135,9 +145,8 @@
 
                 userTable.forEach(row => {
                     const name = row.cells[0].innerText.toLowerCase();
-                    const email = row.cells[1].innerText.toLowerCase();
-                    const course = row.cells[2].innerText.toLowerCase();
-                    const batch = row.cells[3].innerText.toLowerCase();
+                    const course = row.cells[1].innerText.toLowerCase();
+                    const batch = row.cells[2].innerText.toLowerCase();
 
                     const matchesSearchTerm = name.includes(searchTerm) || email.includes(searchTerm) || course.includes(searchTerm) || batch.includes(searchTerm);
                     const matchesCourseFilter = selectedCourse === 'all' || course.includes(selectedCourse);

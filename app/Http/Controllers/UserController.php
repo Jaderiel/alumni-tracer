@@ -94,5 +94,13 @@ class UserController extends Controller
 
         return redirect()->route('login')->with('success', 'User deleted successfully.');
     }
+
+    public function delete($id)
+    {
+        $user = User::findOrFail($id);
+        $user->delete();
+
+        return redirect()->back()->with('success', 'User deleted successfully.');
+    }
     
 }

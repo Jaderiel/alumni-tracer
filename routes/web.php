@@ -9,6 +9,7 @@ use App\Http\Controllers\JobsController;
 use App\Http\Controllers\GalleryController;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\AnalyticsController;
 
 Route::get('/login', [AuthController::class, 'login'])->name('login');
 Route::get('/dashboard', [AuthController::class, 'dashboard'])->name('dashboard');
@@ -21,6 +22,7 @@ Route::get('/approvals', [AuthController::class, 'approvals'])->name('approvals'
 Route::get('/approvals', 'App\Http\Controllers\ApprovalsController@index')->name('approvals');
 Route::put('/update-user-verification/{userId}', [UserController::class, 'updateVerification'])->name('user.updateVerification');
 Route::get('/alumni-list', [UserController::class, 'showVerifiedAlumni'])->name('alumni-list');
+Route::delete('/approvals/{userId}', [UserController::class, 'delete'])->name('user.delete');
 // Route::get('/alumni-list', [AuthController::class, 'alumniList'])->name('alumni-list');
 Route::get('/profile', [AuthController::class, 'profile'])->name('profile');
 Route::get('/profile/edit', [UserController::class, 'editProfile'])->name('profile.edit');
@@ -49,3 +51,5 @@ Route::post('/gallery/add-gallery', [GalleryController::class, 'store'])->name('
 
 Route::get('/user-profile', [ProfileController::class, 'index'])->name('user-profile');
 Route::get('/show-profile/{id}', [ProfileController::class, 'show'])->name('profile.show');
+
+Route::get('/analytics', [AnalyticsController::class, 'index'])->name('analytics');
