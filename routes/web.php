@@ -42,6 +42,9 @@ Route::get('/events/{user_id}/{event_id}', [EventsController::class, 'register']
 Route::get('/get-registered-users/{eventId}', [EventsController::class, 'getRegisteredUsers'])->name('get.registered.users');
 Route::get('/add-event', [EventsController::class, 'addEvent'])->name('add-event');
 Route::post('/add-event', [EventsController::class, 'store'])->name('events.store');
+Route::get('/add-announcement', [EventsController::class, 'addAnn'])->name('add-ann');
+Route::post('/add-announcement', [EventsController::class, 'storeAnn'])->name('ann.store');
+Route::delete('/events/{id}', [EventsController::class, 'delete'])->name('delete.event');
 
 
 

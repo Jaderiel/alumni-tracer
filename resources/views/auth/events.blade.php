@@ -39,7 +39,7 @@
             <button href="{{ route('events') }}" class="up-event">Upcoming Events and Announcement</button>
             @if(auth()->check() && (auth()->user()->user_type == 'Admin'))
             <a href="{{ route('add-event') }}" class="post-event">Add Event</a>
-            <a class="post-event">Add Announcement</a>
+            <a href="{{ route('add-ann') }}" class="post-event">Add Announcement</a>
             @endif
         </div>
 
@@ -81,6 +81,13 @@
                                         @if(auth()->check() && (auth()->user()->user_type == 'Admin'))
                                             <div class="text-right" style="padding: 10px">
                                                 <a href="{{ route('get.registered.users', ['eventId' => $event->id]) }}" class="btn-sm btn-info mb-1">View Registered Users</a>
+                                            </div>
+                                            <div class="text-right" style="padding: 10px">
+                                                <form action="{{ route('delete.event', ['id' => $event->id]) }}" method="POST">
+                                                    @method('DELETE')
+                                                    @csrf
+                                                    <button type="submit" class="btn-sm btn-danger mb-1">Delete</button>
+                                                </form>
                                             </div>
                                         @else
                                         <div class="text-right">

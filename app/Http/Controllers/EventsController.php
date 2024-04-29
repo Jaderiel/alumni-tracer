@@ -102,5 +102,32 @@ class EventsController extends Controller
 
     }
 
+    public function addAnn() {
+        return view('auth.add-announcement');
+    }
 
+    public function storeAnn(Request $request)
+    {
+
+        $request->validate([
+            'ann_title' => 'required',
+            'ann_details' => 'required',
+        ]);
+
+        $ann = new Announcement();
+        $ann->ann_title = $request->ann_title;
+        $ann->ann_details = $request->ann_details;
+        $ann->save();
+
+        return redirect()->back()->with('success', 'Event created successfully!');
+
+    }
+
+    public function delete($id)
+    {
+        $event = Event::findOrFail($id);
+        $event->delete();
+
+        return redirect()->back()->with('success', 'Event deleted successfully.');
+    }
 }
