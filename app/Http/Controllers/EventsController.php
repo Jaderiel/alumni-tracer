@@ -52,7 +52,7 @@ class EventsController extends Controller
         $registeredUserIds = EventRegistration::where('event_id', $eventId)->pluck('user_id');
 
         // Fetch user objects associated with the user IDs, including course and batch information
-        $registeredUsers = User::whereIn('id', $registeredUserIds)->get(['first_name', 'last_name', 'course', 'batch', 'email']);
+        $registeredUsers = User::whereIn('id', $registeredUserIds)->get(['first_name', 'last_name', 'course', 'batch', 'email', 'id']);
 
         // Transform user objects to include full name
         $registeredUsersWithInfo = $registeredUsers->map(function($user) {

@@ -35,6 +35,7 @@
                         <td>Name</td>
                         <td>Course</td>
                         <td>Batch</td>
+                        <td>Action</td>
                     </tr>
                 </thead>
                 <tbody>
@@ -54,6 +55,11 @@
                             <td>
                                 <div>
                                     <p>{{ $user->batch }}</p>
+                                </div>
+                            </td>
+                            <td>
+                                <div>
+                                    <a href="{{ route('profile.show', ['id' => $user->id]) }}" class="button">View</a>
                                 </div>
                             </td>
                         </tr>

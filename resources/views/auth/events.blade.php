@@ -56,9 +56,11 @@
         @endif
 
         @foreach($events as $event)
+        @if(auth()->check() && (auth()->user()->user_type == 'Admin'))
         <div class="text-right" style="margin-top: 10px">
-            <a href="{{ route('get.registered.users', ['eventId' => $event->id]) }}" class="btn-sm mb-1">View Registered</a>
+            <a href="{{ route('get.registered.users', ['eventId' => $event->id]) }}" class="btn-sm mb-1">View Registered Users</a>
         </div>
+        @endif
             <div class="row">
                 <div class="col-sm-12">
                     <div class="card" style="width: 750px; border-radius: 20px;">
