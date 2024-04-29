@@ -38,6 +38,10 @@ Route::delete('/delete-post/{id}', [PostController::class, 'delete'])->name('del
 
 
 Route::get('/events', [EventsController::class, 'events'])->name('events');
+Route::get('/events/{user_id}/{event_id}', [EventsController::class, 'register'])->name('register-to-event');
+Route::get('/get-registered-users/{eventId}', [EventsController::class, 'getRegisteredUsers'])->name('get.registered.users');
+
+
 
 Route::get('/jobs', [JobsController::class, 'jobs'])->name('jobs'); //pagshoshow ng jobs
 Route::get('/jobs/job-post', [JobsController::class, 'jobPost'])->name('job-post'); //pagcecreate ng jobs

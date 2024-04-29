@@ -12,6 +12,8 @@
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
     <script src="jquery-3.5.1.min.js"></script>
     <script src="bootstrap/js/bootstrap.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
 </head>
 
 <body>
@@ -41,7 +43,22 @@
 
         <div class="main-body mt-7 ml-4 mr-2" style="margin-left: 15px;">
 
+        @if(session('error'))
+            <div class="alert alert-danger">
+                {{ session('error') }}
+            </div>
+        @endif
+
+        @if(session('success'))
+            <div class="alert alert-success">
+                {{ session('success') }}
+            </div>
+        @endif
+
         @foreach($events as $event)
+        <div class="text-right" style="margin-top: 10px">
+            <a href="{{ route('get.registered.users', ['eventId' => $event->id]) }}" class="btn-sm mb-1">View Registered</a>
+        </div>
             <div class="row">
                 <div class="col-sm-12">
                     <div class="card" style="width: 750px; border-radius: 20px;">
@@ -55,7 +72,7 @@
                                     </div>
                                     <div class="col-xs-7 p-lg">
                                         <div class="text-right">
-                                            <a href="#" id="registerBtn" class="btn btn-success btn-sm mb-1 register-btn">REGISTER</a>
+                                            <a href="{{ route('register-to-event', ['user_id' => Auth::user()->id, 'event_id' => $event->id]) }}" id="registerBtn" class="btn btn-success btn-sm mb-1 register-btn">REGISTER</a>
                                         </div>
                                         <p>
                                             <span class="text-lg">{{ $event->event_date->format('F d, Y') }} | {{ $event->event_date->format('g:i A') }}</span>
