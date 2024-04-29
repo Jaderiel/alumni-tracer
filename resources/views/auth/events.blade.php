@@ -56,11 +56,7 @@
         @endif
 
         @foreach($events as $event)
-        @if(auth()->check() && (auth()->user()->user_type == 'Admin'))
-        <div class="text-right" style="margin-top: 10px">
-            <a href="{{ route('get.registered.users', ['eventId' => $event->id]) }}" class="btn-sm mb-1">View Registered Users</a>
-        </div>
-        @endif
+
             <div class="row">
                 <div class="col-sm-12">
                     <div class="card" style="width: 750px; border-radius: 20px;">
@@ -73,9 +69,22 @@
                                         </div>
                                     </div>
                                     <div class="col-xs-7 p-lg">
+                                    @if(\App\Models\EventRegistration::where('user_id', Auth::user()->id)->where('event_id', $event->id)->exists())
+                                        <div class="text-right">
+                                            <span class="text-success">REGISTERED</span>
+                                        </div>
+                                    @else
+                                        @if(auth()->check() && (auth()->user()->user_type == 'Admin'))
+                                            <div class="text-right" style="padding: 10px">
+                                                <a href="{{ route('get.registered.users', ['eventId' => $event->id]) }}" class="btn-sm btn-info mb-1">View Registered Users</a>
+                                            </div>
+                                        @else
                                         <div class="text-right">
                                             <a href="{{ route('register-to-event', ['user_id' => Auth::user()->id, 'event_id' => $event->id]) }}" id="registerBtn" class="btn btn-success btn-sm mb-1 register-btn">REGISTER</a>
                                         </div>
+                                        @endif
+                                    @endif
+
                                         <p>
                                             <span class="text-lg">{{ $event->event_date->format('F d, Y') }} | {{ $event->event_date->format('g:i A') }}</span>
                                         </p>
