@@ -40,6 +40,8 @@ Route::delete('/delete-post/{id}', [PostController::class, 'delete'])->name('del
 Route::get('/events', [EventsController::class, 'events'])->name('events');
 Route::get('/events/{user_id}/{event_id}', [EventsController::class, 'register'])->name('register-to-event');
 Route::get('/get-registered-users/{eventId}', [EventsController::class, 'getRegisteredUsers'])->name('get.registered.users');
+Route::get('/add-event', [EventsController::class, 'addEvent'])->name('add-event');
+Route::post('/add-event', [EventsController::class, 'store'])->name('events.store');
 
 
 

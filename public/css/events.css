@@ -142,12 +142,15 @@ body {
     padding: 10px 10px 10px;
     border: 1px solid #2D55B4;
     border-radius: 4px;
+    color: #000;
 }
 
-.event button:hover {
+.event a:hover {
     background-color: #E8C766; /* Change background color on hover */
     border-color:lightsteelblue; /* Change border color on hover */
     color: #000; /* Change text color on hover */
+    cursor: pointer;
+    text-decoration: none;
 }
 
 

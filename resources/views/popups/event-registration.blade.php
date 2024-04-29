@@ -25,6 +25,7 @@
         @include('components.headernav')
 
         <h3 class="i-name">
+            <a href="{{ route('events') }}" class="back-link"><i class="fas fa-arrow-left"></i></a>
             {{ $eventTitle }}
         </h3>
 
@@ -73,3 +74,15 @@
 </body>
 <script src="{{ asset('js/header.js') }}"></script>
 </html>
+
+<style>
+    .back-link {
+        color: #333;
+        text-decoration: none;
+        margin-right: 10px;
+    }
+
+    .back-link:hover {
+        color: #000; 
+    }
+</style>

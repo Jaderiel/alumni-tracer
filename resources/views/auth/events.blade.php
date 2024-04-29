@@ -36,7 +36,11 @@
         </h3>
 
         <div class="event" style="margin: 0px">
-            <button class="up-event">Upcoming Events and Announcement</button>
+            <button href="{{ route('events') }}" class="up-event">Upcoming Events and Announcement</button>
+            @if(auth()->check() && (auth()->user()->user_type == 'Admin'))
+            <a href="{{ route('add-event') }}" class="post-event">Add Event</a>
+            <a class="post-event">Add Announcement</a>
+            @endif
         </div>
 
     <div style="display: flex; flex-direction: row; gap: 35px">
@@ -86,7 +90,7 @@
                                     @endif
 
                                         <p>
-                                            <span class="text-lg">{{ $event->event_date->format('F d, Y') }} | {{ $event->event_date->format('g:i A') }}</span>
+                                            <span class="text-lg">{{ $event->event_date->format('F d, Y') }} | {{ \Carbon\Carbon::parse($event->event_time)->format('g:i A') }}</span>
                                         </p>
                                         <p>
                                             <strong class="event-title ">{{ $event->event_title }}</strong>

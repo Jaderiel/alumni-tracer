@@ -67,4 +67,40 @@ class EventsController extends Controller
         ]);
     }
 
+    public function addEvent() {
+        return view('auth.add-event');
+    }
+
+    public function store(Request $request)
+    {
+
+        $request->validate([
+            'event_title' => 'required',
+            'media_url' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048', // Adjust file type and size as needed
+            'event_date' => 'required',
+            'event_time' => 'required',
+            'event_details' => 'required',
+        ]);
+
+        // Handle image upload
+        if ($request->hasFile('media_url')) {
+            $image = $request->file('media_url');
+            $imageName = time().'.'.$image->getClientOriginalExtension();
+            $image->move(public_path('images'), $imageName);
+            $mediaUrl = 'images/'.$imageName;
+        }
+
+        $event = new Event();
+        $event->event_title = $request->event_title;
+        $event->media_url = $mediaUrl; // Use the $mediaUrl variable
+        $event->event_details = $request->event_details;
+        $event->event_date = $request->event_date;
+        $event->event_time = $request->event_time;
+        $event->save();
+
+        return redirect()->back()->with('success', 'Event created successfully!');
+
+    }
+
+
 }
