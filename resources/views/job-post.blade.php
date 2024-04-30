@@ -42,7 +42,17 @@
                 <div class="panel-body bio-graph-info">
                     <div class="row">
                         <p class="bold">
-                            Fill in the subject and body of job details and press ‘POST’ to notify all alumni
+                        @if(session('error'))
+                            <div class="alert alert-danger">
+                                {{ session('error') }}
+                            </div>
+                        @endif
+
+                        @if(session('success'))
+                            <div class="alert alert-success">
+                                {{ session('success') }}
+                            </div>
+                        @endif
                         </p>
                     </div>
 

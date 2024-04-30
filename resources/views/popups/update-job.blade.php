@@ -46,42 +46,48 @@
                         </p>
                     </div>
 
-        <form action="{{ route('jobs.update', $job->id) }}" method="POST">
+                    <!-- Form for updating job details -->
+                    <form action="{{ route('jobs.update', $job->id) }}" method="POST">
                         @csrf
                         @method('PUT')
-                    <div class="input-container">
-                        <div class="title-input">
-                            <input type="text" name="job_title" value="{{ $job->job_title }}" class="input-job-title" placeholder="Job Title">
+                        <div class="input-container">
+                            <div class="title-input">
+                                <input type="text" name="job_title" value="{{ $job->job_title }}" class="input-job-title" placeholder="Job Title">
+                            </div>
+                            <div class="title-input">
+                                <input type="text" name="company" value="{{ $job->company }}" class="input-company" placeholder="Company">
+                            </div>
+                            <div class="title-input">
+                                <input type="text" name="job_location" value="{{ $job->job_location }}" class="input-location" placeholder="Location">
+                            </div>
                         </div>
-                        <div class="title-input">
-                            <input type="text" name="company" value="{{ $job->company }}" class="input-company" placeholder="Company">
-                        </div>
-                        <div class="title-input">
-                            <input type="text" name="job_location" value="{{ $job->job_location }}" class="input-location" placeholder="Location">
-                        </div>
-                    </div>
-                    
-                    <div class="input-container">
-                        <select class="select-job-type" name="job_type" value="{{ $job->job_type }}">
-                            <option value="" class="type" disabled selected>{{ $job->job_type }}</option>
-                            <option value="full-time">Full Time</option>
-                            <option value="part-time">Part Time</option>
-                        </select>
-                        <input type="text" name="salary" value="{{ $job->salary }}" class="input-job-title" placeholder="Salary">
-                        <div class="title-input">
-                            <input type="text" name="link" value="{{ $job->link }}" class="input-apply-link" placeholder="Link or email where can apply">
-                        </div>
-                    </div>
-                    
-                    <textarea class="job-details" name="job_description" value="{{ $job->job_description }}" placeholder="Job Description">{{ $job->job_description }}</textarea>
-                    
-    
-                </div>
 
-            <button class="post-button-ann" type="submit">SAVE</button>
-        </form>
+                        <div class="input-container">
+                            <select class="select-job-type" name="job_type" value="{{ $job->job_type }}">
+                                <option value="" class="type" disabled selected>{{ $job->job_type }}</option>
+                                <option value="full-time">Full Time</option>
+                                <option value="part-time">Part Time</option>
+                            </select>
+                            <input type="text" name="salary" value="{{ $job->salary }}" class="input-job-title" placeholder="Salary">
+                            <div class="title-input">
+                                <input type="text" name="link" value="{{ $job->link }}" class="input-apply-link" placeholder="Link or email where can apply">
+                            </div>
+                        </div>
+
+                        <textarea class="job-details" name="job_description" placeholder="Job Description">{{ $job->job_description }}</textarea>
+
+                        <button class="post-button-ann" type="submit">SAVE</button>
+                    </form>
+
+                    <!-- Form for deleting job -->
+                    <form id="delete-form" action="{{ route('delete.job', $job->id) }}" method="POST">
+                        @csrf
+                        @method('DELETE')
+                        <button type="submit" class="btn-sm btn-danger mb-1">Delete</button>
+                    </form>
+                </div>
+            </div>
         </div>
-    </div>
     </section>
 </body>
 <script src="{{ asset('js/header.js') }}"></script>

@@ -78,16 +78,17 @@
                                     <input type="text" name="ann_title" value="{{ $ann->ann_title }}" placeholder="Title">
                                 </div>
                             </div>
-                            <textarea placeholder="Event details" name="ann_details" value="{{ $ann->ann_details }}" class="event-details">{{ $ann->ann_details }}</textarea>
+                            <textarea placeholder="Event details" name="ann_details" class="event-details">{{ $ann->ann_details }}</textarea>
                             <button type="submit" class="post-button-ann">SAVE</button>
-                            <form id="delete-form" action="{{ route('delete.ann', $ann->id) }}" method="POST" style="display: none;">
-                                @csrf
-                                @method('DELETE')
-                                <button type="submit" class="btn-sm btn-danger mb-1">Delete</button>
-                            </form>
-
                         </div>
                     </form>
+                    <!-- Separate form for deleting announcement -->
+                    <form action="{{ route('delete.ann', $ann->id) }}" method="POST">
+                        @csrf
+                        @method('DELETE')
+                        <button type="submit" class="btn-sm btn-danger mb-1">Delete</button>
+                    </form>
+                    
             </div>
         </div>
     </div>

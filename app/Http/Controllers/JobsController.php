@@ -67,4 +67,12 @@ class JobsController extends Controller
         return view('popups.update-job', compact('job'));
     }
 
+    public function deleteJob($id)
+    {
+        $job = Job::findOrFail($id);
+        $job->delete();
+
+        return redirect()->route('jobs')->with('success', 'Job deleted successfully.');
+    }
+
 }

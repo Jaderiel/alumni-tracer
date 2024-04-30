@@ -58,6 +58,7 @@ Route::get('/jobs/job-post', [JobsController::class, 'jobPost'])->name('job-post
 Route::post('/jobs/job-post', [JobsController::class, 'store'])->name('job.store'); //pagsstore ng jobs
 Route::get('/jobs/{job}', [JobsController::class, 'show'])->name('jobs.show');
 Route::put('/jobs/{job}', [JobsController::class, 'update'])->name('jobs.update');
+Route::delete('/jobs/{id}', [JobsController::class, 'deleteJob'])->name('delete.job');
 
 Route::get('/gallery', [GalleryController::class, 'index'])->name('gallery');
 Route::get('/gallery/add-gallery', [GalleryController::class, 'create'])->name('gallery.add');
