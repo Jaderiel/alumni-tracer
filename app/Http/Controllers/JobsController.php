@@ -28,9 +28,13 @@ class JobsController extends Controller
                 'salary' => 'required|string',
                 'link' => 'required|url', // Assuming the link is a URL
             ]);
-    
+
+            // Get the authenticated user's ID
+            $userId = auth()->user()->id;
+
             // Create a new job instance
             $job = new Job;
+            $job->user_id = $userId; // Assign the user ID to the user_id column
             $job->job_title = $request->job_title;
             $job->job_location = $request->job_location;
             $job->job_type = $request->job_type;
@@ -39,14 +43,11 @@ class JobsController extends Controller
             $job->salary = $request->salary;
             $job->link = $request->link;
             $job->save();
-    
+
             return redirect()->back()->with('success', 'Job details saved successfully.');
         } catch (\Exception $e) {
             dd($e->getMessage()); // Log and display the exception message
         }
-        
-        // Validate the request
-        
     }
 
     public function update(Request $request, Job $job)

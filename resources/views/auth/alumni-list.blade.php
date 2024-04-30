@@ -133,37 +133,38 @@
 
     <script>
         document.addEventListener("DOMContentLoaded", function() {
-            const searchInput = document.getElementById('searchInput');
-            const courseFilter = document.getElementById('courseFilter');
-            const batchFilter = document.getElementById('batchFilter');
-            const userTable = document.getElementById('userTable').querySelectorAll('tbody tr');
+    const searchInput = document.getElementById('searchInput');
+    const courseFilter = document.getElementById('courseFilter');
+    const batchFilter = document.getElementById('batchFilter');
+    const userTable = document.getElementById('userTable').querySelectorAll('tbody tr');
 
-            function filterRows() {
-                const searchTerm = searchInput.value.toLowerCase();
-                const selectedCourse = courseFilter.value.toLowerCase();
-                const selectedBatch = batchFilter.value.toLowerCase();
+    function filterRows() {
+        const searchTerm = searchInput.value.toLowerCase();
+        const selectedCourse = courseFilter.value.toLowerCase();
+        const selectedBatch = batchFilter.value.toLowerCase();
 
-                userTable.forEach(row => {
-                    const name = row.cells[0].innerText.toLowerCase();
-                    const course = row.cells[1].innerText.toLowerCase();
-                    const batch = row.cells[2].innerText.toLowerCase();
+        userTable.forEach(row => {
+            const name = row.cells[0].innerText.toLowerCase();
+            const course = row.cells[1].innerText.toLowerCase();
+            const batch = row.cells[2].innerText.toLowerCase();
 
-                    const matchesSearchTerm = name.includes(searchTerm) || email.includes(searchTerm) || course.includes(searchTerm) || batch.includes(searchTerm);
-                    const matchesCourseFilter = selectedCourse === 'all' || course.includes(selectedCourse);
-                    const matchesBatchFilter = selectedBatch === 'all' || batch.includes(selectedBatch);
+            const matchesSearchTerm = name.includes(searchTerm) || course.includes(searchTerm) || batch.includes(searchTerm);
+            const matchesCourseFilter = selectedCourse === 'all' || course.includes(selectedCourse);
+            const matchesBatchFilter = selectedBatch === 'all' || batch.includes(selectedBatch);
 
-                    if (matchesSearchTerm && matchesCourseFilter && matchesBatchFilter) {
-                        row.style.display = '';
-                    } else {
-                        row.style.display = 'none';
-                    }
-                });
+            if (matchesSearchTerm && matchesCourseFilter && matchesBatchFilter) {
+                row.style.display = '';
+            } else {
+                row.style.display = 'none';
             }
-
-            searchInput.addEventListener('input', filterRows);
-            courseFilter.addEventListener('change', filterRows);
-            batchFilter.addEventListener('change', filterRows);
         });
+    }
+
+    searchInput.addEventListener('input', filterRows);
+    courseFilter.addEventListener('change', filterRows);
+    batchFilter.addEventListener('change', filterRows);
+});
+
     </script>
 
 </body>

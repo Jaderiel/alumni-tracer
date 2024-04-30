@@ -104,7 +104,9 @@
                     <div class="col-auto">
                         <a href="{{ $job->link}}" class="btn btn-warning text-white mr-2">Apply</a>
                     </div> 
+                    @if(Auth::check() && Auth::user()->user_type === 'Admin' || Auth::user()->id === $job->user_id)
                     <a href="{{ route('jobs.show', ['job' => $job->id]) }}"><button class="post-job">Edit</button></a>
+                    @endif
                   </div>
                   <div class="row mb-1">
                     <div class="col-auto">
@@ -130,9 +132,10 @@
                   </div>
                   <div class="row">
                     <div class="col">
-                      {{ $job->created_at}}
+                        <span class="job-timestamp" data-timestamp="{{ $job->created_at->timestamp }}"></span>
                     </div>
-                  </div>
+                </div>
+
                 </div>
               </div>
               @endforeach  
@@ -146,4 +149,40 @@
 </body>
 <script src="{{ asset('js/header.js') }}"></script>
 <script src="{{ asset('js/jobs.js') }}"></script>
+<script>
+    // Function to format the time difference
+    function formatTimeAgo(timestamp) {
+        const now = new Date();
+        const createdTime = new Date(timestamp * 1000); // Convert to milliseconds
+        const timeDiff = Math.abs(now - createdTime);
+
+        // Define time intervals in milliseconds
+        const minute = 60 * 1000;
+        const hour = minute * 60;
+        const day = hour * 24;
+
+        // Calculate the time difference in terms of minutes, hours, or days
+        if (timeDiff < minute) {
+            return 'now';
+        } else if (timeDiff < hour) {
+            const minutes = Math.floor(timeDiff / minute);
+            return minutes + ' min ago';
+        } else if (timeDiff < day) {
+            const hours = Math.floor(timeDiff / hour);
+            return hours + ' hr ago';
+        } else {
+            // If the time difference is more than a day, return the date in a specific format
+            return createdTime.toLocaleDateString('en-US');
+        }
+    }
+
+    // Call the formatTimeAgo function for each job creation time and update the displayed time
+    document.addEventListener('DOMContentLoaded', function() {
+        const jobTimestamps = document.querySelectorAll('.job-timestamp');
+        jobTimestamps.forEach(function(element) {
+            const timestamp = element.getAttribute('data-timestamp');
+            element.textContent = formatTimeAgo(timestamp);
+        });
+    });
+</script>
 </html>
