@@ -10,9 +10,9 @@
     <link rel="stylesheet" href="{{ asset('bootstrap/bootstrap.min.css') }}">
     <link rel="stylesheet" href="{{ asset('css/gallery.css') }}">
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
-    <script src="jquery-3.5.1.min.js"></script>
-    <script src="bootstrap/js/bootstrap.min.js"></script>
-    <script src="gallery.js" defer></script>
+    <!-- <script src="jquery-3.5.1.min.js"></script> -->
+    <!-- <script src="bootstrap/js/bootstrap.min.js"></script> -->
+    <!-- <script src="gallery.js" defer></script> -->
 </head>
 
 <body>
@@ -56,21 +56,23 @@
 
             <div style="display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 15px; margin-top: 10px;" id="filterable-cards">
 
-                @foreach($gallery as $gal)
-                    <div style="background-color: white;" data-name="act" data-toggle="modal" data-target="#imageModal" data-image="img/bsis-corndog.jpg">
-                        <img src="{{$gal->media_url}}" class="card-img-top img-fluid" alt="Image" data-toggle="modal" data-target="#imageModal">
+            @foreach($gallery as $gal)
+                <div style="background-color: white;" data-name="act" data-toggle="modal" data-target="#imageModal" data-image="{{$gal->media_url}}">
+                    <img src="{{$gal->media_url}}" class="card-img-top img-fluid" alt="Image" data-toggle="modal" data-target="#imageModal">
                     <div class="card-body">
                         <h6 class="card-title">{{$gal->img_title}}</h6>
                         <i class="fas fa-ellipsis-v text-gray-600 ml-" onclick="openPopup()"></i>
                     </div>
-                        <p class="card-text">{{$gal->img_description}}</p>
-                    </div>
-                @endforeach
+                    <p class="card-text">{{$gal->img_description}}</p>
+                </div>
+            @endforeach
+
 
             </div>
 
     </section> 
 
+    <!-- Image Modal -->
     <!-- Image Modal -->
     <div class="modal fade" id="imageModal" tabindex="-1" role="dialog" aria-labelledby="imageModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered" role="document">
@@ -83,9 +85,11 @@
                 <div class="modal-body text-center">
                     <img src="" class="img-fluid" id="modalImage" alt="Modal Image">
                 </div>
+
             </div>
         </div>
     </div>
+
 
     <div class="popup" id="popup">
         <div class="create">
@@ -126,7 +130,7 @@
     </script>
 
     <!-- Bootstrap JS and jQuery -->
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
@@ -135,7 +139,28 @@
         // JavaScript for Modal
         
     </script>
+<!-- Place this script at the end of the body section -->
+<!-- Place this script at the end of the body section -->
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        // Add an event listener to each image in the grid
+        document.querySelectorAll('[data-toggle="modal"]').forEach(function(img) {
+            img.addEventListener('click', function() {
+                // Retrieve the data-image attribute (which contains the image URL) of the clicked image
+                const imageUrl = img.getAttribute('data-image');
+                // Set the src attribute of the modal image
+                document.getElementById('modalImage').setAttribute('src', imageUrl);
+                // Display the image URL in the modal
+                document.getElementById('imageId').innerText = imageUrl;
+                // Show the modal
+                $('#imageModal').modal('show');
+            });
+        });
+    });
+</script>
+
+
 
 </body>
-<script src="{{ asset('js/gallery.js') }}"></script>
+
 </html>
