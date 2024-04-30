@@ -139,27 +139,57 @@ class EventsController extends Controller
     }
 
     public function update(Request $request, Event $event)
-{
-    // Handle image upload if a new file is uploaded
-    if ($request->hasFile('media_url')) {
-        $image = $request->file('media_url');
-        $imageName = time().'.'.$image->getClientOriginalExtension();
-        $image->move(public_path('images'), $imageName);
-        $mediaUrl = 'images/'.$imageName;
-        // Update media_url with the new file path
-        $event->media_url = $mediaUrl;
+    {
+        // Handle image upload if a new file is uploaded
+        if ($request->hasFile('media_url')) {
+            $image = $request->file('media_url');
+            $imageName = time().'.'.$image->getClientOriginalExtension();
+            $image->move(public_path('images'), $imageName);
+            $mediaUrl = 'images/'.$imageName;
+            // Update media_url with the new file path
+            $event->media_url = $mediaUrl;
+        }
+
+        // Update other fields
+        $event->event_title = $request->input('event_title');
+        $event->event_date = $request->input('event_date');
+        $event->event_time = $request->input('event_time');
+        $event->event_details = $request->input('event_details');
+        // Save the updated event
+        $event->save();
+
+        // Redirect back to events page after updating
+        return redirect()->back()->with('success', 'Event Edited successfully.');
     }
 
-    // Update other fields
-    $event->event_title = $request->input('event_title');
-    $event->event_date = $request->input('event_date');
-    $event->event_time = $request->input('event_time');
-    $event->event_details = $request->input('event_details');
-    // Save the updated event
-    $event->save();
+    public function editAnn($id) {
 
-    // Redirect back to events page after updating
-    return redirect()->back()->with('success', 'Event Edited successfully.');
-}
+        $ann = Announcement::findOrFail($id);
+
+        return view("popups.update-announcement", compact('ann'));
+
+    }
+
+    public function updateAnn(Request $request, Announcement $announcement)
+    {
+
+        // Update other fields
+        $announcement->ann_title = $request->input('ann_title');
+        $announcement->ann_details = $request->input('ann_details');
+        // Save the updated event
+        $announcement->save();
+
+        // Redirect back to events page after updating
+        return redirect()->back()->with('success', 'Announcement Edited successfully.');
+    }
+
+    public function deleteAnn($id)
+    {
+        $ann = Announcement::findOrFail($id);
+        $ann->delete();
+
+        return redirect()->route('events')->with('success', 'Event deleted successfully.');
+    }
+
 
 }

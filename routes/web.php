@@ -47,6 +47,9 @@ Route::post('/add-announcement', [EventsController::class, 'storeAnn'])->name('a
 Route::delete('/events/{id}', [EventsController::class, 'delete'])->name('delete.event');
 Route::get('/update-event/{id}', [EventsController::class, 'edit'])->name('update-event');
 Route::put('/update-event/{event}', [EventsController::class, 'update'])->name('update.event');
+Route::get('/update-announcement/{id}', [EventsController::class, 'editAnn'])->name('update-ann');
+Route::put('/update-announcement/{announcement}', [EventsController::class, 'updateAnn'])->name('update.ann');
+Route::delete('/update-announcement/{id}', [EventsController::class, 'deleteAnn'])->name('delete.ann');
 
 
 

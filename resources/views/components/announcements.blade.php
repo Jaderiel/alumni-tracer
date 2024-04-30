@@ -8,15 +8,31 @@
                 </div>
                 
                     @foreach($announcements as $announcement)
-                    <div class="announcement-info">
-                        <div>
-                            <i class="fa-solid fa-square-check" style="color: green;"></i>
+
+                    @if(auth()->check() && (auth()->user()->user_type == 'Admin'))
+                        <a href="{{ route('update-ann', ['id' => $announcement->id]) }}">
+                            <div class="announcement-info">
+                                <div>
+                                    <i class="fa-solid fa-square-check" style="color: green;"></i>
+                                </div>
+                                <div class="title-desc">
+                                    <p class="p-title">{{ $announcement->ann_title }}</p>
+                                    <P>{{ $announcement->ann_details }}</P>
+                                </div>
+                            </div>
+                        </a>
+                    @else
+                        <div class="announcement-info">
+                            <div>
+                                <i class="fa-solid fa-square-check" style="color: green;"></i>
+                            </div>
+                            <div class="title-desc">
+                                <p class="p-title">{{ $announcement->ann_title }}</p>
+                                <P>{{ $announcement->ann_details }}</P>
+                            </div>
                         </div>
-                        <div class="title-desc">
-                            <p class="p-title">{{ $announcement->ann_title }}</p>
-                            <P>{{ $announcement->ann_details }}</P>
-                        </div>
-                    </div>
+                    @endif
+
                     @endforeach
             </div>
         </div>
