@@ -89,6 +89,9 @@
                                                     <button type="submit" class="btn-sm btn-danger mb-1">Delete</button>
                                                 </form>
                                             </div>
+                                            <div class="text-right" style="padding: 10px">
+                                                <a href="{{ route('update-event', ['id' => $event->id]) }}" class="button">Edit</a>
+                                            </div>
                                         @else
                                         <div class="text-right">
                                             <a href="{{ route('register-to-event', ['user_id' => Auth::user()->id, 'event_id' => $event->id]) }}" id="registerBtn" class="btn btn-success btn-sm mb-1 register-btn">REGISTER</a>
@@ -124,3 +127,19 @@
 <script src="{{ asset('js/dashboard.js') }}"></script>
 <script src="{{ asset('js/events.js') }}"></script>
 </html>
+
+<style>
+    .button {
+        padding: 3px 17px;
+        background-color: #2DC04D;
+        color: #fff;
+        border: 2px solid green;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+
+    .button:hover {
+        cursor: pointer;
+        text-decoration: none;
+    }
+</style>

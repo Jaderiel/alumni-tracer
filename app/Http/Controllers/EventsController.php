@@ -130,4 +130,36 @@ class EventsController extends Controller
 
         return redirect()->back()->with('success', 'Event deleted successfully.');
     }
+
+    public function edit($id) {
+        $event = Event::findOrFail($id);
+
+        return view("popups.update-event", compact('event'));
+
+    }
+
+    public function update(Request $request, Event $event)
+{
+    // Handle image upload if a new file is uploaded
+    if ($request->hasFile('media_url')) {
+        $image = $request->file('media_url');
+        $imageName = time().'.'.$image->getClientOriginalExtension();
+        $image->move(public_path('images'), $imageName);
+        $mediaUrl = 'images/'.$imageName;
+        // Update media_url with the new file path
+        $event->media_url = $mediaUrl;
+    }
+
+    // Update other fields
+    $event->event_title = $request->input('event_title');
+    $event->event_date = $request->input('event_date');
+    $event->event_time = $request->input('event_time');
+    $event->event_details = $request->input('event_details');
+    // Save the updated event
+    $event->save();
+
+    // Redirect back to events page after updating
+    return redirect()->back()->with('success', 'Event Edited successfully.');
+}
+
 }
