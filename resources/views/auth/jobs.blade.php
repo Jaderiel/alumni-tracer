@@ -87,7 +87,7 @@
             <button class="up-job">List of Job posted</button>
             <div class="search">
                 <i class="fa-solid fa-search"></i>
-                <input type="text" placeholder="Search...">
+                <input type="text" id="searchInput" placeholder="Search..." onkeyup="searchJobs()">
             </div>
             <a href="{{ route('job-post') }}"><button class="post-job">Job posting</button></a>
         </div>
@@ -104,7 +104,7 @@
             </div>
         @endif
         
-            <div class="row" >
+            <div class="row" id="jobList">
               @foreach($jobs as $job)
               <div class="job-div col-lg-9">
                 <div class="job-details">
@@ -150,14 +150,7 @@
                 </div>
               </div>
               @endforeach  
-    
-    <script>
-        $('#menu-btn').click(function(){
-            $('#menu').toggleClass("active");
-        })
-    </script>
-
-</body>
+    </section>
 <script src="{{ asset('js/header.js') }}"></script>
 <script src="{{ asset('js/jobs.js') }}"></script>
 <script>
@@ -195,5 +188,26 @@
             element.textContent = formatTimeAgo(timestamp);
         });
     });
+
+    // Function to filter jobs based on search input
+    function searchJobs() {
+        // Declare variables
+        let input, filter, jobList, jobDiv, title, i, txtValue;
+        input = document.getElementById('searchInput');
+        filter = input.value.toUpperCase();
+        jobList = document.getElementById('jobList');
+        jobDiv = jobList.getElementsByClassName('job-div');
+
+        // Loop through all job divs, and hide those who don't match the search query
+        for (i = 0; i < jobDiv.length; i++) {
+            title = jobDiv[i].getElementsByClassName('title')[0];
+            txtValue = title.textContent || title.innerText;
+            if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                jobDiv[i].style.display = "";
+            } else {
+                jobDiv[i].style.display = "none";
+            }
+        }
+    }
 </script>
 </html>
