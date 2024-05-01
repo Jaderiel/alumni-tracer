@@ -55,7 +55,24 @@
                         <div class="input-container">
                             <div class="title-input">
                                 <input type="text" name="img_title" placeholder="Image Title">
-                                <input type="text" name="course" placeholder="course">
+                                <div class="input-group">
+                                <select name="course" id="course" required>
+                                        <option value="" selected disabled>Course</option>
+                                        <option value="Bachelor of Arts in Broadcasting">Bachelor of Arts in Broadcasting (BAB)</option>
+                                        <option value="Bachelor of Science in Accountancy">Bachelor of Science in Accountancy (BSA)</option>
+                                        <option value="Bachelor of Science in Accounting Technology">Bachelor of Science in Accounting Technology (BSAT)</option>
+                                        <option value="Bachelor of Science in Accounting Information Systems">Bachelor of Science in Accounting Information Systems (BSAIS)</option>
+                                        <option value="Bachelor of Science in Social Work">Bachelor of Science in Social Work (BSSW)</option>
+                                        <option value="Bachelor of Science in Information Systems">Bachelor of Science in Information Systems (BSIS)</option>
+                                        <option value="Computer Technology">Computer Technology (CT)</option>
+                                        <option value="Computer Programming">Computer Programming (CP)</option>
+                                        <option value="Health Care Services">Health Care Services (HCS)</option>
+                                        <option value="International Cookery">International Cookery (IC)</option>
+                                        <option value="Mass Communication">Mass Communication (MC)</option>
+                                        <option value="Nursing Student">Nursing Student (NS)</option>
+                                        <option value="Office Management">Office Management (OM)</option>
+                                </select>
+                            </div>
                             </div>
                             <label for="file-upload" class="file-upload-label">
                                 <span>Add Image</span>
