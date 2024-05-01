@@ -10,6 +10,15 @@
     <link rel="stylesheet" href="{{ asset('css/dashboard.css') }}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" />
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script>
+    console.log("Checking authentication status...");
+    @if(is_null(Auth::user()) || is_null(Auth::user()->user_type))
+        console.log("User is not authenticated or user type is null.");
+    @else
+        console.log("User is authenticated.");
+    @endif
+</script>
+
 </head>
 
 <body>

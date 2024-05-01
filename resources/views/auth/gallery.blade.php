@@ -33,7 +33,7 @@
 
         <div class="container">
             <div class="row mt-4 ml-1" id="filter-buttons">
-              <div class="col-12">
+                <div class="col-12">
                 <button class="btn mb-2 mx-1  active" data-filter="all">All</button>
                 <!-- <button class="btn mb-2 mx-1" data-filter="act" data-toggle="tooltip" data-placement="top" title="Bachelor of Arts in Broadcasting">ACT</button> -->
                 <button class="btn mb-2 mx-1" data-filter="bab" data-toggle="tooltip" data-placement="top" title="Bachelor of Arts in Broadcasting">BAB</button>
