@@ -18,7 +18,8 @@ class AccountApproved extends Mailable
 
     public function build()
     {
-        return $this->subject('Your account has been approved')
+        return $this->from('yageisjade@gmail.com', 'Alumni Tracking System')
+                    ->subject('Your account has been approved')
                     ->view('emails.account-approved');
     }
 }
