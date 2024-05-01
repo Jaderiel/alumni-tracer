@@ -65,6 +65,9 @@ Route::group(['middleware' => ['auth.user']], function () {
     Route::get('/gallery', [GalleryController::class, 'index'])->name('gallery');
     Route::get('/gallery/add-gallery', [GalleryController::class, 'create'])->name('gallery.add');
     Route::post('/gallery/add-gallery', [GalleryController::class, 'store'])->name('gallery.store');
+    Route::get('/update-gallery/{gallery}', [GalleryController::class, 'edit'])->name('gallery.edit');
+    Route::put('/update-gallery/{gallery}', [GalleryController::class, 'update'])->name('gallery.update');
+    Route::delete('/gallery/{id}', [GalleryController::class, 'delete'])->name('gallery.delete');
 
     Route::get('/user-profile', [ProfileController::class, 'index'])->name('user-profile');
     Route::get('/show-profile/{id}', [ProfileController::class, 'show'])->name('profile.show');

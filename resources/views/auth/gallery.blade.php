@@ -57,11 +57,13 @@
             <div style="display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 15px; margin-top: 10px;" id="filterable-cards">
 
             @foreach($gallery as $gal)
-                <div style="background-color: white;" data-name="act" data-toggle="modal" data-target="#imageModal" data-image="{{$gal->media_url}}">
-                    <img src="{{$gal->media_url}}" class="card-img-top img-fluid" alt="Image" data-toggle="modal" data-target="#imageModal">
+                <div style="background-color: white;">
+                    <img src="{{$gal->media_url}}" class="card-img-top img-fluid" alt="Image" data-name="act" data-toggle="modal" data-target="#imageModal" data-image="{{$gal->media_url}}">
                     <div class="card-body">
                         <h6 class="card-title">{{$gal->img_title}}</h6>
-                        <i class="fas fa-ellipsis-v text-gray-600 ml-" onclick="openPopup()"></i>
+                        @if(Auth::check() && Auth::user()->user_type === 'Admin' || Auth::user()->id === $gal->user_id)
+                        <a href="{{ route('gallery.edit', ['gallery' => $gal->id]) }}"><i class="fas fa-ellipsis-v text-gray-600 ml-" onclick="openPopup()"></i></a>
+                        @endif
                     </div>
                     <p class="card-text">{{$gal->img_description}}</p>
                 </div>
@@ -87,39 +89,6 @@
                 </div>
 
             </div>
-        </div>
-    </div>
-
-
-    <div class="popup" id="popup">
-        <div class="create">
-            <i class="fa-solid fa-circle-xmark" onclick="closePopup()"></i>
-            <div class="panel">
-                <div class="bio-graph-heading">
-                    EDIT POST
-                </div>
-                <div class="panel-body bio-graph-info">
-                    <div class="row">
-                        <p class="bold">
-                            Fill in the subject and body of description and press ‘SAVE’ to update   
-                        </p>
-                    </div>
-    
-                    <div class="input-container">
-                        <div class="title-input">
-                          <input type="text" placeholder="Graduation 2022-2023">
-                        </div>
-                        <label for="file-upload" class="file-upload-label">
-                          <span>Change image</span>
-                          <i class="fas fa-image"></i>
-                        </label>
-                        <input id="file-upload" type="file" accept="image/*" class="file-upload">
-                    </div>  
-                    <textarea placeholder="Image description" class="event-details"></textarea>
-                    <button type="button" onclick="closePopup()">SAVE</button>
-                </div>
-            </div>
-                </div>
         </div>
     </div>
 

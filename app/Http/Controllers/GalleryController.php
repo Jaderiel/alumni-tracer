@@ -50,4 +50,39 @@ class GalleryController extends Controller
             dd($e->getMessage()); 
         }
     }
+
+    public function edit(Gallery $gallery) {
+        return view('popups.update-gallery', compact('gallery'));
+    }
+
+    public function update(Request $request, Gallery $gallery)
+    {
+        // Handle image upload if a new file is uploaded
+        if ($request->hasFile('media_url')) {
+            $image = $request->file('media_url');
+            $imageName = time().'.'.$image->getClientOriginalExtension();
+            $image->move(public_path('images'), $imageName);
+            $mediaUrl = 'images/'.$imageName;
+            // Update media_url with the new file path
+            $gallery->media_url = $mediaUrl;
+        }
+
+        // Update other fields
+        $gallery->img_title = $request->input('img_title');
+        $gallery->course = $request->input('course');
+        $gallery->img_description = $request->input('img_description');
+        // Save the updated event
+        $gallery->save();
+
+        // Redirect back to events page after updating
+        return redirect()->back()->with('success', 'Gallery Edited successfully.');
+    }
+
+    public function delete($id)
+    {
+        $gallery = Gallery::findOrFail($id);
+        $gallery->delete();
+
+        return redirect()->route('gallery')->with('success', 'Job deleted successfully.');
+    }
 }
