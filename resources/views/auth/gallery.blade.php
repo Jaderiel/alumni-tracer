@@ -36,7 +36,7 @@
                 <div class="col-12">
                 <button class="btn mb-2 mx-1  active" data-filter="all">All</button>
                 <!-- <button class="btn mb-2 mx-1" data-filter="act" data-toggle="tooltip" data-placement="top" title="Bachelor of Arts in Broadcasting">ACT</button> -->
-                <button class="btn mb-2 mx-1" data-filter="bab" data-toggle="tooltip" data-placement="top" title="Bachelor of Arts in Broadcasting">BAB</button>
+                <button class="btn mb-2 mx-1" id="babButton">BAB</button>
                 <button class="btn mb-2 mx-1" data-filter="bsa" data-toggle="tooltip" data-placement="top" title="Bachelor of Science in Accountancy">BSA</button>
                 <button class="btn mb-2 mx-1" data-filter="bsais" data-toggle="tooltip" data-placement="top" title="Bachelor of Science in Accountancy Information Systems | BSA Technology">BSAIS</button>
                 <button class="btn mb-2 mx-1" data-filter="bssw" data-toggle="tooltip" data-placement="top" title="Bachelor of Science in Social Work">BSSW</button>
@@ -57,15 +57,17 @@
             <div style="display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 15px; margin-top: 10px;" id="filterable-cards">
 
             @foreach($gallery as $gal)
-                <div style="background-color: white;">
-                    <img src="{{$gal->media_url}}" class="card-img-top img-fluid" alt="Image" data-name="act" data-toggle="modal" data-target="#imageModal" data-image="{{$gal->media_url}}">
-                    <div class="card-body">
-                        <h6 class="card-title">{{$gal->img_title}}</h6>
-                        @if(Auth::check() && Auth::user()->user_type === 'Admin' || Auth::user()->id === $gal->user_id)
-                        <a href="{{ route('gallery.edit', ['gallery' => $gal->id]) }}"><i class="fas fa-ellipsis-v text-gray-600 ml-" onclick="openPopup()"></i></a>
-                        @endif
+                <div style="background-color: white;" data-course="{{$gal->course}}">
+                    <div style="background-color: white;">
+                        <img src="{{$gal->media_url}}" class="card-img-top img-fluid" alt="Image" data-name="act" data-toggle="modal" data-target="#imageModal" data-image="{{$gal->media_url}}">
+                        <div class="card-body">
+                            <h6 class="card-title">{{$gal->img_title}}</h6>
+                            @if(Auth::check() && Auth::user()->user_type === 'Admin' || Auth::user()->id === $gal->user_id)
+                            <a href="{{ route('gallery.edit', ['gallery' => $gal->id]) }}"><i class="fas fa-ellipsis-v text-gray-600 ml-" onclick="openPopup()"></i></a>
+                            @endif
+                        </div>
+                        <p class="card-text">{{$gal->img_description}}</p>
                     </div>
-                    <p class="card-text">{{$gal->img_description}}</p>
                 </div>
             @endforeach
 
@@ -124,6 +126,25 @@
                 // Show the modal
                 $('#imageModal').modal('show');
             });
+        });
+    });
+</script>
+
+<script>
+    // JavaScript to filter items based on course
+    $(document).ready(function() {
+        // Function to filter items
+        function filterItems(course) {
+            // Hide all items
+            $('#filterable-cards div').hide();
+            // Show items with matching course
+            $('#filterable-cards div[data-course="' + course + '"]').show();
+        }
+
+        // Event listener for BAB button
+        $('#babButton').click(function() {
+            // Call filterItems function with course 'Bachelor of Arts in Broadcasting'
+            filterItems('Bachelor of Arts in Broadcasting');
         });
     });
 </script>

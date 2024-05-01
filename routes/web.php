@@ -10,6 +10,7 @@ use App\Http\Controllers\GalleryController;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\AnalyticsController;
+use App\Http\Controllers\ApprovalsController;
 
 Route::get('/login', [AuthController::class, 'login'])->name('login');
 Route::post('/register', 'Auth\RegisterController@register')->name('register');
@@ -73,6 +74,8 @@ Route::group(['middleware' => ['auth.user']], function () {
     Route::get('/show-profile/{id}', [ProfileController::class, 'show'])->name('profile.show');
 
     Route::get('/analytics', [AnalyticsController::class, 'index'])->name('analytics');
+
+    Route::put('/approvals/{userId}', [ApprovalsController::class, 'approveUser'])->name('user.approve');
 });
 
 

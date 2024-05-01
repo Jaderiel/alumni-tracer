@@ -10,6 +10,7 @@ class GalleryController extends Controller
 {
     public function index() {
         $gallery = Gallery::all();
+
         return view("auth.gallery", compact('gallery'));
     }
 

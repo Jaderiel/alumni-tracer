@@ -66,7 +66,7 @@
                                 @unless($user->is_email_verified)
                                     <td class="action" style="display: flex">
                                         <a href="#" class="button approve-btn" data-form-id="{{ 'form-'.$user->id }}">Approve</a>
-                                        <form id="{{ 'form-'.$user->id }}" method="POST" action="{{ route('user.updateVerification', ['userId' => $user->id]) }}">
+                                        <form id="{{ 'form-'.$user->id }}" method="POST" action="{{ route('user.approve', ['userId' => $user->id]) }}">
                                             @method('PUT')
                                             @csrf
                                         </form>
