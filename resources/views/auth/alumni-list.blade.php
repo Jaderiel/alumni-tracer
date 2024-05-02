@@ -39,6 +39,7 @@
                     <option value="Bachelor of Science in Accounting Information Systems">Bachelor of Science in Accounting Information Systems (BSAIS)</option>
                     <option value="Bachelor of Science in Social Work">Bachelor of Science in Social Work (BSSW)</option>
                     <option value="Bachelor of Science in Information Systems">Bachelor of Science in Information Systems (BSIS)</option>
+                    <option value="Associate in Computer Technology">Associate in Computer Technology (ACT)</option>
                     <option value="Computer Technology">Computer Technology (CT)</option>
                     <option value="Computer Programming">Computer Programming (CP)</option>
                     <option value="Health Care Services">Health Care Services (HCS)</option>

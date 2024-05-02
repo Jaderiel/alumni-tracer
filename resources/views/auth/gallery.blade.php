@@ -131,22 +131,27 @@
 </script>
 
 <script>
-    // JavaScript to filter items based on course
     $(document).ready(function() {
-        // Function to filter items
-        function filterItems(course) {
-            // Hide all items
-            $('#filterable-cards div').hide();
-            // Show items with matching course
-            $('#filterable-cards div[data-course="' + course + '"]').show();
-        }
-
-        // Event listener for BAB button
-        $('#babButton').click(function() {
-            // Call filterItems function with course 'Bachelor of Arts in Broadcasting'
-            filterItems('Bachelor of Arts in Broadcasting');
+    // Function to filter items
+    function filterItems(course) {
+        // Hide all items
+        $('#filterable-cards div').hide();
+        // Show items with matching course
+        var $filteredItems = $('#filterable-cards div[data-course="' + course + '"]');
+        $filteredItems.show();
+        console.log('Filtered items count:', $filteredItems.length);
+        $filteredItems.each(function() {
+            console.log('Filtered item data-course:', $(this).data('course'));
         });
+    }
+
+    // Event listener for BAB button
+    $('#babButton').click(function() {
+        // Call filterItems function with course 'Bachelor of Arts in Broadcasting'
+        filterItems('Bachelor of Arts in Broadcasting');
     });
+});
+
 </script>
 
 
