@@ -50,6 +50,8 @@
             <p>{{ Auth::user()->batch }}</p>
         </div>
 
+        
+        
     </section>
 </div>
 

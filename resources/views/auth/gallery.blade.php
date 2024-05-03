@@ -32,32 +32,31 @@
         </h3>
 
         <div class="container">
-            <div class="row mt-4 ml-1" id="filter-buttons">
-                <div class="col-12">
-                <button class="btn mb-2 mx-1  active" data-filter="all">All</button>
-                <!-- <button class="btn mb-2 mx-1" data-filter="act" data-toggle="tooltip" data-placement="top" title="Bachelor of Arts in Broadcasting">ACT</button> -->
-                <button class="btn mb-2 mx-1" id="babButton">BAB</button>
-                <button class="btn mb-2 mx-1" data-filter="bsa" data-toggle="tooltip" data-placement="top" title="Bachelor of Science in Accountancy">BSA</button>
-                <button class="btn mb-2 mx-1" data-filter="bsais" data-toggle="tooltip" data-placement="top" title="Bachelor of Science in Accountancy Information Systems | BSA Technology">BSAIS</button>
-                <button class="btn mb-2 mx-1" data-filter="bssw" data-toggle="tooltip" data-placement="top" title="Bachelor of Science in Social Work">BSSW</button>
-                <button class="btn mb-2 mx-1" data-filter="bsis" data-toggle="tooltip" data-placement="top" title="Bachelor of Science in Information Systems">BSIS</button>
-                <button class="btn mb-2 mx-1" data-filter="ct" data-toggle="tooltip" data-placement="top" title="Computer Technology">CT</button>
-                <button class="btn mb-2 mx-1" data-filter="cp" data-toggle="tooltip" data-placement="top" title="Computer Programming">CP</button>
-                <button class="btn mb-2 mx-1" data-filter="hcs" data-toggle="tooltip" data-placement="top" title="Health Care Services">HCS</button>
-                <button class="btn mb-2 mx-1" data-filter="ic" data-toggle="tooltip" data-placement="top" title="International Cookery">IC</button>
-                <button class="btn mb-2 mx-1" data-filter="mc" data-toggle="tooltip" data-placement="top" title="Mass Communication">MC</button>
-                <button class="btn mb-2 mx-1" data-filter="ns" data-toggle="tooltip" data-placement="top" title="Nursing Student">NS</button>
-                <button class="btn mb-2 mx-1" data-filter="om" data-toggle="tooltip" data-placement="top" title="Office Management">OM</button>
-                
-                <a href="{{ route('gallery.add') }}"><button class="btn mb-2 mx-1" data-filter="">ADD <i class="fas fa-circle-plus "></i></button></a>
+            <div class="filter_buttons">
+                <button class="active" data-name="all">All</button>
+                <button data-name="act" title="Associate in Computer Technology">ACT</button>
+                <button data-name="bab" title="Bachelor of Arts in Broadcasting">BAB</button>
+                <button data-name="bsa" title="Bachelor of Science in Accountancy">BSA</button>
+                <button data-name="bsais" title="Bachelor of Science in Accountancy Information Systems | BSA Technology">BSAIS</button>
+                <button data-name="bssw" title="Bachelor of Science in Social Work">BSSW</button>
+                <button data-name="bsis" title="Bachelor of Science in Information Systems">BSIS</button>
+                <button data-name="ct" title="Computer Technology">CT</button>
+                <button data-name="cp" title="Computer Programming">CP</button>
+                <button data-name="hcs" title="Health Care Services">HCS</button>
+                <button data-name="ic" title="International Cookery">IC</button>
+                <button data-name="mc" title="Mass Communication">MC</button>
+                <button data-name="ns" title="Nursing Student">NS</button>
+                <button data-name="om" title="Office Management">OM</button>
 
-                </div>
+                <a href="{{ route('gallery.add') }}">
+                    <button class="btn" data-filter="">ADD <i class="fas fa-circle-plus "></i></button>
+                </a>
             </div>
 
             <div style="display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 15px; margin-top: 10px;" id="filterable-cards">
 
             @foreach($gallery as $gal)
-                <div style="background-color: white;" data-course="{{$gal->course}}">
+                <div style="background-color: white; margin-left:" data-course="{{$gal->course}}">
                     <div style="background-color: white;">
                         <img src="{{$gal->media_url}}" class="card-img-top img-fluid" alt="Image" data-name="act" data-toggle="modal" data-target="#imageModal" data-image="{{$gal->media_url}}">
                         <div class="card-body">
@@ -67,6 +66,7 @@
                             @endif
                         </div>
                         <p class="card-text">{{$gal->img_description}}</p>
+                        <p style="font-size: 10px; margin-top: 10px; margin-left: 20px">{{$gal->course}}</p>
                     </div>
                 </div>
             @endforeach

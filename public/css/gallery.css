@@ -162,6 +162,50 @@ display: none;
     margin-right: 10px;
 } */
 
+.container{
+    position: relative;
+    max-width: 1350px;
+    width: 100%;
+    /* margin: 30px auto; */
+    margin-left: 10px;
+    padding: 20px;
+}
+
+
+.container .fas{
+    color: #E8C766;
+}
+
+.container .fas:hover{
+    color: #fff;
+}
+
+.container button:hover{
+    background-color: #E8C766;
+    color: #fff;
+}
+
+.container .filter_buttons{
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.container button{
+    padding: 7px 17px;
+    font-size: 15px;
+    background-color: #fff;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    box-shadow: 0 0 10px regba(0, 0, 0, 0.5);
+}
+
+.filter_buttons .active{
+    background-color: #E8C766;
+    color: #000;
+}
+
 .card-body {
     display: flex;
     justify-content: space-between; 

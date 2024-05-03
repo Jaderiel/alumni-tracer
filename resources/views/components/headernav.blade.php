@@ -1,9 +1,11 @@
-<div class="navigation">
+        <div class="navigation">
             <div class="n1">
                 <i id="menu-btn" class="fa-solid fa-bars"></i>
             </div>
             <div class="profile">
-                <i id="notification-btn" class="fa-solid fa-bell"></i>
+                <div>
+                    <i id="notification-btn" class="fa-solid fa-bell"></i>
+                </div>
                 <div class="notification-dropdown">
                     <ul>
                         <h4 class="h4-notif">ALL NOTIFICATION</h4> <hr>

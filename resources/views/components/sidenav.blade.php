@@ -1,5 +1,5 @@
-<div class="logo">
-            <h2>LVCC Alumni <br> Tracking System</h2>
+        <div class="logo">
+            <div style="font-weight: bold; font-size: 20px">LVCC Alumni <br> Tracking System</div>
         </div>
 
         <div class="items">

@@ -44,6 +44,12 @@ body {
     pointer-events: none;
 }
 
+h2 {
+    font-size: 20px;
+    font-weight: 800;
+    margin: 10px;
+}
+
 #menu{
     background: #162F65;
     width: 300px;
