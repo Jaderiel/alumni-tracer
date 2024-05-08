@@ -102,7 +102,7 @@
                 
             @foreach($forumPosts->sortByDesc('created_at') as $post)
                 <div class="forum-section">
-                    <div class="left-section flex items-center justify-between">
+                    <div style="display: flex; justify-content: space-between; align-items: center">
                         <div class="profile-info flex items-center">
                         @if ($post->user->profile_pic)
                             <img src="{{ $post->user->profile_pic }}" alt="Profile Picture" class="w-8 h-8 rounded-full"> <!-- Use the user's profile picture -->
@@ -115,7 +115,9 @@
                             </div>
                         </div>
                         @if(auth()->check() && (auth()->user()->id == $post->user->id || auth()->user()->user_type == 'Admin'))
-                        <i class="fas fa-ellipsis-v text-gray-600 ml-" style="padding-left: 100px" onclick="openEditPopup('{{ $post->id }}', '{{ $post->caption }}')"></i>
+                        <div class="elipsis">
+                        <i class="fas fa-ellipsis-v text-gray-600 ml-" onclick="openEditPopup('{{ $post->id }}', '{{ $post->caption }}')"></i>
+                        </div>
                         @endif
                     </div>
                     
@@ -145,7 +147,11 @@
                 </div>
             @endforeach
 
+            <div class="page">
             {{ $forumPosts->links('components.pagination') }}
+            </div>
+
+           
             </div>
             
             
@@ -176,11 +182,11 @@
         <div class="center-section2">
             <textarea name="caption" rows="3" placeholder="What's on your mind, {{ Auth::user()->username }}?"></textarea>
         </div>
-        <div class="add">
-            <!-- <h4>Add to your post</h4> -->
-            <input type="file" name="image" accept="image/*">
-            <!-- Here you can add additional functionality for adding more to the post if needed -->
-        </div>
+    <label for="image-upload" class="custom-file-input">
+        <span>Add to your post</span>
+        <img src="https://t4.ftcdn.net/jpg/05/98/21/01/360_F_598210117_pP5QI8qEugxyvzhTwHmxtJUqAOwJM0Fq.jpg" alt="">
+    </label>
+    <input id="image-upload" type="file" name="image" accept="image/*" class="file-upload">
         <button type="submit">POST</button>
     </form>
 </div>

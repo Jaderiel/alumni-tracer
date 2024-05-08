@@ -168,29 +168,36 @@ body {
 }
 
 .con{
-    background-color: #EFF2FB;
-    align-items: center;
-    width: 900px;
-    height: 90px;
-    margin-top: 30px;
-    margin-left: 70px;
-    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+  background-color: #EFF2FB;
+  align-items: center;
+  width: 1003px;
+  height: 90px;
+  margin-top: 30px;
+  margin-left: 70px;
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+}
+
+.alert-success {
+  margin-top: 15px;
+  margin-left: 45px;
 }
 
 .container {
     width: 84.4%;
-    height: 68%;
+    height: 375px;
     overflow: auto;
     background: #fff;
     margin-left: 70px;
     margin-bottom: 30px;
 }
 
+
 .panel {
     width: 95%;
     margin: 20px 20px 5px 20px;
     background: #fff;
     border: 1px solid #00000086;
+    overflow: none;
   }
   .bio-graph-heading {
       color: #fff;
@@ -236,91 +243,85 @@ body {
 
   .input-container {
     display: flex;
-    align-items: center;
+    align-items: center; 
     margin-left: 30px;
-  }
-  
-  .input-container input[type="text"] {
-    width: 60%;
-    height: 40px;
-    margin-right: 10px;
-    margin: 10px;
-    padding: 10px 10px 10px;
+    position: relative;
+}
+
+.title-input{
+    flex: 1; 
+    margin-right: 1px;
+}
+
+.title-input input[type="text"] {
+  width: calc(60% - 5px);
+    padding: 10px;
     border: 1px solid lightsteelblue;
     border-radius: 4px;
     outline: none;
+    
+}
 
+
+.course-input select {
+    padding: 10px;
+    border: 1px solid lightsteelblue;
+    border-radius: 4px;
+    outline: none;
+    margin-left: -220px;
+    margin-top: 10px;
+    color: #888;
+}
+
+.file-upload-label {
+  display: flex;
+  align-items: center;
+  padding: 10px;
+  border: 1px solid lightsteelblue;
+  border-radius: 4px;
+  cursor: pointer;
+  width: 170px;
+  margin-top: 7px;
+  margin-right: 10px; 
+  position: absolute; /* I-add ang position: absolute dito */
+  left: 685px;
+}
+
+
+.file-upload-label span {
+    margin-right: 10px;
+}
+
+.file-upload-label i {
+    margin-left: auto;
+    
+}
+
+.file-upload {
+    display: none;
+}
+
+
+  #course {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid lightsteelblue;
+    border-radius: 4px;
+    outline: none;
+    margin-bottom: 10px;
   }
-  
-  .input-container input[type="file"] {
-    width: 40%;
-    height: 40px;    
-  }
-  
+
   .event-details {
-    width: 740px;
-    height: 115px;
-    margin-left: 40px;
-    padding: 10px 10px 10px;
+    height: 100px; 
+    max-height: 300px;
+    width: calc(97.5% - 40px); 
+    margin-left: 30px;
+    padding: 10px;
     border: 1px solid lightsteelblue;
     border-radius: 4px;
     outline: none;
     resize: none;
-  }
-  .input-container {
-    display: flex;
-    align-items: center;
-  }
-  
-  .title-input {
-    /* flex: ;  */
-    margin-right: 10px; 
-     
-  }
-  
-  .title-input input[type="text"] {
-    width: 500px; 
-    height: 50%;
-    padding: 10px;
-    border: 1px solid lightsteelblue; 
-    border-radius: 4px; 
-  }
-
-  .title-input input[type="text"]:focus,
-.file-upload-label:hover,
-textarea:focus {
-  border-color: #2D55B4;
-}
-  
-  .file-upload{
-    display: flex;
-    flex-shrink: 0;
-   
-  }
-  
-  .file-upload-label {
-    display: flex;
-    align-items: center;
-    padding: 10px;
-    border: 1px solid lightsteelblue; 
-    border-radius: 4px;
-    cursor: pointer;
-    margin-top: 7px;
-    width: 220px;
-  }
-  
-  .file-upload-label span {
-    margin-right: 10px;
-  }
-  
-  .file-upload-label i {
-    margin-left: auto;
-    
-  }
-  
-  .file-upload {
-    display: none; 
-  }
+    }
 
   .post-button-ann {
     width: 35%;
@@ -337,6 +338,40 @@ textarea:focus {
     background-color: #162F65;
     color: #fff;
   }
+
+  .button-container {
+    display: flex;
+    justify-content: center; 
+    align-items: center; 
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.delete-button-ann,
+.save-button-ann {
+    height: 40px;
+    border-radius: 2px;
+    outline: none;
+    border-color: transparent;
+    margin: 11px; 
+}
+
+.delete-button-ann {
+    width: 250px;
+    background-color: #e03821;
+}
+
+.save-button-ann {
+    width: 250px;
+    background-color: #00A36C;
+}
+
+.delete-button-ann:hover,
+.save-button-ann:hover {
+    background-color: #162F65;
+    color: #fff;
+}
+
   
   .notification-dropdown {
     display: none;

@@ -56,10 +56,10 @@
 
     </div>
 
-    <div class="container">
+    <div class="container" style="height: 83%;">
         <div class="panel">
             <div class="bio-graph-heading">
-                Post and press
+                CREATE POST
             </div>
             <div class="panel-body bio-graph-info">
                 <div class="row">
@@ -75,11 +75,17 @@
                             <div class="title-input">
                                 <input type="text" name="event_title" placeholder="Title">
                             </div>
+
+                            <label for="file-upload" class="file-upload-label">
+                            <span>Add Image</span>
+                            <i class="fas fa-image"></i>
+                            </label>
+                            <input id="file-upload" type="file" name="media_url" accept="image/*" class="file-upload">
                             
-                            <input type="file" name="media_url" accept="image/*">
+                            <!-- <input type="file" name="media_url" accept="image/*"> -->
                         </div> 
                         <div class="date-and-time">
-                            <div class="title-input">
+                            <div class="title-input date">
                                 <input type="date" name="event_date" placeholder="Date">
                             </div>
                             <div class="title-input">

@@ -38,7 +38,7 @@
 
     <div style="display: flex; flex-direction: row; gap: 35px">
 
-        <div class="main-body mt-7 ml-4 mr-2" style="margin-left: 15px;">
+        <div class="main-body mt-7 ml-4 mr-2">
 
         @if(session('error'))
             <div class="alert alert-danger">
@@ -56,7 +56,7 @@
 
     </div>
 
-    <div class="container">
+    <div class="container" style="height: 100%;">
         <div class="panel">
             <div class="bio-graph-heading">
                 Post and press
@@ -76,8 +76,14 @@
                             <div class="title-input">
                                 <input type="text" name="event_title" value="{{ $event->event_title }}" placeholder="Title">
                             </div>
+
+                            <label for="file-upload" class="file-upload-label">
+                            <span>Add Image</span>
+                            <i class="fas fa-image"></i>
+                            </label>
+                            <input id="file-upload" type="file" name="media_url" value="{{ $event->media_url }}" accept="image/*" class="file-upload">
                             
-                            <input type="file" name="media_url" value="{{ $event->media_url }}" accept="image/*">
+                            <!-- <input type="file" name="media_url" value="{{ $event->media_url }}" accept="image/*"> -->
                         </div> 
                         <div class="date-and-time">
                             <div class="title-input">

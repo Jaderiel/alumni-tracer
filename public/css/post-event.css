@@ -176,13 +176,19 @@ body {
     box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
 }
 
+.alert-success {
+  margin-top: 15px;
+  margin-left: 37px;
+}
+
 .container {
     width: 86.3%;
-    height: 70%; /* Adjust the height as needed */
-    overflow: auto;
+    height: 100%; /* Adjust the height as needed */
+    overflow: hidden;
     background: #fff;
-    margin-left: 70px;
-    margin-bottom: 30px;
+    margin-top: 10px;
+    margin-left: 60px;
+    padding-bottom: 30px;
 }
 
 .panel {
@@ -240,7 +246,7 @@ body {
   }
   
   .input-container input[type="text"] {
-    width: 60%;
+    width: 40%;
     height: 40px;
     margin-right: 10px;
     margin: 10px;
@@ -275,6 +281,8 @@ body {
     margin-right: 10px; 
      
   }
+
+
   
   .title-input input[type="text"] {
     width: 500px; 
@@ -285,15 +293,16 @@ body {
   }
 
   .title-input input[type="date"] {
-    /* width: 500px;  */
+    width: 430px; 
     /* height: 50%; */
     padding: 10px;
     border: 1px solid lightsteelblue; 
     border-radius: 4px; 
+    margin-right: 10px;
   }
 
   .title-input input[type="time"] {
-    /* width: 500px;  */
+    width: 400px; 
     /* height: 50%; */
     padding: 10px;
     border: 1px solid lightsteelblue; 
@@ -309,6 +318,7 @@ textarea:focus {
   .file-upload{
     display: flex;
     flex-shrink: 0;
+
    
   }
   
@@ -320,7 +330,7 @@ textarea:focus {
     border-radius: 4px;
     cursor: pointer;
     margin-top: 7px;
-    width: 220px;
+    width: 330px;
   }
   
   .file-upload-label span {
@@ -337,18 +347,49 @@ textarea:focus {
   }
 
   .post-button-ann {
-    width: 35%;
+    width: 20%; 
     height: 40px;
     background-color: #00A36C;
     border-radius: 2px;
-    margin: 10px auto; 
-    margin-left: 260px;
+    margin: 15px auto; 
     outline: none;
     border-color: transparent;
-  }
+    display: block; 
+}
+
 
   .post-button-ann:hover{
     background-color: #162F65;
     color: #fff;
   }
   
+  .button-container {
+    display: flex;
+    justify-content: center; 
+    align-items: center; 
+}
+
+.delete-button-ann,
+.save-button-ann {
+    height: 40px;
+    border-radius: 2px;
+    outline: none;
+    border-color: transparent;
+    margin: 11px; 
+}
+
+.delete-button-ann {
+    width: 250px;
+    background-color: #e03821;
+}
+
+.save-button-ann {
+    width: 250px;
+    background-color: #00A36C;
+}
+
+.delete-button-ann:hover,
+.save-button-ann:hover {
+    background-color: #162F65;
+    color: #fff;
+}

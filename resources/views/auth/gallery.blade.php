@@ -53,26 +53,35 @@
                 </a>
             </div>
 
-            <div style="display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 15px; margin-top: 10px;" id="filterable-cards">
-
+            <div class="container-card" id="filterable-cards">
             @foreach($gallery as $gal)
-                <div style="background-color: white; margin-left:" data-course="{{$gal->course}}">
-                    <div style="background-color: white;">
-                        <img src="{{$gal->media_url}}" class="card-img-top img-fluid" alt="Image" data-name="act" data-toggle="modal" data-target="#imageModal" data-image="{{$gal->media_url}}">
-                        <div class="card-body">
+            <div class="filterable_cards" data-course="{{$gal->course}}">
+                <div class="card" data-name="Bachelor of Arts in Broadcasting">
+                    <img src="{{$gal->media_url}}" class="card-img-top img-fluid" alt="Image" data-name="act" data-toggle="modal" data-target="#imageModal" data-image="{{$gal->media_url}}">
+                    <div class="card_body">
+                        
+                        <div class="card-header">
                             <h6 class="card-title">{{$gal->img_title}}</h6>
                             @if(Auth::check() && Auth::user()->user_type === 'Admin' || Auth::user()->id === $gal->user_id)
-                            <a href="{{ route('gallery.edit', ['gallery' => $gal->id]) }}"><i class="fas fa-ellipsis-v text-gray-600 ml-" onclick="openPopup()"></i></a>
+                            <div class="card-options">
+                                <a href="{{ route('gallery.edit', ['gallery' => $gal->id]) }}"><i class="fas fa-ellipsis-v text-gray-600 ml-" onclick="openPopup()"></i></a>
+                            </div>
+                            
                             @endif
                         </div>
-                        <p class="card-text">{{$gal->img_description}}</p>
-                        <p style="font-size: 10px; margin-top: 10px; margin-left: 20px">{{$gal->course}}</p>
+                        <div class="card-text-wrapper">
+                            <p class="card-text">{{$gal->img_description}}</p>
+                            <p class="card-text-course">{{$gal->course}}</p>
+                        </div>
                     </div>
                 </div>
-            @endforeach
-
-
             </div>
+            @endforeach
+        </div>
+
+
+
+
 
     </section> 
 

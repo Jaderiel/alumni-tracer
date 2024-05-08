@@ -12,6 +12,23 @@
     <script src="profile.js" defer></script>
 </head>
 
+<style>
+    .container-prof{
+    background-color: #fff;  
+    width: 96%;
+    padding: 20px;
+    margin: 20px;
+    border-radius: 20px;
+    }
+
+    .btn-prof{
+        padding: 10px;
+        margin-left: 620px;
+        
+    }
+
+</style>
+
 <body>
     <section id="menu">
         @if(Auth::user()->user_type === 'Admin')
@@ -25,9 +42,10 @@
         @include('components.headernav')
 
         <h3 class="i-name">
+        <a href="{{ route('alumni-list') }}" class="back-link"><i class="fas fa-arrow-left" style="color: #000;"></i></a>
         Profile
         </h3>
-
+    <div class="container-prof">
         <div style="margin-top: 20px; display: flex; flex-direction: row; gap:20px; padding-left: 20px; align-items: center;">
             <div class="profile-info">
                 @if ($user->profile_pic)
@@ -41,9 +59,9 @@
                 <p>{{ $user->username }}</p>
             </div>
             @if(auth()->check() && auth()->user()->user_type === 'Admin')
-                <a href="{{ route('profile') }}">
-                    <button style="height: 20px">Profile Settings</button>
-                </a>
+                <!-- <a href="{{ route('profile') }}">
+                    <button class="btn-prof" >Profile Settings</button>
+                </a> -->
             @endif
         </div>
 
@@ -51,7 +69,7 @@
             <p>{{ $user->course }}</p>
             <p>{{ $user->batch }}</p>
         </div>
-
+    </div>
     </section>
 </div>
 

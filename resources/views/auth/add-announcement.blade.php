@@ -33,12 +33,12 @@
         @include('components.headernav')
 
         <h3 class="i-name">
-            <a href="{{ route('events') }}" class="back-link"><i class="fas fa-arrow-left"></i></a>Add Amnouncement
+            <a href="{{ route('events') }}" class="back-link"><i class="fas fa-arrow-left"></i></a>Add Announcement
         </h3>
 
     <div style="display: flex; flex-direction: row; gap: 35px">
 
-        <div class="main-body mt-7 ml-4 mr-2" style="margin-left: 15px;">
+    <div class="main-body mt-7 ml-4 mr-2" style="margin-left: 15px;">
 
         @if(session('error'))
             <div class="alert alert-danger">
@@ -59,12 +59,12 @@
     <div class="container">
         <div class="panel">
             <div class="bio-graph-heading">
-                Post and press
+                CREATE POST
             </div>
             <div class="panel-body bio-graph-info">
                 <div class="row">
                     <p class="bold">
-                        Fill in the subject and body of event details and press ‘POST’ to notify all alumni
+                        Fill in the subject and body of announcement details and press ‘POST’ to notify all alumni
                     </p>
                 </div>
 
@@ -82,6 +82,8 @@
             </div>
         </div>
     </div>
+
+    
 
 </section>
 

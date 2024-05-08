@@ -27,6 +27,26 @@
             Job Post
         </h3>
 
+        <div style="display: flex; flex-direction: row; gap: 35px">
+
+    <div class="main-body mt-7 ml-4 mr-2">
+
+        @if(session('error'))
+            <div class="alert alert-danger">
+                {{ session('error') }}
+            </div>
+        @endif
+
+        @if(session('success'))
+            <div class="alert alert-success">
+                {{ session('success') }}
+            </div>
+        @endif
+
+        </div>
+
+    </div>
+
         <div class="con">
             <div class="event">
                 <a href="{{ route('jobs') }}" class="post-button">List of Job posted</a>
@@ -41,19 +61,6 @@
                 </div>
                 <div class="panel-body bio-graph-info">
                     <div class="row">
-                        <p class="bold">
-                        @if(session('error'))
-                            <div class="alert alert-danger">
-                                {{ session('error') }}
-                            </div>
-                        @endif
-
-                        @if(session('success'))
-                            <div class="alert alert-success">
-                                {{ session('success') }}
-                            </div>
-                        @endif
-                        </p>
                     </div>
 
         <form action="{{ route('job.store') }}" method="POST">

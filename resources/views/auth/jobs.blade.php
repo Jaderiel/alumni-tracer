@@ -104,7 +104,7 @@
             </div>
         @endif
         
-            <div class="row" id="jobList">
+            <div class="row div" id="jobList">
               @foreach($jobs as $job)
               <div class="job-div col-lg-9">
                 <div class="job-details">
@@ -113,10 +113,10 @@
                       <h3 class="title">{{ $job->job_title}}</h3>
                     </div>
                     <div class="col-auto">
-                        <a href="{{ $job->link}}" class="btn btn-warning text-white mr-2">Apply</a>
+                        <a href="{{ $job->link}}" class="btn btn-warning text-white">Apply</a>
                     </div> 
                     @if(Auth::check() && Auth::user()->user_type === 'Admin' || Auth::user()->id === $job->user_id)
-                    <a href="{{ route('jobs.show', ['job' => $job->id]) }}"><button class="post-job">Edit</button></a>
+                    <a href="{{ route('jobs.show', ['job' => $job->id]) }}"><button class="btn btn-warning text-white mr-2">Edit</button></a>
                     @endif
                   </div>
                   <div class="row mb-1">

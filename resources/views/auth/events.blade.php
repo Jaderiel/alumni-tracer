@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
     <link rel="stylesheet" href="{{ asset('bootstrap/bootstrap.min.css') }}">
     <link rel="stylesheet" href="{{ asset('css/events.css') }}">
+    
     <link rel="stylesheet" href="{{ asset('css/sidebar.css') }}">
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
     <script src="jquery-3.5.1.min.js"></script>
@@ -80,19 +81,23 @@
                                         </div>
                                     @else
                                         @if(auth()->check() && (auth()->user()->user_type == 'Admin'))
-                                            <div class="text-right" style="padding: 10px">
-                                                <a href="{{ route('get.registered.users', ['eventId' => $event->id]) }}" class="btn-sm btn-info mb-1">View Registered Users</a>
-                                            </div>
-                                            <div class="text-right" style="padding: 10px">
-                                                <form action="{{ route('delete.event', ['id' => $event->id]) }}" method="POST">
-                                                    @method('DELETE')
-                                                    @csrf
-                                                    <button type="submit" class="btn-sm btn-danger mb-1">Delete</button>
-                                                </form>
-                                            </div>
-                                            <div class="text-right" style="padding: 10px">
-                                                <a href="{{ route('update-event', ['id' => $event->id]) }}" class="button">Edit</a>
-                                            </div>
+                                        <div class="text-right" style="padding: 10px">
+                                            <a href="{{ route('get.registered.users', ['eventId' => $event->id]) }}" style="display: inline-block; padding: 10px 20px; background-color: #007bff; color: #fff; text-decoration: none; border-radius: 5px; " class="view" >View Registered Users</a>
+                                        </div>
+
+                                        <div class="text-right" style="padding: 10px">
+                                        <form action="{{ route('delete.event', ['id' => $event->id]) }}" method="POST" style="display: inline-block; width: 100px;">
+                                            @method('DELETE')
+                                            @csrf
+                                            <button type="submit" style="width: 100%; background-color: #dc3545; color: #fff; padding: 8px 16px; border: none; border-radius: 5px;">Delete</button>
+                                        </form>
+                                        <a href="{{ route('update-event', ['id' => $event->id]) }}" style="display: inline-block; width: 100px; margin-left: 10px;">
+                                            <button type="submit" style="width: 100%; background-color: #28a745; color: #fff; padding: 8px 16px; border: none; border-radius: 5px;">Edit</button>
+                                        </a>
+                                        </div>
+
+
+
                                         @else
                                         <div class="text-right">
                                             <a href="{{ route('register-to-event', ['user_id' => Auth::user()->id, 'event_id' => $event->id]) }}" id="registerBtn" class="btn btn-success btn-sm mb-1 register-btn">REGISTER</a>
@@ -100,13 +105,15 @@
                                         @endif
                                     @endif
 
-                                        <p>
-                                            <span class="text-lg">{{ $event->event_date->format('F d, Y') }} | {{ \Carbon\Carbon::parse($event->event_time)->format('g:i A') }}</span>
-                                        </p>
-                                        <p>
-                                            <strong class="event-title ">{{ $event->event_title }}</strong>
-                                        </p>
-                                        <p>{{ $event->event_details }}</p>
+                                        <div style="display: flex; flex-direction: column; gap: 5px">
+                                            <div style="margin-top: 10px;">
+                                                <span >{{ $event->event_date->format('F d, Y') }} | {{ \Carbon\Carbon::parse($event->event_time)->format('g:i A') }}</span>
+                                            </div>
+                                            <div>
+                                                <strong class="event-title ">{{ $event->event_title }}</strong>
+                                            </div>
+                                            <div>{{ $event->event_details }}</div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>

@@ -41,9 +41,6 @@
                 </div>
                 <div class="panel-body bio-graph-info">
                     <div class="row">
-                        <p class="bold">
-                            Fill in the subject and body of job details and press ‘POST’ to notify all alumni
-                        </p>
                     </div>
 
                     <!-- Form for updating job details -->
@@ -76,15 +73,18 @@
 
                         <textarea class="job-details" name="job_description" placeholder="Job Description">{{ $job->job_description }}</textarea>
 
-                        <button class="post-button-ann" type="submit">SAVE</button>
+                        <div class="button-container">
+                        <button type="submit" class="save-button-ann">SAVE</button>
+                        
                     </form>
 
                     <!-- Form for deleting job -->
                     <form id="delete-form" action="{{ route('delete.job', $job->id) }}" method="POST">
                         @csrf
                         @method('DELETE')
-                        <button type="submit" class="btn-sm btn-danger mb-1">Delete</button>
+                        <button class="delete-button-ann" type="submit">DELETE</button>
                     </form>
+                    </div>
                 </div>
             </div>
         </div>

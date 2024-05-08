@@ -136,7 +136,7 @@ h2 {
 #interface .navigation .profile i {
     font-size: 19px;
     font-weight: 400;
-    margin-left: 880px;
+    margin-left: 1100px;
     justify-content: flex-end;
 }
 
@@ -200,10 +200,9 @@ h2 {
 }
 
 .board-1 {
-    width: 230%;
-    margin-left: 30px;
-    margin-bottom: 30px;
-    overflow: auto;
+    width: 700px;
+    margin: 0 25px 30px 30px;
+    overflow: hidden;
     background-color: #EFEFF2;
     border-radius: 10px;
     box-shadow: 1px 1px 10px rgba(0, 0, 0, 0.288); 
@@ -221,10 +220,6 @@ table{
     border-radius: 10px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     margin: 20px;
-}
-
-.forum-section .fas{
-    margin-left: 180px;
 }
 
 .forum-section2 table {
@@ -411,11 +406,13 @@ textarea {
     cursor: pointer;
 }
 
-.left-section,
+
 .center-section,
 .right-section {
     margin-bottom: 10px; 
 }
+
+
 
 .forum-section .left-section i {
     margin-left: 250px;
@@ -618,6 +615,7 @@ textarea {
     color: #000;
     margin: 10px;
     display: flex;
+    text-decoration: none;
     /* overflow-y: auto; /* Add scrollbar for vertical overflow */
     /* transition: transform 0.3s ease, background-color 0.3s ease; Added background-color transition */
 } 
@@ -626,15 +624,18 @@ textarea {
   transform: translateY(-5px);
   color: #162F65;
   background-color: #F2DB98;
+  text-decoration: none;
 }
 
 .title-desc {
   margin: 10px;
+  text-decoration: none;
 }
 
 .p-title {
     font-size: large;
     font-weight: bold;
+    text-decoration: none;
   }
   
   .fa-solid {
@@ -1179,6 +1180,38 @@ tbody tr td{
     cursor: pointer;
 }
 
+input[type="file"] {
+    display: none;
+}
+
+.image-upload{
+    display: flex;
+    flex-shrink: 0;
+    display: none;
+}
+
+.custom-file-input {
+    display: flex;
+    padding: 10px;
+    border: 1px solid lightsteelblue;
+    border-radius: 4px;
+    cursor: pointer;
+    margin: 10px 20px;
+    width: 360px;
+}
+
+.custom-file-input span {
+    margin-right: 10px;
+}
+
+.custom-file-input img {
+    margin-left: 165px;
+    color: gray;
+    width: 30px;
+    height: 24px;
+}
+
+
 /* Custom styling for Laravel pagination */
 .pagination {
     display: flex;
@@ -1208,4 +1241,8 @@ tbody tr td{
     color: #999;
     border-color: #999;
     cursor: not-allowed;
+}
+
+.page{
+    margin-bottom: 20px;
 }

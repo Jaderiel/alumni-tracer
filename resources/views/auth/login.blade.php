@@ -86,9 +86,9 @@
                 </div>
                 <div class="input-group">
                     <input type="checkbox" id="termsCheckbox" required>
-                    <label for="termsCheckbox">I accept the Terms of Use and Privacy Policy</label>
+                    <label for="termsCheckbox">I accept the <span id="termsLink">Terms of Use and Privacy Policy</span></label>
                 </div>
-                <button type="submit" class="btn">SIGN UP</button>
+                <button type="submit" class="btn" onclick="openPopup()">SIGN UP</button>
             </form>
 
                                 <p>
@@ -173,6 +173,63 @@
     <p>For added security, we need to verify your email address. We've sent a verification code to blank@student.laverdad.edu.ph</p>
     <button type="button" onclick="closePopup()">OK</button>
 </div>
+
+<div id="myModal" class="modal">
+
+  <!-- Modal content -->
+  <div class="modal-content">
+    <span class="close">&times;</span>
+    <h2>TERMS OF USE AND PRIVACY POLICY</h2>
+    <ul>
+        <li>
+            <p><strong>Acceptance of Terms</strong></p>
+            <p>By accessing or using the LVCC Alumni Tracking System, you agree to be bound by these Terms and Conditions. If you do not agree with these Terms and Conditions, please do not use the System.</p>
+        </li>
+        <li>
+            <p><strong>Description of Service</strong></p>
+            <p>The System provides a platform for alumni to maintain their contact information, connect with other alumni, and receive updates and notifications from their alma mater.</p>
+        </li>
+        <li>
+            <p><strong>User Registration</strong></p>
+            <p>To access certain features of the System, you may be required to register and provide accurate and complete information about yourself. You are responsible for maintaining the confidentiality of your account credentials and for all activities that occur under your account.</p>
+        </li>
+        <li>
+            <p><strong>Use of Information</strong></p>
+            <p>The information you provide to the System will be used to facilitate alumni network, communication, and engagement activities. Your information will not be shared with third parties without your consent, except as required by law, including compliance with the Data Privacy Law of 2021 (Republic Act No. 10173), which governs the collection, processing, and protection of personal data.</p>
+        </li>
+        <li>
+            <p><strong>Prohibited Conduct</strong></p>
+            <p>You agree not to use the system for any unlawful or prohibited activities, including posting harmful or objectionable content.</p>
+        </li>
+        <li>
+            <p><strong>Modifications to Terms</strong></p>
+            <p>The System owner reserves the right to modify or revise these Terms and Conditions at any time without prior notice. Your continued use of the System following any such changes constitutes your acceptance of the revised Terms and Conditions.</p>
+        </li>
+        <li>
+            <p><strong>Contact Information</strong></p>
+            <p>If you have any questions or concerns about these Terms and Conditions, please contact us at <a href="mailto:jade.admin@gmail.com">jade.admin@gmail.com</a>.</p>
+        </li>
+    </ul>
+  </div>
+
+</div>
 </body>
 <script src="{{ asset('js/login.js') }}"></script>
+<script>
+    // Get the modal element
+var modal = document.getElementById("myModal");
+
+// Get the close button element
+var closeButton = document.getElementsByClassName("close")[0];
+
+// Function to close the modal
+function closeModal() {
+    modal.style.display = "none";
+}
+
+// Event listener for the close button
+closeButton.addEventListener("click", closeModal);
+
+</script>
 </html>
+

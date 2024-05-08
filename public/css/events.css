@@ -159,6 +159,8 @@ body {
 
 
 
+
+
 /* EVENT CARD */
 
 .card {
@@ -268,10 +270,15 @@ body {
 .event-title {
     font-weight: bolder;
     font-size: 20px;
+
 }
 
 .event-info {
     margin-right: 100px;
+}
+
+.col-lg-4{
+    margin-left: -50px;
 }
 
 .card-body-announcement {
@@ -288,16 +295,15 @@ body {
     border-style: double;
     border-color: #F2DB98;
     color: #000;
-    margin: 10px;
+    margin: 20px;
     display: flex;
-    /* overflow-y: auto; /* Add scrollbar for vertical overflow */
-    /* transition: transform 0.3s ease, background-color 0.3s ease; Added background-color transition */
 } 
 
 .announcement-info:hover {
   transform: translateY(-5px);
   color: #162F65;
   background-color: #F2DB98;
+  
 }
 
 .title-desc {
@@ -311,6 +317,8 @@ body {
 .p-title {
   font-size: large;
   font-weight: bold;
+ 
+
 }
 
 .fa-solid {
@@ -413,6 +421,8 @@ body {
 }
 
 /* Button Styles */
+
+
 .btn {
     display: inline-block;
     font-weight: 400;
@@ -454,23 +464,26 @@ body {
     font-size: 1.25rem;
 }
 
+
+
 .event-title {
     font-weight: bold;
 }
 
 /* Panel Styles */
 .panel {
-    margin-bottom: 1rem;
+    /* margin-bottom: 1rem; */
     background-color: #fff;
     border: 1px solid rgba(0, 0, 0, 0.125);
     border-radius: 0.25rem;
 }
 
 /* Announcement Styles */
-.announcement-info {
+/* .announcement-info {
     display: flex;
     align-items: center;
     margin-bottom: 1rem;
+    text-decoration: none;
 }
 
 .fa-square-check {
@@ -481,7 +494,7 @@ body {
 .p-title {
     font-weight: bold;
     margin-bottom: 0.5rem;
-}
+} */
 
 /* Responsive Styles */
 @media (min-width: 576px) {
@@ -502,3 +515,5 @@ body {
         max-width: 33.333333%;
     }
 }
+
+

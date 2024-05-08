@@ -8,7 +8,6 @@
     <title>Profile Page</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
     <link rel="stylesheet" href="{{ asset('css/profile.css') }}">
-    <link rel="stylesheet" href="{{ asset('css/dashboard.css') }}">
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
     <script src="profile.js" defer></script>
 </head>
@@ -26,7 +25,7 @@
         @include('components.headernav')
 
         <h3 class="i-name">
-        Profile Settings
+        <a href="{{ route('user-profile') }}" class="back-link"><i class="fas fa-arrow-left"></i></a> Profile Settings
         </h3>
         
         <div class="container">
@@ -241,3 +240,15 @@
     });
 </script>
 </html>
+
+<style>
+    .back-link {
+        color: #333;
+        text-decoration: none;
+        margin-right: 10px;
+    }
+
+    .back-link:hover {
+        color: #000; 
+    }
+</style>

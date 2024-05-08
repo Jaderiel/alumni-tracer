@@ -59,14 +59,15 @@
     <div class="container">
         <div class="panel">
             <div class="bio-graph-heading">
-                Post and press
+                EDIT POST
             </div>
             <div class="panel-body bio-graph-info">
                 <div class="row">
-                    <p class="bold">
-                        Fill in the subject and body of event details and press ‘POST’ to notify all alumni
+                <p class="bold">
+                        Fill in the subject and body of announcement details and press ‘POST’ to notify all alumni
                     </p>
                 </div>
+                
 
                 
                     <form action="{{ route('update.ann', $ann->id) }}" method="POST" enctype="multipart/form-data">
@@ -79,16 +80,19 @@
                                 </div>
                             </div>
                             <textarea placeholder="Event details" name="ann_details" class="event-details">{{ $ann->ann_details }}</textarea>
-                            <button type="submit" class="post-button-ann">SAVE</button>
-                        </div>
+                            <div class="button-container">
+                                <button type="submit" class="save-button-ann">SAVE</button>
+                                
+                            
                     </form>
                     <!-- Separate form for deleting announcement -->
                     <form action="{{ route('delete.ann', $ann->id) }}" method="POST">
-                        @csrf
-                        @method('DELETE')
-                        <button type="submit" class="btn-sm btn-danger mb-1">Delete</button>
-                    </form>
-                    
+                                @csrf
+                                @method('DELETE')
+                                <button type="submit" class="delete-button-ann">DELETE</button>
+                                </form>
+                                </div>
+                        </div>
             </div>
         </div>
     </div>

@@ -71,35 +71,30 @@ body {
     cursor: pointer
 }
 
-#interface {
+#interface{
     width: calc(100% - 300px);
     margin-left: 300px;
     position: relative;
-    padding-top: 70px;
 }
 
-#interface .navigation {
+#interface .navigation{
     display: flex;
+    justify-content: space-between;
     align-items: center;
     background: #fff;
     padding: 15px 30px;
-    position: fixed;
-    width: 100%;
-    top: 0;
-    z-index: 1000;
 }
 
 #interface .navigation .profile {
     display: flex;
-    justify-content: flex-end;
-    align-items:flex-end;
+    justify-content: flex-start;
+    align-items: center;
+    cursor: pointer;
 }
 
-#interface .navigation .profile i {
+#interface .navigation .profile i{
     font-size: 19px;
-    font-weight: 400;
-    margin-left: 880px;
-    justify-content: flex-end;
+    font-weight: 400; 
 }
 
 
@@ -179,6 +174,15 @@ body {
     border-radius: 4px;
     font-size: 10px;
     cursor: pointer;
+}
+
+.row .btn-save {
+    background: #00A36C; 
+    padding: 3px 7px;
+}
+
+.row .btn-save:hover {
+    background: #016443; 
 }
 
 .row a button.edit-button {
@@ -279,8 +283,12 @@ body {
     width: 220px;
 }
 
+#first_name, #middle_name, #last_name {
+    width: 220px;
+}
+
 #course{
-    width: 415px; 
+    width: 460px; 
 }
 
 .form-group label[for="batch"] { 
@@ -288,12 +296,12 @@ body {
 }
 
 #batch {
-    width: 100px; 
+    width: 110px; 
     margin-left: 60px;
 }
 
 #email {
-    width: 415px; 
+    width: 460px; 
 }
 
 .form-group label[for="username"] { 
@@ -305,7 +313,7 @@ body {
 }
 
 #username{
-    width: 100px; 
+    width: 110px; 
     margin-left: 60px;
 }
 
@@ -427,6 +435,76 @@ body {
 
 .popup .sure-button:hover {
     background: #850227; 
+}
+
+.profile {
+    position: relative; 
+}
+
+.notification-dropdown {
+    display: none;
+    position: absolute;
+    top: calc(100% + 15px); 
+    right: 0;
+    background-color: white;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    padding: 10px;
+    z-index: 1000; 
+    width: 400px;
+}
+
+
+.notification-dropdown ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    
+}
+
+.notification-dropdown ul li {
+    padding: 10px 20px;
+    border-bottom: 1px solid #ccc;
+    display: flex;
+    justify-content: space-between;
+    background-color: #EFF2FB;
+   
+}
+
+.notification-dropdown ul li:hover {
+    background-color: #ffffff; 
+    cursor: pointer; 
+}
+
+.notification-dropdown ul li .left-side {
+    display: flex;
+    flex-direction: column;
+}
+
+.notification-dropdown ul li .left-side h4 {
+    margin: 0;
+    font-size: 16px;
+    font-weight: bold;
+}
+
+.notification-dropdown ul li .left-side p {
+    margin: 0;
+    font-size: 14px;
+}
+
+.notification-dropdown ul li .right-side {
+    font-size: 12px;
+    color: #888;
+}
+
+
+.h4-notif{
+    margin-bottom: 7px;
+}
+
+.hr {
+    color: #ccc;
 }
 
 @media (max-width: 769px) {

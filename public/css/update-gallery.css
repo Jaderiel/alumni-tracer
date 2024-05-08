@@ -74,38 +74,37 @@ body {
 }
 
 #interface {
-    width: calc(100% - 300px);
-    margin-left: 300px;
-    position: relative;
-    padding-top: 70px;
+  width: calc(100% - 300px);
+  margin-left: 300px;
+  position: relative;
+  padding-top: 70px;
 }
 
 #interface .navigation {
-    display: flex;
-    align-items: center;
-    background: #fff;
-    padding: 25px 30px;
-    position: fixed;
-    width: calc(100% - 300px);
-    top: 0;
-    z-index: 1000;
+  display: flex;
+  align-items: center;
+  background: #fff;
+  padding: 25px 30px;
+  position: fixed;
+  width: calc(100% - 300px);
+  top: 0;
+  z-index: 1000;
 }
 
 #interface .navigation .profile {
-    position: fixed;
-    right: 15px;  
+  position: fixed;
+  right: 15px;  
 }
 
 #interface .navigation .profile i {
-    font-size: 19px;
-    font-weight: 400;
-    cursor: pointer;
+  font-size: 19px;
+  font-weight: 400;
+  cursor: pointer;
 }
 
 #interface .content {
-    padding-top: 70px; 
+  padding-top: 70px; 
 }
-
 
 .i-name{
     color:#2D55B4;
@@ -121,6 +120,7 @@ body {
     align-items: center;
     flex-wrap: wrap;
     margin-left:20%;
+    
 }
 
 .event .up-event{
@@ -129,7 +129,7 @@ body {
     align-items: center;
     width: 30%;
     height: 40px;
-    padding: 10px;
+    padding: 10px 10px 10px;
     border: 1px solid lightsteelblue;
     border-radius: 4px;
     background-color: #E8C766;
@@ -153,6 +153,10 @@ body {
     color: #000;
 }
 
+.event-details{
+    height: 150px;
+}
+
 .event a:hover {                
     border-color:lightsteelblue; 
     color: #000; 
@@ -164,19 +168,14 @@ body {
 }
 
 .con{
-    background-color: #EFF2FB;
-    align-items: center;
-    width: 1003px;
-    height: 90px;
-    margin-top: 10px;
-    margin-left: 70px;
-    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+  background-color: #EFF2FB;
+  align-items: center;
+  width: 1003px;
+  height: 90px;
+  margin-top: 30px;
+  margin-left: 70px;
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
 }
-
-.alert-success {
-    margin-top: 15px;
-    margin-left: 45px;
-  }
 
 .container {
     width: 84.4%;
@@ -193,7 +192,6 @@ body {
     background: #fff;
     border: 1px solid #00000086;
   }
-
   .bio-graph-heading {
       color: #fff;
       font-size: 15px;
@@ -208,8 +206,8 @@ body {
   }
   
   .row{
-      margin-top: 20px;
-      /* margin-bottom: 20px; */
+      margin-top: 10px;
+      /* padding-bottom: 1%; */
   }
   .bio-row {
       width: 50%;
@@ -238,108 +236,100 @@ body {
 
   .input-container {
     display: flex;
-    flex-wrap: wrap; 
-    align-items: flex-start;
+    align-items: center; 
     margin-left: 30px;
+    position: relative;
 }
 
-.input-job-title,
-.input-company,
-.input-location,
-.input-apply-link,
-.select-job-type,
-.select-salary-range{
-    width: 280px;
-    height: 100%;
+.title-input{
+    flex: 1; 
+    margin-right: 1px;
+}
+
+.title-input input[type="text"] {
+  width: calc(60% - 5px);
     padding: 10px;
     border: 1px solid lightsteelblue;
     border-radius: 4px;
-    margin-bottom: 10px; 
-    margin-right: 10px;
     outline: none;
-
+    
 }
 
-.input-job-title:focus,
-.input-company:focus,
-.input-location:focus,
-.input-apply-link:focus,
-.select-job-type:focus,
-.select-salary-range:focus,
-.job-details:focus {
-    border-color: #2D55B4;
+
+.course-input select {
+    padding: 10px;
+    border: 1px solid lightsteelblue;
+    border-radius: 4px;
+    outline: none;
+    margin-left: -220px;
+    margin-top: 10px;
+    color: #888;
 }
 
-.select-job-type,
-.select-salary-range{
-  width: 25%;
-  color: #89817e;
-}
-
-.input-apply-link{
-  width: 144%;
-}
-
-.job-details {
-  height: 100px; 
-  max-height: 200px;
-  width: calc(97.5% - 40px); 
-  margin-left: 30px;
+.file-upload-label {
+  display: flex;
+  align-items: center;
   padding: 10px;
   border: 1px solid lightsteelblue;
   border-radius: 4px;
-  outline: none;
-  resize: none;
+  cursor: pointer;
+  width: 170px;
+  margin-top: 7px;
+  margin-right: 10px; 
+  position: absolute; /* I-add ang position: absolute dito */
+  left: 685px;
 }
+
+.file-upload-label span {
+    margin-right: 10px;
+}
+
+.file-upload-label i {
+    margin-left: auto;
+}
+
+.file-upload {
+    display: none;
+}
+
+#course {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid lightsteelblue;
+    border-radius: 4px;
+    outline: none;
+    margin-bottom: 10px;
+}
+
+.event-details {
+    height: 100px; 
+    max-height: 300px;
+    width: calc(97.5% - 40px); 
+    margin-left: 30px;
+    padding: 10px;
+    border: 1px solid lightsteelblue;
+    border-radius: 4px;
+    outline: none;
+    resize: none;
+    }
 
 .post-button-ann {
     width: 35%;
     height: 40px;
     background-color: #00A36C;
     border-radius: 2px;
-    margin: 11px auto; 
+    margin: 12px auto; 
     margin-left: 260px;
     outline: none;
     border-color: transparent;
-  }
+}
 
 .post-button-ann:hover{
     background-color: #162F65;
     color: #fff;
-  }
-
-  .button-container {
-    display: flex;
-    justify-content: center; 
-    align-items: center; 
 }
 
-.delete-button-ann,
-.save-button-ann {
-    height: 40px;
-    border-radius: 2px;
-    outline: none;
-    border-color: transparent;
-    margin: 11px; 
-}
-
-.delete-button-ann {
-    width: 250px;
-    background-color: #e03821;
-}
-
-.save-button-ann {
-    width: 250px;
-    background-color: #00A36C;
-}
-
-.delete-button-ann:hover,
-.save-button-ann:hover {
-    background-color: #162F65;
-    color: #fff;
-}
-
-  .notification-dropdown {
+.notification-dropdown {
     display: none;
     position: absolute;
     top: calc(100% + 15px); 
