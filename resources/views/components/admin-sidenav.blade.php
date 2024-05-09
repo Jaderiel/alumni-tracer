@@ -9,7 +9,9 @@
             <li><i class="fa-solid fa-briefcase"></i><a href="{{ route('jobs') }}">Jobs</a></li>
             <li><i class="fa-solid fa-image"></i><a href="{{ route('gallery') }}">Gallery</a></li>
             <li><i class="fa-solid fa-chart-line"></i><a href="{{ route('analytics') }}">Analytics</a></li>
-            <li><i class="fa-solid fa-check-circle"></i><a href="{{ route('approvals') }}">Approvals</a></li><br><br><br><br>
+            <!-- <li><i class="fa-solid fa-check-circle"></i><a href="{{ route('approvals') }}">Approvals</a></li> -->
+            <li><i class="fas fa-user-tie"></i><a href="{{ route('administration.show') }}">Administration</a></li>
+            <br><br><br><br>
             <li><i class="fa-solid fa-user-gear"></i><a href="{{ route('user-profile') }}">Profile</a></li>
             <li><a href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
     <i class="fa-solid fa-right-from-bracket"></i> Logout
