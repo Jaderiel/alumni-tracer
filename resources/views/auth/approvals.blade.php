@@ -80,7 +80,7 @@
                                     <td>
                                         <button style="padding: 10px; border-radius: 10px; background-color: gray; color: white;" disabled>approved</button>
                                     </td>
-                                    <td></td> <!-- No delete button for approved users -->
+                                    <td></td>
                                 @endunless
                             </tr>
                             @endforeach
@@ -99,7 +99,6 @@
                 $('#' + formId).submit();
             });
 
-            // If you want to handle delete button clicks similarly
             $('.delete-btn').click(function(e) {
                 if (!confirm('Are you sure you want to delete this user?')) {
                     e.preventDefault();

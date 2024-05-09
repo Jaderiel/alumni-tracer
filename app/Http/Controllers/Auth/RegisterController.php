@@ -38,7 +38,7 @@ class RegisterController extends Controller
         ]);
 
         // Redirect the user after successful registration
-        return redirect(url('/login'))->with('success', 'Registration successful! You can now sign in.');
+        return redirect(url('/'))->with('success', 'Registration successful! You can now sign in.');
 
         // Generate a verification token
         $verificationUrl = route('verify.email', ['token' => $token]);
