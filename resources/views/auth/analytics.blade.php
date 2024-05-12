@@ -15,7 +15,7 @@
 
 <body>
     <section id="menu">
-        @if(Auth::user()->user_type === 'Admin')
+        @if(Auth::user()->user_type === 'Admin' || Auth::user()->user_type === 'Super Admin')
             @include('components.admin-sidenav')
         @else
             @include('components.sidenav')

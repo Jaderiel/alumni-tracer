@@ -13,6 +13,7 @@ use App\Http\Controllers\AnalyticsController;
 use App\Http\Controllers\ApprovalsController;
 use App\Http\Controllers\AdminController;
 
+
 Route::get('/', [AuthController::class, 'login'])->name('login');
 Route::post('/register', 'Auth\RegisterController@register')->name('register');
 Route::post('/register', [RegisterController::class, 'register'])->name('register');
@@ -82,6 +83,7 @@ Route::group(['middleware' => ['auth.user']], function () {
 
     Route::get('/administration', [AdminController::class, 'index'])->name('administration.show');
     Route::put('/administration/{userId}', [AdminController::class, 'approveUser'])->name('user.approve');
+    Route::post('/administration', [AdminController::class, 'createAccount'])->name('user.create');
 });
 
 

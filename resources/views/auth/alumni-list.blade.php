@@ -13,7 +13,7 @@
 <body>
     <section id="menu">
         <!-- Include the appropriate side navigation -->
-        @if(Auth::user()->user_type === 'Admin')
+        @if(Auth::user()->user_type === 'Admin' || Auth::user()->user_type === 'Super Admin')
             @include('components.admin-sidenav')
         @else
             @include('components.sidenav')
@@ -116,7 +116,7 @@
                         </td>
                         <td class="action" style="display: flex">
                             <a href="{{ route('profile.show', ['id' => $user->id]) }}" class="button">View</a>
-                            @if(auth()->check() && (auth()->user()->user_type == 'Admin'))
+                            @if(auth()->check() && (auth()->user()->user_type == 'Admin' || Auth::user()->user_type === 'Super Admin'))
                             <form action="{{ route('user.delete', ['userId' => $user->id]) }}" method="POST">
                                 @method('DELETE')
                                 @csrf

@@ -4,8 +4,10 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\User;
-use App\Mail\AccountApproved;
 use Illuminate\Support\Facades\Mail;
+use App\Mail\AccountApproved;
+use App\Mail\AccountCreated;
+
 
 class AdminController extends Controller
 {
@@ -29,4 +31,48 @@ class AdminController extends Controller
         // Redirect back or to a success page
         return redirect()->back()->with('success', 'User account approved successfully.');
     }
+
+    public function createAccount(Request $request) {
+        // Define validation rules
+        $rules = [
+            'user_type' => 'required',
+            'first_name' => 'required',
+            'last_name' => 'required',
+            'username' => 'required',
+            'email' => 'required|email|unique:users',
+            'password' => 'required|min:6|confirmed',
+        ];
+    
+        // If user_type is Alumni, make course required
+        if ($request->input('user_type') === 'Alumni') {
+            $rules['course'] = 'required';
+            $rules['batch'] = 'required';
+        } else {
+            // If user_type is not Alumni, set course and batch to 'N/A'
+            $request->merge(['course' => 'N/A']);
+            $request->merge(['batch' => 'N/A']);
+        }
+    
+        // Validate the request
+        $request->validate($rules);
+    
+        // Create user
+        $user = User::create([
+            'user_type' => $request->user_type,
+            'first_name' => $request->first_name,
+            'middle_name' => $request->middle_name,
+            'last_name' => $request->last_name,
+            'email' => $request->email,
+            'username' => $request->username,
+            'password' => bcrypt($request->password),
+            'course' => $request->course, 
+            'batch' => $request->batch,
+            'is_email_verified' => true,
+        ]);
+
+        Mail::to($user->email)->send(new AccountCreated());
+    
+        return redirect()->back()->with('success', 'User account created successfully.');
+    }
+    
 }

@@ -6,35 +6,14 @@
 </head>
 <body>
     <div class="card-holder">
-        <div class="content-holder-gallery">
+        <div class="content-holder">
             <div class="left-content">
-                <div class="image-holder">
-                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSszHtHXYkShquFKPb8D2MXutGH97YCeajQHQ&usqp=CAU" alt="">
-                </div>
                 <div class="detail-holder">
-                    <h3><strong>[Title]</strong></h3>
-                    <p>[Course]</p>
-                    <p>[Details] okay try natin ulit pag mahaba ang details pano kayang gagawin?</p>
-                    <h5>Posted by: [name]</h5>
-                </div>
-            </div>
-            <div>
-                <div class="button-holder">
-                    <button class="approve-button">Approve</button>
-                    <button class="delete-button">Delete</button>
-                </div>
-            </div>
-        </div>
-
-        <div class="content-holder-gallery">
-            <div class="left-content">
-                <div class="image-holder">
-                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSszHtHXYkShquFKPb8D2MXutGH97YCeajQHQ&usqp=CAU" alt="">
-                </div>
-                <div class="detail-holder">
-                    <h3><strong>[Title]</strong></h3>
-                    <p>[Course]</p>
-                    <p>[Details] okay try natin ulit pag mahaba ang details pano kayang gagawin?</p>
+                    <h3>[Job Title]</h3>
+                    <p>[Location]</p>
+                    <p>[salary]</p>
+                    <p>[type]</p>
+                    <p>[Details] okay try natin ulit pag mahaba ang details [Details] okay try natin ulit pag mahaba ang details [Details] okay try natin ulit pag mahaba ang details [Details] okay try natin ulit pag mahaba ang details [Details] okay try natin ulit pag mahaba ang details [Details] okay try natin ulit pag mahaba ang details [Details] okay try natin ulit </p>
                     <h5>Posted by: [name]</h5>
                 </div>
             </div>
@@ -51,12 +30,12 @@
 </html>
 
 <style>
-    .content-holder-gallery {
+    .content-holder {
         display: flex;
         justify-content: space-between;
         background-color: white;
         border-radius: 20px;
-        height: 200px;
+        height: 300px;
         width: 800px;
         padding: 20px;
         box-shadow: 0 2px 6px 0 rgb(218 218 253 / 65%), 0 2px 6px 0 rgb(206 206 238 / 54%);
@@ -64,7 +43,7 @@
         transition: transform 0.3s ease;
     }
 
-    .content-holder-gallery:hover {
+    .content-holder:hover {
         transform: scale(1.02);
     }
     .left-content {
@@ -86,9 +65,8 @@
         flex-direction: column;
         justify-content: center;
         gap: 4px;
-        flex: 1;
-        overflow-y: auto;
     }
+
     .card-holder {
         display: flex;
         align-items: center;

@@ -22,7 +22,7 @@
     
     <!-- <div id="contriner" class="container"> -->
     <section id="menu">
-        @if(Auth::user()->user_type === 'Admin')
+        @if(Auth::user()->user_type === 'Admin' || Auth::user()->user_type === 'Super Admin')
             @include('components.admin-sidenav')
         @else
             @include('components.sidenav')
@@ -80,7 +80,7 @@
                                             <span class="text-success">REGISTERED</span>
                                         </div>
                                     @else
-                                        @if(auth()->check() && (auth()->user()->user_type == 'Admin'))
+                                        @if(auth()->check() && (auth()->user()->user_type == 'Admin' || Auth::user()->user_type === 'Super Admin'))
                                         <div class="text-right" style="padding: 10px">
                                             <a href="{{ route('get.registered.users', ['eventId' => $event->id]) }}" style="display: inline-block; padding: 10px 20px; background-color: #007bff; color: #fff; text-decoration: none; border-radius: 5px; " class="view" >View Registered Users</a>
                                         </div>

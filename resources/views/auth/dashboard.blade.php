@@ -25,7 +25,7 @@
 <body>
     <div id="container" class="container">
     <section id="menu">
-    @if(Auth::user()->user_type === 'Admin')
+    @if(Auth::user()->user_type === 'Admin' || Auth::user()->user_type === 'Super Admin')
         @include('components.admin-sidenav')
     @else
         @include('components.sidenav')
@@ -114,7 +114,7 @@
                                 <p class="profile-course">{{ $post->user->course }}</p>
                             </div>
                         </div>
-                        @if(auth()->check() && (auth()->user()->id == $post->user->id || auth()->user()->user_type == 'Admin'))
+                        @if(auth()->check() && (auth()->user()->id == $post->user->id || auth()->user()->user_type == 'Super Admin'))
                         <div class="elipsis">
                         <i class="fas fa-ellipsis-v text-gray-600 ml-" onclick="openEditPopup('{{ $post->id }}', '{{ $post->caption }}')"></i>
                         </div>

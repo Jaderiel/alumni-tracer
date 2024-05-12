@@ -16,7 +16,7 @@
 
 <body>
     <section id="menu">
-    @if(Auth::user()->user_type === 'Admin')
+    @if(Auth::user()->user_type === 'Admin' || Auth::user()->user_type === 'Super Admin')
         @include('components.admin-sidenav')
     @else
         @include('components.sidenav')
@@ -115,7 +115,7 @@
                     <div class="col-auto">
                         <a href="{{ $job->link}}" class="btn btn-warning text-white">Apply</a>
                     </div> 
-                    @if(Auth::check() && Auth::user()->user_type === 'Admin' || Auth::user()->id === $job->user_id)
+                    @if(Auth::check() && Auth::user()->user_type === 'Super Admin' || Auth::user()->id === $job->user_id)
                     <a href="{{ route('jobs.show', ['job' => $job->id]) }}"><button class="btn btn-warning text-white mr-2">Edit</button></a>
                     @endif
                   </div>

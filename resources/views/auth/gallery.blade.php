@@ -17,7 +17,7 @@
 
 <body>
     <section id="menu">
-    @if(Auth::user()->user_type === 'Admin')
+    @if(Auth::user()->user_type === 'Admin' || Auth::user()->user_type === 'Super Admin')
         @include('components.admin-sidenav')
     @else
         @include('components.sidenav')
@@ -62,7 +62,7 @@
                         
                         <div class="card-header">
                             <h6 class="card-title">{{$gal->img_title}}</h6>
-                            @if(Auth::check() && Auth::user()->user_type === 'Admin' || Auth::user()->id === $gal->user_id)
+                            @if(Auth::check() && Auth::user()->user_type === 'Super Admin' || Auth::user()->id === $gal->user_id)
                             <div class="card-options">
                                 <a href="{{ route('gallery.edit', ['gallery' => $gal->id]) }}"><i class="fas fa-ellipsis-v text-gray-600 ml-" onclick="openPopup()"></i></a>
                             </div>

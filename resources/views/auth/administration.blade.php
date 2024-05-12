@@ -11,7 +11,7 @@
 </head>
 <body>
     <section id="menu">
-        @if(Auth::user()->user_type === 'Admin')
+        @if(Auth::user()->user_type === 'Admin' || Auth::user()->user_type === 'Super Admin')
             @include('components.admin-sidenav')
         @else
             @include('components.sidenav')
@@ -27,7 +27,9 @@
             <a href="#" class="tab" data-tab="gallery-approvals">Gallery Approvals</a>
             <a href="#" class="tab" data-tab="job-approvals">Job Approvals</a>
             <a href="#" class="tab" data-tab="role-setting">Role Setting</a>
+            @if(auth()->check() && (auth()->user()->user_type == 'Super Admin'))
             <a href="#" class="tab" data-tab="create-account">Create Account</a>
+            @endif
         </div>
 
         <div id="account-approvals" class="tab-content active">
@@ -37,16 +39,14 @@
             @include('components.gallery-approvals')
         </div>
         <div id="job-approvals" class="tab-content">
-            <!-- Content for Role Setting tab -->
-            <p>Content for job Approvals tab</p>
+            @include('components.job-approvals')
         </div>
         <div id="role-setting" class="tab-content">
             <!-- Content for Role Setting tab -->
             <p>Content for Role Setting tab</p>
         </div>
         <div id="create-account" class="tab-content">
-            <!-- Content for Create Account tab -->
-            <p>Content for Create Account tab</p>
+            @include('components.create-account')
         </div>
     </section>
 </body>
