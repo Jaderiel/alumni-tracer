@@ -45,7 +45,7 @@ class GalleryController extends Controller
             $gallery->media_url = $mediaUrl;
             $gallery->save();
     
-            Session::flash('success', 'Post saved successfully.');
+            Session::flash('success', 'Post saved successfully. Please wait for the approval');
             return redirect()->back();
         } catch (\Exception $e) {
             dd($e->getMessage()); 

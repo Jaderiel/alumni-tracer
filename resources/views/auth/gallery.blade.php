@@ -10,82 +10,76 @@
     <link rel="stylesheet" href="{{ asset('bootstrap/bootstrap.min.css') }}">
     <link rel="stylesheet" href="{{ asset('css/gallery.css') }}">
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
-    <!-- <script src="jquery-3.5.1.min.js"></script> -->
-    <!-- <script src="bootstrap/js/bootstrap.min.js"></script> -->
-    <!-- <script src="gallery.js" defer></script> -->
 </head>
 
 <body>
     <section id="menu">
-    @if(Auth::user()->user_type === 'Admin' || Auth::user()->user_type === 'Super Admin')
-        @include('components.admin-sidenav')
-    @else
-        @include('components.sidenav')
-    @endif
+        @if(Auth::user()->user_type === 'Admin' || Auth::user()->user_type === 'Super Admin')
+            @include('components.admin-sidenav')
+        @else
+            @include('components.sidenav')
+        @endif
     </section>
 
     <section id="interface">
-    @include('components.headernav')
+        @include('components.headernav')
 
-        <h3 class="i-name">
-            Gallery
-        </h3>
+        <h3 class="i-name">Gallery</h3>
 
         <div class="container">
-            <div class="filter_buttons">
-                <button class="active" data-name="all">All</button>
-                <button data-name="act" title="Associate in Computer Technology">ACT</button>
-                <button data-name="bab" title="Bachelor of Arts in Broadcasting">BAB</button>
-                <button data-name="bsa" title="Bachelor of Science in Accountancy">BSA</button>
-                <button data-name="bsais" title="Bachelor of Science in Accountancy Information Systems | BSA Technology">BSAIS</button>
-                <button data-name="bssw" title="Bachelor of Science in Social Work">BSSW</button>
-                <button data-name="bsis" title="Bachelor of Science in Information Systems">BSIS</button>
-                <button data-name="ct" title="Computer Technology">CT</button>
-                <button data-name="cp" title="Computer Programming">CP</button>
-                <button data-name="hcs" title="Health Care Services">HCS</button>
-                <button data-name="ic" title="International Cookery">IC</button>
-                <button data-name="mc" title="Mass Communication">MC</button>
-                <button data-name="ns" title="Nursing Student">NS</button>
-                <button data-name="om" title="Office Management">OM</button>
-
-                <a href="{{ route('gallery.add') }}">
-                    <button class="btn" data-filter="">ADD <i class="fas fa-circle-plus "></i></button>
-                </a>
+            <div class="gallery-top-container">
+                <div class="search-course">
+                    <select name="course" id="courseFilter">
+                        <option value="all" selected>All</option>
+                        <option value="Bachelor of Arts in Broadcasting">Bachelor of Arts in Broadcasting (BAB)</option>
+                        <option value="Bachelor of Science in Accountancy">Bachelor of Science in Accountancy (BSA)</option>
+                        <option value="Bachelor of Science in Accounting Technology">Bachelor of Science in Accounting Technology (BSAT)</option>
+                        <option value="Bachelor of Science in Accounting Information Systems">Bachelor of Science in Accounting Information Systems (BSAIS)</option>
+                        <option value="Bachelor of Science in Social Work">Bachelor of Science in Social Work (BSSW)</option>
+                        <option value="Bachelor of Science in Information Systems">Bachelor of Science in Information Systems (BSIS)</option>
+                        <option value="Associate in Computer Technology">Associate in Computer Technology (ACT)</option>
+                        <option value="Computer Technology">Computer Technology (CT)</option>
+                        <option value="Computer Programming">Computer Programming (CP)</option>
+                        <option value="Health Care Services">Health Care Services (HCS)</option>
+                        <option value="International Cookery">International Cookery (IC)</option>
+                        <option value="Mass Communication">Mass Communication (MC)</option>
+                        <option value="Nursing Student">Nursing Student (NS)</option>
+                        <option value="Office Management">Office Management (OM)</option>
+                    </select>
+                </div>
+                <div>
+                    <a href="{{ route('gallery.add') }}">
+                        <button class="btn" data-filter="">ADD <i class="fas fa-circle-plus "></i></button>
+                    </a>
+                </div>
             </div>
 
             <div class="container-card" id="filterable-cards">
-            @foreach($gallery as $gal)
-            <div class="filterable_cards" data-course="{{$gal->course}}">
-                <div class="card" data-name="Bachelor of Arts in Broadcasting">
-                    <img src="{{$gal->media_url}}" class="card-img-top img-fluid" alt="Image" data-name="act" data-toggle="modal" data-target="#imageModal" data-image="{{$gal->media_url}}">
-                    <div class="card_body">
-                        
-                        <div class="card-header">
-                            <h6 class="card-title">{{$gal->img_title}}</h6>
-                            @if(Auth::check() && Auth::user()->user_type === 'Super Admin' || Auth::user()->id === $gal->user_id)
-                            <div class="card-options">
-                                <a href="{{ route('gallery.edit', ['gallery' => $gal->id]) }}"><i class="fas fa-ellipsis-v text-gray-600 ml-" onclick="openPopup()"></i></a>
+                @foreach($gallery as $gal)
+                <div class="filterable_cards" data-course="{{ $gal->course }}">
+                    <div class="card" data-name="Bachelor of Arts in Broadcasting">
+                        <img src="{{ $gal->media_url }}" class="card-img-top img-fluid" alt="Image" data-toggle="modal" data-target="#imageModal" data-image="{{ $gal->media_url }}">
+                        <div class="card_body">
+                            <div class="card-header">
+                                <h6 class="card-title">{{ $gal->img_title }}</h6>
+                                @if(Auth::check() && Auth::user()->user_type === 'Super Admin' || Auth::user()->id === $gal->user_id)
+                                <div class="card-options">
+                                    <a href="{{ route('gallery.edit', ['gallery' => $gal->id]) }}"><i class="fas fa-ellipsis-v text-gray-600 ml-" onclick="openPopup()"></i></a>
+                                </div>
+                                @endif
                             </div>
-                            
-                            @endif
-                        </div>
-                        <div class="card-text-wrapper">
-                            <p class="card-text">{{$gal->img_description}}</p>
-                            <p class="card-text-course">{{$gal->course}}</p>
+                            <div class="card-text-wrapper">
+                                <p class="card-text">{{ $gal->img_description }}</p>
+                                <p class="card-text-course">{{ $gal->course }}</p>
+                            </div>
                         </div>
                     </div>
                 </div>
+                @endforeach
             </div>
-            @endforeach
         </div>
+    </section>
 
-
-
-
-
-    </section> 
-
-    <!-- Image Modal -->
     <!-- Image Modal -->
     <div class="modal fade" id="imageModal" tabindex="-1" role="dialog" aria-labelledby="imageModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered" role="document">
@@ -98,73 +92,67 @@
                 <div class="modal-body text-center">
                     <img src="" class="img-fluid" id="modalImage" alt="Modal Image">
                 </div>
-
             </div>
         </div>
     </div>
 
-    <script>
-        $('#menu-btn').click(function(){
-            $('#menu').toggleClass("active");
-        })
-    </script>
-
     <!-- Bootstrap JS and jQuery -->
-    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
     <!-- JavaScript for Modal -->
     <script>
-        // JavaScript for Modal
-        
-    </script>
-<!-- Place this script at the end of the body section -->
-<!-- Place this script at the end of the body section -->
-<script>
-    document.addEventListener("DOMContentLoaded", function() {
-        // Add an event listener to each image in the grid
-        document.querySelectorAll('[data-toggle="modal"]').forEach(function(img) {
-            img.addEventListener('click', function() {
-                // Retrieve the data-image attribute (which contains the image URL) of the clicked image
-                const imageUrl = img.getAttribute('data-image');
-                // Set the src attribute of the modal image
-                document.getElementById('modalImage').setAttribute('src', imageUrl);
-                // Display the image URL in the modal
-                document.getElementById('imageId').innerText = imageUrl;
-                // Show the modal
-                $('#imageModal').modal('show');
+        document.addEventListener("DOMContentLoaded", function() {
+            document.querySelectorAll('[data-toggle="modal"]').forEach(function(img) {
+                img.addEventListener('click', function() {
+                    const imageUrl = img.getAttribute('data-image');
+                    document.getElementById('modalImage').setAttribute('src', imageUrl);
+                    $('#imageModal').modal('show');
+                });
             });
         });
-    });
-</script>
+    </script>
 
-<script>
-    $(document).ready(function() {
-    // Function to filter items
-    function filterItems(course) {
-        // Hide all items
-        $('#filterable-cards div').hide();
-        // Show items with matching course
-        var $filteredItems = $('#filterable-cards div[data-course="' + course + '"]');
-        $filteredItems.show();
-        console.log('Filtered items count:', $filteredItems.length);
-        $filteredItems.each(function() {
-            console.log('Filtered item data-course:', $(this).data('course'));
+    <!-- JavaScript for Filtering -->
+    <script>
+        $(document).ready(function() {
+            $('#courseFilter').change(function() {
+                var selectedCourse = $(this).val();
+                if (selectedCourse === "all") {
+                    $('.filterable_cards').show();
+                } else {
+                    $('.filterable_cards').hide();
+                    $('.filterable_cards[data-course="' + selectedCourse + '"]').show();
+                }
+            });
         });
-    }
-
-    // Event listener for BAB button
-    $('#babButton').click(function() {
-        // Call filterItems function with course 'Bachelor of Arts in Broadcasting'
-        filterItems('Bachelor of Arts in Broadcasting');
-    });
-});
-
-</script>
-
-
-
+    </script>
 </body>
 
 </html>
+
+<style>
+    .search-course {
+        display: flex;
+        width: 40%;
+        height: 40px;
+        align-items: center;
+        padding: 10px 10px 10px;
+        border: 1px solid #2D55B4;
+        border-radius: 4px;
+    }
+
+    .search-course select {
+        border: none;
+        outline: none;
+        font-size: 13px;
+        background-color: #EFF2FB;
+        width: 100%;
+        cursor: pointer;
+    }
+
+    .gallery-top-container {
+        display: flex;
+        gap: 10px
+    }
+</style>

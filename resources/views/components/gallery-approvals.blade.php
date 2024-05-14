@@ -34,26 +34,6 @@
             </div>
         </div>
         @endforeach
-
-        <div class="content-holder-gallery">
-            <div class="left-content">
-                <div class="image-holder">
-                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSszHtHXYkShquFKPb8D2MXutGH97YCeajQHQ&usqp=CAU" alt="">
-                </div>
-                <div class="detail-holder">
-                    <h3><strong>[Title]</strong></h3>
-                    <p>[Course]</p>
-                    <p>[Details] okay try natin ulit pag mahaba ang details pano kayang gagawin?</p>
-                    <h5>Posted by: [name]</h5>
-                </div>
-            </div>
-            <div>
-                <div class="button-holder">
-                    <button class="approve-button">Approve</button>
-                    <button class="delete-button">Delete</button>
-                </div>
-            </div>
-        </div>
     </div>
 
 </body>
