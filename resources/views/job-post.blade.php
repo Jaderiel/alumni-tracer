@@ -83,9 +83,22 @@
                             <option value="full-time">Full Time</option>
                             <option value="part-time">Part Time</option>
                         </select>
-                        <input type="text" name="salary" class="input-job-title" placeholder="Salary">
+                        <select class="select-job-type" name="salary">
+                            <option value="" disabled selected>Select Salary Range</option>
+                            <option value="₱5,000 - ₱10,000">₱5,000 - ₱10,000</option>
+                            <option value="₱20,000 - ₱30,000">₱20,000 - ₱30,000</option>
+                            <option value="₱30,001 - ₱40,000">₱30,001 - ₱40,000</option>
+                            <option value="₱40,001 - ₱50,000">₱40,001 - ₱50,000</option>
+                            <option value="₱50,001 - ₱60,000">₱50,001 - ₱60,000</option>
+                            <option value="₱60,001 - ₱70,000">₱60,001 - ₱70,000</option>
+                            <option value="₱70,001 - ₱80,000">₱70,001 - ₱80,000</option>
+                            <option value="₱80,001 - ₱90,000">₱80,001 - ₱90,000</option>
+                            <option value="₱90,001 - ₱100,000">₱90,001 - ₱100,000</option>
+                            <option value="₱100,001 - ₱110,000">₱100,001 - ₱110,000</option>
+                            <option value="₱110,001 - ₱120,000">₱110,001 - ₱120,000</option>
+                        </select>
                         <div class="title-input">
-                            <input type="text" name="link" class="input-apply-link" placeholder="Link or email where can apply">
+                            <input type="text" name="link" class="input-apply-link" placeholder="Link where can apply">
                         </div>
                     </div>
                     
