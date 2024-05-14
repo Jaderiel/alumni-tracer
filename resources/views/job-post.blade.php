@@ -57,7 +57,7 @@
         <div class="container">
             <div class="panel">
                 <div class="bio-graph-heading">
-                    CREATE POST
+                    CREATE JOB POST
                 </div>
                 <div class="panel-body bio-graph-info">
                     <div class="row">
@@ -73,7 +73,7 @@
                             <input type="text" name="company" class="input-company" placeholder="Company">
                         </div>
                         <div class="title-input">
-                            <input type="text" name="job_location" class="input-location" placeholder="Location">
+                            <a href="{{ route('job-location.component') }}"><input type="text" name="job_location" class="form-control" placeholder="Location" value="{{ $jobLocation }}" readonly></a>
                         </div>
                     </div>
                     
@@ -102,3 +102,7 @@
 </body>
 <script src="{{ asset('js/header.js') }}"></script>
 </html>
+
+<style>
+    
+</style>

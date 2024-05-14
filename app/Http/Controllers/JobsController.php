@@ -12,8 +12,9 @@ class JobsController extends Controller
         return view("auth.jobs", compact('jobs'));
     }
 
-    public function jobPost() {
-        return view("job-post");
+    public function jobPost(Request $request) {
+        $jobLocation = $request->input('job_location');
+        return view('job-post', compact('jobLocation'));
     }
 
     public function store(Request $request)
@@ -26,15 +27,13 @@ class JobsController extends Controller
                 'job_description' => 'required|string',
                 'company' => 'required|string',
                 'salary' => 'required|string',
-                'link' => 'required|url', // Assuming the link is a URL
+                'link' => 'required|url',
             ]);
 
-            // Get the authenticated user's ID
             $userId = auth()->user()->id;
 
-            // Create a new job instance
             $job = new Job;
-            $job->user_id = $userId; // Assign the user ID to the user_id column
+            $job->user_id = $userId;
             $job->job_title = $request->job_title;
             $job->job_location = $request->job_location;
             $job->job_type = $request->job_type;
@@ -46,7 +45,7 @@ class JobsController extends Controller
 
             return redirect()->back()->with('success', 'Job details saved successfully.');
         } catch (\Exception $e) {
-            dd($e->getMessage()); // Log and display the exception message
+            dd($e->getMessage());
         }
     }
 
@@ -55,11 +54,7 @@ class JobsController extends Controller
         $job = Job::find($job->id);
         $job->update($request->all());
         
-        
         return redirect()->route('jobs');
-        // return dd($job);
-            
-        
     }
 
     public function show(Job $job)
@@ -75,4 +70,19 @@ class JobsController extends Controller
         return redirect()->route('jobs')->with('success', 'Job deleted successfully.');
     }
 
+    public function showLocationComponent() {
+        return view('components.job-location');
+    }
+
+    public function storeLocation(Request $request)
+    {
+        $jobLocation = $request->input('job_location');
+        return redirect()->route('job-post.show', ['job_location' => $jobLocation]);
+    }
+
+    public function showJobPost(Request $request)
+    {
+        $jobLocation = $request->input('job_location');
+        return view('job-post', compact('jobLocation'));
+    }
 }

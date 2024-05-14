@@ -67,6 +67,9 @@ Route::group(['middleware' => ['auth.user']], function () {
     Route::get('/jobs/{job}', [JobsController::class, 'show'])->name('jobs.show');
     Route::put('/jobs/{job}', [JobsController::class, 'update'])->name('jobs.update');
     Route::delete('/jobs/{id}', [JobsController::class, 'deleteJob'])->name('delete.job');
+    Route::get('/job-location', [JobsController::class, 'showLocationComponent'])->name('job-location.component');
+    Route::post('/job-location/store', [JobsController::class, 'storeLocation'])->name('job-location.store');
+    Route::get('/job-post', [JobsController::class, 'showJobPost'])->name('job-post.show');
 
     Route::get('/gallery', [GalleryController::class, 'index'])->name('gallery');
     Route::get('/gallery/add-gallery', [GalleryController::class, 'create'])->name('gallery.add');
