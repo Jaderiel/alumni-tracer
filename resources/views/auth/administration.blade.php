@@ -42,8 +42,7 @@
             @include('components.job-approvals')
         </div>
         <div id="role-setting" class="tab-content">
-            <!-- Content for Role Setting tab -->
-            <p>Content for Role Setting tab</p>
+            @include('components.role-setting')
         </div>
         <div id="create-account" class="tab-content">
             @include('components.create-account')

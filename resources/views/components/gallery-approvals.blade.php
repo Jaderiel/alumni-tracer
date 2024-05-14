@@ -6,25 +6,34 @@
 </head>
 <body>
     <div class="card-holder">
+        @foreach($gallery as $gal)
         <div class="content-holder-gallery">
             <div class="left-content">
                 <div class="image-holder">
-                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSszHtHXYkShquFKPb8D2MXutGH97YCeajQHQ&usqp=CAU" alt="">
+                    <img src="{{$gal->media_url}}" alt="">
                 </div>
                 <div class="detail-holder">
-                    <h3><strong>[Title]</strong></h3>
-                    <p>[Course]</p>
-                    <p>[Details] okay try natin ulit pag mahaba ang details pano kayang gagawin?</p>
-                    <h5>Posted by: [name]</h5>
+                    <h3><strong>{{$gal->img_title}}</strong></h3>
+                    <p>{{$gal->course}}</p>
+                    <p>{{$gal->img_description}}</p>
+                    <h5>Posted by: {{$gal->user->first_name}} {{$gal->user->last_name}}</h5>
                 </div>
             </div>
             <div>
                 <div class="button-holder">
-                    <button class="approve-button">Approve</button>
-                    <button class="delete-button">Delete</button>
+                    <form action="{{ route('gallery.approve', $gal->id) }}" method="POST" style="display:inline;">
+                        @csrf
+                        <button type="submit" class="approve-button" onclick="return confirm('Are you sure you want to approve this gallery post?')">Approve</button>
+                    </form>
+                    <form action="{{ route('gallery.delete', $gal->id) }}" method="POST" style="display:inline;">
+                        @csrf
+                        @method('DELETE')
+                        <button type="submit" class="delete-button" onclick="return confirm('Are you sure you want to delete this gallery post?')">Delete</button>
+                    </form>
                 </div>
             </div>
         </div>
+        @endforeach
 
         <div class="content-holder-gallery">
             <div class="left-content">

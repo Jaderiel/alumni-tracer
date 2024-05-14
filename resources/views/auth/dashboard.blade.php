@@ -85,7 +85,7 @@
                             @endif
                             <div class="user-details">
                                 <p class="profile-name">{{ Auth::user()->first_name }} {{ Auth::user()->last_name }}</p>
-                                <p class="profile-course">{{ Auth::user()->course }}</p>
+                                <p class="profile-course">{{ Auth::user()->user_type !== 'Alumni' ? Auth::user()->user_type : Auth::user()->course }}</p>
                             </div>
                         </div>
                     </div> 
@@ -111,7 +111,8 @@
                         @endif
                             <div class="user-details">
                                 <p class="profile-name">{{ $post->user->first_name }} {{ $post->user->last_name }}</p>
-                                <p class="profile-course">{{ $post->user->course }}</p>
+                                <p class="profile-course">{{ $post->user->user_type !== 'Alumni' ? $post->user->user_type : $post->user->course }}</p>
+
                             </div>
                         </div>
                         @if(auth()->check() && (auth()->user()->id == $post->user->id || auth()->user()->user_type == 'Super Admin'))
@@ -173,7 +174,7 @@
             <img src="{{ Auth::user()->profile_pic }}" alt="Profile Picture">
             <div class="user-details2">
                 <p class="profile-name2">{{ Auth::user()->first_name }} {{ Auth::user()->last_name }}</p>
-                <p class="profile-course">{{ Auth::user()->course }}</p>
+                <p class="profile-course">{{ Auth::user()->user_type !== 'Alumni' ? Auth::user()->user_type : Auth::user()->course }}</p>
             </div>
         </div>
     </div> 

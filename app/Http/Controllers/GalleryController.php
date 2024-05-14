@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\Session;
 class GalleryController extends Controller
 {
     public function index() {
-        $gallery = Gallery::all();
+        $gallery = Gallery::where('is_approved', true)->get();
 
         return view("auth.gallery", compact('gallery'));
     }

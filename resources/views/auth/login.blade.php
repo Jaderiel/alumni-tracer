@@ -27,7 +27,7 @@
                 <div class="input-group">
                     <select name="user_type" id="user_type" required>
                             <option value="" selected disabled>User type</option>
-                            <option value="Admin">Admin</option>
+                            <!-- <option value="Admin">Admin</option> -->
                             <option value="Alumni">Alumni</option>
                     </select>
                 </div>

@@ -13,6 +13,12 @@ class Gallery extends Model
         'course',
         'img_title',
         'img_description',
-        'media_url', 
+        'media_url',
+        'is_approved',
     ];
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
 }

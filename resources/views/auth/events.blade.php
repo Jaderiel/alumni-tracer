@@ -80,11 +80,12 @@
                                             <span class="text-success">REGISTERED</span>
                                         </div>
                                     @else
-                                        @if(auth()->check() && (auth()->user()->user_type == 'Admin' || Auth::user()->user_type === 'Super Admin'))
+                                        @if(auth()->check() && (auth()->user()->user_type !== 'Alumni' || Auth::user()->user_type === 'Super Admin'))
                                         <div class="text-right" style="padding: 10px">
                                             <a href="{{ route('get.registered.users', ['eventId' => $event->id]) }}" style="display: inline-block; padding: 10px 20px; background-color: #007bff; color: #fff; text-decoration: none; border-radius: 5px; " class="view" >View Registered Users</a>
                                         </div>
-
+                                        @endif
+                                        @if(auth()->check() && (auth()->user()->user_type == 'Admin' || Auth::user()->user_type === 'Super Admin'))
                                         <div class="text-right" style="padding: 10px">
                                         <form action="{{ route('delete.event', ['id' => $event->id]) }}" method="POST" style="display: inline-block; width: 100px;">
                                             @method('DELETE')
@@ -149,5 +150,9 @@
     .button:hover {
         cursor: pointer;
         text-decoration: none;
+    }
+
+    .register-btn {
+        margin: 10px
     }
 </style>

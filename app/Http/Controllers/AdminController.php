@@ -7,13 +7,16 @@ use App\Models\User;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\AccountApproved;
 use App\Mail\AccountCreated;
+use App\Models\Gallery;
 
 
 class AdminController extends Controller
 {
     public function index() {
         $unverifiedUsers = User::where('is_email_verified', false)->get();
-        return view('auth.administration', ['unverifiedUsers' => $unverifiedUsers]);
+        $gallery = Gallery::where('is_approved', false)->get();
+
+        return view('auth.administration', compact('unverifiedUsers', 'gallery'));
     }
 
     public function approveUser($userId)
@@ -74,5 +77,31 @@ class AdminController extends Controller
     
         return redirect()->back()->with('success', 'User account created successfully.');
     }
+
+    public function approveGallery($id)
+    {
+        // Find the user by ID
+        $gallery = Gallery::findOrFail($id);
+
+        // Update the user's verification status
+        $gallery->is_approved = true;
+        $gallery->save();
+
+        // Send the approval email
+        // Mail::to($user->email)->send(new AccountApproved());
+
+        // Redirect back or to a success page
+        return redirect()->back()->with('success', 'Gallery post approved successfully.');
+    }
     
+    public function deleteGallery($id)
+    {
+        // Find the gallery item by ID
+        $gallery = Gallery::findOrFail($id);
+
+        // Delete the gallery item
+        $gallery->delete();
+
+        return redirect()->back()->with('success', 'Gallery post deleted successfully.');
+    }
 }
