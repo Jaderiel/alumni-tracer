@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
     <link rel="stylesheet" href="{{ asset('bootstrap/bootstrap.min.css') }}">
     <link rel="stylesheet" href="{{ asset('css/job-post.css') }}">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
 
 <body>
@@ -54,8 +55,8 @@
             </div>
         </div>
 
-        <div class="container">
-            <div class="panel">
+        <div class="job-container">
+            <div class="job-panel">
                 <div class="bio-graph-heading">
                     CREATE JOB POST
                 </div>
@@ -72,8 +73,39 @@
                         <div class="title-input">
                             <input type="text" name="company" class="input-company" placeholder="Company">
                         </div>
+                        <!-- <div class="title-input">
+                            <a href="{{ route('job-location.component') }}" class="show-location-button"><input type="text" name="job_location" class="form-control" placeholder="Location" value="{{ $jobLocation }}" readonly></a>
+                        </div> -->
+                    </div>
+
+                    <div class="location-holder">
                         <div class="title-input">
-                            <a href="{{ route('job-location.component') }}"><input type="text" name="job_location" class="form-control" placeholder="Location" value="{{ $jobLocation }}" readonly></a>
+                            <select id="country" class="form-control mb-2">
+                                <option value="" selected disabled>Select Country</option>
+                            </select>
+                        </div>
+                        <div class="title-input">
+                            <select id="region" class="form-control mb-2" disabled>
+                                <option value="" selected disabled>Select Region</option>
+                            </select>
+                        </div>
+                        <div class="title-input">
+                            <select id="province" class="form-control mb-2" disabled>
+                                <option value="" selected disabled>Select Province</option>
+                            </select>
+                        </div>
+                        <div class="title-input">
+                            <select id="city" class="form-control mb-2" disabled>
+                                <option value="" selected disabled>Select City/Municipality</option>
+                            </select>
+                        </div>
+                        <div class="title-input">
+                            <select id="barangay" class="form-control mb-2" disabled>
+                                <option value="" selected disabled>Select Barangay</option>
+                            </select>
+                        </div>
+                        <div class="title-input">
+                            <input type="text" id="location" class="form-control" name="job_location" placeholder="Location" readonly>
                         </div>
                     </div>
                     
@@ -103,19 +135,49 @@
                     </div>
                     
                     <textarea class="job-details" name="job_description" placeholder="Job Description"></textarea>
-                    
-    
-                </div>
-
-            <button class="post-button-ann" type="submit">POST</button>
+            <div class="post-button-holder">
+                <button class="post-button-annn" type="submit">POST</button>
+            </div>
         </form>
         </div>
     </div>
     </section>
 </body>
 <script src="{{ asset('js/header.js') }}"></script>
+<script src="{{ asset('js/job-location.js') }}"></script>
 </html>
 
 <style>
-    
+    .show-location-button:hover {
+        text-decoration: none;
+        cursor: pointer;
+    }
+
+    .location-holder {
+        margin-bottom: 10px;
+        margin-left: 30px;
+        margin-right: 30px
+    }
+
+    .post-button-annn {
+        padding: 5px 100px;
+        margin-top: 10px;
+        background-color: #00A36C;
+        border-radius: 2px;
+        border-color: transparent;
+        color: white;
+    }
+
+    .job-container {
+        margin-left: 70px;
+        margin-right: 100px;
+        background-color: white;
+        margin-bottom: 50px;
+        padding-bottom: 20px
+    }
+
+    .post-button-holder {
+        display: flex;
+        justify-content: center
+    }
 </style>

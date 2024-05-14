@@ -92,6 +92,8 @@ Route::group(['middleware' => ['auth.user']], function () {
     Route::post('/administration', [AdminController::class, 'createAccount'])->name('user.create');
     Route::post('/administration/{id}', [AdminController::class, 'approveGallery'])->name('gallery.approve');
     Route::delete('/administration/{id}', [AdminController::class, 'deleteGallery'])->name('gallery.delete');
+    Route::post('/job-approvals/{id}', [AdminController::class, 'approveJob'])->name('job.approve');
+    Route::delete('/job-approvals/{id}', [AdminController::class, 'deleteJob'])->name('job.delete');
 });
 
 

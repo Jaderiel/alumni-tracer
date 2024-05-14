@@ -8,7 +8,7 @@ use App\Models\Job;
 class JobsController extends Controller
 {
     public function jobs() {
-        $jobs = Job::all();
+        $jobs = Job::where('is_approved', true)->get();
         return view("auth.jobs", compact('jobs'));
     }
 
@@ -43,7 +43,7 @@ class JobsController extends Controller
             $job->link = $request->link;
             $job->save();
 
-            return redirect()->back()->with('success', 'Job details saved successfully.');
+            return redirect()->back()->with('success', 'Job details saved successfully. Please wait for approval');
         } catch (\Exception $e) {
             dd($e->getMessage());
         }

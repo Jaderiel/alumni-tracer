@@ -24,9 +24,9 @@
     </section>
 
     <div class="popup" id="popup">
-      <div class="create">
-          <i class="fa-solid fa-circle-xmark" onclick="closePopup()"></i>
-          <div class="panel">
+    <div class="create">
+        <i class="fa-solid fa-circle-xmark" onclick="closePopup()"></i>
+        <div class="panel">
             <div class="bio-graph-heading">
                 EDIT POST
             </div>
@@ -72,11 +72,11 @@
             <button class="post-button-ann">POST</button>
             
         </div>
-      </div>
-  </div>
+    </div>
+</div>
 
     <section id="interface">
-      @include('components.headernav')
+    @include('components.headernav')
 
         <h3 class="i-name">
             Recent Jobs
@@ -105,12 +105,12 @@
         @endif
         
             <div class="row div" id="jobList">
-              @foreach($jobs as $job)
-              <div class="job-div col-lg-9">
+            @foreach($jobs as $job)
+            <div class="job-div col-lg-9">
                 <div class="job-details">
-                  <div class="row mb-3">
+                <div class="row mb-3">
                     <div class="col">
-                      <h3 class="title">{{ $job->job_title}}</h3>
+                    <h3 class="title">{{ $job->job_title}}</h3>
                     </div>
                     <div class="col-auto">
                         <a href="{{ $job->link}}" class="btn btn-warning text-white">Apply</a>
@@ -118,38 +118,38 @@
                     @if(Auth::check() && Auth::user()->user_type === 'Super Admin' || Auth::user()->id === $job->user_id)
                     <a href="{{ route('jobs.show', ['job' => $job->id]) }}"><button class="btn btn-warning text-white mr-2">Edit</button></a>
                     @endif
-                  </div>
-                  <div class="row mb-1">
+                </div>
+                <div class="row mb-1">
                     <div class="col-auto">
                         <i class="fas fa-location-arrow"></i>
                     </div>
                     <div class="col">
-                      {{ $job->job_location}} 
+                    {{ $job->job_location}} 
                     </div>
-                  </div>
-                  <div class="row mb-3">
+                </div>
+                <div class="row mb-3">
                     <div class="col-auto">
                         <i class="fas fa-money-bill"></i> 
                     </div>
                     <div class="col">
-                      {{ $job->salary}}
-                      <i class="fas fa-clock ml-3 mr-2"></i> {{ $job->job_type}}
+                    {{ $job->salary}}
+                    <i class="fas fa-clock ml-3 mr-2"></i> {{ $job->job_type}}
                     </div>
-                  </div>
-                  <div class="row mb-3">
+                </div>
+                <div class="row mb-3">
                     <div class="col">
-                      <p>{{ $job->job_description}}</p>
+                    <p>{{ $job->job_description}}</p>
                     </div>
-                  </div>
-                  <div class="row">
+                </div>
+                <div class="row">
                     <div class="col">
                         <span class="job-timestamp" data-timestamp="{{ $job->created_at->timestamp }}"></span>
                     </div>
                 </div>
 
                 </div>
-              </div>
-              @endforeach  
+            </div>
+            @endforeach  
     </section>
 <script src="{{ asset('js/header.js') }}"></script>
 <script src="{{ asset('js/jobs.js') }}"></script>

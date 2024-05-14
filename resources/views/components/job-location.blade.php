@@ -5,9 +5,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Location Dropdowns</title>
     <link rel="stylesheet" href="{{ asset('bootstrap/bootstrap.min.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 </head>
 <body>
+    <h3 class="i-name">
+        <a href="{{ route('job-post') }}" class="back-link"><i class="fas fa-arrow-left"></i></a>
+        Location
+    </h3>
     <div class="container mt-5">
         <form id="locationForm" action="{{ route('job-location.store') }}" method="POST">
             @csrf
@@ -49193,5 +49198,22 @@
         border-radius: 2px;
         border-color: transparent;
         color: white;
+    }
+    
+    .back-link {
+        color: #333;
+        text-decoration: none;
+        margin-right: 10px;
+    }
+
+    .back-link:hover {
+        color: #000; 
+    }
+
+    .i-name{
+        color:#2D55B4;
+        padding: 20px 30px 0 30px;
+        font-size: 24px;
+        font-weight: 700;
     }
 </style>

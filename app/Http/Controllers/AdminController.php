@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Mail;
 use App\Mail\AccountApproved;
 use App\Mail\AccountCreated;
 use App\Models\Gallery;
+use App\Models\Job;
 
 
 class AdminController extends Controller
@@ -15,8 +16,9 @@ class AdminController extends Controller
     public function index() {
         $unverifiedUsers = User::where('is_email_verified', false)->get();
         $gallery = Gallery::where('is_approved', false)->get();
+        $jobs = Job::where('is_approved', false)->get();
 
-        return view('auth.administration', compact('unverifiedUsers', 'gallery'));
+        return view('auth.administration', compact('unverifiedUsers', 'gallery', 'jobs'));
     }
 
     public function approveUser($userId)
@@ -103,5 +105,32 @@ class AdminController extends Controller
         $gallery->delete();
 
         return redirect()->back()->with('success', 'Gallery post deleted successfully.');
+    }
+
+    public function approveJob($id)
+    {
+        // Find the user by ID
+        $jobs = Job::findOrFail($id);
+
+        // Update the user's verification status
+        $jobs->is_approved = true;
+        $jobs->save();
+
+        // Send the approval email
+        // Mail::to($user->email)->send(new AccountApproved());
+
+        // Redirect back or to a success page
+        return redirect()->back()->with('success', 'Job post approved successfully.');
+    }
+
+    public function deleteJob($id)
+    {
+        // Find the gallery item by ID
+        $jobs = Job::findOrFail($id);
+
+        // Delete the gallery item
+        $jobs->delete();
+
+        return redirect()->back()->with('success', 'Job post deleted successfully.');
     }
 }

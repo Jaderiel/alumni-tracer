@@ -17,5 +17,11 @@ class Job extends Model
         'company',
         'salary',
         'link',
+        'is_approved',
     ];
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
 }

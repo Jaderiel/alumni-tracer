@@ -6,24 +6,33 @@
 </head>
 <body>
     <div class="card-holder">
+        @foreach($jobs as $job)
         <div class="content-holder">
             <div class="left-content">
                 <div class="detail-holder">
-                    <h3>[Job Title]</h3>
-                    <p>[Location]</p>
-                    <p>[salary]</p>
-                    <p>[type]</p>
-                    <p>[Details] okay try natin ulit pag mahaba ang details [Details] okay try natin ulit pag mahaba ang details [Details] okay try natin ulit pag mahaba ang details [Details] okay try natin ulit pag mahaba ang details [Details] okay try natin ulit pag mahaba ang details [Details] okay try natin ulit pag mahaba ang details [Details] okay try natin ulit </p>
-                    <h5>Posted by: [name]</h5>
+                    <h3>{{ $job->job_title}}</h3>
+                    <p>{{ $job->job_location}}</p>
+                    <p>{{ $job->salary}}</p>
+                    <p>{{ $job->job_type}}</p>
+                    <p>{{ $job->job_description}}</p>
+                    <h5>Posted by: {{ $job->user->first_name}} {{ $job->user->last_name}}</h5>
                 </div>
             </div>
             <div>
                 <div class="button-holder">
-                    <button class="approve-button">Approve</button>
-                    <button class="delete-button">Delete</button>
+                    <form action="{{ route('job.approve', $job->id) }}" method="POST" style="display:inline;">
+                        @csrf
+                        <button type="submit" class="approve-button" onclick="return confirm('Are you sure you want to approve this job post?')">Approve</button>
+                    </form>
+                    <form action="{{ route('job.delete', $job->id) }}" method="POST" style="display:inline;">
+                        @csrf
+                        @method('DELETE')
+                        <button type="submit" class="delete-button" onclick="return confirm('Are you sure you want to delete this job post?')">Delete</button>
+                    </form>
                 </div>
             </div>
         </div>
+        @endforeach
     </div>
 
 </body>
