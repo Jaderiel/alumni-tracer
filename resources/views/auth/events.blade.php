@@ -39,7 +39,7 @@
 
         <div class="event" style="margin: 0px">
             <button href="{{ route('events') }}" class="up-event">Upcoming Events and Announcement</button>
-            @if(auth()->check() && (auth()->user()->user_type == 'Admin'))
+            @if(auth()->check() && (auth()->user()->user_type == 'Admin' || Auth::user()->user_type === 'Super Admin'))
             <a href="{{ route('add-event') }}" class="post-event">Add Event</a>
             <a href="{{ route('add-ann') }}" class="post-event">Add Announcement</a>
             @endif
