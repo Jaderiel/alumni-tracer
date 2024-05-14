@@ -12,7 +12,7 @@ use Carbon\Carbon;
 class EventsController extends Controller
 {
     public function events() {
-
+        $this->deletePastEvents();
         $events = Event::all();
         $announcements = Announcement::all();
 
@@ -20,7 +20,7 @@ class EventsController extends Controller
             $event->event_date = Carbon::parse($event->event_date); // Convert string to DateTime object
         }
 
-        return view("auth.events", compact('events', 'announcements', 'event'));
+        return view("auth.events", compact('events', 'announcements'));
     }
     
     public function register($user_id, $event_id)
@@ -189,6 +189,18 @@ class EventsController extends Controller
         $ann->delete();
 
         return redirect()->route('events')->with('success', 'Event deleted successfully.');
+    }
+
+    public function deletePastEvents()
+    {
+        $now = Carbon::now();
+        
+        Event::where('event_date', '<', $now->toDateString())
+            ->orWhere(function($query) use ($now) {
+                $query->where('event_date', '=', $now->toDateString())
+                    ->where('event_time', '<', $now->toTimeString());
+            })
+            ->delete();
     }
 
 

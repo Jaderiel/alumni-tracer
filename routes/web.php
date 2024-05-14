@@ -85,7 +85,7 @@ Route::group(['middleware' => ['auth.user']], function () {
     Route::get('/user-analytics', [AnalyticsController::class, 'getUserAnalytics']);
     Route::get('/user-employment-analytics', [AnalyticsController::class, 'getUserEmploymentAnalytics']);
 
-    Route::put('/approvals/{userId}', [ApprovalsController::class, 'approveUser'])->name('user.approve');
+    // Route::put('/approvals/{userId}', [ApprovalsController::class, 'approveUser'])->name('user.approve');
 
     Route::get('/administration', [AdminController::class, 'index'])->name('administration.show');
     Route::put('/administration/{userId}', [AdminController::class, 'approveUser'])->name('user.approve');
@@ -94,6 +94,8 @@ Route::group(['middleware' => ['auth.user']], function () {
     Route::delete('/administration/{id}', [AdminController::class, 'deleteGallery'])->name('gallery.delete');
     Route::post('/job-approvals/{id}', [AdminController::class, 'approveJob'])->name('job.approve');
     Route::delete('/job-approvals/{id}', [AdminController::class, 'deleteJob'])->name('job.delete');
+    Route::post('/update-role', [AdminController::class, 'updateRole'])->name('updateRole');
+
 });
 
 

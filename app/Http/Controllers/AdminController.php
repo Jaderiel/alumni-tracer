@@ -17,8 +17,12 @@ class AdminController extends Controller
         $unverifiedUsers = User::where('is_email_verified', false)->get();
         $gallery = Gallery::where('is_approved', false)->get();
         $jobs = Job::where('is_approved', false)->get();
+        $superAdmin = User::where('user_type', "Super Admin")->get();
+        $admin = User::where('user_type', "Admin")->get();
+        $programHead = User::where('user_type', "Program Head")->get();
+        $alumniOfficer = User::where('user_type', "Alumni Officer")->get();
 
-        return view('auth.administration', compact('unverifiedUsers', 'gallery', 'jobs'));
+        return view('auth.administration', compact('unverifiedUsers', 'gallery', 'jobs', 'superAdmin', 'admin', 'programHead', 'alumniOfficer'));
     }
 
     public function approveUser($userId)
@@ -133,4 +137,20 @@ class AdminController extends Controller
 
         return redirect()->back()->with('success', 'Job post deleted successfully.');
     }
+
+    // UserController.php
+    public function updateRole(Request $request)
+    {
+        $request->validate([
+            'user_id' => 'required|exists:users,id',
+            'user_role' => 'required|in:Super Admin,Admin,Program Head,Alumni Officer',
+        ]);
+
+        $user = User::find($request->user_id);
+        $user->user_type = $request->user_role;
+        $user->save();
+
+        return redirect()->back()->with('success', 'User role updated successfully.');
+    }
+
 }
