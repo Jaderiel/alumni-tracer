@@ -7,29 +7,20 @@
     <title>Alumni List Page</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
     <link rel="stylesheet" href="{{ asset('css/alumni.css') }}">
-    <link rel="stylesheet" href="{{ asset('css/jobs.css') }}">
+    <!-- <link rel="stylesheet" href="{{ asset('css/jobs.css') }}"> -->
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 </head>
-<body>
-    <section id="menu">
-        <!-- Include the appropriate side navigation -->
-        @if(Auth::user()->user_type === 'Admin' || Auth::user()->user_type === 'Super Admin')
-            @include('components.admin-sidenav')
-        @else
-            @include('components.sidenav')
-        @endif
-    </section>
+<body style="margin-top: 70px">
+    @include('main')
 
     <section id="interface">
-
-        @include('components.headernav')
 
             <h3 class="i-name">
                 Alumni List
             </h3>
 
-        <div class="find">
-            <div class="search-course">
+        <div class="find flex flex-col lg:flex-row justify-between mb-10 lg:m-0 pt-4 lg:pt-4">
+            <div class="search-course w-full lg:w-2/5">
                 <select name="course" id="courseFilter">
                     <option value="" selected disabled>Course</option>
                     <option value="all">All</option>
@@ -49,7 +40,7 @@
                     <option value="Office Management">Office Management (OM)</option>
                 </select>
             </div>
-            <div class="search-batch">
+            <div class="search-batch w-full lg:w-3/12">
                 <select name="batch" id="batchFilter">
                     <option value="" selected disabled>Batch</option>
                     <option value="all">All</option>
@@ -73,7 +64,7 @@
                     <option value="2023">2023</option>
                 </select>
             </div>
-            <div class="search">
+            <div class="search w-full lg:w-3/12">
                 <i class="fa-solid fa-search"></i>
                 <input id="searchInput" type="text" placeholder="Search...">
             </div>
@@ -90,8 +81,8 @@
                 <thead>
                     <tr>
                         <td>Name</td>
-                        <td>Course</td>
-                        <td>Batch</td>
+                        <td class="hide-on-small">Course</td>
+                        <td class="hide-on-small">Batch</td>
                         <td>Action</td>
                     </tr>
                 </thead>
@@ -104,23 +95,23 @@
                                 <p>{{ $user->email }}</p>
                             </div>
                         </td>
-                        <td>
+                        <td class="hide-on-small">
                             <div>
                                 <p>{{ $user->course }}</p>
                             </div>
                         </td>
-                        <td>
+                        <td class="hide-on-small">
                             <div>
                                 <p>{{ $user->batch }}</p>
                             </div>
                         </td>
-                        <td class="action" style="display: flex">
-                            <a href="{{ route('profile.show', ['id' => $user->id]) }}" class="button">View</a>
+                        <td class="action flex-col flex lg:flex-row items-center gap-2">
+                            <a href="{{ route('profile.show', ['id' => $user->id]) }}"><button>View</button></a>
                             @if(auth()->check() && (auth()->user()->user_type == 'Admin' || Auth::user()->user_type === 'Super Admin'))
                             <form action="{{ route('user.delete', ['userId' => $user->id]) }}" method="POST">
                                 @method('DELETE')
                                 @csrf
-                                <button type="submit" class="button delete-btn" style="background-color: maroon;">Delete</button>
+                                <button type="submit" class="" style="background-color: maroon;">Delete</button>
                             </form>
                             @endif
                         </td>
@@ -171,3 +162,18 @@
 </body>
 <script src="{{ asset('js/header.js') }}"></script>
 </html>
+
+<style>
+    /* Default styles */
+.hide-on-small {
+    display: table-cell;
+}
+
+/* Media query to hide on small screens */
+@media (max-width: 600px) {
+    .hide-on-small {
+        display: none;
+    }
+}
+
+</style>

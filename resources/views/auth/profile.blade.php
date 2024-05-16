@@ -12,17 +12,10 @@
     <script src="profile.js" defer></script>
 </head>
 
-<body>
-    <section id="menu">
-        @if(Auth::user()->user_type === 'Admin' || Auth::user()->user_type === 'Super Admin')
-            @include('components.admin-sidenav')
-        @else
-            @include('components.sidenav')
-        @endif
-    </section>
+<body style="margin-top: 70px">
+    @include('main')
 
     <section id="interface">
-        @include('components.headernav')
 
         <h3 class="i-name">
         <a href="{{ route('user-profile') }}" class="back-link"><i class="fas fa-arrow-left"></i></a> Profile Settings

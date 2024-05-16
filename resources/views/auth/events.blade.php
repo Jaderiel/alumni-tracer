@@ -7,7 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Events Page</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
-    <link rel="stylesheet" href="{{ asset('bootstrap/bootstrap.min.css') }}">
+    <!-- <link rel="stylesheet" href="{{ asset('bootstrap/bootstrap.min.css') }}"> -->
     <link rel="stylesheet" href="{{ asset('css/events.css') }}">
     
     <link rel="stylesheet" href="{{ asset('css/sidebar.css') }}">
@@ -15,23 +15,13 @@
     <script src="jquery-3.5.1.min.js"></script>
     <script src="bootstrap/js/bootstrap.min.js"></script>
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>   
 </head>
 
 <body>
-    
-    <!-- <div id="contriner" class="container"> -->
-    <section id="menu">
-        @if(Auth::user()->user_type === 'Admin' || Auth::user()->user_type === 'Super Admin')
-            @include('components.admin-sidenav')
-        @else
-            @include('components.sidenav')
-        @endif
-    </section>
+    @include('main')
 
     <section id="interface">
-        
-        @include('components.headernav')
 
         <h3 class="i-name">
             Events & Announcement

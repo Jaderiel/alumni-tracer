@@ -9,7 +9,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
     <link rel="stylesheet" href="{{ asset('css/dashboard.css') }}">
     <link rel="stylesheet" href="{{ asset('css/sidebar.css') }}">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" />
+    <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" /> -->
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
     <script>
     console.log("Checking authentication status...");
@@ -22,26 +22,17 @@
 
 </head>
 
-<body>
-    <div id="container" class="container">
-    <section id="menu">
-    @if(Auth::user()->user_type === 'Admin' || Auth::user()->user_type === 'Super Admin')
-        @include('components.admin-sidenav')
-    @else
-        @include('components.sidenav')
-    @endif
-    </section>
+<body class="w-full bg-customBgColor relative flex">
+    @include('main')
 
     <section id="interface">
-        @include('components.headernav')
         
-
         <h3 class="i-name">
             Dashboard
         </h3>
-        <p class="i-nameee">Welcome back, {{ Auth::user()->username }}!</p>
-        <div class="values">
-            <div class="val-box">
+        <p class="i-nameee pl-4 lg:pl-8">Welcome back, {{ Auth::user()->username }}!</p>
+        <div class="values gap-4 p-4 lg:p-8">
+            <div class="val-box p-0">
                 <i class="fa-solid fa-briefcase"></i>
                 <div>
                     <h3>{{ $jobCount }}</h3>
@@ -64,102 +55,107 @@
             </div>
         </div>
 
-        <div class="board">
-            <div class="board-1">
-                <table width="100%">
-                    <thead>
-                        <tr>
-                            <td><h2>Forum</h2></td>
-                        </tr>
-                    </thead>
-                </table>
-                <hr>
-
-                <div class="forum-section">
-                    <div class="left-section">
-                        <div class="profile-info">
-                            @if (Auth::user()->profile_pic)
-                                <img src="{{ Auth::user()->profile_pic }}" alt="Profile Picture" class="w-8 h-8 rounded-full"> <!-- Use the user's profile picture -->
-                            @else
-                                <img src="https://st3.depositphotos.com/6672868/13701/v/450/depositphotos_137014128-stock-illustration-user-profile-icon.jpg" alt="Placeholder Profile Picture" class="w-8 h-8 rounded-full"> <!-- Use the placeholder image -->
-                            @endif
-                            <div class="user-details">
-                                <p class="profile-name">{{ Auth::user()->first_name }} {{ Auth::user()->last_name }}</p>
-                                <p class="profile-course">{{ Auth::user()->user_type !== 'Alumni' ? Auth::user()->user_type : Auth::user()->course }}</p>
-                            </div>
-                        </div>
-                    </div> 
-                    <button style="background-color: transparent; border: none; cursor: pointer; text-align: left;" onclick="openPopup0()">
-                        <div class="center-section">
-                            <p>What's on your mind, {{ Auth::user()->username }}?</p>
-                        </div>
-                    </button>
-                    <div class="right-section">
-                        <button type="submit" class="post-button" onclick="openPopup0()">MAKE A POST</button>
-                    </div>
-                </div>
-                <hr>
-                
-            @foreach($forumPosts->sortByDesc('created_at') as $post)
-                <div class="forum-section">
-                    <div style="display: flex; justify-content: space-between; align-items: center">
-                        <div class="profile-info flex items-center">
-                        @if ($post->user->profile_pic)
-                            <img src="{{ $post->user->profile_pic }}" alt="Profile Picture" class="w-8 h-8 rounded-full"> <!-- Use the user's profile picture -->
-                        @else
-                            <img src="https://st3.depositphotos.com/6672868/13701/v/450/depositphotos_137014128-stock-illustration-user-profile-icon.jpg" alt="Placeholder Profile Picture" class="w-8 h-8 rounded-full"> <!-- Use the placeholder image -->
-                        @endif
-                            <div class="user-details">
-                                <p class="profile-name">{{ $post->user->first_name }} {{ $post->user->last_name }}</p>
-                                <p class="profile-course">{{ $post->user->user_type !== 'Alumni' ? $post->user->user_type : $post->user->course }}</p>
-
-                            </div>
-                        </div>
-                        @if(auth()->check() && (auth()->user()->id == $post->user->id || auth()->user()->user_type == 'Super Admin'))
-                        <div class="elipsis">
-                        <i class="fas fa-ellipsis-v text-gray-600 ml-" onclick="openEditPopup('{{ $post->id }}', '{{ $post->caption }}')"></i>
-                        </div>
-                        @endif
-                    </div>
-                    
-                    <div class="center-section2 flex items-center">
-                        <p class="mr-2">{{ $post->caption }}</p>
-                        @if ($post->media_url)
-                            <img src="{{ $post->media_url }}" alt="Image" class="image-posted"> <!-- Use the user's profile picture -->
-                        @else
-                            <p></p> <!-- Use the placeholder image -->
-                        @endif
-                        <div class="likers" onclick="openPopup3()">
-                            <img src="http://127.0.0.1:5500/user/img/like.png" alt="Image" class="like"> 
-                            <p id="yuzer">Melanie Lopez and 2 others</p>
-                        </div>
-                    </div>
-
-                    <div class="forum-section2">
-                        <table>
-                        <thead>
-                            <tr>
-                                <td><i id="thumbsUpIcon" class="fa-solid fa-thumbs-up"></i></td>
-                                <td class="comment-button" onclick="openPopup4()"><i class="fa-solid fa-comment-dots"></i></td>
-                            </tr>
-                        </thead>
+        <div>
+            <div>
+                <div class="board flex flex-col lg:flex-row">
+                    <div class="board-1 w-96 lg:w-[700px]">
+                        <table width="100%">
+                            <thead>
+                                <tr>
+                                    <td><h2>Forum</h2></td>
+                                </tr>
+                            </thead>
                         </table>
+                        <hr>
+
+                        <div class="forum-section">
+                            <div class="left-section">
+                                <div class="profile-info">
+                                    @if (Auth::user()->profile_pic)
+                                        <img src="{{ Auth::user()->profile_pic }}" alt="Profile Picture" class="w-8 h-8 rounded-full"> <!-- Use the user's profile picture -->
+                                    @else
+                                        <img src="https://st3.depositphotos.com/6672868/13701/v/450/depositphotos_137014128-stock-illustration-user-profile-icon.jpg" alt="Placeholder Profile Picture" class="w-8 h-8 rounded-full"> <!-- Use the placeholder image -->
+                                    @endif
+                                    <div class="user-details">
+                                        <p class="profile-name">{{ Auth::user()->first_name }} {{ Auth::user()->last_name }}</p>
+                                        <p class="profile-course">{{ Auth::user()->user_type !== 'Alumni' ? Auth::user()->user_type : Auth::user()->course }}</p>
+                                    </div>
+                                </div>
+                            </div> 
+                            <button style="background-color: transparent; border: none; cursor: pointer; text-align: left;" onclick="openPopup0()">
+                                <div class="center-section">
+                                    <p>What's on your mind, {{ Auth::user()->username }}?</p>
+                                </div>
+                            </button>
+                            <div class="right-section">
+                                <button type="submit" class="post-button" onclick="openPopup0()">MAKE A POST</button>
+                            </div>
+                        </div>
+                        <hr>
+                        
+                    @foreach($forumPosts->sortByDesc('created_at') as $post)
+                        <div class="forum-section p-0">
+                            <div class="p-4">
+                                <div style="display: flex; justify-content: space-between; align-items: center">
+                                    <div class="profile-info flex items-center">
+                                    @if ($post->user->profile_pic)
+                                        <img src="{{ $post->user->profile_pic }}" alt="Profile Picture" class="w-8 h-8 rounded-full"> <!-- Use the user's profile picture -->
+                                    @else
+                                        <img src="https://st3.depositphotos.com/6672868/13701/v/450/depositphotos_137014128-stock-illustration-user-profile-icon.jpg" alt="Placeholder Profile Picture" class="w-8 h-8 rounded-full"> <!-- Use the placeholder image -->
+                                    @endif
+                                        <div class="user-details">
+                                            <p class="profile-name">{{ $post->user->first_name }} {{ $post->user->last_name }}</p>
+                                            <p class="profile-course">{{ $post->user->user_type !== 'Alumni' ? $post->user->user_type : $post->user->course }}</p>
+
+                                        </div>
+                                    </div>
+                                    @if(auth()->check() && (auth()->user()->id == $post->user->id || auth()->user()->user_type == 'Super Admin'))
+                                    <div class="elipsis">
+                                    <i class="fas fa-ellipsis-v text-gray-600 ml-" onclick="openEditPopup('{{ $post->id }}', '{{ $post->caption }}')"></i>
+                                    </div>
+                                    @endif
+                                </div>
+                                
+                                <div class="center-section2 flex flex-col mt-4 gap-2">
+                                    <p class="mr-2">{{ $post->caption }}</p>
+                                    @if ($post->media_url)
+                                        <img src="{{ $post->media_url }}" alt="Image" class="image-posted"> <!-- Use the user's profile picture -->
+                                    @else
+                                        <p></p> <!-- Use the placeholder image -->
+                                    @endif
+                                
+                                    <div class="likers" onclick="openPopup3()">
+                                        <img src="{{ asset('images/like.png') }}" alt="Image" class="like"> 
+                                        <p id="yuzer">Melanie Lopez and 2 others</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="forum-section2 bg-white rounded-b-xl">
+                                <table>
+                                <thead>
+                                    <tr>
+                                        <td><i id="thumbsUpIcon" class="fa-solid fa-thumbs-up"></i></td>
+                                        <td class="comment-button" onclick="openPopup4()"><i class="fa-solid fa-comment-dots"></i></td>
+                                    </tr>
+                                </thead>
+                                </table>
+                            </div>
+                        </div>
+                    @endforeach
+
+                    <div class="page">
+                    {{ $forumPosts->links('components.pagination') }}
                     </div>
                 </div>
-            @endforeach
 
-            <div class="page">
-            {{ $forumPosts->links('components.pagination') }}
+                
+            <div class="flex justify-center pt-4 lg:pt-0">
+                @include('components.announcements')
             </div>
-
-           
-            </div>
-            
-            
-            @include('components.announcements')
+        </div>
 
     </section>
-</div>
 
 <div class="popup0" id="popup0">
     <div class="create">
