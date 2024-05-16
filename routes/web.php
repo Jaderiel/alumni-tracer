@@ -23,6 +23,7 @@ Route::post('/login', 'App\Http\Controllers\Auth\LoginController@login')->name('
 Route::post('/logout', 'App\Http\Controllers\Auth\LoginController@logout')->name('logout');
 
 Route::get('/home', [WebsiteController::class, 'index'])->name('website.show');
+Route::get('/main', [WebsiteController::class, 'main'])->name('main');
 
 Route::group(['middleware' => ['auth.user']], function () {
     Route::get('/dashboard', [AuthController::class, 'dashboard'])->name('dashboard');
