@@ -33,32 +33,49 @@
                         <div class="w-5/6 flex justify-start items-center"><p class="text-lg">Events</p></div>
                     </div>
                 </a>
-                <div class="flex text-white hover:bg-customYellow hover:text-customBlue cursor-pointer items-center p-2">
-                    <div class="w-1/6 flex justify-center"><i class="fa-solid fa-briefcase text-sm p-0 m-0"></i></div>
-                    <div class="w-5/6 flex justify-start items-center"><p class="text-lg">Jobs</p></div>
-                </div>
-                <div class="flex text-white hover:bg-customYellow hover:text-customBlue cursor-pointer items-center p-2">
-                    <div class="w-1/6 flex justify-center"><i class="fa-solid fa-image text-sm p-0 m-0"></i></div>
-                    <div class="w-5/6 flex justify-start items-center"><p class="text-lg">Gallery</p></div>
-                </div>
-                <div class="flex text-white hover:bg-customYellow hover:text-customBlue cursor-pointer items-center p-2">
-                    <div class="w-1/6 flex justify-center"><i class="fa-solid fa-chart-line text-sm p-0 m-0"></i></div>
-                    <div class="w-5/6 flex justify-start items-center"><p class="text-lg">Analytics</p></div>
-                </div>
-                <div class="flex text-white hover:bg-customYellow hover:text-customBlue cursor-pointer items-center p-2">
-                    <div class="w-1/6 flex justify-center"><i class="fa-solid fa-user-tie text-sm p-0 m-0"></i></div>
-                    <div class="w-5/6 flex justify-start items-center"><p class="text-lg">Administration</p></div>
-                </div>
+                <a href="{{ route('jobs') }}">
+                    <div class="flex text-white hover:bg-customYellow hover:text-customBlue cursor-pointer items-center p-2">
+                        <div class="w-1/6 flex justify-center"><i class="fa-solid fa-briefcase text-sm p-0 m-0"></i></div>
+                        <div class="w-5/6 flex justify-start items-center"><p class="text-lg">Jobs</p></div>
+                    </div>
+                </a>
+                <a href="{{ route('gallery') }}">
+                    <div class="flex text-white hover:bg-customYellow hover:text-customBlue cursor-pointer items-center p-2">
+                        <div class="w-1/6 flex justify-center"><i class="fa-solid fa-image text-sm p-0 m-0"></i></div>
+                        <div class="w-5/6 flex justify-start items-center"><p class="text-lg">Gallery</p></div>
+                    </div>
+                </a>
+                <a href="{{ route('analytics') }}">
+                    <div class="flex text-white hover:bg-customYellow hover:text-customBlue cursor-pointer items-center p-2">
+                        <div class="w-1/6 flex justify-center"><i class="fa-solid fa-chart-line text-sm p-0 m-0"></i></div>
+                        <div class="w-5/6 flex justify-start items-center"><p class="text-lg">Analytics</p></div>
+                    </div>
+                </a>
+                @if(auth()->check() && (auth()->user()->user_type == 'Admin' || Auth::user()->user_type === 'Super Admin'))
+                <a href="{{ route('administration.show') }}">
+                    <div class="flex text-white hover:bg-customYellow hover:text-customBlue cursor-pointer items-center p-2">
+                        <div class="w-1/6 flex justify-center"><i class="fa-solid fa-user-tie text-sm p-0 m-0"></i></div>
+                        <div class="w-5/6 flex justify-start items-center"><p class="text-lg">Administration</p></div>
+                    </div>
+                </a>
+                @endif
             </div>
             <div>
-                <div class="flex text-white hover:bg-customYellow hover:text-customBlue cursor-pointer items-center p-2">
-                    <div class="w-1/6 flex justify-center"><i class="fa-solid fa-user-gear text-sm p-0 m-0"></i></div>
-                    <div class="w-5/6 flex justify-start items-center"><p class="text-lg">Profile</p></div>
-                </div>
-                <div class="flex text-white hover:bg-customYellow hover:text-customBlue cursor-pointer items-center p-2">
-                    <div class="w-1/6 flex justify-center"><i class="fa-solid fa-right-from-bracket text-sm p-0 m-0"></i></div>
-                    <div class="w-5/6 flex justify-start items-center"><p class="text-lg">Logout</p></div>
-                </div>
+                <a href="{{ route('user-profile') }}">
+                    <div class="flex text-white hover:bg-customYellow hover:text-customBlue cursor-pointer items-center p-2">
+                        <div class="w-1/6 flex justify-center"><i class="fa-solid fa-user-gear text-sm p-0 m-0"></i></div>
+                        <div class="w-5/6 flex justify-start items-center"><p class="text-lg">Profile</p></div>
+                    </div>
+                </a>
+                <a href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                    <div class="flex text-white hover:bg-customYellow hover:text-customBlue cursor-pointer items-center p-2">
+                    <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                        @csrf
+                    </form>
+                        <div class="w-1/6 flex justify-center"><i class="fa-solid fa-right-from-bracket text-sm p-0 m-0"></i></div>
+                        <div class="w-5/6 flex justify-start items-center"><p class="text-lg">Logout</p></div>
+                    </div>
+                </a>
             </div>
         </div>
     </div>
@@ -70,7 +87,7 @@
             </svg>
         </div>
         <!-- Logo and Title -->
-        <div class="ml-4 p-4 font-bold text-2xl alumni-tracking-system">Alumni Tracking System</div>
+        <div class="ml-4 p-4 font-bold text-lg lg:text-2xl alumni-tracking-system">LVCC Alumni Tracking System</div>
         <!-- Side Navigation -->
     </div>
 

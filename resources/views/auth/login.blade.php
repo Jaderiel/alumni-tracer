@@ -210,7 +210,7 @@
             <p>If you have any questions or concerns about these Terms and Conditions, please contact us at <a href="mailto:jade.admin@gmail.com">jade.admin@gmail.com</a>.</p>
         </li>
     </ul>
-  </div>
+</div>
 
 </div>
 </body>
