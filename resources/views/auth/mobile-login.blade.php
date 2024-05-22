@@ -15,19 +15,19 @@
             <h1 class="text-3xl font-bold">Sign in</h1>
             <form method="POST" action="{{ route('login') }}">
             @csrf
-                <div class="flex flex-col gap-2">
-                    <div class="py-1">
-                        <input class="px-5 bg-gray-300" type="text" name="username" placeholder="Username" required>
+                <div class="flex flex-col items-center">
+                    <div class="input-group">
+                        <input type="text" name="username" placeholder="Username" required>
                     </div>
-                    <div class="py-1">
-                        <input class="px-5" type="password" name="password" placeholder="Password" required>
+                    <div class="input-group">
+                        <input type="password" name="password" placeholder="Password" required>
                     </div>
-                    <button class="bg-primaryYellow py-1 text-white font-bold rounded-full" type="submit">Sign In</button>
+                    <button class="bg-primaryYellow py-1 mt-4 px-7 text-white font-bold rounded-full" type="submit">Sign In</button>
                 </div>
             </form>
             <div class="flex flex-col items-center gap-1">
                 <p class="text-xs text-customTextBlue cursor-pointer">Forgot password?</p>
-                <p class="text-xs text-customTextBlue">Don't have an account? <strong class="text-black cursor-pointer">Sign up here</strong></p>
+                <p class="text-xs text-customTextBlue">Don't have an account? <a href="{{ route('mobileSignUp.show') }}"><strong class="text-black cursor-pointer">Sign up here</strong></a></p>
             </div>
         </div>
     </div>
@@ -46,3 +46,48 @@
     });
 </script>
 </html>
+
+<style>
+    :root {
+        --primary-color: #E8AF30;
+        --secondary-color: #E8AF30;
+        --black: #000000;
+        --white: #ffffff;
+        --gray: #efefef;
+        --gray-2: #757575;
+
+    }
+    
+    .input-group {
+        position: relative;
+        width: 90%;
+        margin: 2px auto;
+    }
+
+    .input-group select {
+        display: inline-block;
+        width: 100%;
+        height: 35px;   
+        font-size: .90rem;
+        background-color: var(--gray);
+        border: 0.125rem solid var(--white);
+        outline: none;
+        pointer-events: auto;
+        padding-left: 0.60rem;
+        color: var(--gray-2);
+        
+    }
+
+    .input-group input {
+        width: 100%;
+        height: 35px;   
+        font-size: .70rem;
+        padding: 1rem 3rem;
+        font-size: .9rem;
+        background-color: var(--gray);
+        border: 0.125rem solid var(--white);
+        outline: none;
+        pointer-events: auto;
+        padding-left: 0.90rem;
+    }
+</style>

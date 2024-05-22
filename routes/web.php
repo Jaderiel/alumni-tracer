@@ -17,6 +17,7 @@ use App\Http\Controllers\WebsiteController;
 
 Route::get('/', [AuthController::class, 'login'])->name('login.show');
 Route::get('/mobile-login', [AuthController::class, 'mobileLogin'])->name('mobileLogin.show');
+Route::get('/mobile-signup', [AuthController::class, 'mobileSignUp'])->name('mobileSignUp.show');
 Route::post('/register', 'Auth\RegisterController@register')->name('register');
 Route::post('/register', [RegisterController::class, 'register'])->name('register');
 Route::get('/verify-email/{token}', [VerificationController::class, 'verifyEmail'])->name('verify.email');

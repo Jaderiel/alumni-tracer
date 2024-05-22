@@ -4,7 +4,8 @@ module.exports = {
     './resources/views/main.blade.php',
     './resources/views/auth/dashboard.blade.php',
     './resources/views/auth/alumni-list.blade.php',
-    './resources/views/auth/mobile-login.blade.php'
+    './resources/views/auth/mobile-login.blade.php',
+    './resources/views/auth/mobile-signup.blade.php',
   ],
   theme: {
     extend: {

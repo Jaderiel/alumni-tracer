@@ -15,6 +15,10 @@ class AuthController extends Controller
         return view("auth.mobile-login");
     }
 
+    public function mobileSignUp() {
+        return view("auth.mobile-signup");
+    }
+
     public function dashboard() {
         $verifiedAlumniCount = User::where('is_email_verified', true)
             ->where('user_type', 'Alumni')
