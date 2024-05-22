@@ -16,6 +16,13 @@
             <form method="POST" action="{{ route('login') }}">
             @csrf
                 <div class="flex flex-col items-center">
+                @if ($errors->any())
+                
+                    @foreach ($errors->all() as $error)
+                        <p class="text-xs text-red-500">{{ $error }}</p>
+                    @endforeach
+                        
+                @endif
                     <div class="input-group">
                         <input type="text" name="username" placeholder="Username" required>
                     </div>

@@ -15,16 +15,14 @@
             <h1 class="text-3xl font-bold">Create Account</h1>
             <form method="POST" action="{{ route('register') }}">
             @csrf
-            @if ($errors->any())
-                    <div class="alert alert-danger">
-                        <ul>
-                            @foreach ($errors->all() as $error)
-                            <p>{{ $error }}</p>
-                            @endforeach
-                        </ul>
-                    </div>
-                @endif
                 <div class="flex flex-col items-center">
+                    @if ($errors->any())
+                    
+                        @foreach ($errors->all() as $error)
+                            <p class="text-xs text-red-500">{{ $error }}</p>
+                        @endforeach
+                            
+                    @endif
                     <div class="input-group">
                         <select name="user_type" id="user_type" required>
                                 <option value="" selected disabled>User type</option>

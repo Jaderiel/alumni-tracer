@@ -13,17 +13,10 @@
     <script src="profile.js" defer></script>
 </head>
 
-<body>
-    <section id="menu">
-        @if(Auth::user()->user_type === 'Admin' || Auth::user()->user_type === 'Super Admin')
-            @include('components.admin-sidenav')
-        @else
-            @include('components.sidenav')
-        @endif
-    </section>
+<body class="w-full bg-customBgColor relative flex">
+    @include('main')
 
     <section id="interface">
-        @include('components.headernav')
 
         <h3 class="i-name">
         Analytics

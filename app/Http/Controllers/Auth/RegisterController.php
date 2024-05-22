@@ -19,7 +19,7 @@ class RegisterController extends Controller
             'last_name' => 'required',
             'course' => 'required',
             'batch' => 'required',
-            'username' => 'required',
+            'username' => 'required|unique:users',
             'email' => 'required|email|unique:users',
             'password' => 'required|min:6|confirmed',
         ]);
