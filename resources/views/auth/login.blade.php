@@ -4,7 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sign Up / Sign In Form</title>
-    <link rel="stylesheet" href="{{ asset('css/login.css') }}"> 
+    <link rel="stylesheet" href="{{ asset('css/login.css') }}">
+    <!-- <link rel="stylesheet" href="{{ asset('css/tailwind.css') }}"> -->
 </head>
 <body>
 <div id="container" class="container">
@@ -142,6 +143,7 @@
             </div>
         </div>
     </div>
+
     <div class="row content-row">
         <div class="col align-items-center flex-col">
             <div class="text sign-in">
@@ -166,7 +168,9 @@
             </div>
         </div>
     </div>
+
 </div>
+
 <div class="popup" id="popup">
     <img src="img/check.jpg" alt="">
     <h2>Thank you for signing up!</h2>
@@ -176,8 +180,8 @@
 
 <div id="myModal" class="modal">
 
-  <!-- Modal content -->
-  <div class="modal-content">
+<!-- Modal content -->
+<div class="modal-content">
     <span class="close">&times;</span>
     <h2>TERMS OF USE AND PRIVACY POLICY</h2>
     <ul>
@@ -230,6 +234,19 @@ function closeModal() {
 // Event listener for the close button
 closeButton.addEventListener("click", closeModal);
 
+</script>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        if (window.innerWidth <= 768) {
+            window.location.href = "{{ route('mobileLogin.show') }}";
+        }
+    });
+
+    window.addEventListener('resize', function() {
+        if (window.innerWidth <= 768) {
+            window.location.href = "{{ route('mobileLogin.show') }}";
+        }
+    });
 </script>
 </html>
 
