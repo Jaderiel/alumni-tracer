@@ -308,6 +308,10 @@ cursor: pointer;
     transition: transform 0.2s;
 }
 
+.btn:disabled {
+    background-color: #999;
+}
+
 .btn:active{
     transform: scale(0.95);
 }

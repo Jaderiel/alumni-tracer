@@ -12,7 +12,13 @@ setTimeout(() => {
 let popup = document.getElementById('popup');
 
 function openPopup() {
-    // Check if the terms checkbox is checked
+  // Check if there are any error messages displayed
+  var errorMessages = document.querySelectorAll('.alert-danger');
+  if (errorMessages.length > 0) {
+      return; // Exit the function if there are errors
+  } else {
+    var email = document.getElementById("email").value;
+    document.getElementById("userEmail").textContent = email;
     var termsCheckbox = document.getElementById('termsCheckbox');
     if (!termsCheckbox.checked) {
         alert('Please agree to the Terms of Use and Privacy Policy');
@@ -21,13 +27,15 @@ function openPopup() {
 
     // Show the popup and blur the background
     popup.classList.add('open-popup');
-    container.classList.add('blur');
+    document.getElementById('container').classList.add('blur'); // Assuming you have a container element
+  }
 }
 
-function closePopup() {
-    popup.classList.remove('open-popup');
-    container.classList.remove('blur');
-}
+    // Function to close the popup
+    function closePopup() {
+        popup.style.display = 'none';
+        document.getElementById('container').classList.remove('blur');
+    }
 
 // Get the modal
 var modal = document.getElementById('myModal');

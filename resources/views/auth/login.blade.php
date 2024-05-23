@@ -18,11 +18,7 @@
                 @csrf
                 @if ($errors->any())
                     <div class="alert alert-danger">
-                        <ul>
-                            @foreach ($errors->all() as $error)
-                            <p>{{ $error }}</p>
-                            @endforeach
-                        </ul>
+                        <p>{{ $errors->first() }}</p>
                     </div>
                 @endif
                 <div class="input-group">
@@ -74,7 +70,7 @@
                 </div>
 
                 <div class="input-group">
-                    <input type="email" name="email" placeholder="Email" required>
+                    <input type="email" name="email" id="email" placeholder="Email" required>
                 </div>
                 <div class="input-group">
                     <input type="text" name="username" placeholder="Username" required>
@@ -89,7 +85,7 @@
                     <input type="checkbox" id="termsCheckbox" required>
                     <label for="termsCheckbox">I accept the <span id="termsLink">Terms of Use and Privacy Policy</span></label>
                 </div>
-                <button type="submit" class="btn" onclick="openPopup()">SIGN UP</button>
+                <button type="submit" class="btn" onclick="openPopup()" id="signupBtn">SIGN UP</button>
             </form>
 
                                 <p>
@@ -112,11 +108,7 @@
                                     @csrf
                                     @if ($errors->any())
                                         <div class="alert alert-danger">
-                                            <ul>
-                                                @foreach ($errors->all() as $error)
-                                                    <p>{{ $error }}</p>
-                                                @endforeach
-                                            </ul>
+                                            <p>{{ $errors->first() }}</p>
                                         </div>
                                     @endif
                                     <div class="input-group">
@@ -174,7 +166,7 @@
 <div class="popup" id="popup">
     <img src="img/check.jpg" alt="">
     <h2>Thank you for signing up!</h2>
-    <p>For added security, we need to verify your email address. We've sent a verification code to blank@student.laverdad.edu.ph</p>
+    <p>For added security, we need to verify your email address. We've sent a verification code to <span id="userEmail"></span></p>
     <button type="button" onclick="closePopup()">OK</button>
 </div>
 
@@ -245,6 +237,27 @@ closeButton.addEventListener("click", closeModal);
     window.addEventListener('resize', function() {
         if (window.innerWidth <= 768) {
             window.location.href = "{{ route('mobileLogin.show') }}";
+        }
+    });
+</script>
+<script>
+    // Function to check if any required fields are empty
+    function checkFields() {
+        var requiredFields = document.querySelectorAll('input[required], select[required]');
+        for (var i = 0; i < requiredFields.length; i++) {
+            if (!requiredFields[i].value) {
+                document.getElementById('signupBtn').disabled = true; // Disable the button
+                return;
+            }
+        }
+        document.getElementById('signupBtn').disabled = false; // Enable the button
+    }
+
+    // Call the checkFields function whenever a change occurs in the form
+    document.addEventListener('DOMContentLoaded', function() {
+        var formInputs = document.querySelectorAll('input[required], select[required]');
+        for (var i = 0; i < formInputs.length; i++) {
+            formInputs[i].addEventListener('change', checkFields);
         }
     });
 </script>
