@@ -48,5 +48,8 @@ class User extends Authenticatable
         return $this->belongsTo(User::class);
     }
 
-
+    public function reactions()
+    {
+        return $this->hasMany(Reaction::class);
+    }
 }

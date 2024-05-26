@@ -71,11 +71,13 @@
                         <div class="forum-section">
                             <div class="left-section">
                                 <div class="profile-info">
-                                    @if (Auth::user()->profile_pic)
-                                        <img src="{{ Auth::user()->profile_pic }}" alt="Profile Picture" class="w-8 h-8 rounded-full"> <!-- Use the user's profile picture -->
-                                    @else
-                                        <img src="https://st3.depositphotos.com/6672868/13701/v/450/depositphotos_137014128-stock-illustration-user-profile-icon.jpg" alt="Placeholder Profile Picture" class="w-8 h-8 rounded-full"> <!-- Use the placeholder image -->
-                                    @endif
+                                @if (Auth::user()->user_type == 'Super Admin')
+                                    <img src="{{ asset('images/SA_avatar.jpg') }}" alt="Super Admin Avatar">
+                                @elseif (Auth::user()->profile_pic)
+                                    <img src="{{ Auth::user()->profile_pic }}" alt="Profile Picture">
+                                @else
+                                    <img src="{{ asset('images/user_avatar.jpg') }}" alt="User Avatar">
+                                @endif
                                     <div class="user-details">
                                         <p class="profile-name">{{ Auth::user()->first_name }} {{ Auth::user()->last_name }}</p>
                                         <p class="profile-course">{{ Auth::user()->user_type !== 'Alumni' ? Auth::user()->user_type : Auth::user()->course }}</p>
@@ -93,26 +95,27 @@
                         </div>
                         <hr>
                         
-                    @foreach($forumPosts->sortByDesc('created_at') as $post)
+                        @foreach($forumPosts->sortByDesc('created_at') as $post)
                         <div class="forum-section p-0">
                             <div class="p-4">
                                 <div style="display: flex; justify-content: space-between; align-items: center">
                                     <div class="profile-info flex items-center">
-                                    @if ($post->user->profile_pic)
-                                        <img src="{{ $post->user->profile_pic }}" alt="Profile Picture" class="w-8 h-8 rounded-full"> <!-- Use the user's profile picture -->
-                                    @else
-                                        <img src="https://st3.depositphotos.com/6672868/13701/v/450/depositphotos_137014128-stock-illustration-user-profile-icon.jpg" alt="Placeholder Profile Picture" class="w-8 h-8 rounded-full"> <!-- Use the placeholder image -->
-                                    @endif
+                                        @if ($post->user->profile_pic)
+                                            <img src="{{ $post->user->profile_pic }}" alt="Profile Picture" class="w-8 h-8 rounded-full">
+                                        @elseif ($post->user->user_type == 'Super Admin')
+                                            <img src="{{ asset('images/SA_avatar.jpg') }}" alt="Super Admin Avatar">
+                                        @else
+                                            <img src="{{ asset('images/user_avatar.jpg') }}" alt="Placeholder Profile Picture" class="w-8 h-8 rounded-full">
+                                        @endif
                                         <div class="user-details">
                                             <p class="profile-name">{{ $post->user->first_name }} {{ $post->user->last_name }}</p>
                                             <p class="profile-course">{{ $post->user->user_type !== 'Alumni' ? $post->user->user_type : $post->user->course }}</p>
-
                                         </div>
                                     </div>
                                     @if(auth()->check() && (auth()->user()->id == $post->user->id || auth()->user()->user_type == 'Super Admin'))
-                                    <div class="elipsis">
-                                    <i class="fas fa-ellipsis-v text-gray-600 ml-" onclick="openEditPopup('{{ $post->id }}', '{{ $post->caption }}')"></i>
-                                    </div>
+                                        <div class="elipsis">
+                                            <i class="fas fa-ellipsis-v text-gray-600 ml-" onclick="openEditPopup('{{ $post->id }}', '{{ $post->caption }}')"></i>
+                                        </div>
                                     @endif
                                 </div>
                                 
@@ -126,23 +129,34 @@
                                 
                                     <div class="likers" onclick="openPopup3()">
                                         <img src="{{ asset('images/like.png') }}" alt="Image" class="like"> 
-                                        <p id="yuzer">Melanie Lopez and 2 others</p>
+                                        <p id="yuzer-{{ $post->id }}">{{ $post->reactions()->where('is_liked', true)->count() }} {{ Str::plural('like', $post->reactions()->where('is_liked', true)->count()) }}</p>
                                     </div>
                                 </div>
                             </div>
 
                             <div class="forum-section2 bg-white rounded-b-xl">
                                 <table>
-                                <thead>
-                                    <tr>
-                                        <td><i id="thumbsUpIcon" class="fa-solid fa-thumbs-up"></i></td>
-                                        <td class="comment-button" onclick="openPopup4()"><i class="fa-solid fa-comment-dots"></i></td>
-                                    </tr>
-                                </thead>
+                                    <thead>
+                                        <tr>
+                                            <td>
+                                                @php
+                                                    $user = Auth::user();
+                                                    $isLiked = $user && $user->reactions()->where('forum_id', $post->id)->where('is_liked', true)->exists();
+                                                @endphp
+                                                <i id="thumbsUpIcon-{{ $post->id }}" 
+                                                class="fa-solid fa-thumbs-up thumbs-up-icon" 
+                                                data-forum-id="{{ $post->id }}" 
+                                                style="color: {{ $isLiked ? '#228BE6' : 'inherit' }};">
+                                                </i>
+                                            </td>
+                                            <td class="comment-button" onclick="openPopup4()"><i class="fa-solid fa-comment-dots"></i></td>
+                                        </tr>
+                                    </thead>
                                 </table>
                             </div>
                         </div>
                     @endforeach
+
 
                     <div class="page">
                     {{ $forumPosts->links('components.pagination') }}
@@ -167,7 +181,13 @@
         @csrf
     <div class="left-section2">
         <div class="profile-info2">
+        @if (Auth::user()->user_type == 'Super Admin')
+            <img src="{{ asset('images/SA_avatar.jpg') }}" alt="Super Admin Avatar">
+        @elseif (Auth::user()->profile_pic)
             <img src="{{ Auth::user()->profile_pic }}" alt="Profile Picture">
+        @else
+            <img src="{{ asset('images/user_avatar.jpg') }}" alt="User Avatar">
+        @endif
             <div class="user-details2">
                 <p class="profile-name2">{{ Auth::user()->first_name }} {{ Auth::user()->last_name }}</p>
                 <p class="profile-course">{{ Auth::user()->user_type !== 'Alumni' ? Auth::user()->user_type : Auth::user()->course }}</p>
@@ -303,4 +323,36 @@
 
 </body>
 <script src="{{ asset('js/dashboard.js') }}"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    $(document).ready(function() {
+        $('.thumbs-up-icon').click(function() {
+            var forumId = $(this).data('forum-id');
+            var icon = $(this);
+
+            $.ajax({
+                url: '{{ route("like") }}',
+                type: 'POST',
+                data: {
+                    _token: '{{ csrf_token() }}',
+                    forum_id: forumId
+                },
+                success: function(response) {
+                    if (response.success) {
+                        if (response.is_liked) {
+                            icon.css('color', '#228BE6');
+                            alert('Post liked successfully!');
+                        } else {
+                            icon.css('color', 'inherit');
+                            alert('Post unliked successfully!');
+                        }
+                    }
+                },
+                error: function(response) {
+                    alert('An error occurred while toggling the like status.');
+                }
+            });
+        });
+    });
+</script>
 </html>

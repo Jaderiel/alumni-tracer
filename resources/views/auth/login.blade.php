@@ -120,9 +120,7 @@
                                     <button type="submit">Sign In</button>
                                 </form>
 
-                    <p>
-                            Forgot password?
-                    </p>
+                                <p><a href="{{ route('password.request') }}">Forgot password?</a></p>
                     <p>
                         <span>
                             Don't have an account?

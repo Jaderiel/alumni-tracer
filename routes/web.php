@@ -13,6 +13,8 @@ use App\Http\Controllers\AnalyticsController;
 use App\Http\Controllers\ApprovalsController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\WebsiteController;
+use App\Http\Controllers\ForgotPasswordController;
+use App\Http\Controllers\ReactionController;
 
 
 Route::get('/', [AuthController::class, 'login'])->name('login.show');
@@ -26,6 +28,9 @@ Route::post('/logout', 'App\Http\Controllers\Auth\LoginController@logout')->name
 
 Route::get('/home', [WebsiteController::class, 'index'])->name('website.show');
 Route::get('/main', [WebsiteController::class, 'main'])->name('main');
+
+Route::get('/forgot-password', [ForgotPasswordController::class, 'showForgotPasswordForm'])->name('password.request');
+Route::post('/forgot-password', [ForgotPasswordController::class, 'sendResetLinkEmail'])->name('password.email');
 
 Route::group(['middleware' => ['auth.user']], function () {
     Route::get('/dashboard', [AuthController::class, 'dashboard'])->name('dashboard');
@@ -99,6 +104,7 @@ Route::group(['middleware' => ['auth.user']], function () {
     Route::delete('/job-approvals/{id}', [AdminController::class, 'deleteJob'])->name('job.delete');
     Route::post('/update-role', [AdminController::class, 'updateRole'])->name('updateRole');
 
+    Route::post('/like', [ReactionController::class, 'like'])->name('like');
 });
 
 

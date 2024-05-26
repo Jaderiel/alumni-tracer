@@ -8,6 +8,7 @@ use App\Models\User;
 use App\Models\Announcement;
 use App\Models\Event;
 use App\Models\Job;
+use App\Models\Reaction;
 
 
 class PostController extends Controller
@@ -56,8 +57,9 @@ class PostController extends Controller
         // Retrieve announcements
         $announcements = Announcement::all();
 
+
         // Pass data to the view
-        return view('auth.dashboard', compact('forumPosts', 'verifiedAlumniCount', 'announcements', 'eventCount', 'jobCount'));
+        return view('auth.dashboard', compact('forumPosts', 'verifiedAlumniCount', 'announcements', 'eventCount', 'jobCount',));
     }
 
         public function update(Request $request, $id)
