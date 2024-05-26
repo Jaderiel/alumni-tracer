@@ -49,7 +49,7 @@ class PostController extends Controller
         
         // Retrieve counts for events, jobs, and verified alumni
         $eventCount = Event::count();
-        $jobCount = Job::count();
+        $jobCount = Job::where('is_approved', true)->count();
         $verifiedAlumniCount = User::where('is_email_verified', true)
             ->where('user_type', 'Alumni')
             ->count();
