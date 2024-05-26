@@ -114,7 +114,7 @@
                                     </div>
                                     @if(auth()->check() && (auth()->user()->id == $post->user->id || auth()->user()->user_type == 'Super Admin'))
                                         <div class="elipsis">
-                                            <i class="fas fa-ellipsis-v text-gray-600 ml-" onclick="openEditPopup('{{ $post->id }}', '{{ $post->caption }}')"></i>
+                                            <i class="fas fa-ellipsis-v text-gray-600 ml-" onclick="openEditPopup('{{ $post->id }}', '{{ $post->caption }}', '{{ $post->media_url }}')"></i>
                                         </div>
                                     @endif
                                 </div>
@@ -127,7 +127,7 @@
                                         <p></p> <!-- Use the placeholder image -->
                                     @endif
                                 
-                                    <div class="likers" onclick="openPopup3()">
+                                    <div class="likers" onclick="openPopup3('{{ $post->id }}')">
                                         <img src="{{ asset('images/like.png') }}" alt="Image" class="like"> 
                                         <p id="yuzer-{{ $post->id }}">{{ $post->reactions()->where('is_liked', true)->count() }} {{ Str::plural('like', $post->reactions()->where('is_liked', true)->count()) }}</p>
                                     </div>
@@ -211,44 +211,32 @@
         @include('popups.update-post')
 
         <div class="popup3" id="popup3">
-            <div class="like">
-                <button class="btn">
-                    <img src="http://127.0.0.1:5500/user/img/like.png" alt="Image">
-                    <p>3</p>
-                </button>
-                <i class="fa-solid fa-circle-xmark" onclick="closePopup3()"></i>
-            </div> 
-            <h3>You can see the total number of reactions to your post.</h3>
-            <div class="panel2">
-                <div class="left-section2">
-                    <div class="profile-info2">
-                        <img src="./img/mel.jpg" alt="Profile Picture">
-                        <div class="user-details2">
-                            <p class="profile-name2">Melanie Lopez</p>
-                            <p class="profile-course2">Bachelor of Science in Information Systems (BSIS)</p>
-                        </div>
-                    </div>
-                </div> 
-                <div class="left-section2">
-                    <div class="profile-info2">
-                        <img src="./img/jeyd.jpg" alt="Profile Picture">
-                        <div class="user-details2">
-                            <p class="profile-name2">Jade Riel Abuela</p>
-                            <p class="profile-course2">Bachelor of Arts in Broadcasting (BAB)</p>
-                        </div>
-                    </div>
-                </div> 
-                <div class="left-section2">
-                    <div class="profile-info2">
-                        <img src="./img/gaspar.jpg" alt="Profile Picture">
-                        <div class="user-details2">
-                            <p class="profile-name2">Daniel Gaspar</p>
-                            <p class="profile-course2">Bachelor of Science in Social Work (BSSW)</p>
-                        </div>
-                    </div>
+    <div class="like">
+        <button class="btn">
+            <img src="{{ asset('images/like.png') }}" alt="Image">
+            <p id="postID">Post ID: </p>
+            <p id="likeCount">Like Count: </p>
+        </button>
+        <i class="fa-solid fa-circle-xmark" onclick="closePopup3()"></i>
+    </div> 
+    <h3>You can see the total number of reactions to your post.</h3>
+    <div class="panel2">
+        @foreach($post->reactions()->where('is_liked', true)->get() as $reaction)
+        <div class="left-section2">
+            <div class="profile-info2">
+                <img src="{{ $reaction->user->profile_pic }}" alt="Profile Picture">
+                <div class="user-details2">
+                    <p class="profile-name2">{{ $reaction->user->first_name }} {{ $reaction->user->last_name }}</p>
+                    <p class="profile-course2">{{ $reaction->user->course }}</p>
                 </div>
             </div>
         </div>
+        @endforeach
+    </div>
+</div>
+
+
+
 
         <div class="popup4" id="popup4">
             <div class="comment">
@@ -354,5 +342,27 @@
             });
         });
     });
+</script>
+
+<script>
+    document.getElementById('edited_media').addEventListener('change', function(event) {
+    var fileInput = event.target;
+    var file = fileInput.files[0];
+
+    // Check if a file is selected
+    if (file) {
+        // Create a FileReader object
+        var reader = new FileReader();
+
+        // Set up the FileReader onload event handler
+        reader.onload = function(e) {
+            // Set the src attribute of the image to the data URL
+            document.getElementById('media-preview').src = e.target.result;
+        };
+
+        // Read the selected file as a Data URL
+        reader.readAsDataURL(file);
+    }
+});
 </script>
 </html>

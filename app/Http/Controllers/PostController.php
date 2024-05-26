@@ -9,6 +9,8 @@ use App\Models\Announcement;
 use App\Models\Event;
 use App\Models\Job;
 use App\Models\Reaction;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\File;
 
 
 class PostController extends Controller
@@ -57,18 +59,24 @@ class PostController extends Controller
         // Retrieve announcements
         $announcements = Announcement::all();
 
-
         // Pass data to the view
         return view('auth.dashboard', compact('forumPosts', 'verifiedAlumniCount', 'announcements', 'eventCount', 'jobCount',));
     }
 
-        public function update(Request $request, $id)
+    public function update(Request $request, $id)
 {
     // Retrieve the post by ID
     $post = Post::findOrFail($id);
     
     // Update the caption with the new value from the request
-    $post->caption = $request->input('caption');
+    $post->caption = $request->input('edited_caption');
+    
+    // Check if a new media file has been uploaded
+    if ($request->hasFile('edited_media')) {
+        // Store the new media file and update the media URL
+        $mediaPath = $request->file('edited_media')->store('public/media');
+        $post->media_url = Storage::url($mediaPath);
+    }
     
     // Save the updated post
     $post->save();
@@ -80,9 +88,30 @@ class PostController extends Controller
 public function updatePost(Request $request) {
     $post = Forum::findOrFail($request->post_id);
     $post->caption = $request->edited_caption;
+
+    // Get the file extension from the original file
+    $extension = $request->file('edited_media')->getClientOriginalExtension();
+
+    // Generate a new file name with the appropriate extension
+    $newFileName = 'image_' . time() . '.' . $extension;
+
+    // Ensure the destination directory exists
+    $destinationPath = 'uploads';
+    if (!Storage::exists($destinationPath)) {
+        Storage::makeDirectory($destinationPath);
+    }
+
+    // Move the uploaded file to the desired location with the new file name and extension
+    $request->file('edited_media')->move(public_path($destinationPath), $newFileName);
+
+    // Update the post's media_url with the new file path including the extension
+    $post->media_url = $destinationPath . '/' . $newFileName;
+
     $post->save();
+
     return redirect()->back()->with('success', 'Post updated successfully!');
 }
+
 
 public function delete(Request $request, $id) {
     // Find the post by ID
@@ -104,5 +133,4 @@ public function delete(Request $request, $id) {
     // Redirect back with a success message
     return redirect()->back()->with('success', 'Post deleted successfully.');
 }
-
 }

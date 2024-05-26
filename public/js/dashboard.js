@@ -50,7 +50,9 @@ function closePopup2(postId, name, caption, profilePic, media, course) {
     
 }
 
-function openPopup3() {
+function openPopup3(postId) {
+    console.log("Post ID:", postId);
+    document.getElementById('postID').textContent = "Post ID: " + postId;
     popup3.classList.add('open-popup3');
     container.classList.add('opacity');
 }
@@ -114,17 +116,17 @@ document.addEventListener("DOMContentLoaded", function() {
     });
 });
 
-document.addEventListener("DOMContentLoaded", function() {
-    var likersContainers = document.querySelectorAll('.likers');
+// document.addEventListener("DOMContentLoaded", function() {
+//     var likersContainers = document.querySelectorAll('.likers');
     
-    likersContainers.forEach(function(container) {
-        container.addEventListener('click', function(event) {
-            openPopup3();
+//     likersContainers.forEach(function(container) {
+//         container.addEventListener('click', function(event) {
+//             openPopup3();
             
-            event.stopPropagation();
-        });
-    });
-});
+//             event.stopPropagation();
+//         });
+//     });
+// });
 
 function toggleEdit() {
     var comment = document.getElementById("editableComment");
@@ -179,25 +181,28 @@ function clearFields() {
 document.getElementById('clearButton').addEventListener('click', clearFields);
 
 // Add an event listener to the SAVE button
+// Add an event listener to the SAVE button
 document.getElementById('update-post-form').addEventListener('submit', function(event) {
     event.preventDefault(); // Prevent the default form submission behavior
     
     // Gather the updated caption value from the textarea
-    var caption = document.getElementById('caption').value;
+    var caption = document.getElementById('edited_caption').value;
     
-    // Construct the data object to be sent in the request
-    var data = {
-        caption: caption
-    };
+    // Gather the updated media file from the input field
+    var mediaFile = document.getElementById('edited_media').files[0];
+    
+    // Construct a FormData object to send both the caption and the media file
+    var formData = new FormData();
+    formData.append('edited_caption', caption);
+    formData.append('edited_media', mediaFile);
     
     // Send a PUT request to update the post
     fetch('/update-post/{{ $post->id }}', {
         method: 'PUT',
         headers: {
-            'Content-Type': 'application/json',
             'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
         },
-        body: JSON.stringify(data)
+        body: formData
     })
     .then(response => {
         if (!response.ok) {
@@ -208,7 +213,7 @@ document.getElementById('update-post-form').addEventListener('submit', function(
     .then(data => {
         console.log('Post updated successfully:', data);
         // Optionally, close the popup or perform other actions
-        closePopup2();
+        closeEditPopup();
     })
     .catch(error => {
         console.error('Error updating post:', error);
@@ -216,12 +221,41 @@ document.getElementById('update-post-form').addEventListener('submit', function(
     });
 });
 
+// Function to update the media preview when a file is selected
+document.getElementById('edited_media').addEventListener('change', function(event) {
+    var mediaFile = event.target.files[0];
+    var mediaPreview = document.getElementById('media-preview');
+
+    // Update the image preview
+    if (mediaFile) {
+        var reader = new FileReader();
+        reader.onload = function(e) {
+            mediaPreview.src = e.target.result;
+        };
+        reader.readAsDataURL(mediaFile);
+    }
+});
+
 // Open edit popup
-function openEditPopup(postId, caption) {
+function openEditPopup(postId, caption, media) {
     console.log("Post ID:", postId);
     // Set the post ID and caption in the edit form
     document.getElementById('post_id').value = postId;
     document.getElementById('edited_caption').value = caption;
+
+    // Update the media preview image
+    var mediaPreview = document.getElementById('media-preview');
+    
+    // Make a request to fetch the media associated with the postId
+    fetch(`/update-post/${postId}`) // Replace '/get-media' with your actual endpoint to fetch media
+        .then(response => response.json())
+        .then(data => {
+            // Assuming data contains the URL of the media
+            mediaPreview.src = data.mediaUrl; // Update the src attribute with the media URL
+        })
+        .catch(error => {
+            console.error('Error fetching media:', error);
+        });
     
     // Show the edit popup
     document.getElementById('edit-popup').style.display = "block";
@@ -229,6 +263,7 @@ function openEditPopup(postId, caption) {
     // Set the delete form action with the correct post ID
     document.getElementById('delete-post-form').action = "/delete-post/" + postId;
 }
+
 
 // Close edit popup
 function closeEditPopup() {

@@ -49,9 +49,9 @@ Route::group(['middleware' => ['auth.user']], function () {
     Route::get('/dashboard', [PostController::class, 'index'])->name('dashboard');
     Route::put('/dashboard/{id}', [PostController::class, 'update'])->name('dashboard.update');
     Route::put('/update-post/{id}',  [PostController::class, 'update'])->name('update-post');
-    Route::post('/update-post', [App\Http\Controllers\PostController::class, 'updatePost'])->name('update.post');
+    Route::put('/update-post/{id}', [App\Http\Controllers\PostController::class, 'updatePost'])->name('update.post');
     Route::delete('/delete-post/{id}', [PostController::class, 'delete'])->name('delete.post');
-
+    Route::get('/liked-users/{postId}', [AuthController::class, 'getLikedUsers'])->name('getLikedUsers');
 
     Route::get('/events', [EventsController::class, 'events'])->name('events');
     Route::get('/events/{user_id}/{event_id}', [EventsController::class, 'register'])->name('register-to-event');

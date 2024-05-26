@@ -3,13 +3,20 @@
         <h3>Edit Post</h3>
         <i class="fa-solid fa-circle-xmark" id="clearEditButton" onclick="closeEditPopup()"></i>
         <hr>
-        <form action="{{ route('update.post') }}" method="POST">
+        <form action="{{ route('update.post', ['id' => $post->id]) }}" method="POST" enctype="multipart/form-data">
             @csrf
+            @method('PUT')
             <!-- Hidden field to store post ID -->
             <input type="hidden" name="post_id" id="post_id">
             <div class="center-section2">
                 <textarea name="edited_caption" id="edited_caption" rows="3" placeholder="Edit your post..."></textarea>
             </div>
+            <div class="center-section2">
+                <label for="edited_media">Edit Media:</label>
+                <img id="media-preview" src="" alt="">
+                <input type="file" name="edited_media" id="edited_media" accept="image/*">
+            </div>
+
             <button type="submit">Save Changes</button>
         </form>
         
@@ -22,21 +29,19 @@
     </div>
 </div>
 
-
 <style>
     .edit-popup {
-    width: 400px;
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    background-color: white;
-    border: 1px solid #ccc;
-    border-radius: 20px;
-    padding: 20px;
-    z-index: 9999; /* Ensure it appears above other elements */
-    /* Add additional styling as needed */
-}
+        width: 400px;
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        background-color: white;
+        border: 1px solid #ccc;
+        border-radius: 20px;
+        padding: 20px;
+        z-index: 9999;
+    }
 
     .edit-popup button {
         width: 95%;
