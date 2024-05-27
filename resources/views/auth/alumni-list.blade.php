@@ -13,13 +13,13 @@
 <body style="margin-top: 70px">
     @include('main')
 
-    <section id="interface">
+    <section id="" class="ml-0 lg:ml-72 w-full">
 
             <h3 class="i-name">
                 Alumni List
             </h3>
 
-        <div class="find flex flex-col lg:flex-row justify-between mb-10 lg:m-0 pt-4 lg:pt-4">
+        <div class="find flex flex-col lg:flex-row justify-center lg:justify-between mx-0 lg:mx-10 gap-4 pt-4 lg:pt-4">
             <div class="search-course w-full lg:w-2/5">
                 <select name="course" id="courseFilter">
                     <option value="" selected disabled>Course</option>
@@ -76,49 +76,51 @@
                 </div>
             @endif
 
-        <div class="board-list">
-            <table width="100%" id="userTable">
-                <thead>
-                    <tr>
-                        <td>Name</td>
-                        <td class="hide-on-small">Course</td>
-                        <td class="hide-on-small">Batch</td>
-                        <td>Action</td>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach($verifiedAlumni as $user)
-                    <tr>
-                        <td>
-                            <div>
-                                <h5>{{ $user->first_name }} {{ $user->last_name }}</h5>
-                                <p>{{ $user->email }}</p>
-                            </div>
-                        </td>
-                        <td class="hide-on-small">
-                            <div>
-                                <p>{{ $user->course }}</p>
-                            </div>
-                        </td>
-                        <td class="hide-on-small">
-                            <div>
-                                <p>{{ $user->batch }}</p>
-                            </div>
-                        </td>
-                        <td class="action flex-col flex lg:flex-row items-center gap-2">
-                            <a href="{{ route('profile.show', ['id' => $user->id]) }}"><button>View</button></a>
-                            @if(auth()->check() && (auth()->user()->user_type == 'Admin' || Auth::user()->user_type === 'Super Admin'))
-                            <form action="{{ route('user.delete', ['userId' => $user->id]) }}" method="POST">
-                                @method('DELETE')
-                                @csrf
-                                <button type="submit" class="" style="background-color: maroon;">Delete</button>
-                            </form>
-                            @endif
-                        </td>
-                    </tr>
-                    @endforeach
-                </tbody>
-            </table>
+        <div class="px-5 lg:px-10 py-5">
+            <div class="board-list flex justify-center m-0 w-full">
+                <table width="100%" id="userTable">
+                    <thead>
+                        <tr>
+                            <td>Name</td>
+                            <td class="hide-on-small">Course</td>
+                            <td class="hide-on-small">Batch</td>
+                            <td>Action</td>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach($verifiedAlumni as $user)
+                        <tr>
+                            <td>
+                                <div>
+                                    <h5>{{ $user->first_name }} {{ $user->last_name }}</h5>
+                                    <p>{{ $user->email }}</p>
+                                </div>
+                            </td>
+                            <td class="hide-on-small">
+                                <div>
+                                    <p>{{ $user->course }}</p>
+                                </div>
+                            </td>
+                            <td class="hide-on-small">
+                                <div>
+                                    <p>{{ $user->batch }}</p>
+                                </div>
+                            </td>
+                            <td class="action flex-col flex lg:flex-row items-center gap-2">
+                                <a href="{{ route('profile.show', ['id' => $user->id]) }}"><button>View</button></a>
+                                @if(auth()->check() && (auth()->user()->user_type == 'Admin' || Auth::user()->user_type === 'Super Admin'))
+                                <form action="{{ route('user.delete', ['userId' => $user->id]) }}" method="POST">
+                                    @method('DELETE')
+                                    @csrf
+                                    <button type="submit" class="" style="background-color: maroon;">Delete</button>
+                                </form>
+                                @endif
+                            </td>
+                        </tr>
+                        @endforeach
+                    </tbody>
+                </table>
+            </div>
         </div>
 
     </section>
