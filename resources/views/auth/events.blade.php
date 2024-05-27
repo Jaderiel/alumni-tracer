@@ -48,7 +48,7 @@
         @endif
 
         @if(session('success'))
-            <div class="alert alert-success">
+            <div class="text-green-600 p-4">
                 {{ session('success') }}
             </div>
         @endif

@@ -73,38 +73,6 @@ body {
     cursor: pointer
 }
 
-#interface {
-    width: calc(100% - 300px);
-    margin-left: 300px;
-    position: relative;
-    padding-top: 70px; /* Adjust based on the height of your navigation bar */
-}
-
-#interface .navigation {
-    display: flex;
-    align-items: center;
-    background: #fff;
-    padding: 15px 30px;
-    position: fixed;
-    width: 100%;
-    top: 0;
-    z-index: 1000;
-}
-
-#interface .navigation .profile {
-    display: flex;
-    justify-content: flex-end;
-    align-items:flex-end;
-    cursor: pointer;
-}
-
-#interface .navigation .profile i {
-    font-size: 19px;
-    font-weight: 400;
-    margin-left: 880px;
-    justify-content: flex-end;
-}
-
 .i-name{
     color:#2D55B4;
     padding: 20px 30px 0 30px;
@@ -192,8 +160,8 @@ body {
 }
 
 .panel {
-    width: 95%;
-    margin: 20px;
+    /* width: 95%; */
+    /* margin: 20px; */
     background: #fff;
     border: 1px solid #00000086;
   }
@@ -238,12 +206,6 @@ body {
       font-weight: 400;
       margin-left: 30px;
   }
-
-  .input-container {
-    display: flex;
-    align-items: center;
-    margin-left: 30px;
-  }
   
   .input-container input[type="text"] {
     width: 40%;
@@ -261,25 +223,10 @@ body {
     width: 40%;
     height: 40px;    
   }
-  
-  textarea {
-    width: 90%;
-    height: 100px;
-    margin-left: 40px;
-    padding: 10px 10px 10px;
-    border: 1px solid lightsteelblue;
-    border-radius: 4px;
-    outline: none;
-  }
+
   .input-container {
     display: flex;
     align-items: center;
-  }
-  
-  .title-input {
-    /* flex: ;  */
-    margin-right: 10px; 
-     
   }
 
 
