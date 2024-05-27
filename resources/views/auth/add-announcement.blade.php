@@ -7,25 +7,17 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Add Announcement</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
-    <link rel="stylesheet" href="{{ asset('bootstrap/bootstrap.min.css') }}">
-    <link rel="stylesheet" href="{{ asset('css/events.css') }}">
+    <!-- <link rel="stylesheet" href="{{ asset('bootstrap/bootstrap.min.css') }}"> -->
+    <!-- <link rel="stylesheet" href="{{ asset('css/events.css') }}"> -->
     <link rel="stylesheet" href="{{ asset('css/post-event.css') }}">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
 </head>
 
-<body>
+<body style="margin-top: 70px">
 
-    <section id="menu">
-        @if(Auth::user()->user_type === 'Admin' || Auth::user()->user_type === 'Super Admin')
-            @include('components.admin-sidenav')
-        @else
-            @include('components.sidenav')
-        @endif
-    </section>
+    @include('main')
 
-    <section id="interface">
-        
-        @include('components.headernav')
+    <section id="interface" class="ml-0 lg:ml-72 w-full">
 
         <h3 class="i-name">
             <a href="{{ route('events') }}" class="back-link"><i class="fas fa-arrow-left"></i></a>Add Announcement
@@ -42,7 +34,7 @@
         @endif
 
         @if(session('success'))
-            <div class="alert alert-success">
+            <div class="text-green-600">
                 {{ session('success') }}
             </div>
         @endif
@@ -51,7 +43,7 @@
 
     </div>
 
-    <div class="container">
+    <div class="bg-white p-4 m-4 lg:m-10">
         <div class="panel">
             <div class="bio-graph-heading">
                 CREATE POST
@@ -62,22 +54,22 @@
                         Fill in the subject and body of announcement details and press ‘POST’ to notify all alumni
                     </p>
                 </div>
-
-                
                     <form action="{{ route('ann.store') }}" method="POST" enctype="multipart/form-data">
                         @csrf
-                        <div class="input-container">
-                            <div class="title-input">
-                                <input type="text" name="ann_title" placeholder="Title">
+                        <div class="flex flex-col lg:flex-row mx-4 lg:mx-10 gap-2 lg:gap-4 my-2">
+                            <div class="border-2 w-full p-2">
+                                <input type="text" name="ann_title" placeholder="Title" class="w-full outline-none">
                             </div>
-                        </div> 
-                        <textarea placeholder="Event details" name="ann_details" class="event-details"></textarea>
-                        <button type="submit" class="post-button-ann">POST</button>
+                        </div>
+                        <div class="flex mx-4 lg:mx-10">
+                            <textarea placeholder="Event details" name="ann_details" class="border-2 w-full h-32 outline-none"></textarea>
+                        </div>
+                        <button type="submit" class="post-button-ann text-white">POST</button>
                     </form>
+                </div>
             </div>
         </div>
     </div>
-
     
 
 </section>

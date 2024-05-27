@@ -7,7 +7,9 @@ module.exports = {
     './resources/views/auth/mobile-login.blade.php',
     './resources/views/auth/mobile-signup.blade.php',
     './resources/views/auth/add-event.blade.php',
+    './resources/views/auth/add-announcement.blade.php',
     './resources/views/auth/events.blade.php',
+
   ],
   theme: {
     extend: {
