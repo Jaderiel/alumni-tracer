@@ -9,7 +9,8 @@ module.exports = {
     './resources/views/auth/add-event.blade.php',
     './resources/views/auth/add-announcement.blade.php',
     './resources/views/auth/events.blade.php',
-    './resources/views/popups/event-registration.blade.php'
+    './resources/views/popups/event-registration.blade.php',
+    './resources/views/popups/update-event.blade.php',
 
   ],
   theme: {

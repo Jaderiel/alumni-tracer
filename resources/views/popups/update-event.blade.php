@@ -7,7 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Add Events</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
-    <link rel="stylesheet" href="{{ asset('bootstrap/bootstrap.min.css') }}">
+    <!-- <link rel="stylesheet" href="{{ asset('bootstrap/bootstrap.min.css') }}"> -->
     <link rel="stylesheet" href="{{ asset('css/events.css') }}">
     <link rel="stylesheet" href="{{ asset('css/post-event.css') }}">
     <!-- <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script> -->
@@ -17,20 +17,10 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
 </head>
 
-<body>
-    
-    <!-- <div id="contriner" class="container"> -->
-    <section id="menu">
-        @if(Auth::user()->user_type === 'Admin' || Auth::user()->user_type === 'Super Admin')
-            @include('components.admin-sidenav')
-        @else
-            @include('components.sidenav')
-        @endif
-    </section>
+<body style="margin-top: 70px">
+    @include('main')
 
-    <section id="interface">
-        
-        @include('components.headernav')
+    <section id="interface" class="ml-0 lg:ml-72 w-full">
 
         <h3 class="i-name">
             <a href="{{ route('events') }}" class="back-link"><i class="fas fa-arrow-left"></i></a>Edit Event
@@ -47,7 +37,7 @@
         @endif
 
         @if(session('success'))
-            <div class="alert alert-success">
+            <div class="text-green-600">
                 {{ session('success') }}
             </div>
         @endif
@@ -56,7 +46,7 @@
 
     </div>
 
-    <div class="container" style="height: 100%;">
+    <div class="bg-white p-4 m-4 lg:m-10">
         <div class="panel">
             <div class="bio-graph-heading">
                 Post and press
@@ -72,29 +62,30 @@
                     <form action="{{ route('update.event', $event->id) }}" method="POST" enctype="multipart/form-data">
                         @csrf
                         @method('PUT')
-                        <div class="input-container">
-                            <div class="title-input">
-                                <input type="text" name="event_title" value="{{ $event->event_title }}" placeholder="Title">
+                        <div class="flex flex-col lg:flex-row mx-4 lg:mx-10 gap-2 lg:gap-4 my-2">
+                            <div class="border-2 w-full p-2">
+                                <input type="text" name="event_title" value="{{ $event->event_title }}" placeholder="Title" class="w-full outline-none">
                             </div>
-
-                            <label for="file-upload" class="file-upload-label">
-                            <span>Add Image</span>
-                            <i class="fas fa-image"></i>
-                            </label>
-                            <input id="file-upload" type="file" name="media_url" value="{{ $event->media_url }}" accept="image/*" class="file-upload">
-                            
-                            <!-- <input type="file" name="media_url" value="{{ $event->media_url }}" accept="image/*"> -->
+                            <div class="border-2 w-full lg:w-1/2 p-2">
+                                <label for="file-upload" class="cursor-pointer">
+                                <span>Add Image</span>
+                                <i class="fas fa-image"></i>
+                                </label>
+                                <input id="file-upload" type="file" name="media_url" value="{{ $event->media_url }}" accept="image/*" class="file-upload">
+                            </div>
                         </div> 
-                        <div class="date-and-time">
-                            <div class="title-input">
+                        <div class="flex flex-col lg:flex-row mx-4 lg:mx-10 gap-2 lg:gap-4 my-2">
+                            <div class="border-2 w-full p-2 cursor-pointer">
                                 <input type="date" name="event_date" value="{{ $event->event_date }}" placeholder="Date">
                             </div>
-                            <div class="title-input">
+                            <div class="border-2 w-full p-2 cursor-pointer">
                                 <input type="time" name="event_time" value="{{ $event->event_time }}" placeholder="Time">
                             </div>
                         </div>
-                        <textarea placeholder="Event details" name="event_details" value="{{ $event->event_details }}" class="event-details">{{ $event->event_details }}</textarea>
-                        <button type="submit" class="post-button-ann">SAVE</button>
+                        <div class="flex mx-4 lg:mx-10">
+                            <textarea placeholder="Event details" name="event_details" value="{{ $event->event_details }}" class="border-2 w-full h-32">{{ $event->event_details }}</textarea>
+                        </div>
+                        <button type="submit" class="post-button-ann text-white">SAVE</button>
                     </form>
             </div>
         </div>
