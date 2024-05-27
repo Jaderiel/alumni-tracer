@@ -10,63 +10,56 @@
     <link rel="stylesheet" href="{{ asset('css/jobs.css') }}">
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 </head>
-<body>
-    <section id="menu">
-        <!-- Include the appropriate side navigation -->
-        @if(Auth::user()->user_type === 'Admin' || Auth::user()->user_type === 'Super Admin')
-            @include('components.admin-sidenav')
-        @else
-            @include('components.sidenav')
-        @endif
-    </section>
+<body style="margin-top: 70px">
+    @include('main')
 
-    <section id="interface">
-
-        @include('components.headernav')
+    <section id="" class="ml-0 lg:ml-72 w-full">
 
         <h3 class="i-name">
             <a href="{{ route('events') }}" class="back-link"><i class="fas fa-arrow-left"></i></a>
             {{ $eventTitle }}
         </h3>
 
-        <div class="board-list">
-            <table width="100%" id="userTable">
-                <thead>
-                    <tr>
-                        <td>Name</td>
-                        <td>Course</td>
-                        <td>Batch</td>
-                        <td>Action</td>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach($registeredUsers as $user)
+        <div class="px-5 lg:px-10 py-5">
+            <div class="board-list flex justify-center m-0 w-full">
+                <table width="100%" id="userTable">
+                    <thead>
                         <tr>
-                            <td>
-                                <div>
-                                    <h5>{{ $user->full_name }}</h5>
-                                    <p>{{ $user->email }}</p>
-                                </div>
-                            </td>
-                            <td>
-                                <div>
-                                    <p>{{ $user->course }}</p>
-                                </div>
-                            </td>
-                            <td>
-                                <div>
-                                    <p>{{ $user->batch }}</p>
-                                </div>
-                            </td>
-                            <td>
-                                <div>
-                                    <a href="{{ route('profile.show', ['id' => $user->id]) }}" class="button">View</a>
-                                </div>
-                            </td>
+                            <td>Name</td>
+                            <td class="hide-on-small">Course</td>
+                            <td class="hide-on-small">Batch</td>
+                            <td>Action</td>
                         </tr>
-                    @endforeach
-                </tbody>
-            </table>
+                    </thead>
+                    <tbody>
+                        @foreach($registeredUsers as $user)
+                            <tr>
+                                <td>
+                                    <div>
+                                        <h5>{{ $user->full_name }}</h5>
+                                        <p>{{ $user->email }}</p>
+                                    </div>
+                                </td>
+                                <td class="hide-on-small">
+                                    <div>
+                                        <p>{{ $user->course }}</p>
+                                    </div>
+                                </td>
+                                <td class="hide-on-small">
+                                    <div>
+                                        <p>{{ $user->batch }}</p>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div>
+                                        <a href="{{ route('profile.show', ['id' => $user->id]) }}" class="button">View</a>
+                                    </div>
+                                </td>
+                            </tr>
+                        @endforeach
+                    </tbody>
+                </table>
+            </div>
         </div>
 
     </section>
@@ -84,5 +77,16 @@
 
     .back-link:hover {
         color: #000; 
+    }
+
+    .hide-on-small {
+        display: table-cell;
+    }
+
+    /* Media query to hide on small screens */
+    @media (max-width: 600px) {
+        .hide-on-small {
+            display: none;
+        }
     }
 </style>
