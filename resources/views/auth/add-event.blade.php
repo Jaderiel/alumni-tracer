@@ -10,17 +10,19 @@
     <!-- <link rel="stylesheet" href="{{ asset('bootstrap/bootstrap.min.css') }}"> -->
     <link rel="stylesheet" href="{{ asset('css/events.css') }}">
     <link rel="stylesheet" href="{{ asset('css/post-event.css') }}">
-    <!-- <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script> -->
-    <!-- <script src="jquery-3.5.1.min.js"></script> -->
-    <!-- <script src="bootstrap/js/bootstrap.min.js"></script> -->
-    <!-- <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script> -->
-    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script> -->
+    <!-- <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="jquery-3.5.1.min.js"></script>
+    <script src="bootstrap/js/bootstrap.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script> -->
 </head>
 
 <body>
+    <!-- <section id="menu"> -->
     @include('main')
+    <!-- </section> -->
 
-    <section id="interface">
+    <section id="interface" class="">
 
         <h3 class="i-name">
             <a href="{{ route('events') }}" class="back-link"><i class="fas fa-arrow-left"></i></a>Add Events

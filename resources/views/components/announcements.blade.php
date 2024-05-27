@@ -1,5 +1,5 @@
-        <div class="col-lg-4">
-            <div class="card" style="width: 350px; border-radius: 20px; margin-left:20px; height: auto; padding-bottom: 5px;"  >
+        <div class="">
+            <div class="card" style=" border-radius: 20px; margin-left: 20px; margin-right: 20px; height: auto; padding-bottom: 5px;"  >
 
                 <div class="card-body-announcement" style="background-color: #162F65">
                     <div class="card-body" style="display: flex; justify-content: center">

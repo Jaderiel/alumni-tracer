@@ -14,76 +14,6 @@ body {
     /* overflow-x: hidden; */
 }
 
-/* h2 {
-    font-size: 20px;
-    font-weight: 800;
-    margin: 10px;
-} */
-
-#menu{
-    background: #162F65;
-    width: 300px;
-    height: 100%;
-    position: fixed;
-    top: 0;
-    left: 0;
-}
-
-#menu .logo{
-    display: flex;
-    align-items: center;
-    font-size: 90%;
-    color: #fff;
-    padding: 30px 0 0 20px;
-}
-
-#menu .items{
-    margin-top: 30px;
-}
-
-#menu .items li{
-    list-style: none;
-    padding: 10px;
-    transition: 0.3s ease;
-}
-
-#menu .items li:hover{
-    background: #E8C766;
-    cursor: pointer;
-}
-
-#menu .items li i{
-    color: rgb(255, 255, 255);
-    width: 30px;
-    height: 30px;
-    line-height: 30px;
-    text-align: center;
-    font-size: 14px;
-    margin: 0 10px 0 25px;
-}
-
-#menu .items li:hover i,
-#menu .items li:hover a {
-    color: #162F65;
-}
-
-#menu .items li a{
-    color: rgb(255, 255, 255);
-    text-decoration: none;
-    transition: 0.3s ease;
-}
-
-#menu-btn{
-    display: none;
-    cursor: pointer
-}
-#interface {
-    width: calc(100% - 300px);
-    margin-left: 300px;
-    position: relative;
-    padding-top: 70px;
-}
-
 .navigation {
     display: flex;
     align-items: center;
@@ -117,17 +47,9 @@ body {
     font-weight: 700;
 }
 
-.event{
-    padding: 30px 30px 30px;
-    display: flex;
-    gap: 20px;
-    align-items: center;
-    flex-wrap: wrap;
-}
-
 .event .up-event{
     display: flex;
-    width: 33%;
+    /* width: 33%; */
     height: 40px;
     align-items: center;
     text-align: center;
@@ -140,7 +62,7 @@ body {
 
 .event .post-event{
     display: flex;
-    width: 25%;
+    /* width: 25%; */
     height: 40px;
     align-items: center;
     padding: 10px 10px 10px;
@@ -202,11 +124,6 @@ body {
     margin: 0;
 }
 
-.row-flush>[class*=col-] {
-    padding-left: 0;
-    padding-right: 0;
-}
-
 .row-table>[class*=col-] {
     display: table-cell;
     float: none;
@@ -219,14 +136,14 @@ body {
   height: 100%;
   width: 100%;
   overflow: hidden;
-  border-radius: 15px 0 0 15px;
+  /* border-radius: 15px 0 0 15px; */
 }
 
 .widget .lateral-picture img {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  border-radius: 15px 0 0 15px;
+  /* border-radius: 15px 0 0 15px; */
 }
 
 
@@ -273,13 +190,9 @@ body {
 
 }
 
-.event-info {
+/* .event-info {
     margin-right: 100px;
-}
-
-.col-lg-4{
-    margin-left: -50px;
-}
+} */
 
 .card-body-announcement {
     background-color: #162F65;
@@ -397,11 +310,11 @@ body {
     flex-direction: column;
 }
 
-.event {
+/* .event {
     margin-top: 7rem;
     margin-left: 4rem;
     margin-right: 2rem;
-}
+} */
 
 /* Card Styles */
 .card {

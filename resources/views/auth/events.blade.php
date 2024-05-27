@@ -10,34 +10,36 @@
     <!-- <link rel="stylesheet" href="{{ asset('bootstrap/bootstrap.min.css') }}"> -->
     <link rel="stylesheet" href="{{ asset('css/events.css') }}">
     
-    <link rel="stylesheet" href="{{ asset('css/sidebar.css') }}">
+    <!-- <link rel="stylesheet" href="{{ asset('css/sidebar.css') }}"> -->
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
     <script src="jquery-3.5.1.min.js"></script>
     <script src="bootstrap/js/bootstrap.min.js"></script>
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>   
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
 </head>
 
-<body>
+<body style="margin-top: 70px">
     @include('main')
 
-    <section id="interface">
+<section id="interface" class="ml-0 lg:ml-[300px] w-full flex justify-center">
 
-        <h3 class="i-name">
-            Events & Announcement
-        </h3>
+    <h3 class="i-name">
+        Events & Announcement
+    </h3>
 
-        <div class="event" style="margin: 0px">
-            <button href="{{ route('events') }}" class="up-event">Upcoming Events and Announcement</button>
-            @if(auth()->check() && (auth()->user()->user_type == 'Admin' || Auth::user()->user_type === 'Super Admin'))
-            <a href="{{ route('add-event') }}" class="post-event">Add Event</a>
-            <a href="{{ route('add-ann') }}" class="post-event">Add Announcement</a>
-            @endif
-        </div>
+    <div class="event flex flex-col lg:flex-row m-0 p-10 gap-4">
+        @if(auth()->check() && (auth()->user()->user_type == 'Alumni'))
+        <button href="{{ route('events') }}" class="up-event">Upcoming Events and Announcement</button>
+        @elseif(auth()->check() && (auth()->user()->user_type == 'Admin' || Auth::user()->user_type === 'Super Admin'))
+        <button href="{{ route('events') }}" class="up-event w-full">Upcoming Events and Announcement</button>
+        <a href="{{ route('add-event') }}" class="post-event w-full">Add Event</a>
+        <a href="{{ route('add-ann') }}" class="post-event w-full">Add Announcement</a>
+        @endif
+    </div>
 
-    <div style="display: flex; flex-direction: row; gap: 35px">
+    <div class="flex flex-col lg:flex-row justify-center items-center lg:items-start lg:justify-between pr-0 lg:pr-10">
 
-        <div class="main-body mt-7 ml-4 mr-2" style="margin-left: 15px;">
+        <div class="ml-0 lg:ml-8">
 
         @if(session('error'))
             <div class="alert alert-danger">
@@ -53,70 +55,63 @@
 
         @foreach($events as $event)
 
-            <div class="row">
-                <div class="col-sm-12">
-                    <div class="card" style="width: 750px; border-radius: 20px;">
-                        <div class="card-body">
-                            <div class="panel widget">
-                                <div class="row row-table row-flush">
-                                    <div class="col-5" style="padding: 0;">
-                                        <div class="lateral-picture">
-                                            <img src="{{ $event->media_url }}" alt="" class="img-fluid">
-                                        </div>
+                <div class="card w-[400px] lg:w-[720px] rounded-2xl">
+                    <div class="card-body">
+                        <div class="panel widget rounded-t-2xl lg:rounded-xl">
+                            <div class="flex flex-col lg:flex-row">
+                                <div class="col-5 w-92 lg:w-[600px]">
+                                    <div class="lateral-picture">
+                                        <img src="{{ $event->media_url }}" alt="" class="">
                                     </div>
-                                    <div class="col-xs-7 p-lg">
-                                    @if(\App\Models\EventRegistration::where('user_id', Auth::user()->id)->where('event_id', $event->id)->exists())
-                                        <div class="text-right">
-                                            <span class="text-success">REGISTERED</span>
-                                        </div>
-                                    @else
-                                        @if(auth()->check() && (auth()->user()->user_type !== 'Alumni' || Auth::user()->user_type === 'Super Admin'))
+                                </div>
+                                <div class="flex flex-col w-full p-5">
+                                @if(\App\Models\EventRegistration::where('user_id', Auth::user()->id)->where('event_id', $event->id)->exists())
+                                    <div class="text-right">
+                                        <span class="text-green-500">REGISTERED</span>
+                                    </div>
+                                @else
+                                    @if(auth()->check() && (auth()->user()->user_type == 'Admin' || Auth::user()->user_type === 'Super Admin'))
+                                    <div class="w-full flex flex-col items-center lg:items-end">
                                         <div class="text-right" style="padding: 10px">
                                             <a href="{{ route('get.registered.users', ['eventId' => $event->id]) }}" style="display: inline-block; padding: 10px 20px; background-color: #007bff; color: #fff; text-decoration: none; border-radius: 5px; " class="view" >View Registered Users</a>
                                         </div>
-                                        @endif
-                                        @if(auth()->check() && (auth()->user()->user_type == 'Admin' || Auth::user()->user_type === 'Super Admin'))
                                         <div class="text-right" style="padding: 10px">
-                                        <form action="{{ route('delete.event', ['id' => $event->id]) }}" method="POST" style="display: inline-block; width: 100px;">
+                                            <form action="{{ route('delete.event', ['id' => $event->id]) }}" method="POST" style="display: inline-block; width: 100px;">
                                             @method('DELETE')
                                             @csrf
                                             <button type="submit" style="width: 100%; background-color: #dc3545; color: #fff; padding: 8px 16px; border: none; border-radius: 5px;">Delete</button>
-                                        </form>
-                                        <a href="{{ route('update-event', ['id' => $event->id]) }}" style="display: inline-block; width: 100px; margin-left: 10px;">
+                                            </form>
+                                            <a href="{{ route('update-event', ['id' => $event->id]) }}" style="display: inline-block; width: 100px; margin-left: 10px;">
                                             <button type="submit" style="width: 100%; background-color: #28a745; color: #fff; padding: 8px 16px; border: none; border-radius: 5px;">Edit</button>
-                                        </a>
+                                            </a>
                                         </div>
-
-
-
-                                        @else
-                                        <div class="text-right">
-                                            <a href="{{ route('register-to-event', ['user_id' => Auth::user()->id, 'event_id' => $event->id]) }}" id="registerBtn" class="btn btn-success btn-sm mb-1 register-btn">REGISTER</a>
-                                        </div>
-                                        @endif
+                                    </div>
+                                    @else
+                                    <div class="text-right">
+                                        <a href="{{ route('register-to-event', ['user_id' => Auth::user()->id, 'event_id' => $event->id]) }}" id="registerBtn" class="btn btn-success btn-sm mb-1 register-btn">REGISTER</a>
+                                    </div>
                                     @endif
-
-                                        <div style="display: flex; flex-direction: column; gap: 5px">
-                                            <div style="margin-top: 10px;">
-                                                <span >{{ $event->event_date->format('F d, Y') }} | {{ \Carbon\Carbon::parse($event->event_time)->format('g:i A') }}</span>
-                                            </div>
-                                            <div>
-                                                <strong class="event-title ">{{ $event->event_title }}</strong>
-                                            </div>
-                                            <div>{{ $event->event_details }}</div>
+                                @endif
+                                    <div style="display: flex; flex-direction: column; gap: 5px">
+                                        <div style="margin-top: 10px;">
+                                            <span >{{ $event->event_date->format('F d, Y') }} | {{ \Carbon\Carbon::parse($event->event_time)->format('g:i A') }}</span>
                                         </div>
+                                        <div>
+                                            <strong class="event-title ">{{ $event->event_title }}</strong>
+                                        </div>
+                                        <div>{{ $event->event_details }}</div>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
         @endforeach
-
         </div>
 
-        @include('components.announcements')
+        <div class="flex justify-center lg:justify-start">
+            @include('components.announcements')
+        </div>
 
     </div>
 
