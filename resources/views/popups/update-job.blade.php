@@ -7,35 +7,43 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Edit Jobs Post Page</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
-    <link rel="stylesheet" href="{{ asset('bootstrap/bootstrap.min.css') }}">
+    <!-- <link rel="stylesheet" href="{{ asset('bootstrap/bootstrap.min.css') }}"> -->
     <link rel="stylesheet" href="{{ asset('css/job-post.css') }}">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
 
-<body>
-    <section id="menu">
-    @if(Auth::user()->user_type === 'Admin' || Auth::user()->user_type === 'Super Admin')
-        @include('components.admin-sidenav')
-    @else
-        @include('components.sidenav')
-    @endif
-    </section>
+<body style="margin-top: 70px">
+    @include('main')
 
-    <section id="interface">
-        @include('components.headernav')
+    <section class="ml-0 lg:ml-72 w-full flex flex-col justify-center">
 
         <h3 class="i-name">
             Edit Job
         </h3>
 
-        <div class="con">
-            <div class="event">
-                <a href="{{ route('jobs') }}" class="post-button">List of Job posted</a>
-                <a href="{{ route('job-post') }}" class="up-event">Job posting</a>
+        <div style="display: flex; flex-direction: row; gap: 35px">
+            <div class="main-body mt-7 ml-4 mr-2">
+            @if(session('error'))
+                <div class="alert alert-danger">
+                    {{ session('error') }}
+                </div>
+            @endif
+            @if(session('success'))
+                <div class="text-green-600">
+                    {{ session('success') }}
+                </div>
+            @endif
             </div>
         </div>
 
-        <div class="job-container">
+        <div class="con mx-5 lg:mx-20">
+            <div class="event flex flex-col lg:flex-row justify-center items-center p-6 gap-2 mx-0 lg:mx-32 lg:gap-6">
+                <a href="{{ route('jobs') }}" class="post-button w-full">List of Job posted</a>
+                <a href="{{ route('job-post') }}" class="up-event w-full">Job posting</a>
+            </div>
+        </div>
+
+        <div class="job-container mx-5 lg:mx-20">
             <div class="job-panel">
                 <div class="bio-graph-heading">
                     EDIT JOB
@@ -48,53 +56,53 @@
                     <form action="{{ route('jobs.update', $job->id) }}" method="POST">
                         @csrf
                         @method('PUT')
-                        <div class="input-container">
-                        <div class="title-input">
-                            <input type="text" name="job_title" value="{{ $job->job_title }}" class="input-job-title" placeholder="Job Title">
+                        <div class="flex flex-col lg:flex-row mx-4 lg:mx-10 gap-2 lg:gap-4 my-2">
+                        <div class="border-2 w-full p-2">
+                            <input type="text" name="job_title" value="{{ $job->job_title }}" class="w-full outline-none" placeholder="Job Title">
                         </div>
-                        <div class="title-input">
-                            <input type="text" name="company" value="{{ $job->company }}" class="input-company" placeholder="Company">
+                        <div class="border-2 w-full p-2">
+                            <input type="text" name="company" value="{{ $job->company }}" class="w-full outline-none" placeholder="Company">
                         </div>
                     </div>
 
-                    <div class="location-holder">
-                        <div class="title-input">
+                    <div class="flex flex-col mx-4 lg:mx-10 gap-2 my-2">
+                        <div class="border-2 w-full p-2">
                             <select id="country" class="form-control mb-2">
                                 <option value="" selected disabled>Select Country</option>
                             </select>
                         </div>
-                        <div class="title-input">
+                        <div class="border-2 w-full p-2">
                             <select id="region" class="form-control mb-2" disabled>
                                 <option value="" selected disabled>Select Region</option>
                             </select>
                         </div>
-                        <div class="title-input">
+                        <div class="border-2 w-full p-2">
                             <select id="province" class="form-control mb-2" disabled>
                                 <option value="" selected disabled>Select Province</option>
                             </select>
                         </div>
-                        <div class="title-input">
+                        <div class="border-2 w-full p-2">
                             <select id="city" class="form-control mb-2" disabled>
                                 <option value="" selected disabled>Select City/Municipality</option>
                             </select>
                         </div>
-                        <div class="title-input">
+                        <div class="border-2 w-full p-2">
                             <select id="barangay" class="form-control mb-2" disabled>
                                 <option value="" selected disabled>Select Barangay</option>
                             </select>
                         </div>
-                        <div class="title-input">
-                            <input type="text" id="location" class="form-control" name="job_location" value="{{ $job->job_location }}" placeholder="Location" readonly>
+                        <div class="border-2 w-full p-2">
+                            <input type="text" id="location" class="w-full outline-none" name="job_location" value="{{ $job->job_location }}" placeholder="Location" readonly>
                         </div>
                     </div>
                     
-                    <div class="input-container">
-                        <select class="select-job-type" name="job_type">
+                    <div class="flex flex-col mx-4 lg:mx-10 gap-2 my-2">
+                        <select class="border-2 w-full p-2" name="job_type">
                             <option value="{{$job->job_type}}" class="type" disabled selected>{{$job->job_type}}</option>
                             <option value="full-time">Full Time</option>
                             <option value="part-time">Part Time</option>
                         </select>
-                        <select class="select-job-type" name="salary">
+                        <select class="border-2 w-full p-2" name="salary">
                             <option value="{{$job->salary}}" disabled selected>{{$job->salary}}</option>
                             <option value="₱5,000 - ₱10,000">₱5,000 - ₱10,000</option>
                             <option value="₱20,000 - ₱30,000">₱20,000 - ₱30,000</option>
@@ -108,25 +116,29 @@
                             <option value="₱100,001 - ₱110,000">₱100,001 - ₱110,000</option>
                             <option value="₱110,001 - ₱120,000">₱110,001 - ₱120,000</option>
                         </select>
-                        <div class="title-input">
-                            <input type="text" name="link" value="{{$job->link}}" class="input-apply-link" placeholder="Link where can apply">
+                        <div class="border-2 w-full p-2">
+                            <input type="text" name="link" value="{{$job->link}}" class="w-full outline-none" placeholder="Link where can apply">
                         </div>
                     </div>
                     
-                    <textarea class="job-details" name="job_description" value="{{$job->job_description}}" placeholder="Job Description">{{$job->job_description}}</textarea>
-                    <div class="eme">
+                    <div class="flex flex-col mx-4 lg:mx-10 gap-2 my-2">
+                        <div class="border-2 w-full p-2">
+                            <textarea class="w-full outline-none" name="job_description" value="{{$job->job_description}}" placeholder="Job Description">{{$job->job_description}}</textarea>
+                        </div>
+                    </div>
+                    <div class="flex flex-col lg:flex-row justify-center gap-2 lg:gap-6">
                         <div class="post-button-holder">
                             <button class="post-button-annn" type="submit">SAVE</button>
                         </div>
                             
                         </form>
 
-                        <!-- Form for deleting job -->
-                        <form id="delete-form" action="{{ route('delete.job', $job->id) }}" method="POST">
-                            @csrf
-                            @method('DELETE')
-                            <button class="delete-button-annn" type="submit">DELETE</button>
-                        </form>
+                        <div class="flex justify-center">
+                            <form id="delete-form" action="{{ route('delete.job', $job->id) }}" method="POST">
+                                @csrf
+                                @method('DELETE')
+                                <button class="delete-button-annn" type="submit">DELETE</button>
+                            </form>
                         </div>
                     </div>
                 </div>
@@ -147,7 +159,7 @@
 
     .post-button-annn {
         padding: 5px 100px;
-        margin-top: 10px;
+        /* margin-top: 10px; */
         background-color: #00A36C;
         border-radius: 2px;
         border-color: transparent;
@@ -156,7 +168,7 @@
 
     .delete-button-annn {
         padding: 5px 100px;
-        margin-top: 10px;
+        /* margin-top: 10px; */
         background-color: maroon;
         border-radius: 2px;
         border-color: transparent;
@@ -168,15 +180,15 @@
         justify-content: center
     }
 
-    .eme {
+    /* .eme {
         display: flex;
         gap: 10px;
         justify-content: center;
-    }
+    } */
 
     .job-container {
-        margin-left: 70px;
-        margin-right: 100px;
+        /* margin-left: 70px;
+        margin-right: 100px; */
         background-color: white;
         margin-bottom: 50px;
         padding-bottom: 20px;
