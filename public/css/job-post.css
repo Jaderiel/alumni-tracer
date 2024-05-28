@@ -73,12 +73,12 @@ body {
     cursor: pointer
 }
 
-#interface {
+/* #interface {
     width: calc(100% - 300px);
     margin-left: 300px;
     position: relative;
     padding-top: 70px;
-}
+} */
 
 #interface .navigation {
     display: flex;
@@ -114,21 +114,21 @@ body {
     font-weight: 700;
 }
 
-.event{
+/* .event{
     padding: 30px 30px 30px;
     display: flex;
     gap: 20px;
     align-items: center;
     flex-wrap: wrap;
     margin-left:20%;
-}
+} */
 
 .event .up-event{
     display: flex;
     justify-content: center;
     align-items: center;
-    width: 30%;
-    height: 40px;
+    /* width: 30%; */
+    /* height: 40px; */
     padding: 10px;
     border: 1px solid lightsteelblue;
     border-radius: 4px;
@@ -143,8 +143,8 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-    width: 30%;
-    height: 40px;
+    /* width: 30%; */
+    /* height: 40px; */
     padding: 10px 10px 10px;
     border: 1px solid #2D55B4;
     border-radius: 4px;
@@ -166,17 +166,17 @@ body {
 .con{
     background-color: #EFF2FB;
     align-items: center;
-    width: 1003px;
-    height: 90px;
-    margin-top: 10px;
-    margin-left: 70px;
+    /* width: 1003px; */
+    /* height: 90px; */
+    /* margin-top: 10px; */
+    /* margin-left: 70px; */
     box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
 }
 
 .alert-success {
     margin-top: 15px;
     margin-left: 45px;
-  }
+}
 
 .container {
     width: 84.4%;
@@ -192,51 +192,51 @@ body {
     margin: 20px 20px 5px 20px;
     background: #fff;
     border: 1px solid #00000086;
-  }
+}
 
-  .bio-graph-heading {
-      color: #fff;
-      font-size: 15px;
-      font-weight: 400;
-      background: #162F65;
-      text-align: start;
-      padding: 10px 15px;
-  }
-  
-  .bio-graph-info {
-      color: #89817e;
-  }
-  
-  .row{
-      margin-top: 20px;
-      /* margin-bottom: 20px; */
-  }
-  .bio-row {
-      width: 50%;
-      float: left;
-      margin-bottom: 10px;
-      padding: 5px 15px;
-  }
-  
-  .bio-row p span {
-      width: 100px;
-      display: inline-block;
-      font-size: 13px;
-      margin-right: 10px;
-  }
-  
-  .bio-row p {
-      display: inline-block;
-      font-size: 13px;
-      color: #000000ab;
-  }
-  
-  .bold{
-      font-weight: 400;
-      margin-left: 30px;
-  }
+.bio-graph-heading {
+    color: #fff;
+    font-size: 15px;
+    font-weight: 400;
+    background: #162F65;
+    text-align: start;
+    padding: 10px 15px;
+}
 
-  .input-container {
+.bio-graph-info {
+    color: #89817e;
+}
+
+.row{
+    margin-top: 20px;
+    /* margin-bottom: 20px; */
+}
+.bio-row {
+    width: 50%;
+    float: left;
+    margin-bottom: 10px;
+    padding: 5px 15px;
+}
+
+.bio-row p span {
+    width: 100px;
+    display: inline-block;
+    font-size: 13px;
+    margin-right: 10px;
+}
+
+.bio-row p {
+    display: inline-block;
+    font-size: 13px;
+    color: #000000ab;
+}
+
+.bold{
+    font-weight: 400;
+    margin-left: 30px;
+}
+
+.input-container {
     display: flex;
     flex-wrap: wrap; 
     align-items: flex-start;
@@ -272,24 +272,24 @@ body {
 
 .select-job-type,
 .select-salary-range{
-  width: 25%;
-  color: #89817e;
+width: 25%;
+color: #89817e;
 }
 
 .input-apply-link{
-  width: 144%;
+width: 144%;
 }
 
 .job-details {
-  height: 100px; 
-  max-height: 200px;
-  width: calc(97.5% - 40px); 
-  margin-left: 30px;
-  padding: 10px;
-  border: 1px solid lightsteelblue;
-  border-radius: 4px;
-  outline: none;
-  resize: none;
+height: 100px; 
+max-height: 200px;
+width: calc(97.5% - 40px); 
+margin-left: 30px;
+padding: 10px;
+border: 1px solid lightsteelblue;
+border-radius: 4px;
+outline: none;
+resize: none;
 }
 
 .post-button-ann {
@@ -301,14 +301,14 @@ body {
     margin-left: 260px;
     outline: none;
     border-color: transparent;
-  }
+}
 
 .post-button-ann:hover{
     background-color: #162F65;
     color: #fff;
-  }
+}
 
-  .button-container {
+.button-container {
     display: flex;
     justify-content: center; 
     align-items: center; 
@@ -339,7 +339,7 @@ body {
     color: #fff;
 }
 
-  .notification-dropdown {
+.notification-dropdown {
     display: none;
     position: absolute;
     top: calc(100% + 15px); 

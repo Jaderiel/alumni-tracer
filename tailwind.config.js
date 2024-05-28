@@ -12,6 +12,7 @@ module.exports = {
     './resources/views/popups/event-registration.blade.php',
     './resources/views/popups/update-event.blade.php',
     './resources/views/auth/jobs.blade.php',
+    './resources/views/job-post.blade.php',
 
   ],
   theme: {
