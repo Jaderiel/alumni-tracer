@@ -7,27 +7,20 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Gallery Page</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
-    <link rel="stylesheet" href="{{ asset('bootstrap/bootstrap.min.css') }}">
+    <!-- <link rel="stylesheet" href="{{ asset('bootstrap/bootstrap.min.css') }}"> -->
     <link rel="stylesheet" href="{{ asset('css/gallery.css') }}">
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 </head>
 
-<body>
-    <section id="menu">
-        @if(Auth::user()->user_type === 'Admin' || Auth::user()->user_type === 'Super Admin')
-            @include('components.admin-sidenav')
-        @else
-            @include('components.sidenav')
-        @endif
-    </section>
+<body style="margin-top: 70px">
+    @include('main')
 
-    <section id="interface">
-        @include('components.headernav')
+    <section class="ml-0 lg:ml-72 w-full flex flex-col justify-center">
 
         <h3 class="i-name">Gallery</h3>
 
-        <div class="container">
-            <div class="gallery-top-container">
+        <div class="mx-10">
+            <div class="flex justify-between items-center">
                 <div class="search-course">
                     <select name="course" id="courseFilter">
                         <option value="all" selected>All</option>
@@ -49,27 +42,27 @@
                 </div>
                 <div>
                     <a href="{{ route('gallery.add') }}">
-                        <button class="btn" data-filter="">ADD <i class="fas fa-circle-plus "></i></button>
+                        <button class="btn hover:bg-yellow-500 hover:text-white rounded-md px-4 py-1" data-filter="">ADD <i class="fas fa-circle-plus"></i></button>
                     </a>
                 </div>
             </div>
 
-            <div class="container-card" id="filterable-cards">
+            <div class="grid grid-cols-1 lg:grid-cols-4 gap-4" id="filterable-cards">
                 @foreach($gallery as $gal)
-                <div class="filterable_cards" data-course="{{ $gal->course }}">
-                    <div class="card" data-name="Bachelor of Arts in Broadcasting">
+                <div class="filterable_cards " data-course="{{ $gal->course }}">
+                    <div class="card h-full" data-name="Bachelor of Arts in Broadcasting">
                         <img src="{{ $gal->media_url }}" class="card-img-top img-fluid" alt="Image" data-toggle="modal" data-target="#imageModal" data-image="{{ $gal->media_url }}">
-                        <div class="card_body">
-                            <div class="card-header">
-                                <h6 class="card-title">{{ $gal->img_title }}</h6>
+                        <div class="card_body p-0">
+                            <div class="flex justify-between mx-4 my-4">
+                                <h6 class="font-bold">{{ $gal->img_title }}</h6>
                                 @if(Auth::check() && Auth::user()->user_type === 'Super Admin' || Auth::user()->id === $gal->user_id)
                                 <div class="card-options">
-                                    <a href="{{ route('gallery.edit', ['gallery' => $gal->id]) }}"><i class="fas fa-ellipsis-v text-gray-600 ml-" onclick="openPopup()"></i></a>
+                                    <a href="{{ route('gallery.edit', ['gallery' => $gal->id]) }}"><i class="fas fa-ellipsis-v text-yellow-600 ml-" onclick="openPopup()"></i></a>
                                 </div>
                                 @endif
                             </div>
-                            <div class="card-text-wrapper">
-                                <p class="card-text">{{ $gal->img_description }}</p>
+                            <div class="flex flex-col justify-between m-4">
+                                <p class="text-xs">{{ $gal->img_description }}</p>
                                 <p class="card-text-course">{{ $gal->course }}</p>
                             </div>
                         </div>
@@ -79,22 +72,6 @@
             </div>
         </div>
     </section>
-
-    <!-- Image Modal -->
-    <div class="modal fade" id="imageModal" tabindex="-1" role="dialog" aria-labelledby="imageModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body text-center">
-                    <img src="" class="img-fluid" id="modalImage" alt="Modal Image">
-                </div>
-            </div>
-        </div>
-    </div>
 
     <!-- Bootstrap JS and jQuery -->
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
@@ -149,10 +126,5 @@
         background-color: #EFF2FB;
         width: 100%;
         cursor: pointer;
-    }
-
-    .gallery-top-container {
-        display: flex;
-        gap: 10px
     }
 </style>
