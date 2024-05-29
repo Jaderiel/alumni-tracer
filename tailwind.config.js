@@ -14,6 +14,7 @@ module.exports = {
     './resources/views/auth/jobs.blade.php',
     './resources/views/job-post.blade.php',
     './resources/views/auth/gallery.blade.php',
+    './resources/views/add-gallery.blade.php',
 
   ],
   theme: {

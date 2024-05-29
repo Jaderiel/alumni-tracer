@@ -113,7 +113,7 @@ body {
     font-weight: 700;
 }
 
-.event{
+/* .event{
     padding: 30px 30px 30px;
     display: flex;
     gap: 20px;
@@ -121,13 +121,13 @@ body {
     flex-wrap: wrap;
     margin-left:20%;
     
-}
+} */
 
 .event .up-event{
     display: flex;
     justify-content: center;
     align-items: center;
-    width: 30%;
+    /* width: 30%; */
     height: 40px;
     padding: 10px 10px 10px;
     border: 1px solid lightsteelblue;
@@ -143,7 +143,7 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-    width: 30%;
+    /* width: 30%; */
     height: 40px;
     padding: 10px 10px 10px;
     border: 1px solid #2D55B4;
@@ -169,11 +169,11 @@ body {
 
 .con{
   background-color: #EFF2FB;
-  align-items: center;
-  width: 1003px;
-  height: 90px;
-  margin-top: 30px;
-  margin-left: 70px;
+  /* align-items: center; */
+  /* width: 1003px;
+  height: 90px; */
+  /* margin-top: 30px;
+  margin-left: 70px; */
   box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
 }
 
@@ -193,8 +193,8 @@ body {
 
 
 .panel {
-    width: 95%;
-    margin: 20px 20px 5px 20px;
+    /* width: 95%; */
+    /* margin: 20px 20px 5px 20px; */
     background: #fff;
     border: 1px solid #00000086;
     overflow: none;
@@ -263,7 +263,7 @@ body {
 }
 
 
-.course-input select {
+/* .course-input select {
     padding: 10px;
     border: 1px solid lightsteelblue;
     border-radius: 4px;
@@ -271,7 +271,7 @@ body {
     margin-left: -220px;
     margin-top: 10px;
     color: #888;
-}
+} */
 
 .file-upload-label {
   display: flex;
@@ -302,14 +302,14 @@ body {
 }
 
 
-  #course {
+  /* #course {
     width: 100%;
     padding: 10px;
     border: 1px solid lightsteelblue;
     border-radius: 4px;
     outline: none;
     margin-bottom: 10px;
-  }
+  } */
 
   .event-details {
     height: 100px; 
@@ -324,12 +324,12 @@ body {
     }
 
   .post-button-ann {
-    width: 35%;
-    height: 40px;
+    /* width: 35%; */
+    /* height: 40px; */
     background-color: #00A36C;
     border-radius: 2px;
-    margin: 12px auto; 
-    margin-left: 260px;
+    /* margin: 12px auto; 
+    margin-left: 260px; */
     outline: none;
     border-color: transparent;
   }
