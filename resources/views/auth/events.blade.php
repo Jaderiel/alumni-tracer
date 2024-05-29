@@ -28,9 +28,9 @@
     </h3>
 
     <div class="event flex flex-col lg:flex-row m-0 p-10 gap-4">
-        @if(auth()->check() && (auth()->user()->user_type == 'Alumni'))
+        @if(auth()->check() && (auth()->user()->user_type == 'Alumni' || Auth::user()->user_type === 'Program Head'))
         <button href="{{ route('events') }}" class="up-event">Upcoming Events and Announcement</button>
-        @elseif(auth()->check() && (auth()->user()->user_type == 'Admin' || Auth::user()->user_type === 'Super Admin'))
+        @elseif(auth()->check() && (auth()->user()->user_type == 'Admin' || Auth::user()->user_type === 'Super Admin' || Auth::user()->user_type === 'Alumni Officer'))
         <button href="{{ route('events') }}" class="up-event w-full">Upcoming Events and Announcement</button>
         <a href="{{ route('add-event') }}" class="post-event w-full">Add Event</a>
         <a href="{{ route('add-ann') }}" class="post-event w-full">Add Announcement</a>

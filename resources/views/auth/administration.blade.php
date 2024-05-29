@@ -9,16 +9,10 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 </head>
-<body>
-    <section id="menu">
-        @if(Auth::user()->user_type === 'Admin' || Auth::user()->user_type === 'Super Admin')
-            @include('components.admin-sidenav')
-        @else
-            @include('components.sidenav')
-        @endif
-    </section>
-    <section id="interface">
-        @include('components.headernav')
+<body style="margin-top: 70px">
+    @include('main')
+
+    <section class="ml-0 lg:ml-72 w-full flex flex-col justify-center">
 
         <h3 class="i-name">Administration</h3>
 
@@ -49,7 +43,7 @@
         </div>
     </section>
 </body>
-<script src="{{ asset('js/header.js') }}"></script>
+
 <script>
     document.addEventListener("DOMContentLoaded", function() {
         // Get all tabs and tab contents
@@ -74,6 +68,7 @@
         });
     });
 </script>
+
 <script>
     $(document).ready(function() {
         $('.approve-btn').click(function(e) {
@@ -90,7 +85,6 @@
         });
     });
 </script>
-
 
 </html>
 
