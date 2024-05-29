@@ -79,7 +79,7 @@
                             
                     </form>
                     <!-- Separate form for deleting announcement -->
-                    <form action="{{ route('delete.ann', $ann->id) }}" method="POST">
+                                <form action="{{ route('delete.ann', $ann->id) }}" method="POST">
                                 @csrf
                                 @method('DELETE')
                                 <button type="submit" class="delete-button-ann text-white">DELETE</button>

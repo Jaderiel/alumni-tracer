@@ -24,15 +24,20 @@
         <div class="bg-white p-4 my-4 mx-4 lg:mx-10">
             <div class="flex items-baseline justify-between mx-0 lg:mx-32">
                 <div class="flex items-center gap-4">
-                    <div class="">
+                    <div class="h-[100px] w-[100px] overflow-hidden relative">
                         @if (Auth::user()->profile_pic)
-                        <img src="{{ Auth::user()->profile_pic }}" alt="Profile Picture" style="height: 100px; width: 100px;"> 
+                        <img src="{{ Auth::user()->profile_pic }}" alt="Profile Picture" style="height: 100%; width: 100%; object-fit: cover;"> 
                         @else
-                        <img src="https://st3.depositphotos.com/6672868/13701/v/450/depositphotos_137014128-stock-illustration-user-profile-icon.jpg" alt="Placeholder Profile Picture" style="height: 100px; width: 100px;">
+                        <img src="https://st3.depositphotos.com/6672868/13701/v/450/depositphotos_137014128-stock-illustration-user-profile-icon.jpg" alt="Placeholder Profile Picture" style="height: 100%; width: 100%; object-fit: cover;">
                         @endif
                     </div>
                     <div>
-                        <h1 class="font-bold">{{ Auth::user()->first_name }} {{ Auth::user()->last_name }}</h1>
+                        <div class="flex gap-4">
+                            <h1 class="font-bold">{{ Auth::user()->first_name }} {{ Auth::user()->last_name }}</h1>
+                            @if (Auth::user()->degree)
+                            <p class="text-sm">({{ Auth::user()->degree }})</p>
+                            @endif
+                        </div>
                         <p class="text-xs">{{ Auth::user()->username }}</p>
                     </div>
                 </div>

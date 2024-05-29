@@ -42,24 +42,52 @@ class UserController extends Controller
     public function updateProfile(Request $request)
     {
         $user = auth()->user(); // Get the authenticated user
-        $user->update($request->all());
+    
+        // Validate request data
+        $request->validate([
+            'profile_pic' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+            // Add other validation rules as needed
+        ]);
+    
+        // Handle profile picture upload if a new file is uploaded
+        if ($request->hasFile('profile_pic')) {
+            $image = $request->file('profile_pic');
+            $imageName = time().'.'.$image->getClientOriginalExtension();
+            $image->move(public_path('images'), $imageName);
+            $profile_pic = 'images/'.$imageName;
+            // Update profile_pic with the new file path
+            $user->profile_pic = $profile_pic;
+            \Log::info('Profile picture updated: ' . $profile_pic);
+        } else {
+            \Log::info('No profile picture uploaded.');
+        }
+    
+        // Update the user with all request data except profile_pic
+        $user->update($request->except('profile_pic'));
+    
+        // Update degree if present in the request
         if ($request->has('degree')) {
             $user->degree = $request->input('degree');
-            $user->save();
         }
-
+    
+        // Save the updated user
+        $user->save();
+        \Log::info('User updated: ' . $user);
+    
+        // Update employment data
         $employmentData = $request->only(['is_employed', 'date_of_first_employment', 'date_of_employment', 'industry', 'job_title', 'company_name', 'company_address', 'annual_salary']);
         $user->employment()->updateOrCreate([], $employmentData);
-
+    
         if ($user->employment) {
             $user->employment->update(['is_employed' => $request->employment_status === 'employed']);
         } else {
             // Create new UserEmployment if it doesn't exist
-            $user->employment()->create(['is_employed' => $request->employment_status === 'Unemployed']);
+            $user->employment()->create(['is_employed' => $request->employment_status === 'unemployed']);
         }
-
+    
         return redirect()->back()->with('success', 'Profile updated successfully.');
     }
+    
 
     public function getUserEmployment($userId)
     {

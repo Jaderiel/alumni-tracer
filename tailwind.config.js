@@ -16,6 +16,8 @@ module.exports = {
     './resources/views/auth/gallery.blade.php',
     './resources/views/add-gallery.blade.php',
     './resources/views/auth/user-profile.blade.php',
+    './resources/views/profile/edit.blade.php',
+    './resources/views/auth/show-profile.blade.php',
 
   ],
   theme: {
