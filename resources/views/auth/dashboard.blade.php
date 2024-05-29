@@ -71,12 +71,14 @@
                         <div class="forum-section">
                             <div class="left-section">
                                 <div class="profile-info">
-                                @if (Auth::user()->user_type == 'Super Admin')
-                                    <img src="{{ asset('images/SA_avatar.jpg') }}" alt="Super Admin Avatar">
-                                @elseif (Auth::user()->profile_pic)
+                                @if (Auth::user()->profile_pic)
                                     <img src="{{ Auth::user()->profile_pic }}" alt="Profile Picture">
                                 @else
+                                    @if (Auth::user()->user_type == 'Super Admin')
+                                        <img src="{{ asset('images/SA_avatar.jpg') }}" alt="Super Admin Avatar">
+                                    @else
                                     <img src="{{ asset('images/user_avatar.jpg') }}" alt="User Avatar">
+                                    @endif
                                 @endif
                                     <div class="user-details">
                                         <p class="profile-name">{{ Auth::user()->first_name }} {{ Auth::user()->last_name }}</p>

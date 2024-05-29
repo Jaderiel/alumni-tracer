@@ -270,43 +270,43 @@ body {
     color: #000000b2;
 }
 
-#first-name, #middle-name, #last-name {
+/* #first-name, #middle-name, #last-name {
     width: 220px;
 }
 
 #first_name, #middle_name, #last_name {
     width: 220px;
-}
+} */
 
-#course{
+/* #course{
     width: 460px; 
-}
+} */
 
-.form-group label[for="batch"] { 
+/* .form-group label[for="batch"] { 
     margin-left: 60px;
-}
+} */
 
-#batch {
+/* #batch {
     width: 110px; 
     margin-left: 60px;
-}
+} */
 
-#email {
+/* #email {
     width: 460px; 
-}
+} */
 
-.form-group label[for="username"] { 
+/* .form-group label[for="username"] { 
     margin-left: 60px;
-}
+} */
 
 .form-group label[for="confirm-password"] { 
     margin-left: 60px;
 }
 
-#username{
+/* #username{
     width: 110px; 
     margin-left: 60px;
-}
+} */
 
 #employment{
     width: 130px; 

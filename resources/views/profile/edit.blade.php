@@ -24,14 +24,14 @@
     @method('PUT')
 
     <div class="bg-white p-4 m-4 lg:m-10">
-        <div class="border-2 border-black">
+        <div class="border border-black">
             <div class="heading">
                 USER INFORMATION
             </div>
     
             <div class="panel-btn">
-                <div class="row flex justify-between">
-                    <div class="flex ml-4 mt-2">
+                <div class="row flex flex-col lg:flex-row justify-center lg:justify-between">
+                    <div class="flex flex-col lg:flex-row ml-4 mt-2">
                         <div class="h-[100px] w-[100px] overflow-hidden relative">
                             @if (Auth::user()->profile_pic)
                             <img src="{{ asset($user->profile_pic) }}" alt="Profile Picture" style="height: 100px; width: 100px; object-fit: cover;"> 
@@ -39,10 +39,10 @@
                             <img src="https://st3.depositphotos.com/6672868/13701/v/450/depositphotos_137014128-stock-illustration-user-profile-icon.jpg" alt="Placeholder Profile Picture" style="height: 100%; width: 100%; object-fit: cover;">
                             @endif
                         </div>
-                        <input id="file-upload" type="file" name="profile_pic" accept="image/*" class="p-2 self-center">
+                        <input id="file-upload" type="file" name="profile_pic" accept="image/*" class="px-0 lg:px-2 py-2 lg:py-0 self-start lg:self-end">
                     </div>
 
-                    <div class="flex h-full">
+                    <div class="flex ml-3 h-full">
                             <button type="submit" class="btn-save"><i class="fa-regular fa-bookmark"></i> Save</button>
                         </form>
                         <form action="{{ route('users.destroy', $user->id) }}" method="POST">
@@ -53,25 +53,33 @@
                     </div>
                 </div>
 
-                <div class="inline-group">
-                    <div class="form-group">
+                <div class="flex flex-col lg:flex-row mx-4 lg:mx-10 gap-2 my-2">
+                    <div class="w-full">
                         <label for="first_name">First Name</label>
-                        <input type="text" class="form-controll" id="first_name" name="first_name" value="{{ $user->first_name }}">
+                        <div class="border-2 w-full p-2">
+                            
+                            <input type="text" class="w-full outline-none" id="first_name" name="first_name" value="{{ $user->first_name }}">
+                        </div>
                     </div>
-                    <div class="form-group">
+                    <div class="w-full">
                         <label for="middle_name">Middle Name</label>
-                        <input type="text" class="form-controll" id="middle_name" name="middle_name" value="{{ $user->middle_name }}">
+                        <div class="border-2 w-full p-2">
+                            <input type="text" class="w-full outline-none" id="middle_name" name="middle_name" value="{{ $user->middle_name }}">
+                        </div>
                     </div>
-                    <div class="form-group">
+                    <div class="w-full">
                         <label for="last_name">Last Name</label>
-                        <input type="text" class="form-controll" id="last_name" name="last_name" value="{{ $user->last_name }}">
+                        <div class="border-2 w-full p-2">
+                            <input type="text" class="w-full outline-none" id="last_name" name="last_name" value="{{ $user->last_name }}">
+                        </div>
                     </div>
                 </div>
 
-                <div class="inline-group">
-                    <div class="form-group">
-                            <label for="course">Course</label>
-                            <select class="form-controll" id="course" name="course"> <!-- Added name attribute -->
+                <div class="flex flex-col lg:flex-row mx-4 lg:mx-10 gap-2 my-2">
+                    <div class="w-full">
+                        <label for="course">Course</label>
+                        <div class="border-2 w-full p-2">
+                            <select class="w-full outline-none" id="course" name="course"> <!-- Added name attribute -->
                                 <option value="{{ $user->course }}">{{ $user->course }}</option>
                                 <option value="Bachelor of Arts in Broadcasting">Bachelor of Arts in Broadcasting (BAB)</option>
                                 <option value="Bachelor of Science in Accountancy">Bachelor of Science in Accountancy (BSA)</option>
@@ -88,29 +96,36 @@
                                 <option value="Nursing Student">Nursing Student (NS)</option>
                                 <option value="Office Management">Office Management (OM)</option>
                             </select>
+                        </div>
                     </div>
-                    <div class="form-group">
-                            <label for="batch">Batch</label>
-                            <select name="batch" id="batch" required>
-                                <option value="{{ $user->batch }}">{{ $user->batch }}</option>
-                                    @for ($year = date('Y'); $year >= 2006; $year--)
-                                    @php
-                                    $nextYear = $year + 1;
-                                    @endphp
-                                    <option value="{{ $year }} - {{ $nextYear }}">{{ $year }}-{{ $nextYear }}</option>
-                                    @endfor
-                            </select>
+                    <div class="w-full">
+                        <label for="batch">Batch</label>
+                        <div class="border-2 w-full p-2">
+                                <select class="w-full outline-none" name="batch" id="batch" required>
+                                    <option value="{{ $user->batch }}">{{ $user->batch }}</option>
+                                        @for ($year = date('Y'); $year >= 2006; $year--)
+                                        @php
+                                        $nextYear = $year + 1;
+                                        @endphp
+                                        <option value="{{ $year }} - {{ $nextYear }}">{{ $year }}-{{ $nextYear }}</option>
+                                        @endfor
+                                </select>
+                        </div>
                     </div>
                 </div>
                 
-                <div class="inline-group">
-                    <div class="form-group">
+                <div class="flex flex-col lg:flex-row mx-4 lg:mx-10 gap-2 my-2">
+                    <div class="w-full">
                         <label for="email">Email Address</label>
-                        <input type="email" class="form-controll" id="email" name="email" value="{{ $user->email }}">
+                        <div class="border-2 w-full p-2">
+                            <input type="email" class="w-full outline-none" id="email" name="email" value="{{ $user->email }}">
+                        </div>
                     </div>
-                    <div class="form-group">
+                    <div class="w-full">
                         <label for="username">Username</label>
-                        <input type="text" class="form-controll" id="username" name="username" value="{{ $user->username }}">
+                        <div class="border-2 w-full p-2">
+                            <input type="text" class="w-full outline-none" id="username" name="username" value="{{ $user->username }}">
+                        </div>
                     </div>
                 </div>
             </div>
