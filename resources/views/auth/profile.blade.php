@@ -32,7 +32,7 @@
                         <button id="edit-profile-button" class="edit-button"><i class="fa-solid fa-user-pen"></i> Edit</button>
                         </a>
                         
-                            <button class="delete-button" onclick="deletePopup()"><i class="fa-solid fa-user-xmark"></i> Delete</button>
+                        <button class="delete-button" onclick="deletePopup()"><i class="fa-solid fa-user-xmark"></i> Delete</button>
                     </div>
 
                     <div class="inline-group">
@@ -225,11 +225,8 @@
 <script src="{{ asset('js/profile.js') }}"></script>
 <script src="{{ asset('js/header.js') }}"></script>
 <script>
-    // Attach a click event handler to the edit button
     $('#edit-profile-button').click(function() {
-        // Implement the edit functionality here
-        // For example, you can redirect the user to an edit profile page
-        window.location.href = "{{ route('profile.edit') }}"; // Replace 'profile.edit' with your actual route name
+        window.location.href = "{{ route('profile.edit') }}";
     });
 </script>
 </html>

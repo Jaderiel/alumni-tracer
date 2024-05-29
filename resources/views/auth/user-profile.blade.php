@@ -37,7 +37,7 @@
                     </div>
                 </div>
                 <div>
-                    <a href="{{ route('profile') }}" >
+                    <a href="{{ route('profile.edit') }}" >
                         <button class="text-xs bg-customBlue text-white px-4 py-1 rounded-lg hover:bg-customTextBlue hover:text-black">Profile Settings</button>
                     </a>
                 </div>

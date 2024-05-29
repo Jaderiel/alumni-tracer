@@ -32,10 +32,11 @@ class UserController extends Controller
 
     public function editProfile()
     {
-        $user = auth()->user(); // Get the authenticated user
+        $user = auth()->user();
+        $userId = $user->id; // Get the authenticated user
         
         // Ensure $user is passed to the view
-        return view('profile.edit', ['user' => $user]);
+        return view('profile.edit', compact('user', 'userId'));
     }
 
     public function updateProfile(Request $request)
@@ -92,7 +93,7 @@ class UserController extends Controller
         $user = User::findOrFail($id);
         $user->delete();
 
-        return redirect()->route('login')->with('success', 'User deleted successfully.');
+        return redirect()->route('login.show')->with('success', 'User deleted successfully.');
     }
 
     public function delete($id)

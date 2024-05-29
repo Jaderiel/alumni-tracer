@@ -32,6 +32,8 @@
     <div class="panel-btn">
         <div class="row">
             <button type="submit" class="btn-save"><i class="fa-regular fa-bookmark"></i> Save</button>
+            </form>
+            <button class="delete-button" onclick="deletePopup()"><i class="fa-solid fa-user-xmark"></i> Delete</button>
         </div>
     <div class="inline-group">
         <div class="form-group">
@@ -47,7 +49,6 @@
             <input type="text" class="form-controll" id="last_name" name="last_name" value="{{ $user->last_name }}">
         </div>
     </div>
-    
 
     <div class="inline-group">
         <div class="form-group">
@@ -168,13 +169,25 @@
             </div>
         </div>
         </div>
-
-        
-    </form>
 </div>
 </div>
 <br>
+
 </section>
+
+<div class="popup" id="popup">
+        <img src="img/trash.png" alt="">
+        <h2>Are you sure you want to delete your account?</h2>
+            <div class="inline-group3">
+                
+                <form id="delete-form" action="{{ route('users.destroy', $userId) }}" method="POST">
+                    <button type="button" onclick="closePopup()">NO, CANCEL</button>
+                    @csrf
+                    @method('DELETE')
+                    <button class="sure-button">YES, I'M SURE</button>
+                </form>
+            </div>
+    </div>
 
 <script>
         $('#menu-btn').click(function(){
@@ -183,6 +196,7 @@
     </script>
 
 </body>
+<script src="{{ asset('js/profile.js') }}"></script>
 <script src="{{ asset('js/header.js') }}"></script>
 </html>
 
