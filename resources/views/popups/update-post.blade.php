@@ -3,7 +3,7 @@
         <h3>Edit Post</h3>
         <i class="fa-solid fa-circle-xmark" id="clearEditButton" onclick="closeEditPopup()"></i>
         <hr>
-        <form action="{{ route('update.post', ['id' => $post->id]) }}" method="POST" enctype="multipart/form-data">
+        <form action="{{ route('update.post', ['post' => $post]) }}" method="POST" enctype="multipart/form-data">
             @csrf
             @method('PUT')
             <!-- Hidden field to store post ID -->
