@@ -133,4 +133,8 @@ public function delete(Request $request, $id) {
     // Redirect back with a success message
     return redirect()->back()->with('success', 'Post deleted successfully.');
 }
+
+    public function addPost() {
+        return view('auth.add-post');
+    }
 }

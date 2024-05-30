@@ -51,6 +51,7 @@ Route::group(['middleware' => ['auth.user']], function () {
     Route::put('/update-post/{id}',  [PostController::class, 'update'])->name('update-post');
     Route::put('/update-post/{id}', [App\Http\Controllers\PostController::class, 'updatePost'])->name('update.post');
     Route::delete('/delete-post/{id}', [PostController::class, 'delete'])->name('delete.post');
+    Route::get('/add-post', [PostController::class, 'addPost'])->name('add.post');
     Route::get('/liked-users/{postId}', [AuthController::class, 'getLikedUsers'])->name('getLikedUsers');
 
     Route::get('/events', [EventsController::class, 'events'])->name('events');

@@ -86,13 +86,17 @@
                                     </div>
                                 </div>
                             </div> 
-                            <button style="background-color: transparent; border: none; cursor: pointer; text-align: left;" onclick="openPopup0()">
-                                <div class="center-section">
-                                    <p>What's on your mind, {{ Auth::user()->username }}?</p>
-                                </div>
-                            </button>
+                            <a href="{{ route('add.post') }}">
+                                <button style="background-color: transparent; border: none; cursor: pointer; text-align: left;">
+                                    <div class="center-section">
+                                        <p>What's on your mind, {{ Auth::user()->username }}?</p>
+                                    </div>
+                                </button>
+                            </a>
                             <div class="right-section">
-                                <button type="submit" class="post-button" onclick="openPopup0()">MAKE A POST</button>
+                                <a href="{{ route('add.post') }}">
+                                    <button type="submit" class="post-button">MAKE A POST</button>
+                                </a>
                             </div>
                         </div>
                         <hr>
