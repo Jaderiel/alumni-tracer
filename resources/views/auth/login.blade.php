@@ -237,17 +237,17 @@ closeButton.addEventListener("click", closeModal);
             window.location.href = "{{ route('mobileLogin.show') }}";
         }
     });
-    
+
     // Function to check if any required fields are empty
     function checkFields() {
         var requiredFields = document.querySelectorAll('input[required], select[required]');
         for (var i = 0; i < requiredFields.length; i++) {
             if (!requiredFields[i].value) {
-                document.getElementById('signupBtn').disabled = true; // Disable the button
+                document.getElementById('signupBtn').disabled = false; // Disable the button
                 return;
             }
         }
-        document.getElementById('signupBtn').disabled = false; // Enable the button
+        document.getElementById('signupBtn').disabled = true; // Enable the button
     }
 
     // Call the checkFields function whenever a change occurs in the form
