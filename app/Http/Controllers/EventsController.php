@@ -76,7 +76,7 @@ class EventsController extends Controller
 
         $request->validate([
             'event_title' => 'required',
-            'media_url' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048', // Adjust file type and size as needed
+            'media_url' => 'required|image|mimes:jpeg,png,jpg,gif|max:10048', // Adjust file type and size as needed
             'event_date' => 'required',
             'event_time' => 'required',
             'event_details' => 'required',
