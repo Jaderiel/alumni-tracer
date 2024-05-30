@@ -230,6 +230,11 @@ closeButton.addEventListener("click", closeModal);
         if (window.innerWidth <= 768) {
             window.location.href = "{{ route('mobileLogin.show') }}";
         }
+        var formInputs = document.querySelectorAll('input[required], select[required]');
+        for (var i = 0; i < formInputs.length; i++) {
+            formInputs[i].addEventListener('change', checkFields);
+        }
+        checkFields(); // Check fields initially
     });
 
     window.addEventListener('resize', function() {
@@ -237,9 +242,7 @@ closeButton.addEventListener("click", closeModal);
             window.location.href = "{{ route('mobileLogin.show') }}";
         }
     });
-</script>
-<script>
-    // Function to check if any required fields are empty
+
     function checkFields() {
         var requiredFields = document.querySelectorAll('input[required], select[required]');
         for (var i = 0; i < requiredFields.length; i++) {
@@ -250,14 +253,7 @@ closeButton.addEventListener("click", closeModal);
         }
         document.getElementById('signupBtn').disabled = false; // Enable the button
     }
-
-    // Call the checkFields function whenever a change occurs in the form
-    document.addEventListener('DOMContentLoaded', function() {
-        var formInputs = document.querySelectorAll('input[required], select[required]');
-        for (var i = 0; i < formInputs.length; i++) {
-            formInputs[i].addEventListener('change', checkFields);
-        }
-    });
 </script>
+
 </html>
 
