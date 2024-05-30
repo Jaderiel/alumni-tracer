@@ -39,7 +39,7 @@
                 <ul>
                     <li><a href="{{ route('website.show') }}">Home</a></li>
                     <li><a href="{{ route('about.show') }}" class="active">About Us</a></li>
-                    <li><a href="service.html">Services</a></li>
+                    <li><a href="{{ route('services.show') }}">Services</a></li>
                 </ul>
             </nav>
             <div class="login-button">
