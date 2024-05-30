@@ -33,7 +33,7 @@
                                 <input type="text" name="caption" placeholder="Caption" class="w-full outline-none">
                             </div>
                             <div class="border-2 w-full lg:w-1/2 p-2">
-                                <label for="file-upload" class="cursor-pointer">
+                                <label for="file-upload" class="cursor-pointer" id="file-upload-label">
                                     <span>Add Image</span>
                                     <i class="fas fa-image"></i>
                                 </label>
@@ -49,6 +49,14 @@
     
 </body>
 </html>
+
+<script>
+    document.getElementById('file-upload').addEventListener('change', function() {
+        var fileName = this.files[0].name;
+        var label = document.getElementById('file-upload-label');
+        label.innerHTML = '<span>' + fileName + '</span> <i class="fas fa-image"></i>';
+    });
+</script>
 
 <style>
     .back-link {
