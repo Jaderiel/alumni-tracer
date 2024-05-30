@@ -26,10 +26,10 @@
             <div class="flex items-baseline justify-between mx-0 lg:mx-32">
                 <div class="flex items-center gap-4">
                     <div class="h-[100px] w-[100px] overflow-hidden relative">
-                        @if (Auth::user()->profile_pic)
-                        <img src="{{ Auth::user()->profile_pic }}" alt="Profile Picture" style="height: 100%; width: 100%; object-fit: cover;"> 
+                        @if ($user->profile_pic)
+                        <img src="{{ asset($user->profile_pic) }}" alt="Profile Picture" style="height: 100%; width: 100%; object-fit: cover;"> 
                         @else
-                        <img src="https://st3.depositphotos.com/6672868/13701/v/450/depositphotos_137014128-stock-illustration-user-profile-icon.jpg" alt="Placeholder Profile Picture" style="height: 100%; width: 100%; object-fit: cover;">
+                        <img src="{{ asset('images/user_avatar.jpg') }}" alt="Placeholder Profile Picture" style="height: 100%; width: 100%; object-fit: cover;">
                         @endif
                     </div>
                     <div>
@@ -47,5 +47,4 @@
     </section>
 </body>
 <script src="{{ asset('js/profile.js') }}"></script>
-<script src="{{ asset('js/header.js') }}"></script>
 </html>

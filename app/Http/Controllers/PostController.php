@@ -19,7 +19,7 @@ class PostController extends Controller
     // Validate the incoming request
         $request->validate([
             'caption' => 'required|string',
-            'media_url' => 'image|mimes:jpeg,png,jpg,gif|max:2048', // Adjust the validation rules as needed
+            'media_url' => 'image|mimes:jpeg,png,jpg,gif|max:10048', // Adjust the validation rules as needed
         ]);
 
         // Initialize mediaUrl variable

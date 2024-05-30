@@ -24,7 +24,7 @@ class GalleryController extends Controller
                 'course' => 'required|string',
                 'img_title' => 'required|string',
                 'img_description' => 'required|string',
-                'media_url' => 'image|mimes:jpeg,png,jpg,gif|max:2048',
+                'media_url' => 'image|mimes:jpeg,png,jpg,gif|max:10048',
             ]);
 
             $mediaUrl = null;

@@ -45,7 +45,7 @@ class UserController extends Controller
     
         // Validate request data
         $request->validate([
-            'profile_pic' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'profile_pic' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:10048',
             // Add other validation rules as needed
         ]);
     
