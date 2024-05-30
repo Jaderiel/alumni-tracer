@@ -8,8 +8,7 @@
 
 .container{
     height: 100%;
-}
-
+} 
 
 .combined-header {
     display: flex;
@@ -25,9 +24,6 @@
     display: flex;
     margin: 5%;
 }
-
-
-
 
 .contact-info,
 .social-icons {
@@ -112,7 +108,7 @@
     align-items: center;
     background-color: #f2f2f2;
     padding: 0;
-    height: 85%;
+    height: 80%;
     
 }
 
@@ -123,24 +119,27 @@
 }
 
 .right-content {
-    overflow: hidden ;
-    margin-left: auto;  
-    text-align: right; 
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    margin-left: auto;
+    text-align: center; /* Change to center */
     background-color: #162F65;
     height: 80%;
     width: 40%;
 }
 
 .right-content img {
-    width: 580px;
-    margin: 55px;
-    margin-left: 20px;
-    transition: transform 0.3s ease; 
+    max-width: 100%;
+    height: auto;
+    transition: transform 0.3s ease;
 }
 
 .right-content img:hover {
-    transform: scale(1.1); 
+    transform: scale(1.1);
 }
+
 
 .left-content h2{
     color: #2D55B4;
@@ -279,8 +278,8 @@ button{
 .offers {
     text-align: center;
     background-color: #F2DB98;
-    height: 100%;
-    
+    padding-bottom: 40px; /* Add padding to avoid overlap */
+    overflow: auto;
 }
 
 .offers h2{
@@ -295,6 +294,7 @@ button{
 .offer-container {
     display: flex;
     justify-content: space-between;
+    flex-wrap: wrap;
     margin-left: 150px;
     margin-right: 150px;
 }
@@ -482,58 +482,6 @@ button{
     text-align: justify;
 }
 
-
-
-
-
-
-/* .testimonial {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding: 20px;
-    border: 1px solid #ccc;
-    margin-bottom: 20px;
-}
-
-.testimonial .description{
-    text-align: justify;
-    margin: 15px 50px 0 50px;
-}
-
-.testimonial img {
-    width: 70%;
-    height: auto;
-    border-radius: 10px;
-}
-
-.title, .description {
-    text-align: center;
-    margin-top: 10px;
-}
-
-
-.testimonial-left {
-    align-self: flex-start;
-    background-color: #162F65;
-    color: #fff;
-    height: 500px;
-    width: 650px;
-    padding-top: 20px;
-    
-}
-
-.testimonial-right {
-    align-self: flex-end;
-    background-color: #F2DB98;
-    color: #fff;
-    height: 100%;
-    width: 650px;
-    padding-top: 20px;
-}
- */
-
-
 .video-container {
     width: 100%;
     display: flex;
@@ -546,6 +494,172 @@ button{
     width: 670px; 
     height: 400px; 
 }
+
+
+@media only screen and (max-width: 1028px) {
+
+    .phone-number,
+    .email {
+        font-size: 12px; 
+    }
+
+    .contact-info i{
+        font-size: 12px;
+    }
+
+
+    .social-icons {
+        display: none;
+    }
+    
+    .login-button {
+        display: none;
+    }
+
+    .bg-container .right-content{
+        display: none;
+    }
+
+    .bg-container {
+        padding: 20px;
+        height: 70%;
+    }
+
+    .bg-container .right-content {
+        display: none;
+    }
+
+    .values {
+        flex-direction: column;
+        gap: 20px;
+    }
+
+    .values .val-box {
+        width: 80%;
+        margin: 0 auto;
+    }
+
+    .testimonial-row {
+        flex-direction: column;
+        gap: 20px;
+    }
+
+    .testimonial-row img {
+        display: block;
+        margin-left: auto;
+        margin-right: auto;
+        height: 100%;
+    }
+
+    .video-container iframe {
+        width: 100%;
+        height: auto;
+    }
+
+    .left-content {
+        margin: 2px;
+        margin-right: -250px;
+    }
+
+    .left-content h2 {
+        font-size: 30px;
+    }
+
+    .right-content {
+        overflow: hidden ;
+        margin-left: auto;  
+        text-align: right; 
+        height: 50px;
+        width: 40%;
+        }
+
+    .right-content img {
+        width: 70%;
+        margin: 10px;
+        }
+
+    .values .val-box {
+        margin-left: 0;
+        width: 40%;
+    }
+
+    .offer-container {
+        margin-left: 20px;
+        margin-right: 20px;
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+    .offer {
+        width: 45%;
+        margin: 10px;
+        
+    }
+
+    .values{
+        background-color: #162F65;
+        padding: 30px 30px 30px;
+        display: flex;
+        gap: 30px;
+        align-items: center;
+        flex-wrap: wrap;
+    }
+    
+    .values .val-box {
+        position: relative; 
+        width: 100%;
+        padding: 10px 10px;
+        display: flex;
+        justify-content: flex-start;
+        align-items: center;
+        background-color: #ffffff;
+        border-radius: 5px;
+        transition: background-color 0.3s, transform 0.3s; 
+    }
+
+    .values .val-box i{
+        margin-left: 10px;
+        margin-top: -1px;
+    }
+
+    .values .val-box h3{
+        color: #000;
+        margin-left: 20px;
+    }
+
+    .values .val-box:hover {
+        background-color: #EFF2FB; 
+        transform: scale(1.05); 
+    }
+
+    .offer {
+    background-color: #EFF2FB;
+    width: 300px;
+    height: 350px;
+    text-align: center;
+    padding: 15px;
+    border-radius: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    transition: transform 0.3s ease; 
+}
+
+}
+
+@media only screen and (max-width: 480px) {
+    .offer-container {
+        margin-left: 10px;
+        margin-right: 10px;
+    }
+    .offer {
+        width: 90%;
+        margin: 10px;
+    }
+}
+
+
 
 /* ABOUT PAGE */
 
@@ -589,6 +703,7 @@ button{
     justify-content: center;
     align-items: center;
     flex-wrap: wrap;
+    
 }
 
 .mission-vision-philosophy p{
@@ -769,6 +884,72 @@ button{
     transform: scale(1.05); 
 }
 
+@media only screen and (max-width: 1028px) {
+    .about-alumni{
+        margin-left: 40px;
+        /* margin-top: 90px; */
+    }
+
+    .about-alumni h2 {
+        font-size: 2rem;
+    }
+
+    .about-alumni p {
+        margin-right: 0;
+        max-width: 90%;
+    }
+
+    .mission, .vision, .philosophy {
+        max-width: 90%;
+    }
+
+    .row {
+        flex-direction: column;
+        padding: 20px;
+    }
+
+    .column img {
+        width: 80%;
+    }
+
+    .column p {
+        max-width: 90%;
+        margin: 0 auto;
+    }
+}
+
+@media only screen and (max-width: 480px) {
+    .about-alumni{
+        margin: 40px;
+        margin-top: 50px;
+        font-size: 13px;
+    }
+    .about-alumni h2 {
+        font-size: 1.5rem;
+    }
+
+    .mission, .vision, .philosophy {
+        padding: 10px;
+    }
+
+    .person-behind .title-person {
+        font-size: 1.5rem;
+    }
+
+    .column img {
+        width: 50%;
+        display: block; 
+    margin: 0 auto; 
+        
+    }
+
+    .column p {
+        max-width: 100%;
+        margin: 0 auto;
+    }
+}
+
+
 
 /* SERVICES */
 
@@ -899,6 +1080,84 @@ button{
 }
 
 
+@media only screen and (max-width: 1028px) {
+    .service-adj p {
+        margin-right: 0;
+    }
+    
+    .wrapper {
+        flex-direction: column;
+        margin-left: 20px;
+        margin-right: 20px;
+    }
+    
+    .left {
+        width: 100%;
+        margin: 0;
+        margin-bottom: 20px;
+    }
+    
+    .left img {
+        /* width: 50%; */
+        height: auto;
+        margin: 0 auto;
+    }
+    
+    .right {
+        margin: 0;
+    }
+    
+    .feature h2 {
+        padding: 20px;
+    }
+    
+    .row-service {
+        flex-direction: column;
+        align-items: center; 
+    }
+
+    .column-service {
+        padding: 20px;
+        text-align: center; 
+    }
+
+    .column-service img {
+        display: block; 
+        margin: 0 auto; 
+        width: 100%;
+        max-width: 300px; 
+        margin-bottom: 20px;
+    }
+
+    .column-service p {
+        text-align: justify;
+    }
+}
+
+
+@media only screen and (max-width: 480px) {
+    .service-adj{
+        font-size: 10px;
+    }
+
+    .feature h2 {
+        font-size: 20px;
+    }
+    
+    .left img {
+        width: 40%;
+    }
+    
+    .right p {
+        padding: 20px;
+    }
+    
+    .column-service img {
+        margin: 10px auto;
+    }
+}
+
+
 .footer {
     background-color: #162F65;
     padding: 20px 0;
@@ -919,3 +1178,8 @@ button{
 .footer img{
     width: 50px;
 }
+
+
+
+
+

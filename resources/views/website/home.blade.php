@@ -42,9 +42,9 @@
             </div>
             <nav class="navigation">
                 <ul>
-                    <li><a href="home.html" class="active">Home</a></li>
-                    <li><a href="about.html">About Us</a></li>
-                    <li><a href="service.html">Services</a></li>
+                    <li><a href="{{ route('website.show') }}" class="active">Home</a></li>
+                    <li><a href="{{ route('about.show') }}">About Us</a></li>
+                    <li><a href="{{ route('services.show') }}">Services</a></li>
                 </ul>
             </nav>
             <div class="login-button">
@@ -156,7 +156,7 @@
 
         <footer class="footer">
             <div class="footer-content">
-                <img src="img/lvcc_logo.png" alt="Logo">
+                <img src="{{ asset('images/website-images/lvcc_logo.png') }}" alt="Logo">
                 <p class="footer-name">LVCC Alumni 
                     Association</p>
             </div>
