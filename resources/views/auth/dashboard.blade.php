@@ -173,33 +173,6 @@
 
     </section>
 
-        <div class="popup3" id="popup3">
-    <div class="like">
-        <button class="btn">
-            <img src="{{ asset('images/like.png') }}" alt="Image">
-            <p id="postID">Post ID: </p>
-            <p id="likeCount">Like Count: </p>
-        </button>
-        <i class="fa-solid fa-circle-xmark" onclick="closePopup3()"></i>
-    </div> 
-    <h3>You can see the total number of reactions to your post.</h3>
-    <div class="panel2">
-        @foreach($post->reactions()->where('is_liked', true)->get() as $reaction)
-        <div class="left-section2">
-            <div class="profile-info2">
-                <img src="{{ $reaction->user->profile_pic }}" alt="Profile Picture">
-                <div class="user-details2">
-                    <p class="profile-name2">{{ $reaction->user->first_name }} {{ $reaction->user->last_name }}</p>
-                    <p class="profile-course2">{{ $reaction->user->course }}</p>
-                </div>
-            </div>
-        </div>
-        @endforeach
-    </div>
-</div>
-
-
-
 
         <div class="popup4" id="popup4">
             <div class="comment">
