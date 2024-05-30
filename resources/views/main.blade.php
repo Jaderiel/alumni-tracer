@@ -87,7 +87,7 @@
             </svg>
         </div>
         <!-- Logo and Title -->
-        <div class="ml-4 p-4 font-bold text-lg lg:text-2xl alumni-tracking-system">LVCC Alumni Tracking System</div>
+        <div class="ml-4 p-4 font-bold text-sm lg:text-2xl alumni-tracking-system">LVCC Alumni Tracking System</div>
         <!-- Side Navigation -->
     </div>
 
