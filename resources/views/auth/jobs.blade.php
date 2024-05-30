@@ -14,8 +14,6 @@
     <script src="bootstrap/js/bootstrap.min.js"></script>
 </head>
 
-<div>try lang</div>
-
 <body style="margin-top: 70px">
     @include('main')
 
