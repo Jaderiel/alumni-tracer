@@ -119,9 +119,11 @@
                                         </div>
                                     </div>
                                     @if(auth()->check() && (auth()->user()->id == $post->user->id || auth()->user()->user_type == 'Super Admin'))
-                                        <div class="elipsis">
-                                            <i class="fas fa-ellipsis-v text-gray-600 ml-" onclick="openEditPopup('{{ $post->id }}', '{{ $post->caption }}', '{{ $post->media_url }}')"></i>
-                                        </div>
+                                        <a href="{{ route('showUpdate.post', ['id' => $post->id]) }}">
+                                            <div class="elipsis">
+                                                <i class="fas fa-ellipsis-v text-gray-600 ml-"></i>
+                                            </div>
+                                        </a>
                                     @endif
                                 </div>
                                 
@@ -155,7 +157,6 @@
                                                 style="color: {{ $isLiked ? '#228BE6' : 'inherit' }};">
                                                 </i>
                                             </td>
-                                            <td class="comment-button" onclick="openPopup4()"><i class="fa-solid fa-comment-dots"></i></td>
                                         </tr>
                                     </thead>
                                 </table>

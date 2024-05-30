@@ -66,7 +66,7 @@ class PostController extends Controller
     public function update(Request $request, $id)
 {
     // Retrieve the post by ID
-    $post = Post::findOrFail($id);
+    $post = Forum::findOrFail($id);
     
     // Update the caption with the new value from the request
     $post->caption = $request->input('edited_caption');
@@ -85,27 +85,29 @@ class PostController extends Controller
     return response()->json(['message' => 'Post updated successfully']);
 }
 
-public function updatePost(Request $request) {
-    $post = Forum::findOrFail($request->post_id);
-    $post->caption = $request->edited_caption;
+public function updatePost(Request $request, $id) {
+    $post = Forum::findOrFail($id);
+    $post->caption = $request->caption;
 
-    // Get the file extension from the original file
-    $extension = $request->file('edited_media')->getClientOriginalExtension();
+    if ($request->hasFile('image')) {
+        // Get the file extension from the original file
+        $extension = $request->file('image')->getClientOriginalExtension();
 
-    // Generate a new file name with the appropriate extension
-    $newFileName = 'image_' . time() . '.' . $extension;
+        // Generate a new file name with the appropriate extension
+        $newFileName = 'image_' . time() . '.' . $extension;
 
-    // Ensure the destination directory exists
-    $destinationPath = 'uploads';
-    if (!Storage::exists($destinationPath)) {
-        Storage::makeDirectory($destinationPath);
+        // Ensure the destination directory exists
+        $destinationPath = 'uploads';
+        if (!Storage::exists($destinationPath)) {
+            Storage::makeDirectory($destinationPath);
+        }
+
+        // Move the uploaded file to the desired location with the new file name and extension
+        $request->file('image')->move(public_path($destinationPath), $newFileName);
+
+        // Update the post's media_url with the new file path including the extension
+        $post->media_url = $destinationPath . '/' . $newFileName;
     }
-
-    // Move the uploaded file to the desired location with the new file name and extension
-    $request->file('edited_media')->move(public_path($destinationPath), $newFileName);
-
-    // Update the post's media_url with the new file path including the extension
-    $post->media_url = $destinationPath . '/' . $newFileName;
 
     $post->save();
 
@@ -113,28 +115,21 @@ public function updatePost(Request $request) {
 }
 
 
-public function delete(Request $request, $id) {
-    // Find the post by ID
-    $post = Forum::find($id);
-    
-    // Check if the post exists
-    if (!$post) {
-        return redirect()->back()->with('error', 'Post not found.');
-    }
-    
-    // Attempt to delete the post
-    try {
-        $post->delete();
-    } catch (\Exception $e) {
-        // If an exception occurs during deletion, handle the error
-        return redirect()->back()->with('error', 'An error occurred while deleting the post.');
-    }
 
-    // Redirect back with a success message
-    return redirect()->back()->with('success', 'Post deleted successfully.');
+public function delete($id) {
+    // Find the post by ID
+    $post = Forum::findOrFail($id);
+    $post->delete();
+
+    return redirect()->route('dashboard')->with('success', 'Post deleted successfully.');
 }
 
     public function addPost() {
         return view('auth.add-post');
+    }
+
+    public function showUpdatePost($id) {
+        $post = Forum::findOrFail($id);
+        return view('popups.update-post', compact('post'));
     }
 }

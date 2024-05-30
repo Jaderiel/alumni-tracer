@@ -84,7 +84,7 @@
                                 @method('DELETE')
                                 <button type="submit" class="delete-button-ann text-white">DELETE</button>
                                 </form>
-                                </div>
+                            </div>
                         </div>
             </div>
         </div>

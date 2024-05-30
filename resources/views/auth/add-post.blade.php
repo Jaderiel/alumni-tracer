@@ -14,6 +14,12 @@
             <a href="{{ route('dashboard') }}" class="back-link"><i class="fas fa-arrow-left"></i></a>Make a Post
         </h3>
 
+        @if(session('success'))
+            <div class="text-green-600 p-4">
+                {{ session('success') }}
+            </div>
+        @endif
+
         <div class="bg-white p-4 m-4 lg:m-10">
             <div class="panel">
                 <div class="bio-graph-heading">
