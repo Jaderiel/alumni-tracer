@@ -210,7 +210,7 @@
     </form>
 </div>
 
-        @include('popups.update-post')
+    @include('popups.update-post', ['post' => $post])
 
         <div class="popup3" id="popup3">
     <div class="like">
