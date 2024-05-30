@@ -66,15 +66,15 @@
         <div class="values">
             <div class="val-box" title="Total Job Opportunities">
                 <i class="fa-solid fa-briefcase"></i>
-                <h3 id="jobOp">0</h3>
+                <h3 id="jobOp">{{ $jobCount }}</h3>
             </div>
             <div class="val-box" title="Total Event Posted">
                 <i class="fa-solid fa-calendar-days"></i>
-                <h3 id="eventPos">0</h3>
+                <h3 id="eventPos">{{ $eventCount }}</h3>
             </div>
             <div class="val-box" title="Total Alumni Members">
                 <i class="fa-solid fa-users"></i>
-                <h3 id="alumniMembers">0</h3>
+                <h3 id="alumniMembers">{{ $verifiedAlumniCount }}</h3>
             </div>
         </div>
         
