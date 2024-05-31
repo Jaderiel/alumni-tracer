@@ -37,7 +37,7 @@
         @endif
     </div>
 
-    <div class="flex flex-col lg:flex-row justify-center items-center lg:items-start lg:justify-between pr-0 lg:pr-10">
+    <div class="flex flex-col lg:flex-row justify-center items-center lg:items-start lg:justify-between pr-0 lg:pr-10 gap-5 lg:gap-10">
 
         <div class="ml-0 lg:ml-8">
 
@@ -109,7 +109,7 @@
         @endforeach
         </div>
 
-        <div class="flex justify-center lg:justify-start">
+        <div class="flex justify-center lg:justify-start px-5 lg:px-0">
             @include('components.announcements')
         </div>
 

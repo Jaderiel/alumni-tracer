@@ -25,7 +25,7 @@
 <body class="w-full bg-customBgColor relative flex">
     @include('main')
 
-    <section id="interface">
+    <section class="ml-0 lg:ml-72 w-full">
         
         <h3 class="i-name">
             Dashboard
@@ -55,10 +55,10 @@
             </div>
         </div>
 
-        <div>
-            <div>
-                <div class="board flex flex-col lg:flex-row">
-                    <div class="board-1 w-96 lg:w-[700px]">
+        <div class="flex">
+            <div class="flex flex-row w-full">
+                <div class="flex flex-row px-0 lg:px-10">
+                    <div class="board-1">
                         <table width="100%">
                             <thead>
                                 <tr>
@@ -165,13 +165,13 @@
                     @endforeach
 
 
-                    <div class="page">
-                    {{ $forumPosts->links('components.pagination') }}
+                        <div class="page">
+                        {{ $forumPosts->links('components.pagination') }}
+                        </div>
                     </div>
                 </div>
-
-                
-            <div class="flex justify-center pt-4 lg:pt-0">
+            </div>
+            <div class="hidden lg:flex justify-center w-1/2">
                 @include('components.announcements')
             </div>
         </div>
