@@ -19,6 +19,7 @@ module.exports = {
     './resources/views/profile/edit.blade.php',
     './resources/views/auth/show-profile.blade.php',
     './resources/views/popups/update-post.blade.php',
+    './resources/views/auth/analytics.blade.php',
 
   ],
   theme: {

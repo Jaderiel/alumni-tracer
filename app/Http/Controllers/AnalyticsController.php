@@ -12,6 +12,7 @@ class AnalyticsController extends Controller
     public function index() {
         return view("auth.analytics");
     }
+    
 
     public function getUserAnalytics()
     {
@@ -54,5 +55,30 @@ class AnalyticsController extends Controller
 
     return response()->json(['employedCount' => $employedCount, 'unemployedCount' => $unemployedCount]);
 }
+
+    public function alignUsersToCourse() {
+        // Retrieve count of employed and unemployed users, excluding users with user_type 'Admin'
+    $alignedUsersCounts = UserEmployment::join('users', 'user_employment.user_id', '=', 'users.id')
+                                    ->where('user_employment.is_aligned_to_course', true)
+                                    ->where('users.user_type', '!=', 'Admin')
+                                    ->groupBy('users.id')
+                                    ->selectRaw('count(*) as count')
+                                    ->get();
+
+    $alignedUsersCount = $alignedUsersCounts->sum('count');
+
+    $unalignedUsersCounts = UserEmployment::join('users', 'user_employment.user_id', '=', 'users.id')
+                                    ->where('user_employment.is_aligned_to_course', false)
+                                    ->where('users.user_type', '!=', 'Admin')
+                                    ->groupBy('users.id')
+                                    ->selectRaw('count(*) as count')
+                                    ->get();
+
+    $unalignedUsersCount = $unalignedUsersCounts->sum('count');
+
+    return response()->json(['alignedUsersCount' => $alignedUsersCount, 'unalignedUsersCount' => $unalignedUsersCount]);
+    }
+
+
 
 }

@@ -276,6 +276,24 @@
 
 </body>
 <script src="{{ asset('js/job-location.js') }}"></script>
+<script>
+    $(document).ready(function() {
+        $('#course').change(function() {
+            var selectedCourse = $(this).val();
+            var selectedIndustry = $('#industry').val(); // Get the currently selected industry
+
+            // Perform the course alignment logic
+            if (selectedCourse === 'Bachelor of Science in Information Systems' && selectedIndustry === 'IT Industry') {
+                $('#is_aligned_to_course').val('true');
+            } else if (selectedCourse === 'Bachelor of Arts in Broadcasting' && selectedIndustry === 'Entertainment') {
+                $('#is_aligned_to_course').val('true');
+            } else {
+                $('#is_aligned_to_course').val('false');
+            }
+        });
+    });
+</script>
+
 </html>
 
 <style>

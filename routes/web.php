@@ -96,6 +96,7 @@ Route::group(['middleware' => ['auth.user']], function () {
     Route::get('/analytics', [AnalyticsController::class, 'index'])->name('analytics');
     Route::get('/user-analytics', [AnalyticsController::class, 'getUserAnalytics']);
     Route::get('/user-employment-analytics', [AnalyticsController::class, 'getUserEmploymentAnalytics']);
+    Route::get('/user-aligned-analytics', [AnalyticsController::class, 'alignUsersToCourse']);
 
     // Route::put('/approvals/{userId}', [ApprovalsController::class, 'approveUser'])->name('user.approve');
 
@@ -109,6 +110,8 @@ Route::group(['middleware' => ['auth.user']], function () {
     Route::post('/update-role', [AdminController::class, 'updateRole'])->name('updateRole');
 
     Route::post('/like', [ReactionController::class, 'like'])->name('like');
+
+    Route::get('/align-users-to-course', [AnalyticsController::class, 'alignUsersToCourse'])->name('align.users.to.course');
 });
 
 

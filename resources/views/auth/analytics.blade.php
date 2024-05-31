@@ -23,8 +23,9 @@
         </h3>
         
         <canvas id="userChart" width="400" height="200"></canvas>
-
         <canvas id="employmentChart" width="400" height="200"></canvas>
+        <canvas id="alignedAlumniChart" width="400" height="200"></canvas>
+        
     </section>
 </div>
 
@@ -66,8 +67,48 @@ $(document).ready(function() {
         }
     });
 });
-
-
+</script>
+<script>
+$(document).ready(function() {
+    // Fetch data from the backend for employment analytics
+    $.ajax({
+        url: '/user-aligned-analytics',
+        type: 'GET',
+        success: function(response) {
+            // Render chart using Chart.js
+            var ctx = document.getElementById('alignedAlumniChart').getContext('2d');
+            var alignedAlumniChart = new Chart(ctx, {
+                type: 'pie',
+                data: {
+                    labels: ['is Aligned', 'is not Aligned'],
+                    datasets: [{
+                        label: 'Employment Status',
+                        data: [response.alignedUsersCount, response.unalignedUsersCount],
+                        backgroundColor: [
+                            'rgba(54, 162, 235, 0.2)',
+                            'rgba(255, 99, 132, 0.2)',
+                        ],
+                        borderColor: [
+                            'rgba(54, 162, 235, 1)',
+                            'rgba(255, 99, 132, 1)',
+                        ],
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    scales: {
+                        y: {
+                            beginAtZero: true
+                        }
+                    }
+                }
+            });
+        },
+        error: function(xhr, status, error) {
+            console.error(error);
+        }
+    });
+});
 </script>
 <script>
 $(document).ready(function() {

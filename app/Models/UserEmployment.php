@@ -16,8 +16,15 @@ class UserEmployment extends Model
         'job_title', 
         'company_name', 
         'company_address', 
-        'annual_salary'
+        'annual_salary',
+        'is_aligned_to_course'
         // Add other fillable attributes as needed
     ];
     // Your model definition goes here
+
+    public function employment()
+{
+    return $this->hasOne(UserEmployment::class);
+}
+
 }

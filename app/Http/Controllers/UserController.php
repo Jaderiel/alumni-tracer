@@ -76,6 +76,19 @@ class UserController extends Controller
     
         // Update employment data
         $employmentData = $request->only(['is_employed', 'date_of_first_employment', 'date_of_employment', 'industry', 'job_title', 'company_name', 'company_address', 'annual_salary']);
+
+        if (isset($employmentData['industry'])) {
+            if ($user->course === 'Bachelor of Science in Information Systems' && $employmentData['industry'] === 'IT Industry') {
+                $employmentData['is_aligned_to_course'] = true;
+            }
+            // Check if the user's course is Bachelor of Arts in Broadcasting and the industry is Entertainment
+            elseif ($user->course === 'Bachelor of Arts in Broadcasting' && $employmentData['industry'] === 'Entertainment') {
+                $employmentData['is_aligned_to_course'] = true;
+            } else {
+                $employmentData['is_aligned_to_course'] = false;
+            }
+        }
+
         $user->employment()->updateOrCreate([], $employmentData);
     
         if ($user->employment) {
