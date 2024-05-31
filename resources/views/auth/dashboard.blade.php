@@ -25,7 +25,7 @@
 <body class="w-full bg-customBgColor relative flex">
     @include('main')
 
-    <section class="ml-0 lg:ml-72 w-full">
+    <section id="interface" class="ml-0 lg:ml-72 w-full">
         
         <h3 class="i-name">
             Dashboard
