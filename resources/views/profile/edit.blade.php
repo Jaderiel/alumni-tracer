@@ -161,7 +161,7 @@
                     <div class="w-full">
                         <label for="salary">Salary per Year</label>
                         <select class="border-2 w-full p-2" name="annual_salary" value="{{ $user->employment ? $user->employment->annual_salary : '' }}">
-                            <option value="" disabled selected>{{$user->employment->annual_salary}}</option>
+                            <option value="" disabled selected>select salary range</option>
                             <option value="₱100,000 - ₱200,000">₱100,000 - ₱200,000</option>
                             <option value="₱200,001 - ₱300,000">₱200,001 - ₱300,000</option>
                             <option value="₱300,001 - ₱400,000">₱300,001 - ₱400,000</option>
