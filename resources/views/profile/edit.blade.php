@@ -182,7 +182,7 @@
                         <label for="industry">Industry</label>
                         <div class="border-2 w-full p-2">
                             <select class="w-full outline-none" id="industry" name="industry" value="{{ $user->employment ? $user->employment->industry : '' }}">
-                                <option value="" disabled selected>{{$user->employment->industry}}</option>
+                                <option value="" disabled selected>select employment industry</option>
                                 <option value="IT Industry">IT Industry</option>
                                 <option value="Medicine">Medicine</option>
                                 <option value="Finance">Finance</option>
