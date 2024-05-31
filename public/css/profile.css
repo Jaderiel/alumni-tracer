@@ -72,9 +72,9 @@ body {
 }
 
 #interface{
-    width: calc(100% - 300px);
-    margin-left: 300px;
-    position: relative;
+    /* width: calc(100% - 300px); */
+    /* margin-left: 300px; */
+    /* position: relative; */
 }
 
 #interface .navigation{
@@ -104,7 +104,7 @@ body {
 
 .i-name{
     color:#2D55B4;
-    padding: 20px 30px 0 30px;
+    /* padding: 20px 30px 20px 30px; */
     font-size: 24px;
     font-weight: 700;
 }
@@ -308,21 +308,6 @@ body {
     margin-left: 60px;
 } */
 
-#employment{
-    width: 130px; 
-}
-
-#industry{
-    width: 350px; 
-}
-
-#job{
-    width: 350px; 
-}
-
-#company{
-    width: 350px; 
-}
 
 #location{
     width: 350px; 
@@ -330,10 +315,6 @@ body {
 
 #salary{
     width: 130px; 
-}
-
-#degree{
-    width: 350px; 
 }
 
 #password{
