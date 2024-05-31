@@ -161,7 +161,7 @@
                     <div class="w-full">
                         <label for="salary">Salary per Year</label>
                         <select class="border-2 w-full p-2" name="annual_salary" value="{{ $user->employment ? $user->employment->annual_salary : '' }}">
-                            <option value="" disabled selected>select salary range</option>
+                            <option value="" disabled selected>{{ $user->employment ? $user->employment->annual_salary : '' }}</option>
                             <option value="₱100,000 - ₱200,000">₱100,000 - ₱200,000</option>
                             <option value="₱200,001 - ₱300,000">₱200,001 - ₱300,000</option>
                             <option value="₱300,001 - ₱400,000">₱300,001 - ₱400,000</option>
@@ -182,7 +182,7 @@
                         <label for="industry">Industry</label>
                         <div class="border-2 w-full p-2">
                             <select class="w-full outline-none" id="industry" name="industry" value="{{ $user->employment ? $user->employment->industry : '' }}">
-                                <option value="" disabled selected>select employment industry</option>
+                                <option value="" disabled selected>{{ $user->employment ? $user->employment->industry : '' }}</option>
                                 <option value="IT Industry">IT Industry</option>
                                 <option value="Medicine">Medicine</option>
                                 <option value="Finance">Finance</option>
@@ -257,6 +257,7 @@
                         <label for="degree">Degree Status</label>
                         <div class="border-2 w-full p-2">
                             <select class="w-full outline-none" id="degree" name="degree">
+                                <option value="" {{ is_null($user->degree) ? 'selected' : '' }}>None</option>
                                 <option value="PhD" {{ $user->degree == 'PhD' ? 'selected' : '' }}>Ph.D.</option>
                                 <option value="Masters" {{ $user->degree == 'Masters' ? 'selected' : '' }}>Master's</option>
                                 <option value="Bachelors" {{ $user->degree == 'Bachelors' ? 'selected' : '' }}>Bachelor's</option>
