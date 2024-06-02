@@ -107,6 +107,12 @@ body {
     /* padding: 20px 30px 20px 30px; */
     font-size: 24px;
     font-weight: 700;
+    margin-top: 20px;
+}
+
+.i-name .back-link{
+    margin-left: 45px;
+    
 }
 
 #interface.blur, #menu.blur {
