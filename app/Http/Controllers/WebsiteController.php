@@ -31,4 +31,8 @@ class WebsiteController extends Controller
     public function main() {
         return view("main");
     }
+
+    public function privacyNotice() {
+        return view("website.privacy-notice");
+    }
 }
