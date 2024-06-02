@@ -103,7 +103,7 @@
                 <p class="footer-name">LVCC Alumni 
                     Association</p>
             </div>
-            <p><a href="privacy-notice.html">Privacy Notice</a></p>
+            <p><a href="{{ route('privacy-notice.show') }}">Privacy Notice</a></p>
         </footer>
     </div>
    

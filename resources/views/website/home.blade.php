@@ -162,9 +162,8 @@
                 <img src="{{ asset('images/website-images/lvcc_logo.png') }}" alt="Logo">
                 <p class="footer-name">LVCC Alumni 
                     Association</p>
-                <a href="{{ route('privacy-notice.show') }}"><p>Privacy Notice</p></a>
             </div>
-            <p><a href="privacy-notice.html">Privacy Notice</a></p>
+            <p><a href="{{ route('privacy-notice.show') }}">Privacy Notice</a></p>
         </footer>
     </div>
 </body>
