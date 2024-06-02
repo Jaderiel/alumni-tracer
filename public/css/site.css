@@ -102,6 +102,8 @@
 }
 
 
+
+
 .bg-container {
     display: flex; 
     justify-content: space-between; 
@@ -251,6 +253,10 @@ button{
     color: #fff;
     padding-top: 20px;
     position: relative; 
+}
+
+.values .val-box p{
+    display: none;
 }
 
 .values .val-box h3::after {
@@ -520,9 +526,29 @@ button{
         display: none;
     }
 
+    .big-header img{
+        width: 25;
+    }
+
+    .big-header span{
+        font-size: 12px;
+    }
+    .big-header li{
+        font-size: 11px;
+    }
+
     .bg-container {
         padding: 20px;
         height: 70%;
+    }
+
+    .bg-container .left-content h2{
+        font-size: 25px;
+    }
+
+    .bg-container .left-content p{
+        font-size: 15px;
+        text-align: justify;
     }
 
     .bg-container .right-content {
@@ -539,6 +565,22 @@ button{
         margin: 0 auto;
     }
 
+    .values .val-box p{
+        display: block;
+    }
+
+    .values .val-box i{
+        margin-top: 10px;
+    }
+
+    .offers h2{
+        font-size: 30px;
+    }
+
+    .testimonials h2{
+        font-size: 30px;
+    }
+
     .testimonial-row {
         flex-direction: column;
         gap: 20px;
@@ -549,6 +591,7 @@ button{
         margin-left: auto;
         margin-right: auto;
         height: 100%;
+        width: 100%;
     }
 
     .video-container iframe {
@@ -623,7 +666,13 @@ button{
 
     .values .val-box h3{
         color: #000;
-        margin-left: 20px;
+        margin-left: 5px;
+        margin-right: 10px;
+    }
+
+    .values .val-box p{
+        color: #162F65;
+        margin-top: -5px;
     }
 
     .values .val-box:hover {
@@ -643,8 +692,14 @@ button{
     justify-content: center;
     align-items: center;
     overflow: hidden;
-    transition: transform 0.3s ease; 
-}
+    transition: transform 0.3s ease;
+    }
+
+    .video-container iframe{
+        height: 100%;
+        width: 100%;
+    }
+
 
 }
 
@@ -659,14 +714,23 @@ button{
     }
 }
 
+@media only screen and (max-width: 300px) {
+   
+}
+
 
 
 /* ABOUT PAGE */
+
+.container-about{
+    height: 50%;
+}
 
 .about-alumni{
     background: #fff;
     height: 30%;
     margin: 100px;
+    margin-top: 50px;
 }
 
 .about-alumni h2{
@@ -678,6 +742,8 @@ button{
 .about-alumni p {
     margin-right: 400px; 
     text-align: justify;
+    letter-spacing: -0.5px;
+    
 }
 
 .mission-vision-phil{
@@ -888,15 +954,20 @@ button{
     .about-alumni{
         margin-left: 40px;
         /* margin-top: 90px; */
+        height: 50%;
     }
 
     .about-alumni h2 {
         font-size: 2rem;
+        margin-top: -10px;
+        margin-bottom: 5px;
     }
 
     .about-alumni p {
+        font-size: 15px;
         margin-right: 0;
-        max-width: 90%;
+        max-width: 100%;
+        letter-spacing: -0.5px;
     }
 
     .mission, .vision, .philosophy {
@@ -915,6 +986,20 @@ button{
     .column p {
         max-width: 90%;
         margin: 0 auto;
+        letter-spacing: normal;
+    }
+
+    .column {
+        flex: 1;
+        padding: 20px;
+        transition: background-color 0.3s ease-in-out, color 0.3s ease-in-out;
+    }
+    
+    .column:hover {
+        width: 90%;
+        background-color: #FFF; 
+        color: #000; 
+        /* letter-spacing: normal; */
     }
 }
 
@@ -937,24 +1022,43 @@ button{
     }
 
     .column img {
-        width: 50%;
+        width: 100%;
+        height: 100%;
         display: block; 
-    margin: 0 auto; 
+        margin: 0 auto; 
         
     }
 
     .column p {
         max-width: 100%;
+        max-height: 100%;
         margin: 0 auto;
+    }
+
+    .img-container img{
+        width: 100%;
+        height: 100%;
+    }
+}
+
+@media only screen and (max-width: 315px) {
+    .about-alumni{
+        margin: 40px;
+        margin-top: 50px;
+        font-size: 10px;
+    }
+    .about-alumni h2 {
+        font-size: 1.5rem;
+    }
+
+    .about-alumni p {
+        font-size: 10px;
     }
 }
 
 
-
 /* SERVICES */
-
-
-.services {
+.services{
     background-color: #EFF2FB;
     height: 62%;
     padding: 80px; 
@@ -974,6 +1078,7 @@ button{
     margin-right: 400px;
     text-align: justify; 
 }
+
 
 .feature {
     background-color: #162F65;
@@ -1080,11 +1185,29 @@ button{
 }
 
 
-@media only screen and (max-width: 1028px) {
-    .service-adj p {
-        margin-right: 0;
+@media only screen and (max-width: 1028px) {    
+    .services {
+        background-color: #EFF2FB;
+        height: auto; 
+        padding: 20px; 
     }
     
+    .service-adj h2 {
+        color: #2D55B4;
+        font-weight: 600;
+        font-size: 25px; 
+    }
+    
+    .service-adj p {
+        margin: 0 auto; 
+        max-width: 90%; 
+        text-align: justify; 
+        font-size: 14px;
+        letter-spacing: -0.5px;
+        padding: 10px 0;
+        margin-left: 2px;
+    }
+
     .wrapper {
         flex-direction: column;
         margin-left: 20px;
@@ -1132,6 +1255,9 @@ button{
     .column-service p {
         text-align: justify;
     }
+
+    
+   
 }
 
 
@@ -1154,7 +1280,32 @@ button{
     
     .column-service img {
         margin: 10px auto;
+        width: 100%;
+        height: 100%;
     }
+
+    .services {
+        background-color: #EFF2FB;
+        height: auto; 
+        padding: 20px; 
+    }
+    
+    .service-adj h2 {
+        color: #2D55B4;
+        font-weight: 600;
+        font-size: 25px; 
+    }
+    
+    .service-adj p {
+        margin: 0 auto; 
+        max-width: 90%; 
+        text-align: justify; 
+        font-size: 15px;
+        letter-spacing: -0.5px;
+        padding: 10px 0;
+        margin-left: 2px;
+    }
+    
 }
 
 
@@ -1179,7 +1330,109 @@ button{
     width: 50px;
 }
 
+.footer a{
+    color: #F2DB98;
+    font-size: 15px;
+}
 
+/* privacy notice */
 
+.pri-notice {
+    background-color: #EFF2FB;
+   height: auto;
+}
 
+.privacy-section {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 60px;
+    
+}
 
+.notice {
+    background-color: white;
+    margin: auto; 
+    width: 70%;
+    height: 100%;
+    margin-bottom: 70px;
+    border-radius: 5px;
+}
+
+.notice h2{
+    text-align: center;
+    margin-top: 20px;
+    margin-bottom: 5px;
+    color: #162F65;
+}
+
+.notice p, h4{
+    margin: 20px;
+}
+
+.notice h4{
+    margin: 20px;
+    margin-bottom: 1px;
+    color: #162F65;
+}
+
+.notice u{
+    color: #162F65;
+}
+
+.notice .data-info{
+    margin-top: 1px;
+    text-indent: 10px;
+    margin-bottom: 1px;
+}
+
+.notice ul{
+    width: 80%;
+    margin-top: 5px;
+    margin-left: 80px;
+}
+
+.notice strong{
+    font-weight: 600;
+}
+
+.notice .controller p, 
+.notice .purpose p,
+.notice .use p,
+.notice .opt-out p, 
+.notice .data-security p,
+.notice .updates p{
+    margin-top: 1px;
+    text-align: justify;
+    margin-left: 30px;
+    width: 92%;
+}
+
+@media only screen and (max-width: 768px) {
+    .notice {
+        width: 90%; 
+    }
+
+    .notice h2 {
+        font-size: 24px;
+    }
+
+    .notice p,
+    .notice h4,
+    .notice u {
+        margin: 10px; 
+    }
+
+    .notice ul {
+        margin-left: 30px; 
+    }
+
+    .notice .controller p,
+    .notice .purpose p,
+    .notice .use p,
+    .notice .opt-out p,
+    .notice .data-security p,
+    .notice .updates p {
+        margin-left: 10px; 
+    }
+}

@@ -67,14 +67,17 @@
             <div class="val-box" title="Total Job Opportunities">
                 <i class="fa-solid fa-briefcase"></i>
                 <h3 id="jobOp">{{ $jobCount }}</h3>
+                <p>Job Posted</p>
             </div>
             <div class="val-box" title="Total Event Posted">
                 <i class="fa-solid fa-calendar-days"></i>
                 <h3 id="eventPos">{{ $eventCount }}</h3>
+                <p>Event Posted</p>
             </div>
             <div class="val-box" title="Total Alumni Members">
                 <i class="fa-solid fa-users"></i>
                 <h3 id="alumniMembers">{{ $verifiedAlumniCount }}</h3>
+                <p>Alumni Members</p>
             </div>
         </div>
         
@@ -96,7 +99,7 @@
                 </div>
             </div>
 
-                <a href="service.html" >
+                <a href="{{ route('services.show') }}">
                     <button class="button-more"> READ MORE</button>
                 </a>
         </div>
@@ -160,6 +163,7 @@
                 <p class="footer-name">LVCC Alumni 
                     Association</p>
             </div>
+            <p><a href="privacy-notice.html">Privacy Notice</a></p>
         </footer>
     </div>
 </body>
