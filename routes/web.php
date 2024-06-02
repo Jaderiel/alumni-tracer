@@ -29,6 +29,7 @@ Route::post('/logout', 'App\Http\Controllers\Auth\LoginController@logout')->name
 Route::get('/home', [WebsiteController::class, 'index'])->name('website.show');
 Route::get('/about', [WebsiteController::class, 'about'])->name('about.show');
 Route::get('/services', [WebsiteController::class, 'services'])->name('services.show');
+Route::get('/privacy-notice', [WebsiteController::class, 'privacyNotice'])->name('privacy-notice.show');
 Route::get('/main', [WebsiteController::class, 'main'])->name('main');
 
 Route::get('/forgot-password', [ForgotPasswordController::class, 'showForgotPasswordForm'])->name('password.request');
