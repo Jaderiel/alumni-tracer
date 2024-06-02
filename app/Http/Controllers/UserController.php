@@ -84,9 +84,19 @@ class UserController extends Controller
             // Check if the user's course is Bachelor of Arts in Broadcasting and the industry is Entertainment
             elseif ($user->course === 'Bachelor of Arts in Broadcasting' && $employmentData['industry'] === 'Entertainment') {
                 $employmentData['is_aligned_to_course'] = true;
-            } else {
-                $employmentData['is_aligned_to_course'] = false;
             }
+            // Check if the industry is Finance and the user's course is Bachelor of Science in Accountancy
+            elseif ($employmentData['industry'] === 'Finance' && $user->course === 'Bachelor of Science in Accountancy') {
+                $employmentData['is_aligned_to_course'] = true;
+            }
+            // Check if the user's course is Bachelor of Science in Accounting Technology and the industry is Finance or IT Industry
+            elseif ($user->course === 'Bachelor of Science in Accounting Technology' && 
+                    ($employmentData['industry'] === 'Finance' || $employmentData['industry'] === 'IT Industry')) {
+                $employmentData['is_aligned_to_course'] = true;
+            }
+            else {
+                $employmentData['is_aligned_to_course'] = false;
+            }                     
         }
 
         $user->employment()->updateOrCreate([], $employmentData);
