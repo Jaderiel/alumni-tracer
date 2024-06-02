@@ -17,7 +17,7 @@
 
     <section class="ml-0 lg:ml-72 w-full flex flex-col justify-center">
 
-        <h3 class="i-name">
+        <h3 class="i-name-user">
         Profile
         </h3>
 
