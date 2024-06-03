@@ -57,8 +57,8 @@
 
         <div class="flex">
             <div class="flex flex-row w-full">
-                <div class="flex flex-row px-0 lg:px-10">
-                    <div class="board-1">
+                <div class="flex flex-row px-0 lg:px-10 w-full">
+                    <div class="board-1 w-full">
                         <table width="100%">
                             <thead>
                                 <tr>

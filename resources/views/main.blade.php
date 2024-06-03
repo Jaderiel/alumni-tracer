@@ -60,7 +60,7 @@
                 </a>
                 @endif
             </div>
-            <div>
+            <div class="mb-16">
                 <a href="{{ route('user-profile') }}">
                     <div class="flex text-white hover:bg-customYellow hover:text-customBlue cursor-pointer items-center p-2">
                         <div class="w-1/6 flex justify-center"><i class="fa-solid fa-user-gear text-sm p-0 m-0"></i></div>
@@ -76,6 +76,9 @@
                         <div class="w-5/6 flex justify-start items-center"><p class="text-lg">Logout</p></div>
                     </div>
                 </a>
+            </div>
+            <div class="flex justify-center cursor-pointer">
+                <a href="{{ route('privacy-notice.show') }}"><p class="text-white text-xs hover:text-customYellow">Privacy Notice</p></a>
             </div>
         </div>
     </div>
