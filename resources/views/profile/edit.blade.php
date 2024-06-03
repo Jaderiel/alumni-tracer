@@ -33,7 +33,7 @@
             <div class="panel-btn">
                 <div class="row flex flex-col lg:flex-row justify-center lg:justify-between">
                     <div class="flex flex-col lg:flex-row ml-4 mt-2">
-                        <div class="h-[100px] w-[100px] overflow-hidden relative ml-0 lg:ml-4">
+                        <div class="h-[100px] w-[100px] overflow-hidden relative ml-0 lg:ml-4 rounded-full border-2 border-gray-500">
                             @if (Auth::user()->profile_pic)
                             <img src="{{ asset($user->profile_pic) }}" alt="Profile Picture" style="height: 100px; width: 100px; object-fit: cover;"> 
                             @else
@@ -131,7 +131,7 @@
                 </div>
             </div>
 
-            <div class="heading">
+            <div class="heading" style="margin-top: 30px">
                 USER EMPLOYMENT INFORMATION
             </div>
         
@@ -162,7 +162,8 @@
                         <label for="salary">Salary per Year</label>
                         <select class="border-2 w-full p-2" name="annual_salary" value="{{ $user->employment ? $user->employment->annual_salary : '' }}">
                             <option value="" disabled selected>{{ $user->employment ? $user->employment->annual_salary : '' }}</option>
-                            <option value="₱100,000 - ₱200,000">₱100,000 - ₱200,000</option>
+                            <option value="₱50,000 - ₱100,000">₱50,000 - ₱100,000</option>
+                            <option value="₱100,001 - ₱200,000">₱100,001 - ₱200,000</option>
                             <option value="₱200,001 - ₱300,000">₱200,001 - ₱300,000</option>
                             <option value="₱300,001 - ₱400,000">₱300,001 - ₱400,000</option>
                             <option value="₱400,001 - ₱500,000">₱400,001 - ₱500,000</option>
@@ -263,10 +264,10 @@
             </div>
                     
             <div class="panel-btn">
-                <div class="flex flex-col lg:flex-row mx-4 lg:mx-10 gap-2 lg:gap-4 my-2">
+                <div class="flex flex-col lg:flex-row mx-4 lg:mx-10 gap-2 lg:gap-4 my-2" style="margin-top: 25px">
                     <div class="w-full">
                         <label for="degree">Degree Status</label>
-                        <div class="border-2 w-full p-2">
+                        <div class="border-2 w-full p-2" style="margin-bottom: 25px">
                             <select class="w-full outline-none" id="degree" name="degree">
                                 <option value="" {{ is_null($user->degree) ? 'selected' : '' }}>None</option>
                                 <option value="PhD" {{ $user->degree == 'PhD' ? 'selected' : '' }}>Ph.D.</option>

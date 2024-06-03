@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Profile Page</title>
+    <title>Alumni Profile Page</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
     <link rel="stylesheet" href="{{ asset('css/profile.css') }}">
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
@@ -19,7 +19,7 @@
 
         <h3 class="i-name">
             <a href="{{ route('alumni-list') }}" class="back-link"><i class="fa-solid fa-angles-left"></i> Back</a>
-            Profile
+            Alumni Profile
         </h3>
 
         <div class="aa bg-white p-6 my-4 mx-4 lg:mx-10";>
@@ -33,7 +33,12 @@
                         @endif
                     </div>
                     <div>
+                        <div class="flex gap-4">
                         <h1 class="font-bold">{{ $user->first_name }} {{ $user->last_name }}</h1>
+                        @if ($user->degree)
+                            <p class="text-sm">({{ $user->degree }})</p>
+                            @endif
+                        </div>
                     <p class="text-xs">{{ '@' . $user->username }}</p>
                     </div>
                 </div>

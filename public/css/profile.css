@@ -179,25 +179,16 @@ body {
 
 .row .btn-save {
     background: #00A36C; 
-    padding: 3px 7px;
+    padding: 7px 12px;
 }
 
 .row .btn-save:hover {
     background: #016443; 
 }
 
-.row a button.edit-button {
-    background: #00A36C; 
-    padding: 3px 7px;
-}
-
-.row a button.edit-button:hover {
-    background: #016443; 
-}
-
 .delete-button {
     background: #BB0237; 
-    padding: 3px 8px;
+    padding: 7px 12px;
 }
 
 .delete-button:hover {
