@@ -58,7 +58,7 @@
                 <div class="card w-[400px] lg:w-[720px] rounded-2xl">
                     <div class="card-body">
                         <div class="panel widget rounded-t-2xl lg:rounded-xl">
-                            <div class="flex flex-col lg:flex-row">
+                            <div class="flex flex-col lg:flex-row h-auto lg:h-[250px]">
                                 <div class="col-5 w-92 lg:w-[600px]">
                                     <div class="lateral-picture">
                                         <img src="{{ $event->media_url }}" alt="" class="">
@@ -94,12 +94,12 @@
                                 @endif
                                     <div style="display: flex; flex-direction: column; gap: 5px">
                                         <div style="margin-top: 10px;">
-                                            <span >{{ $event->event_date->format('F d, Y') }} | {{ \Carbon\Carbon::parse($event->event_time)->format('g:i A') }}</span>
+                                            <span class="text-sm">{{ $event->event_date->format('F d, Y') }} | {{ \Carbon\Carbon::parse($event->event_time)->format('g:i A') }}</span>
                                         </div>
                                         <div>
-                                            <strong class="event-title ">{{ $event->event_title }}</strong>
+                                            <strong class="event-title text-sm">{{ $event->event_title }}</strong>
                                         </div>
-                                        <div>{{ $event->event_details }}</div>
+                                        <div class="text-xs">{{ $event->event_details }}</div>
                                     </div>
                                 </div>
                             </div>
