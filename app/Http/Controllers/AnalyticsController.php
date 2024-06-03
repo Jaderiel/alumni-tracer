@@ -18,12 +18,12 @@ class AnalyticsController extends Controller
     {
         // Retrieve user counts for each course, excluding users with user_type 'Admin'
         $courseCounts = User::select('course', DB::raw('COUNT(*) as user_count'))
-                            ->where('user_type', '!=', 'Admin')
+                            ->where('user_type', '=', 'Alumni')
                             ->groupBy('course')
                             ->get();
 
         // Retrieve the total alumni count
-        $totalAlumniCount = User::where('user_type', '!=', 'Admin')->count();
+        $totalAlumniCount = User::where('user_type', '=', 'Alumni')->count();
 
         // Add the total alumni count to the course counts data
         $labels = $courseCounts->pluck('course')->push('Total Alumni');
@@ -101,4 +101,7 @@ class AnalyticsController extends Controller
         return response()->json(['ownedBusinessCount' => $ownedBusinessCount, 'doNotOwnedBusinessCount' => $doNotOwnedBusinessCount]);
     }
 
+    public function getSalaryRange() {
+        
+    }
 }

@@ -26,6 +26,7 @@
         <canvas id="employmentChart" width="400" height="200"></canvas>
         <canvas id="alignedAlumniChart" width="400" height="200"></canvas>
         <canvas id="ownedBusinessChart" width="400" height="200"></canvas>
+        <canvas id="SalaryChart" width="400" height="200"></canvas>
         
     </section>
 </div>
