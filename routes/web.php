@@ -38,6 +38,7 @@ Route::post('/forgot-password', [ForgotPasswordController::class, 'sendResetLink
 Route::group(['middleware' => ['auth.user']], function () {
     Route::get('/dashboard', [AuthController::class, 'dashboard'])->name('dashboard');
     Route::get('/approvals', [AuthController::class, 'approvals'])->name('approvals');
+    Route::get('/priv-notice', [AuthController::class, 'privNotice'])->name('privNotice');
     Route::get('/approvals', 'App\Http\Controllers\ApprovalsController@index')->name('approvals');
     Route::put('/update-user-verification/{userId}', [UserController::class, 'updateVerification'])->name('user.updateVerification');
     Route::get('/alumni-list', [UserController::class, 'showVerifiedAlumni'])->name('alumni-list');

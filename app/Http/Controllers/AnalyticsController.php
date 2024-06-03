@@ -102,13 +102,14 @@ class AnalyticsController extends Controller
     }
 
     public function getSalaryRange(){
-        // Retrieve counts of users with similar annual salaries
+        // Retrieve counts of users with similar annual salaries and user_type = Alumni
         $salaryCounts = DB::table('user_employment')
-                        ->select('annual_salary', DB::raw('COUNT(*) as user_count'))
-                        ->groupBy('annual_salary')
+                        ->join('users', 'user_employment.user_id', '=', 'users.id')
+                        ->select('user_employment.annual_salary', DB::raw('COUNT(*) as user_count'))
+                        ->where('users.user_type', '=', 'Alumni')
+                        ->groupBy('user_employment.annual_salary')
                         ->get();
     
         return response()->json(['salaryCounts' => $salaryCounts]);
-    }
-    
+    }    
 }

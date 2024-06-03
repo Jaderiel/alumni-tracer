@@ -78,7 +78,7 @@
                 </a>
             </div>
             <div class="flex justify-center cursor-pointer">
-                <a href="{{ route('privacy-notice.show') }}"><p class="text-customYellow text-xs hover:text-white">Privacy Notice</p></a>
+                <a href="{{ route('privNotice') }}"><p class="text-customYellow text-xs hover:text-white">Privacy Notice</p></a>
             </div>
         </div>
     </div>

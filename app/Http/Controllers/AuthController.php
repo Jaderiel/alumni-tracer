@@ -40,4 +40,8 @@ class AuthController extends Controller
     public function profile() {
         return view("auth.profile");
     }
+
+    public function privNotice() {
+        return view("auth.privacy-notice");
+    }
 }
