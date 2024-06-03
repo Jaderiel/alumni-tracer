@@ -98,6 +98,7 @@ Route::group(['middleware' => ['auth.user']], function () {
     Route::get('/user-analytics', [AnalyticsController::class, 'getUserAnalytics']);
     Route::get('/user-employment-analytics', [AnalyticsController::class, 'getUserEmploymentAnalytics']);
     Route::get('/user-aligned-analytics', [AnalyticsController::class, 'alignUsersToCourse']);
+    Route::get('/user-owned-business', [AnalyticsController::class, 'isOwnedBusiness']);
 
     // Route::put('/approvals/{userId}', [ApprovalsController::class, 'approveUser'])->name('user.approve');
 

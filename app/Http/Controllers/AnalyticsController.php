@@ -79,6 +79,26 @@ class AnalyticsController extends Controller
     return response()->json(['alignedUsersCount' => $alignedUsersCount, 'unalignedUsersCount' => $unalignedUsersCount]);
     }
 
+    public function isOwnedBusiness() {
+        $ownedBusinessCounts = UserEmployment::join('users', 'user_employment.user_id', '=', 'users.id')
+                                    ->where('user_employment.is_owned_business', true)
+                                    ->where('users.user_type', '=', 'Alumni')
+                                    ->groupBy('users.id')
+                                    ->selectRaw('count(*) as count')
+                                    ->get();
 
+        $ownedBusinessCount = $ownedBusinessCounts->sum('count');
+
+        $doNotOwnedBusinessCounts = UserEmployment::join('users', 'user_employment.user_id', '=', 'users.id')
+                                    ->where('user_employment.is_owned_business', false)
+                                    ->where('users.user_type', '=', 'Alumni')
+                                    ->groupBy('users.id')
+                                    ->selectRaw('count(*) as count')
+                                    ->get();
+
+        $doNotOwnedBusinessCount = $doNotOwnedBusinessCounts->sum('count');
+
+        return response()->json(['ownedBusinessCount' => $ownedBusinessCount, 'doNotOwnedBusinessCount' => $doNotOwnedBusinessCount]);
+    }
 
 }
