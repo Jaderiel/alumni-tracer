@@ -25,6 +25,7 @@
         <canvas id="userChart" width="400" height="200"></canvas>
         <canvas id="employmentChart" width="400" height="200"></canvas>
         <canvas id="alignedAlumniChart" width="400" height="200"></canvas>
+        <canvas id="ownedBusinessChart" width="400" height="200"></canvas>
         
     </section>
 </div>
@@ -126,6 +127,48 @@ $(document).ready(function() {
                     datasets: [{
                         label: 'Employment Status',
                         data: [response.employedCount, response.unemployedCount],
+                        backgroundColor: [
+                            'rgba(54, 162, 235, 0.2)',
+                            'rgba(255, 99, 132, 0.2)',
+                        ],
+                        borderColor: [
+                            'rgba(54, 162, 235, 1)',
+                            'rgba(255, 99, 132, 1)',
+                        ],
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    scales: {
+                        y: {
+                            beginAtZero: true
+                        }
+                    }
+                }
+            });
+        },
+        error: function(xhr, status, error) {
+            console.error(error);
+        }
+    });
+});
+</script>
+<script>
+$(document).ready(function() {
+    // Fetch data from the backend for employment analytics
+    $.ajax({
+        url: '/user-owned-business',
+        type: 'GET',
+        success: function(response) {
+            // Render chart using Chart.js
+            var ctx = document.getElementById('ownedBusinessChart').getContext('2d');
+            var ownedBusinessChart = new Chart(ctx, {
+                type: 'pie',
+                data: {
+                    labels: ['Owned a Business', 'Does not own a business'],
+                    datasets: [{
+                        label: 'Employment Status',
+                        data: [response.ownedBusinessCount, response.doNotOwnedBusinessCount],
                         backgroundColor: [
                             'rgba(54, 162, 235, 0.2)',
                             'rgba(255, 99, 132, 0.2)',
