@@ -175,7 +175,7 @@
                             <option value="₱1,100,001 - ₱1,200,000">₱1,100,001 - ₱1,200,000</option>
                         </select>
                     </div>
-                </div> 
+                </div>
 
                 <div class="flex flex-col lg:flex-row mx-4 lg:mx-10 gap-2 my-2">
                     <div class="w-full">
@@ -210,6 +210,17 @@
                             <input type="text" class="w-full outline-none" id="company" name="company_name" value="{{ $user->employment ? $user->employment->company_name : '' }}">
                         </div>
                     </div>
+                    <div class="w-full">
+    <label for="employment">Do you own a business?</label>
+    <div class="border-2 w-full p-2">
+        <select class="w-full outline-none" id="ownedBusiness" name="is_owned_business">
+            <option value="yes" {{ $user->employment && $user->employment->is_owned_business ? 'selected' : '' }}>Yes</option>
+            <option value="no" {{ (!$user->employment || !$user->employment->is_owned_business) ? 'selected' : '' }}>No</option>
+        </select>
+    </div>
+</div>
+
+
                 </div>
                 <div class="flex flex-col mx-4 lg:mx-10 gap-2 my-2">
                     <label for="location">Location</label>
@@ -276,23 +287,6 @@
 
 </body>
 <script src="{{ asset('js/job-location.js') }}"></script>
-<script>
-    $(document).ready(function() {
-        $('#course').change(function() {
-            var selectedCourse = $(this).val();
-            var selectedIndustry = $('#industry').val(); // Get the currently selected industry
-
-            // Perform the course alignment logic
-            if (selectedCourse === 'Bachelor of Science in Information Systems' && selectedIndustry === 'IT Industry') {
-                $('#is_aligned_to_course').val('true');
-            } else if (selectedCourse === 'Bachelor of Arts in Broadcasting' && selectedIndustry === 'Entertainment') {
-                $('#is_aligned_to_course').val('true');
-            } else {
-                $('#is_aligned_to_course').val('false');
-            }
-        });
-    });
-</script>
 
 </html>
 

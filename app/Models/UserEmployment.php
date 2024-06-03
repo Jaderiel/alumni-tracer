@@ -17,14 +17,18 @@ class UserEmployment extends Model
         'company_name', 
         'company_address', 
         'annual_salary',
-        'is_aligned_to_course'
+        'is_aligned_to_course',
         // Add other fillable attributes as needed
+    ];
+
+    protected $casts = [
+        'is_owned_business' => 'boolean',
     ];
     // Your model definition goes here
 
     public function employment()
-{
-    return $this->hasOne(UserEmployment::class);
-}
+    {
+        return $this->hasOne(UserEmployment::class);
+    }
 
 }

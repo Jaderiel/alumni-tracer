@@ -40,76 +40,77 @@ class UserController extends Controller
     }
 
     public function updateProfile(Request $request)
-    {
-        $user = auth()->user(); // Get the authenticated user
-    
-        // Validate request data
-        $request->validate([
-            'profile_pic' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:10048',
-            // Add other validation rules as needed
-        ]);
-    
-        // Handle profile picture upload if a new file is uploaded
-        if ($request->hasFile('profile_pic')) {
-            $image = $request->file('profile_pic');
-            $imageName = time().'.'.$image->getClientOriginalExtension();
-            $image->move(public_path('images'), $imageName);
-            $profile_pic = 'images/'.$imageName;
-            // Update profile_pic with the new file path
-            $user->profile_pic = $profile_pic;
-            \Log::info('Profile picture updated: ' . $profile_pic);
-        } else {
-            \Log::info('No profile picture uploaded.');
-        }
-    
-        // Update the user with all request data except profile_pic
-        $user->update($request->except('profile_pic'));
-    
-        // Update degree if present in the request
-        if ($request->has('degree')) {
-            $user->degree = $request->input('degree');
-        }
-    
-        // Save the updated user
-        $user->save();
-        \Log::info('User updated: ' . $user);
-    
-        // Update employment data
-        $employmentData = $request->only(['is_employed', 'date_of_first_employment', 'date_of_employment', 'industry', 'job_title', 'company_name', 'company_address', 'annual_salary']);
+{
+    $user = auth()->user(); // Get the authenticated user
 
-        if (isset($employmentData['industry'])) {
-            if ($user->course === 'Bachelor of Science in Information Systems' && $employmentData['industry'] === 'IT Industry') {
-                $employmentData['is_aligned_to_course'] = true;
-            }
-            // Check if the user's course is Bachelor of Arts in Broadcasting and the industry is Entertainment
-            elseif ($user->course === 'Bachelor of Arts in Broadcasting' && $employmentData['industry'] === 'Entertainment') {
-                $employmentData['is_aligned_to_course'] = true;
-            }
-            // Check if the industry is Finance and the user's course is Bachelor of Science in Accountancy
-            elseif ($employmentData['industry'] === 'Finance' && $user->course === 'Bachelor of Science in Accountancy') {
-                $employmentData['is_aligned_to_course'] = true;
-            }
-            // Check if the user's course is Bachelor of Science in Accounting Technology and the industry is Finance or IT Industry
-            elseif ($user->course === 'Bachelor of Science in Accounting Technology' && 
-                    ($employmentData['industry'] === 'Finance' || $employmentData['industry'] === 'IT Industry')) {
-                $employmentData['is_aligned_to_course'] = true;
-            }
-            else {
-                $employmentData['is_aligned_to_course'] = false;
-            }                     
-        }
+    // Validate request data
+    $request->validate([
+        'profile_pic' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:10048',
+        'is_owned_business' => 'required|in:yes,no',
+        // Add other validation rules as needed
+    ]);
 
-        $user->employment()->updateOrCreate([], $employmentData);
-    
-        if ($user->employment) {
-            $user->employment->update(['is_employed' => $request->employment_status === 'employed']);
-        } else {
-            // Create new UserEmployment if it doesn't exist
-            $user->employment()->create(['is_employed' => $request->employment_status === 'unemployed']);
-        }
-    
-        return redirect()->back()->with('success', 'Profile updated successfully.');
+    // Handle profile picture upload if a new file is uploaded
+    if ($request->hasFile('profile_pic')) {
+        $image = $request->file('profile_pic');
+        $imageName = time().'.'.$image->getClientOriginalExtension();
+        $image->move(public_path('images'), $imageName);
+        $profile_pic = 'images/'.$imageName;
+        // Update profile_pic with the new file path
+        $user->profile_pic = $profile_pic;
+        \Log::info('Profile picture updated: ' . $profile_pic);
+    } else {
+        \Log::info('No profile picture uploaded.');
     }
+
+    // Update the user with all request data except profile_pic
+    $user->update($request->except('profile_pic'));
+
+    // Update degree if present in the request
+    if ($request->has('degree')) {
+        $user->degree = $request->input('degree');
+    }
+
+    // Save the updated user
+    $user->save();
+    \Log::info('User updated: ' . $user);
+
+    // Update employment data
+    $employmentData = $request->only(['is_employed', 'date_of_first_employment', 'date_of_employment', 'industry', 'job_title', 'company_name', 'company_address', 'annual_salary']);
+
+    if (isset($employmentData['industry'])) {
+        if ($user->course === 'Bachelor of Science in Information Systems' && $employmentData['industry'] === 'IT Industry') {
+            $employmentData['is_aligned_to_course'] = true;
+        } elseif ($user->course === 'Bachelor of Arts in Broadcasting' && $employmentData['industry'] === 'Entertainment') {
+            $employmentData['is_aligned_to_course'] = true;
+        } elseif ($employmentData['industry'] === 'Finance' && $user->course === 'Bachelor of Science in Accountancy') {
+            $employmentData['is_aligned_to_course'] = true;
+        } elseif ($user->course === 'Bachelor of Science in Accounting Technology' && 
+                ($employmentData['industry'] === 'Finance' || $employmentData['industry'] === 'IT Industry')) {
+            $employmentData['is_aligned_to_course'] = true;
+        } else {
+            $employmentData['is_aligned_to_course'] = false;
+        }                     
+    }
+
+    // Update or create employment data
+    $employment = $user->employment()->updateOrCreate([], $employmentData);
+
+    // Update the is_owned_business field
+    $employment->is_owned_business = $request->input('is_owned_business') === 'yes';
+    $employment->save();
+
+    if ($user->employment) {
+        $user->employment->update(['is_employed' => $request->employment_status === 'employed']);
+    } else {
+        // Create new UserEmployment if it doesn't exist
+        $user->employment()->create(['is_employed' => $request->employment_status === 'unemployed']);
+    }
+
+    return redirect()->back()->with('success', 'Profile updated successfully.');
+}
+
+
     
 
     public function getUserEmployment($userId)
