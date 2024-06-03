@@ -23,7 +23,7 @@
 
         <div class="aa bg-white p-6 my-4 mx-4 lg:mx-10">
             <div class="flex items-baseline justify-between mx-0 lg:mx-33">
-                <div class="flex items-center gap-4">
+                <div class="flex flex-col lg:flex-row justify-center lg:justify-start gap-4 w-full items-center">
                     <div class="h-[100px] w-[100px] overflow-hidden relative rounded-full border-2 border-gray-500">
                         @if (Auth::user()->profile_pic)
                         <img src="{{ Auth::user()->profile_pic }}" alt="Profile Picture" style="height: 100%; width: 100%; object-fit: cover;">
@@ -31,7 +31,7 @@
                         <img src="https://st3.depositphotos.com/6672868/13701/v/450/depositphotos_137014128-stock-illustration-user-profile-icon.jpg" alt="Placeholder Profile Picture" style="height: 100%; width: 100%; object-fit: cover;">
                         @endif
                     </div>
-                    <div>
+                    <div class="flex flex-col justify-center items-center lg:items-start">
                         <div class="flex gap-4">
                             <h1 class="font-bold">{{ Auth::user()->first_name }} {{ Auth::user()->last_name }}</h1>
                             @if (Auth::user()->degree)
@@ -40,7 +40,7 @@
                         </div>
                         <p class="text-xs">{{ '@' . Auth::user()->username }}</p>
                     </div>
-                    <div style="margin-left: 380px;">
+                    <div class="ml-0 lg:ml-40">
                         <a href="{{ route('profile.edit') }}">
                             <button class="text-xs bg-customBlue text-white px-4 py-2 rounded-lg hover:bg-customTextBlue hover:text-black">Profile Settings</button>
                         </a>
@@ -48,25 +48,37 @@
                 </div>
             </div>
 
-            <div class="employment-info mx-0 lg:mx-33">
+            <div class="employment-info mx-0 lg:mx-33 overflow-x-auto">
                 <h4 class="info-title">Employment Information</h4>
-                <table class="table table-bordered">
-                    <tr>
+                <table class="table table-auto">
+                    <tr class="hide-on-small">
                         <th width="30%">Email Address</th>
                         <td width="2%">:</td>
                         <td>{{ Auth::user()->email }}</td>
                     </tr>
-                    <tr>
+                    <div class="lg:hidden flex flex-col mb-4">
+                        <h1 class="font-bold">Email Address</h1>
+                        <p>{{ Auth::user()->email }}</p>
+                    </div>
+                    <tr class="hide-on-small">
                         <th width="30%">Course</th>
                         <td width="2%">:</td>
                         <td>{{ Auth::user()->course }}</td>
                     </tr>
-                    <tr>
+                    <div class="lg:hidden flex flex-col mb-4">
+                        <h1 class="font-bold">Course</h1>
+                        <p>{{ Auth::user()->course }}</p>
+                    </div>
+                    <tr class="hide-on-small">
                         <th width="30%">Batch Year</th>
                         <td width="2%">:</td>
                         <td>{{ Auth::user()->batch }}</td>
                     </tr>
-                    <tr>
+                    <div class="lg:hidden flex flex-col mb-4">
+                        <h1 class="font-bold">Batch Year</h1>
+                        <p>{{ Auth::user()->batch }}</p>
+                    </div>
+                    <tr class="hide-on-small">
                         <th width="30%">Employment Status</th>
                         <td width="2%">:</td>
                         <td>
@@ -81,29 +93,57 @@
                             @endif
                         </td>
                     </tr>
-                    <tr>
+                    <div class="lg:hidden flex flex-col mb-4">
+                        <h1 class="font-bold">Employment Status</h1>
+                        <p>@if (Auth::user()->employment)
+                                @if (Auth::user()->employment->is_employed == 1)
+                                    Employed
+                                @else
+                                    Unemployed
+                                @endif
+                            @else
+                                Employment information not available
+                            @endif</p>
+                    </div>
+                    <tr class="hide-on-small">
                         <th width="30%">Date of First Employment</th>
                         <td width="2%">:</td>
                         <td>
                             @if (Auth::user()->employment)
-                                {{ \Carbon\Carbon::parse(Auth::user()->employment->date_of_first_employment)->format('F j, Y') }}
+                                {{Auth::user()->employment->date_of_first_employment}}
                             @else
                                 N/A
                             @endif
                         </td>
                     </tr>
-                    <tr>
+                    <div class="lg:hidden flex flex-col mb-4">
+                        <h1 class="font-bold">Date of First Employment</h1>
+                        <p>@if (Auth::user()->employment)
+                                {{Auth::user()->employment->date_of_first_employment}}
+                            @else
+                                N/A
+                            @endif</p>
+                    </div>
+                    <tr class="hide-on-small">
                         <th width="30%">Date of Employment</th>
                         <td width="2%">:</td>
                         <td>
                             @if (Auth::user()->employment)
-                                {{ \Carbon\Carbon::parse(Auth::user()->employment->date_of_employment)->format('F j, Y') }}
+                                {{Auth::user()->employment->date_of_employment}}
                             @else
                                 N/A
                             @endif
                         </td>
                     </tr>
-                    <tr>
+                    <div class="lg:hidden flex flex-col mb-4">
+                        <h1 class="font-bold">Date of Employment</h1>
+                        <p>@if (Auth::user()->employment)
+                                {{Auth::user()->employment->date_of_employment}}
+                            @else
+                                N/A
+                            @endif</p>
+                    </div>
+                    <tr class="hide-on-small">
                         <th width="30%">Salary</th>
                         <td width="2%">:</td>
                         <td>
@@ -114,7 +154,15 @@
                             @endif
                         </td>
                     </tr>
-                    <tr>
+                    <div class="lg:hidden flex flex-col mb-4">
+                        <h1 class="font-bold">Salary</h1>
+                        <p>@if (Auth::user()->employment)
+                                {{ Auth::user()->employment->annual_salary }}
+                            @else
+                                N/A
+                            @endif</p>
+                    </div>
+                    <tr class="hide-on-small">
                         <th width="30%">Industry</th>
                         <td width="2%">:</td>
                         <td>
@@ -125,7 +173,15 @@
                             @endif
                         </td>
                     </tr>
-                    <tr>
+                    <div class="lg:hidden flex flex-col mb-4">
+                        <h1 class="font-bold">Industry</h1>
+                        <p>@if (Auth::user()->employment)
+                                {{ Auth::user()->employment->industry }}
+                            @else
+                                N/A
+                            @endif</p>
+                    </div>
+                    <tr class="hide-on-small">
                         <th width="30%">Job Title</th>
                         <td width="2%">:</td>
                         <td>
@@ -136,7 +192,15 @@
                             @endif
                         </td>
                     </tr>
-                    <tr>
+                    <div class="lg:hidden flex flex-col mb-4">
+                        <h1 class="font-bold">Job Title</h1>
+                        <p>@if (Auth::user()->employment)
+                                {{ Auth::user()->employment->job_title }}
+                            @else
+                                N/A
+                            @endif</p>
+                    </div>
+                    <tr class="hide-on-small">
                         <th width="30%">Company</th>
                         <td width="2%">:</td>
                         <td>
@@ -147,7 +211,15 @@
                             @endif
                         </td>
                     </tr>
-                    <tr>
+                    <div class="lg:hidden flex flex-col mb-4">
+                        <h1 class="font-bold">Company</h1>
+                        <p>@if (Auth::user()->employment)
+                                {{ Auth::user()->employment->company_name }}
+                            @else
+                                N/A
+                            @endif</p>
+                    </div>
+                    <tr class="hide-on-small">
                         <th width="30%">Location</th>
                         <td width="2%">:</td>
                         <td>
@@ -158,6 +230,14 @@
                             @endif
                         </td>
                     </tr>
+                    <div class="lg:hidden flex flex-col mb-4">
+                        <h1 class="font-bold">Location</h1>
+                        <p>@if (Auth::user()->employment)
+                                {{ ucwords(strtolower(Auth::user()->employment->company_address)) }}
+                            @else
+                                N/A
+                            @endif</p>
+                    </div>
                 </table>
             </div>
 
@@ -230,5 +310,13 @@
 .table td {
     padding: .35rem; 
     text-align: left;
+    overflow-wrap: break-word;
+}
+
+/* Media query to hide on small screens */
+@media (max-width: 600px) {
+    .hide-on-small {
+        display: none;
+    }
 }
 </style>
