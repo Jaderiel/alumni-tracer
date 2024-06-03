@@ -7,8 +7,11 @@ use App\Models\User;
 
 class ProfileController extends Controller
 {
-    public function index() {
-        return view("auth.user-profile");
+    public function index() {   
+        $user = auth()->user()->load('employment');
+        $userId = $user->id;
+
+        return view("auth.user-profile", compact('user', 'userId'));
     }
 
     public function show($id)

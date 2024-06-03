@@ -32,7 +32,7 @@ class UserController extends Controller
     public function editProfile()
     {
         $user = auth()->user();
-        $userId = $user->id; 
+        $userId = $user->id;
 
         return view('profile.edit', compact('user', 'userId'));
     }

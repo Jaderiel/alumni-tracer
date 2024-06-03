@@ -46,31 +46,31 @@
 
             <div class="employment-info mx-0 lg:mx-33">
                 <h4 class="info-title">Employment Information</h4>
-                      <table class="table table-bordered">
+                    <table class="table table-bordered">
                         <tr>
-                          <th width="30%">Email Address</th>
-                          <td width="2%">:</td>
-                          <td>{{ $user->email }}</td>
+                        <th width="30%">Email Address</th>
+                        <td width="2%">:</td>
+                        <td>{{ $user->email }}</td>
                         </tr>
                         <tr>
-                          <th width="30%">Course</th>
-                          <td width="2%">:</td>
-                          <td>{{ $user->course }}</td>
+                        <th width="30%">Course</th>
+                        <td width="2%">:</td>
+                        <td>{{ $user->course }}</td>
                         </tr>
                         <tr>
-                          <th width="30%">Batch Year</th>
-                          <td width="2%">:</td>
-                          <td>{{ $user->batch }}</td>
+                        <th width="30%">Batch Year</th>
+                        <td width="2%">:</td>
+                        <td>{{ $user->batch }}</td>
                         </tr>
                         <tr>
-                          <th width="30%">Employment Status</th>
-                          <td width="2%">:</td>
-                          <td>@if($user->employment->is_employed == 1)
+                        <th width="30%">Employment Status</th>
+                        <td width="2%">:</td>
+                        <td>@if($user->employment->is_employed == 1)
                                 Employed
                             @else
                                 Unemployed
                             @endif
-                          </td>
+                        </td>
                         </tr>
                         <tr>
                             <th width="30%">Industry</th>
@@ -81,27 +81,27 @@
                             <th width="30%">Job Title</th>
                             <td width="2%">:</td>
                             <td>{{ $user->employment->job_title }}</td>
-                          </tr>
-                        <tr>
-                          <th width="30%">Company</th>
-                          <td width="2%">:</td>
-                          <td>{{ $user->employment->company_name }}</td>
                         </tr>
                         <tr>
-                          <th width="30%">Location</th>
-                          <td width="2%">:</td>
-                          <td>{{ ucwords(strtolower($user->employment->company_address)) }}</td>
+                        <th width="30%">Company</th>
+                        <td width="2%">:</td>
+                        <td>{{ $user->employment->company_name }}</td>
                         </tr>
-                      </table>
+                        <tr>
+                        <th width="30%">Location</th>
+                        <td width="2%">:</td>
+                        <td>{{ ucwords(strtolower($user->employment->company_address)) }}</td>
+                        </tr>
+                    </table>
             </div>
 
             <div class="employment-info mx-0 lg:mx-33">
                 <h4 class="info-title">Post-Graduation Information</h4>
                     <table class="table table-bordered">
                         <tr>
-                          <th width="30%">Degree Status</th>
-                          <td width="2%">:</td>
-                          <td>{{ $user->degree }}</td>
+                        <th width="30%">Degree Status</th>
+                        <td width="2%">:</td>
+                        <td>{{ $user->degree }}</td>
                         </tr>
                     </table>
             </div>

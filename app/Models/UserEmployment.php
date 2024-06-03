@@ -31,4 +31,9 @@ class UserEmployment extends Model
         return $this->hasOne(UserEmployment::class);
     }
 
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
+
 }
