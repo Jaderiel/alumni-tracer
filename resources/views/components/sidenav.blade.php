@@ -3,8 +3,8 @@
         </div>
 
         <div class="items">
-            <li><i class="fa-solid fa-house"></i><a href="{{ route('dashboard') }}">Dashboard</a></li>
-            <li><i class="fa-solid fa-users"></i><a href="{{ route('alumni-list') }}">Alumni List</a></li>
+            <li><i class="fa-solid fa-house"></i><a href="{{ route('dashboard') }}">Dashboarddd</a></li>
+            <li><i class="fa-solid fa-users"></i><a href="{{ route('alumni-list') }}">Alumni Listtt</a></li>
             <li><i class="fa-solid fa-calendar-days"></i><a href="{{ route('events') }}">Events</a></li>
             <li><i class="fa-solid fa-briefcase"></i><a href="{{ route('jobs') }}">Jobs</a></li>
             <li><i class="fa-solid fa-image"></i><a href="{{ route('gallery') }}">Gallery</a></li>

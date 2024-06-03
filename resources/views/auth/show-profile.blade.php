@@ -18,11 +18,11 @@
     <section class="ml-0 lg:ml-72 w-full flex flex-col justify-center">
 
         <h3 class="i-name">
-            <a href="{{ route('alumni-list') }}" class="back-link"><i class="fas fa-arrow-left" style="color: #000;"></i></a>
+            <a href="{{ route('alumni-list') }}" class="back-link"><i class="fa-solid fa-angles-left"></i> Back</a>
             Profile
         </h3>
 
-        <div class="bg-white p-4 my-4 mx-4 lg:mx-10">
+        <div class="aa bg-white p-4 my-4 mx-4 lg:mx-10">
             <div class="flex items-baseline justify-between mx-0 lg:mx-32">
                 <div class="flex items-center gap-4">
                     <div class="h-[100px] w-[100px] overflow-hidden relative">
@@ -48,3 +48,30 @@
 </body>
 <script src="{{ asset('js/profile.js') }}"></script>
 </html>
+
+<style>
+    .i-name{
+    color:#2D55B4;
+    /* padding: 20px 30px 20px 30px; */
+    font-size: 24px;
+    font-weight: 700;
+    margin-top: 20px;
+    margin-left: 40px;
+}
+
+.back-link {
+    margin-top: 20px;
+    margin-right: 10px;
+    background-color: #FFFFFF;
+    color: #2974A7;
+    text-decoration: none;
+    padding: 5px 13px;
+    border-radius: 6px;
+    border: 1px solid #2974A7;
+    font-size: 13px;
+}
+
+.back-link:hover {
+    background-color: #a6d0ec;
+}
+</style>

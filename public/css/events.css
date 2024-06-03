@@ -47,6 +47,26 @@ body {
     font-weight: 700;
 }
 
+.back-link i {
+    font-size: 13px;
+}
+
+.back-link {
+  margin-top: 20px;
+  margin-left: 10px;
+  background-color: #FFFFFF;
+  color: #2974A7;
+  text-decoration: none;
+  padding: 3px 13px;
+  border-radius: 6px;
+  border: 1px solid #2974A7;
+  font-size: 13px;
+}
+
+.back-link:hover {
+  background-color: #a6d0ec;
+}
+
 .event .up-event{
     display: flex;
     /* width: 33%; */

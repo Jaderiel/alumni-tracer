@@ -24,7 +24,7 @@
     <section id="interface" class="ml-0 lg:ml-72 w-full">
 
         <h3 class="i-name">
-            <a href="{{ route('events') }}" class="back-link"><i class="fas fa-arrow-left"></i></a>Edit Announcement
+            <a href="{{ route('events') }}" class="back-link"><i class="fa-solid fa-angles-left"></i> Back</a>Edit Announcement
         </h3>
 
     <div style="display: flex; flex-direction: row; gap: 35px">
@@ -98,15 +98,28 @@
 </html>
 
 <style>
+    .i-name{
+    color:#2D55B4;
+    padding: 20px 30px 0 30px;
+    font-size: 24px;
+    font-weight: 700;
+    margin-left: 10px;
+}
     .back-link {
-        color: #333;
-        text-decoration: none;
-        margin-right: 10px;
-    }
+    margin-top: 20px;
+    margin-right: 10px;
+    background-color: #FFFFFF;
+    color: #2974A7;
+    text-decoration: none;
+    padding: 5px 13px;
+    border-radius: 6px;
+    border: 1px solid #2974A7;
+    font-size: 13px;
+}
 
-    .back-link:hover {
-        color: #000; 
-    }
+.back-link:hover {
+    background-color: #a6d0ec;
+}
     .container {
         height: 450px
     }

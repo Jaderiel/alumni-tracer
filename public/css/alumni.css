@@ -272,6 +272,7 @@ tbody tr td{
     border-style: none;
     background: #00A36C;
     margin-left: 7px;
+    font-size: 13px;
 }
 
 .board-list tbody tr:nth-child(odd) {

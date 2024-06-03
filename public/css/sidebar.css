@@ -66,3 +66,26 @@
     display: none;
     cursor: pointer
 }
+
+.dashboard-text {
+    color: #3758F9; 
+}
+
+.nav-item.active .fa-house {
+    color: #3758F9;
+}
+
+.nav-item.active > .nav-link {
+    position: relative;
+    background-color: #F5F7FF;
+}
+
+.nav-item.active > .nav-link::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    right: 0;
+    height: 100%;
+    width: 4px;
+    background-color: #3758F9;
+}
