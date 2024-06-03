@@ -101,7 +101,14 @@ class AnalyticsController extends Controller
         return response()->json(['ownedBusinessCount' => $ownedBusinessCount, 'doNotOwnedBusinessCount' => $doNotOwnedBusinessCount]);
     }
 
-    public function getSalaryRange() {
-        
+    public function getSalaryRange(){
+        // Retrieve counts of users with similar annual salaries
+        $salaryCounts = DB::table('user_employment')
+                        ->select('annual_salary', DB::raw('COUNT(*) as user_count'))
+                        ->groupBy('annual_salary')
+                        ->get();
+    
+        return response()->json(['salaryCounts' => $salaryCounts]);
     }
+    
 }
