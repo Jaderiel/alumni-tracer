@@ -15,7 +15,7 @@
         </h3>
 
         @if(session('success'))
-            <div class="text-green-600 p-4">
+            <div class="text-green-600 p-4" style="margin-left: 25px;">
                 {{ session('success') }}
             </div>
         @endif

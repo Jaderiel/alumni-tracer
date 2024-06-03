@@ -11,7 +11,7 @@
 
     <section class="ml-0 lg:ml-72 w-full">
         <h3 class="i-name">
-            <a href="{{ route('dashboard') }}" class="back-link"><i class="fas fa-arrow-left"></i></a>Update your post
+            <a href="{{ route('dashboard') }}" class="back-link"><i class="fa-solid fa-angles-left"></i> Back</a>Update your Post
         </h3>
 
         @if(session('success'))
@@ -20,15 +20,14 @@
             </div>
         @endif
 
-        <div class="bg-white p-4 m-4 lg:m-10">
+        <div class="bg-white p-4 m-10 lg:m-10">
             <div class="panel">
                 <div class="bio-graph-heading">
-                    CREATE POST
+                    UPDATE POST
                 </div>
                 <div class="panel-body bio-graph-info">
                     <div class="row">
                         <p class="bold">
-                            Fill in the caption and add an image, then press ‘POST’ to notify all alumni
                         </p>
                     </div>
 
@@ -73,13 +72,27 @@
 </script>
 
 <style>
+    .i-name {
+        color: #2D55B4;
+        font-size: 24px;
+        font-weight: 700;
+        margin-top: 20px;
+        margin-left: 10px;
+    }
+
     .back-link {
-        color: #333;
-        text-decoration: none;
+        margin-top: 20px;
         margin-right: 10px;
+        background-color: #FFFFFF;
+        color: #2974A7;
+        text-decoration: none;
+        padding: 5px 13px;
+        border-radius: 6px;
+        border: 1px solid #2974A7;
+        font-size: 13px;
     }
 
     .back-link:hover {
-        color: #000; 
+        background-color: #a6d0ec;
     }
 </style>
