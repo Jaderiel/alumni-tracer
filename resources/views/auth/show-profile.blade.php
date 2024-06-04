@@ -120,7 +120,11 @@
                         <tr class="hide-on-small">
                             <th width="30%">Job Title</th>
                             <td width="2%">:</td>
-                            <td>{{ $user->employment->job_title }}</td>
+                            <td>@if ($user->employment)
+                                {{ $user->employment->job_title }}
+                            @else
+                                N/A
+                            @endif</td>
                         </tr>
                         <div class="lg:hidden flex flex-col mb-4">
                         <h1 class="font-bold">Job Title</h1>
