@@ -137,7 +137,11 @@
                         <tr class="hide-on-small">
                         <th width="30%">Company</th>
                         <td width="2%">:</td>
-                        <td>{{ $user->employment->company_name }}</td>
+                        <td>@if ($user->employment)
+                                {{ $user->employment->company_name }}
+                            @else
+                                N/A
+                            @endif</td>
                         </tr>
                         <div class="lg:hidden flex flex-col mb-4">
                         <h1 class="font-bold">Company</h1>
