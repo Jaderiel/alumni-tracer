@@ -167,6 +167,22 @@ body {
     background-color: #E8C766;
 }
 
+.show-success{
+    background-color: #D4EDDA;
+    color: green;
+    padding: 15px 220px;
+    margin: 15px 60px;
+    text-align:center;
+}
+
+.show-success2{
+    background-color: #D4EDDA;
+    color: green;
+    padding: 15px 320px;
+    margin: 15px 60px;
+    text-align:center;
+}
+
 .con{
   background-color: #EFF2FB;
   /* align-items: center; */

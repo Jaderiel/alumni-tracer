@@ -30,7 +30,7 @@
             @endif
 
             @if(session('success'))
-                <div class="alert alert-success p-4" style="margin-left: 25px;">
+                <div class="show-success">
                     {{ session('success') }}
                 </div>
             @endif

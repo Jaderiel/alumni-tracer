@@ -29,7 +29,7 @@
                 </div>
             @endif
             @if(session('success'))
-                <div class="text-green-600" style="margin-left: 25px;">
+                <div class="show-success">
                     {{ session('success') }}
                 </div>
             @endif
@@ -177,4 +177,12 @@
         display: flex;
         justify-content: center
     }
+
+    .show-success{
+    background-color: #D4EDDA;
+    color: green;
+    padding: 15px 100px;
+    margin: 15px 60px;
+    text-align:center;
+}
 </style>

@@ -11,16 +11,16 @@
 
     <section class="ml-0 lg:ml-72 w-full">
         <h3 class="i-name">
-            <a href="{{ route('dashboard') }}" class="back-link"><i class="fa-solid fa-angles-left"></i> Back</a>Make a Post
+            <a href="{{ route('dashboard') }}" class="back-link" ><i class="fa-solid fa-angles-left"></i> Back</a>Make a Post
         </h3>
 
         @if(session('success'))
-            <div class="text-green-600 p-4" style="margin-left: 25px;">
+            <div class="show-success">
                 {{ session('success') }}
             </div>
         @endif
 
-        <div class="bg-white p-4 m-4 lg:m-10">
+        <div class="bg-white p-4 lg:m-5" style="margin: 20px 40px">
             <div class="panel">
                 <div class="bio-graph-heading">
                     CREATE POST
@@ -87,5 +87,13 @@
 
 .back-link:hover {
     background-color: #a6d0ec;
+}
+
+.show-success{
+    background-color: #D4EDDA;
+    color: green;
+    padding: 15px;
+    margin: 15px 40px;
+    text-align:center;
 }
 </style>

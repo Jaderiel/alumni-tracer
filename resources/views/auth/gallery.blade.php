@@ -20,10 +20,10 @@
         <h3 class="i-name">Gallery</h3>
 
         <div class="mx-10">
-            <div class="flex justify-between items-center">
-                <div class="search-course">
-                    <select name="course" id="courseFilter">
-                        <option value="all" selected>All</option>
+            <div class="event flex flex-col lg:flex-row justify-center items-center p-6 gap-2 mx-0 lg:mx-32 lg:gap-6">
+                    <select name="course" id="courseFilter" class="post-button w-full">
+                    <option value="" selected disabled>Course</option>
+                    <option value="all">All</option>
                         <option value="Bachelor of Arts in Broadcasting">Bachelor of Arts in Broadcasting (BAB)</option>
                         <option value="Bachelor of Science in Accountancy">Bachelor of Science in Accountancy (BSA)</option>
                         <option value="Bachelor of Science in Accounting Technology">Bachelor of Science in Accounting Technology (BSAT)</option>
@@ -39,12 +39,9 @@
                         <option value="Nursing Student">Nursing Student (NS)</option>
                         <option value="Office Management">Office Management (OM)</option>
                     </select>
-                </div>
-                <div>
                     <a href="{{ route('gallery.add') }}">
-                        <button class="btn hover:bg-yellow-500 hover:text-white rounded-md px-4 py-1" data-filter="">ADD <i class="fas fa-circle-plus"></i></button>
+                        <button class="up-event w-full" data-filter="">Upload Image <i class="fas fa-circle-plus"></i></button>
                     </a>
-                </div>
             </div>
 
             <div class="grid grid-cols-1 lg:grid-cols-4 gap-4" id="filterable-cards">
