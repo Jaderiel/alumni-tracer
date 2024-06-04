@@ -81,7 +81,7 @@
                         </div>
                         <div class="row mb-3">
                             <div class="col">
-                            <p>{{ $job->job_description}}</p>
+                            <p class="white-space-prewrap">{{ $job->job_description}}</p>
                             </div>
                         </div>
                         <div class="row">

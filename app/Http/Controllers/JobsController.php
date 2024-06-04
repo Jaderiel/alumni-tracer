@@ -18,36 +18,40 @@ class JobsController extends Controller
     }
 
     public function store(Request $request)
-    {
-        try {
-            $request->validate([
-                'job_title' => 'required|string',
-                'job_location' => 'required|string',
-                'job_type' => 'required|string',
-                'job_description' => 'required|string',
-                'company' => 'required|string',
-                'salary' => 'required|string',
-                'link' => 'required|url',
-            ]);
+{
+    try {
+        $request->validate([
+            'job_title' => 'required|string',
+            'job_location' => 'required|string',
+            'job_type' => 'required|string',
+            'job_description' => 'required|string|max:65535',
+            'company' => 'required|string',
+            'salary' => 'required|string',
+            'link' => 'required|url',
+        ]);
 
-            $userId = auth()->user()->id;
+        // Truncate job description if it exceeds the maximum length
+        $jobDescription = substr($request->job_description, 0, 65535);
 
-            $job = new Job;
-            $job->user_id = $userId;
-            $job->job_title = $request->job_title;
-            $job->job_location = $request->job_location;
-            $job->job_type = $request->job_type;
-            $job->job_description = $request->job_description;
-            $job->company = $request->company;
-            $job->salary = $request->salary;
-            $job->link = $request->link;
-            $job->save();
+        $userId = auth()->user()->id;
 
-            return redirect()->back()->with('success', 'Job details saved successfully. Please wait for approval');
-        } catch (\Exception $e) {
-            dd($e->getMessage());
-        }
+        $job = new Job;
+        $job->user_id = $userId;
+        $job->job_title = $request->job_title;
+        $job->job_location = $request->job_location;
+        $job->job_type = $request->job_type;
+        $job->job_description = $jobDescription; // Assign truncated description
+        $job->company = $request->company;
+        $job->salary = $request->salary;
+        $job->link = $request->link;
+        $job->save();
+
+        return redirect()->back()->with('success', 'Job details saved successfully. Please wait for approval');
+    } catch (\Exception $e) {
+        dd($e->getMessage());
     }
+}
+
 
     public function update(Request $request, Job $job)
     {

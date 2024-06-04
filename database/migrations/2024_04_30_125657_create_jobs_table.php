@@ -19,7 +19,7 @@ return new class extends Migration
             $table->string('job_title');
             $table->string('job_location');
             $table->string('job_type');
-            $table->string('job_description');
+            $table->text('job_description');
             $table->string('company');
             $table->string('salary');
             $table->string('link');
