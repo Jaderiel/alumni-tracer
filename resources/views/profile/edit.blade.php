@@ -212,43 +212,57 @@
                         </div>
                     </div>
                     <div class="w-full">
-    <label for="employment">Do you own a business?</label>
-    <div class="border-2 w-full p-2">
-        <select class="w-full outline-none" id="ownedBusiness" name="is_owned_business">
-            <option value="yes" {{ $user->employment && $user->employment->is_owned_business ? 'selected' : '' }}>Yes</option>
-            <option value="no" {{ (!$user->employment || !$user->employment->is_owned_business) ? 'selected' : '' }}>No</option>
-        </select>
-    </div>
-</div>
-
-
+                        <label for="employment">Do you own a business?</label>
+                        <div class="border-2 w-full p-2">
+                            <select class="w-full outline-none" id="ownedBusiness" name="is_owned_business">
+                                <option value="yes" {{ $user->employment && $user->employment->is_owned_business ? 'selected' : '' }}>Yes</option>
+                                <option value="no" {{ (!$user->employment || !$user->employment->is_owned_business) ? 'selected' : '' }}>No</option>
+                            </select>
+                        </div>
+                    </div>
                 </div>
-                <div class="flex flex-col mx-4 lg:mx-10 gap-2 my-2">
+                
+                <div class="flex flex-col lg:flex-row mx-4 lg:mx-10 gap-2 my-2">
+                    <div class="w-full">
                     <label for="location">Location</label>
                     <div class="border-2 w-full p-2">
                         <select id="country" class="w-full outline-none">
                             <option value="" selected disabled>Select Country</option>
                         </select>
                     </div>
-                    <div class="border-2 w-full p-2">
+                    </div>
+                    <div class="w-full">
+                        <br>
+                        <div class="border-2 w-full p-2">
                         <select id="region" class="w-full outline-none" disabled>
                             <option class="w-full outline-none" value="" selected disabled>Select Region</option>
                         </select>
+                        </div>
                     </div>
-                    <div class="border-2 w-full p-2">
+                    <div class="w-full">
+                        <br>
+                        <div class="border-2 w-full p-2">
                         <select id="province" class="w-full outline-none" disabled>
                             <option value="" selected disabled>Select Province</option>
                         </select>
+                        </div>
                     </div>
-                    <div class="border-2 w-full p-2">
+                </div>
+                <div class="flex flex-col lg:flex-row mx-4 lg:mx-10 gap-2 my-2">
+                    <div class="w-full">
+                        <div class="border-2 w-full p-2">
                         <select id="city" class="w-full outline-none" disabled>
                             <option value="" selected disabled>Select City/Municipality</option>
                         </select>
+                        </div>
                     </div>
-                    <div class="border-2 w-full p-2">
+                    <div class="w-full">
+                        
+                        <div class="border-2 w-full p-2">
                         <select id="barangay" class="w-full outline-none" disabled>
                             <option value="" selected disabled>Select Barangay</option>
                         </select>
+                        </div>
                     </div>
                 </div>
                 <div class="flex flex-col lg:flex-row mx-4 lg:mx-10 gap-2 lg:gap-4 my-2">
@@ -288,8 +302,8 @@
 
 </body>
 <script src="{{ asset('js/job-location.js') }}"></script>
-
 </html>
+
 
 <style>
 .back-link {
