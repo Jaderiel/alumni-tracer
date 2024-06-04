@@ -15,12 +15,12 @@
         </h3>
 
         @if(session('success'))
-            <div class="text-green-600 p-4">
+            <div class="show-success">
                 {{ session('success') }}
             </div>
         @endif
 
-        <div class="bg-white p-4 m-10 lg:m-10">
+        <div class="bg-white p-4 m-10 lg:m-5" style="margin: 20px 40px">
             <div class="panel">
                 <div class="bio-graph-heading">
                     EDIT POST
@@ -96,4 +96,12 @@
     .back-link:hover {
         background-color: #a6d0ec;
     }
+
+    .show-success{
+    background-color: #D4EDDA;
+    color: green;
+    padding: 15px;
+    margin: 15px 40px;
+    text-align:center;
+}
 </style>

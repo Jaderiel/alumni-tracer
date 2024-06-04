@@ -33,14 +33,14 @@
             <div class="panel-btn">
                 <div class="row flex flex-col lg:flex-row justify-center lg:justify-between">
                     <div class="flex flex-col lg:flex-row ml-4 mt-2">
-                        <div class="h-[100px] w-[100px] overflow-hidden relative ml-0 lg:ml-4 rounded-full border-2 border-gray-500">
+                        <div class="h-[100px] w-[100px] overflow-hidden relative ml-0 lg:ml-4 rounded-full border-2 border-gray-500" >
                             @if (Auth::user()->profile_pic)
                             <img src="{{ asset($user->profile_pic) }}" alt="Profile Picture" style="height: 100px; width: 100px; object-fit: cover;"> 
                             @else
                             <img src="https://st3.depositphotos.com/6672868/13701/v/450/depositphotos_137014128-stock-illustration-user-profile-icon.jpg" alt="Placeholder Profile Picture" style="height: 100%; width: 100%; object-fit: cover;">
                             @endif
                         </div>
-                        <input id="file-upload" type="file" name="profile_pic" accept="image/*" class="px-0 lg:px-2 py-2 lg:py-0 self-start lg:self-end">
+                        <input id="file-upload" type="file" name="profile_pic" accept="image/*" class="px-0 lg:px-2 py-2 lg:py-0 self-start lg:self-end" >
                     </div>
 
                     <div class="flex ml-3 h-full">
@@ -56,20 +56,20 @@
 
                 <div class="flex flex-col lg:flex-row mx-4 lg:mx-10 gap-2 my-2">
                     <div class="w-full">
-                        <label for="first_name">First Name</label>
+                        <label for="first_name" class="label">First Name</label>
                         <div class="border-2 w-full p-2">
                             
                             <input type="text" class="w-full outline-none" id="first_name" name="first_name" value="{{ $user->first_name }}">
                         </div>
                     </div>
                     <div class="w-full">
-                        <label for="middle_name">Middle Name</label>
+                        <label for="middle_name" class="label">Middle Name</label>
                         <div class="border-2 w-full p-2">
                             <input type="text" class="w-full outline-none" id="middle_name" name="middle_name" value="{{ $user->middle_name }}">
                         </div>
                     </div>
                     <div class="w-full">
-                        <label for="last_name">Last Name</label>
+                        <label for="last_name" class="label">Last Name</label>
                         <div class="border-2 w-full p-2">
                             <input type="text" class="w-full outline-none" id="last_name" name="last_name" value="{{ $user->last_name }}">
                         </div>
@@ -78,7 +78,7 @@
 
                 <div class="flex flex-col lg:flex-row mx-4 lg:mx-10 gap-2 my-2">
                     <div class="w-full">
-                        <label for="course">Course</label>
+                        <label for="course" class="label">Course</label>
                         <div class="border-2 w-full p-2">
                             <select class="w-full outline-none" id="course" name="course"> <!-- Added name attribute -->
                                 <option value="{{ $user->course }}">{{ $user->course }}</option>
@@ -100,7 +100,7 @@
                         </div>
                     </div>
                     <div class="w-full">
-                        <label for="batch">Batch</label>
+                        <label for="batch" class="label">Batch</label>
                         <div class="border-2 w-full p-2">
                                 <select class="w-full outline-none" name="batch" id="batch" required>
                                     <option value="{{ $user->batch }}">{{ $user->batch }}</option>
@@ -117,13 +117,13 @@
                 
                 <div class="flex flex-col lg:flex-row mx-4 lg:mx-10 gap-2 my-2">
                     <div class="w-full">
-                        <label for="email">Email Address</label>
+                        <label for="email" class="label">Email Address</label>
                         <div class="border-2 w-full p-2">
                             <input type="email" class="w-full outline-none" id="email" name="email" value="{{ $user->email }}">
                         </div>
                     </div>
                     <div class="w-full">
-                        <label for="username">Username</label>
+                        <label for="username" class="label">Username</label>
                         <div class="border-2 w-full p-2">
                             <input type="text" class="w-full outline-none" id="username" name="username" value="{{ $user->username }}">
                         </div>
@@ -138,7 +138,7 @@
             <div class="panel-btn flex flex-col my-4">
                 <div class="flex flex-col lg:flex-row mx-4 lg:mx-10 gap-2 my-2">
                     <div class="w-full">
-                        <label for="employment">Employment Status</label>
+                        <label for="employment" class="label">Employment Status</label>
                         <div class="border-2 w-full p-2">
                             <select class="w-full outline-none" id="employment" name="employment_status">
                                 <option value="employed" {{ $user->employment && $user->employment->is_employed ? 'selected' : '' }}>Employed</option>
@@ -147,19 +147,19 @@
                         </div>
                     </div>
                     <div class="w-full">
-                        <label for="date">Date of First Employment</label>
+                        <label for="date" class="label">Date of First Employment</label>
                         <div class="border-2 w-full p-2">
                             <input type="date" class="w-full outline-none" id="date" name="date_of_first_employment" value="{{ $user->employment ? $user->employment->date_of_first_employment : '' }}">
                         </div>
                     </div>
                     <div class="w-full">
-                        <label for="date2">Date of Employment</label>
+                        <label for="date2" class="label">Date of Employment</label>
                         <div class="border-2 w-full p-2">
                             <input type="date" class="w-full outline-none" id="date2" name="date_of_employment" value="{{ $user->employment ? $user->employment->date_of_employment : '' }}">
                         </div>
                     </div>
                     <div class="w-full">
-                        <label for="salary">Salary per Year</label>
+                        <label for="salary" class="label">Salary per Year</label>
                         <select class="border-2 w-full p-2" name="annual_salary" value="{{ $user->employment ? $user->employment->annual_salary : '' }}">
                             <option value="" disabled selected>{{ $user->employment ? $user->employment->annual_salary : '' }}</option>
                             <option value="₱50,000 - ₱100,000">₱50,000 - ₱100,000</option>
@@ -180,7 +180,7 @@
 
                 <div class="flex flex-col lg:flex-row mx-4 lg:mx-10 gap-2 my-2">
                     <div class="w-full">
-                        <label for="industry">Industry</label>
+                        <label for="industry" class="label">Industry</label>
                         <div class="border-2 w-full p-2">
                             <select class="w-full outline-none" id="industry" name="industry" value="{{ $user->employment ? $user->employment->industry : '' }}">
                                 <option value="{{ $user->employment ? $user->employment->industry : '' }}" disabled selected>{{ $user->employment ? $user->employment->industry : '' }}</option>
@@ -200,19 +200,19 @@
                         </div>
                     </div>
                     <div class="w-full">
-                        <label for="job">Job Title</label>
+                        <label for="job" class="label">Job Title</label>
                         <div class="border-2 w-full p-2">
                             <input type="text" class="w-full outline-none" id="job" name="job_title" value="{{ $user->employment ? $user->employment->job_title : '' }}">
                         </div>
                     </div>
                     <div class="w-full">
-                        <label for="company">Company</label>
+                        <label for="company" class="label">Company</label>
                         <div class="border-2 w-full p-2">
                             <input type="text" class="w-full outline-none" id="company" name="company_name" value="{{ $user->employment ? $user->employment->company_name : '' }}">
                         </div>
                     </div>
                     <div class="w-full">
-                        <label for="employment">Do you own a business?</label>
+                        <label for="employment" class="label">Do you own a business?</label>
                         <div class="border-2 w-full p-2">
                             <select class="w-full outline-none" id="ownedBusiness" name="is_owned_business">
                                 <option value="yes" {{ $user->employment && $user->employment->is_owned_business ? 'selected' : '' }}>Yes</option>
@@ -224,7 +224,7 @@
                 
                 <div class="flex flex-col lg:flex-row mx-4 lg:mx-10 gap-2 my-2">
                     <div class="w-full">
-                    <label for="location">Location</label>
+                    <label for="location" class="label">Location</label>
                     <div class="border-2 w-full p-2">
                         <select id="country" class="w-full outline-none">
                             <option value="" selected disabled>Select Country</option>
@@ -280,7 +280,7 @@
             <div class="panel-btn">
                 <div class="flex flex-col lg:flex-row mx-4 lg:mx-10 gap-2 lg:gap-4 my-2" style="margin-top: 25px">
                     <div class="w-full">
-                        <label for="degree">Degree Status</label>
+                        <label for="degree" class="label">Degree Status</label>
                         <div class="border-2 w-full p-2" style="margin-bottom: 25px">
                             <select class="w-full outline-none" id="degree" name="degree">
                                 <option value="" {{ is_null($user->degree) ? 'selected' : '' }}>None</option>
@@ -320,5 +320,9 @@
 
 .back-link:hover {
     background-color: #a6d0ec;
+}
+
+.label {
+    color: #3058af;
 }
 </style>
