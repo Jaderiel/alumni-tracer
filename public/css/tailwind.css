@@ -889,6 +889,10 @@ video {
   overflow: hidden;
 }
 
+.whitespace-pre-wrap {
+  white-space: pre-wrap;
+}
+
 .rounded-2xl {
   border-radius: 1rem;
 }
@@ -1209,6 +1213,10 @@ video {
 @media (min-width: 1024px) {
   .lg\:m-10 {
     margin: 2.5rem;
+  }
+
+  .lg\:m-5 {
+    margin: 1.25rem;
   }
 
   .lg\:mx-10 {
