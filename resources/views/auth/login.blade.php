@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sign Up / Sign In Form</title>
     <link rel="stylesheet" href="{{ asset('css/login.css') }}">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap" rel="stylesheet">
     <!-- <link rel="stylesheet" href="{{ asset('css/tailwind.css') }}"> -->
 </head>
 <body>
@@ -120,7 +121,7 @@
                                     <button type="submit">Sign In</button>
                                 </form>
 
-                                <p><a href="{{ route('password.request') }}">Forgot password?</a></p>
+                                <p><a href="{{ route('password.request') }}" style="text-decoration: none; color: gray;">Forgot password?</a></p>
                     <p>
                         <span>
                             Don't have an account?
@@ -173,35 +174,36 @@
 <!-- Modal content -->
 <div class="modal-content">
     <span class="close">&times;</span>
-    <h2>TERMS OF USE AND PRIVACY POLICY</h2>
+    <h2><strong>TEMRS OF USE AND PRIVACY POLICY</strong></h2>
+
     <ul>
         <li>
-            <p><strong>Acceptance of Terms</strong></p>
+            <h4><strong>Acceptance of Terms</strong></h4>
             <p>By accessing or using the LVCC Alumni Tracking System, you agree to be bound by these Terms and Conditions. If you do not agree with these Terms and Conditions, please do not use the System.</p>
         </li>
         <li>
-            <p><strong>Description of Service</strong></p>
+            <h4><strong>Description of Service</strong></h4>
             <p>The System provides a platform for alumni to maintain their contact information, connect with other alumni, and receive updates and notifications from their alma mater.</p>
         </li>
         <li>
-            <p><strong>User Registration</strong></p>
+            <h4><strong>User Registration</strong></h4>
             <p>To access certain features of the System, you may be required to register and provide accurate and complete information about yourself. You are responsible for maintaining the confidentiality of your account credentials and for all activities that occur under your account.</p>
         </li>
         <li>
-            <p><strong>Use of Information</strong></p>
-            <p>The information you provide to the System will be used to facilitate alumni network, communication, and engagement activities. Your information will not be shared with third parties without your consent, except as required by law, including compliance with the Data Privacy Law of 2021 (Republic Act No. 10173), which governs the collection, processing, and protection of personal data.</p>
+            <h4><strong>Use of Information</strong></h4>
+            <p>The information you provide to the System will be used to facilitate alumni network, communication, and engagement activities. Your information will not be shared with third parties without your consent, except as required by law, including compliance with the <i>Data Privacy Law of 2021 (Republic Act No. 10173)</i>, which governs the collection, processing, and protection of personal data.</p>
         </li>
         <li>
-            <p><strong>Prohibited Conduct</strong></p>
+            <h4><strong>Prohibited Conduct</strong></h4>
             <p>You agree not to use the system for any unlawful or prohibited activities, including posting harmful or objectionable content.</p>
         </li>
         <li>
-            <p><strong>Modifications to Terms</strong></p>
-            <p>The System owner reserves the right to modify or revise these Terms and Conditions at any time without prior notice. Your continued use of the System following any such changes constitutes your acceptance of the revised Terms and Conditions.</p>
+            <h4><strong>Modifications to Terms</strong></h4>
+            <p>The System owner reserves the right to modify or revise these <u>Terms and Conditions</u> at any time without prior notice. Your continued use of the System following any such changes constitutes your acceptance of the revised Terms and Conditions.</p>
         </li>
         <li>
-            <p><strong>Contact Information</strong></p>
-            <p>If you have any questions or concerns about these Terms and Conditions, please contact us at <a href="mailto:jade.admin@gmail.com">jade.admin@gmail.com</a>.</p>
+            <h4><strong>Contact Information</strong></h4>
+            <p>If you have any questions or concerns about these Terms and Conditions, please contact us at <a href="mailto:jade.admin@gmail.com">jade.admin@gmail.com</a>. Thank you!</p>
         </li>
     </ul>
 </div>
