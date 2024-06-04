@@ -27,7 +27,7 @@
         Events & Announcement
     </h3>
 
-    <div class="event flex flex-col lg:flex-row m-0 p-5 gap-4">
+    <div class="event flex flex-col lg:flex-row m-0 p-5">
         @if(auth()->check() && (auth()->user()->user_type == 'Alumni' || Auth::user()->user_type === 'Program Head'))
         <!-- <button href="{{ route('events') }}" class="up-event">Upcoming Events and Announcement</button> -->
         @elseif(auth()->check() && (auth()->user()->user_type == 'Admin' || Auth::user()->user_type === 'Super Admin' || Auth::user()->user_type === 'Alumni Officer'))

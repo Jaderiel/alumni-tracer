@@ -29,7 +29,7 @@
                 </div>
             @endif
             @if(session('success'))
-                <div class="text-green-600">
+                <div class="text-green-600" style="margin-left: 25px;">
                     {{ session('success') }}
                 </div>
             @endif
@@ -46,10 +46,14 @@
         <div class="job-container mx-5 lg:mx-20">
             <div class="job-panel">
                 <div class="bio-graph-heading">
-                    CREATE JOB POST
+                    CREATE POST
                 </div>
                 <div class="panel-body bio-graph-info">
                     <div class="row">
+                    <p class="bold">
+                    Fill in the fields including the job title, company, location, job type, salary range, link, and job <br>description, then press 'POST' to notify all alumni.
+                        </p>
+                    
                 </div>
 
             <form action="{{ route('job.store') }}" method="POST">
@@ -121,7 +125,7 @@
                         <option value="₱110,001 - ₱120,000">₱110,001 - ₱120,000</option>
                     </select>
                     <div class="border-2 w-full p-2">
-                        <input type="text" name="link" class="w-full outline-none" placeholder="Link where can apply">
+                        <input type="text" name="link" class="w-full outline-none" placeholder="Application Link">
                     </div>
                 </div>
                 

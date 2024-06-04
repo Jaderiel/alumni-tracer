@@ -24,7 +24,7 @@
 
         <div class="aa bg-white p-6 my-4 mx-4 lg:mx-10";>
             <div class="flex items-baseline justify-between mx-0 lg:mx-33" >
-                <div class="flex items-center gap-4">
+                <div class="flex flex-col lg:flex-row justify-center lg:justify-start gap-4 w-full items-center">
                     <div class="h-[100px] w-[100px] overflow-hidden relative rounded-full border-2 border-gray-500">
                         @if ($user->profile_pic)
                         <img src="{{ asset($user->profile_pic) }}" alt="Profile Picture" style="height: 100%; width: 100%; object-fit: cover;"> 
@@ -32,7 +32,7 @@
                         <img src="{{ asset('images/user_avatar.jpg') }}" alt="Placeholder Profile Picture" style="height: 100%; width: 100%; object-fit: cover;">
                         @endif
                     </div>
-                    <div>
+                    <div class="flex flex-col justify-center items-center lg:items-start">
                         <div class="flex gap-4">
                         <h1 class="font-bold">{{ $user->first_name }} {{ $user->last_name }}</h1>
                         @if ($user->degree)
@@ -46,63 +46,131 @@
 
             <div class="employment-info mx-0 lg:mx-33">
                 <h4 class="info-title">Employment Information</h4>
-                    <table class="table table-bordered">
-                        <tr>
+                    <table class="table table-auto">
+                        <tr class="hide-on-small">
                         <th width="30%">Email Address</th>
                         <td width="2%">:</td>
                         <td>{{ $user->email }}</td>
                         </tr>
-                        <tr>
+                        <div class="lg:hidden flex flex-col mb-4">
+                        <h1 class="font-bold">Email Address</h1>
+                        <p>{{ $user->email }}</p>
+                    </div>
+                        <tr class="hide-on-small">
                         <th width="30%">Course</th>
                         <td width="2%">:</td>
                         <td>{{ $user->course }}</td>
                         </tr>
-                        <tr>
+                        <div class="lg:hidden flex flex-col mb-4">
+                        <h1 class="font-bold">Course</h1>
+                        <p>{{ $user->course }}</p>
+                    </div>
+                        <tr class="hide-on-small">
                         <th width="30%">Batch Year</th>
                         <td width="2%">:</td>
                         <td>{{ $user->batch }}</td>
                         </tr>
-                        <tr>
+                        <div class="lg:hidden flex flex-col mb-4">
+                        <h1 class="font-bold">Batch Year</h1>
+                        <p>{{ $user->batch }}</p>
+                    </div>
+                        <tr class="hide-on-small">
                         <th width="30%">Employment Status</th>
                         <td width="2%">:</td>
-                        <td>@if($user->employment->is_employed == 1)
-                                Employed
+                        <td>@if ($user->employment)
+                                @if ($user->employment->is_employed == 1)
+                                    Employed
+                                @else
+                                    Unemployed
+                                @endif
                             @else
-                                Unemployed
+                                Employment information not available
                             @endif
                         </td>
                         </tr>
-                        <tr>
+                        <div class="lg:hidden flex flex-col mb-4">
+                        <h1 class="font-bold">Employment Status</h1>
+                        <p>@if ($user->employment)
+                                @if ($user->employment->is_employed == 1)
+                                    Employed
+                                @else
+                                    Unemployed
+                                @endif
+                            @else
+                                Employment information not available
+                            @endif</p>
+                    </div>
+                        <tr class="hide-on-small">
                             <th width="30%">Industry</th>
                             <td width="2%">:</td>
-                            <td>{{ $user->employment->industry }}</td>
+                            <td>@if ($user->employment)
+                                {{ $user->employment->industry }}
+                            @else
+                                N/A
+                            @endif</td>
                         </tr>
-                        <tr>
+                        <div class="lg:hidden flex flex-col mb-4">
+                        <h1 class="font-bold">Industry</h1>
+                        <p>@if ($user->employment)
+                                {{ $user->employment->industry }}
+                            @else
+                                N/A
+                            @endif</p>
+                    </div>
+                        <tr class="hide-on-small">
                             <th width="30%">Job Title</th>
                             <td width="2%">:</td>
                             <td>{{ $user->employment->job_title }}</td>
                         </tr>
-                        <tr>
+                        <div class="lg:hidden flex flex-col mb-4">
+                        <h1 class="font-bold">Job Title</h1>
+                        <p>@if ($user->employment)
+                                {{ $user->employment->job_title }}
+                            @else
+                                N/A
+                            @endif</p>
+                    </div>
+                        <tr class="hide-on-small">
                         <th width="30%">Company</th>
                         <td width="2%">:</td>
                         <td>{{ $user->employment->company_name }}</td>
                         </tr>
-                        <tr>
+                        <div class="lg:hidden flex flex-col mb-4">
+                        <h1 class="font-bold">Company</h1>
+                        <p>@if ($user->employment)
+                                {{ $user->employment->company_name }}
+                            @else
+                                N/A
+                            @endif</p>
+                    </div>
+                        <tr class="hide-on-small">
                         <th width="30%">Location</th>
                         <td width="2%">:</td>
                         <td>{{ ucwords(strtolower($user->employment->company_address)) }}</td>
                         </tr>
+                        <div class="lg:hidden flex flex-col mb-4">
+                        <h1 class="font-bold">Location</h1>
+                        <p>@if ($user->employment)
+                                {{ ucwords(strtolower($user->employment->company_address)) }}
+                            @else
+                                N/A
+                            @endif</p>
+                    </div>
                     </table>
             </div>
 
             <div class="employment-info mx-0 lg:mx-33">
                 <h4 class="info-title">Post-Graduation Information</h4>
-                    <table class="table table-bordered">
-                        <tr>
+                    <table class="table table-auto">
+                        <tr class="hide-on-small">
                         <th width="30%">Degree Status</th>
                         <td width="2%">:</td>
                         <td>{{ $user->degree }}</td>
                         </tr>
+                        <div class="lg:hidden flex flex-col mb-4">
+                        <h1 class="font-bold">Degree Status</h1>
+                        <p>{{ Auth::user()->degree }}</p>
+                    </div>
                     </table>
             </div>
         </div>
@@ -162,5 +230,12 @@
 .table td {
     padding: .35rem; 
     text-align: left;
+    overflow-wrap: break-word;
+}
+
+@media (max-width: 600px) {
+    .hide-on-small {
+        display: none;
+    }
 }
 </style>

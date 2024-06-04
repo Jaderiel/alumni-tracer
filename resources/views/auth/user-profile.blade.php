@@ -48,7 +48,7 @@
                 </div>
             </div>
 
-            <div class="employment-info mx-0 lg:mx-33 overflow-x-auto">
+            <div class="employment-info mx-0 lg:mx-33">
                 <h4 class="info-title">Employment Information</h4>
                 <table class="table table-auto">
                     <tr class="hide-on-small">
@@ -243,12 +243,16 @@
 
             <div class="employment-info mx-0 lg:mx-33">
                 <h4 class="info-title">Post-Graduation Information</h4>
-                <table class="table table-bordered">
-                    <tr>
+                <table class="table table-auto">
+                    <tr class="hide-on-small">
                         <th width="30%">Degree Status</th>
                         <td width="2%">:</td>
                         <td>{{ Auth::user()->degree }}</td>
                     </tr>
+                    <div class="lg:hidden flex flex-col mb-4">
+                        <h1 class="font-bold">Degree Status</h1>
+                        <p>{{ Auth::user()->degree }}</p>
+                    </div>
                 </table>
             </div>
         </div>

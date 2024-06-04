@@ -79,6 +79,7 @@ body {
     background-color: #E8C766;
     margin-left: 10px;
     font-size: 15px;
+    margin-right: 15px;
 }
 
 .event .post-event{
@@ -90,6 +91,7 @@ body {
     border: 1px solid #2D55B4;
     border-radius: 4px;
     color: #000;
+    margin-right: 15px;
 }
 
 .event a:hover {

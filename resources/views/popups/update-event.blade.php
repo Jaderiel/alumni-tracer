@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Add Events</title>
+    <title>Edit Event</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
     <!-- <link rel="stylesheet" href="{{ asset('bootstrap/bootstrap.min.css') }}"> -->
     <link rel="stylesheet" href="{{ asset('css/events.css') }}">
@@ -29,7 +29,7 @@
 
     <div style="display: flex; flex-direction: row; gap: 35px">
 
-        <div class="main-body mt-7 ml-4 mr-2">
+        <div class="main-body ml-4 mr-2">
 
         @if(session('error'))
             <div class="alert alert-danger">
@@ -38,7 +38,7 @@
         @endif
 
         @if(session('success'))
-            <div class="text-green-600">
+            <div class="text-green-600 p-4" style="margin-left: 25px;">
                 {{ session('success') }}
             </div>
         @endif
@@ -50,12 +50,12 @@
     <div class="bg-white p-4 m-4 lg:m-10">
         <div class="panel">
             <div class="bio-graph-heading">
-                Post and press
+                EDIT POST
             </div>
             <div class="panel-body bio-graph-info">
                 <div class="row">
                     <p class="bold">
-                        Fill in the subject and body of event details and press ‘POST’ to notify all alumni
+                    To edit, make the necessary changes to the title, image, date, time, and event details, then press 'SAVE' to update.
                     </p>
                 </div>
 
@@ -84,7 +84,7 @@
                             </div>
                         </div>
                         <div class="flex mx-4 lg:mx-10">
-                            <textarea placeholder="Event details" name="event_details" value="{{ $event->event_details }}" class="border-2 w-full h-32">{{ $event->event_details }}</textarea>
+                            <textarea placeholder="Event details" name="event_details" value="{{ $event->event_details }}" class="border-2 w-full h-32 p-2">{{ $event->event_details }}</textarea>
                         </div>
                         <button type="submit" class="post-button-ann text-white">SAVE</button>
                     </form>
@@ -100,6 +100,30 @@
 </html>
 
 <style>
+    .i-name {
+        color: #2D55B4;
+        font-size: 24px;
+        font-weight: 700;
+        margin-top: 20px;
+        margin-left: 10px;
+    }
+
+    .back-link {
+        margin-top: 20px;
+        margin-right: 10px;
+        background-color: #FFFFFF;
+        color: #2974A7;
+        text-decoration: none;
+        padding: 5px 13px;
+        border-radius: 6px;
+        border: 1px solid #2974A7;
+        font-size: 13px;
+    }
+
+    .back-link:hover {
+        background-color: #a6d0ec;
+    }
+    
     .container {
         height: 450px
     }

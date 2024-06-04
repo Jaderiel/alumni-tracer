@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Edit Gallery Post</title>
+    <title>Edit Gallery</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
     <!-- <link rel="stylesheet" href="{{ asset('bootstrap/bootstrap.min.css') }}"> -->
     <link rel="stylesheet" href="{{ asset('css/add-gallery.css') }}">
@@ -19,7 +19,7 @@
 
     <section class="ml-0 lg:ml-72 w-full flex flex-col justify-center">
 
-        <h3 class="i-name">Edit Gallery Post</h3>
+        <h3 class="i-name">Edit Gallery</h3>
 
         <div style="display: flex; flex-direction: row; gap: 35px">
 
@@ -32,7 +32,7 @@
                 @endif
 
                 @if(session('success'))
-                    <div class="alert alert-success">
+                    <div class="alert alert-success text-green-600 p-4" style="margin-left: 25px;">
                         {{ session('success') }}
                     </div>
                 @endif
@@ -54,6 +54,12 @@
                 <div class="bio-graph-heading">
                     EDIT POST
                 </div>
+                <div class="panel-body bio-graph-info" >
+                    <div class="row">
+                        <p class="bold">
+                        To edit, make the necessary changes to the title, course, image, and description, then press 'SAVE' to update. If you want to delete the post, select 'DELETE'.
+                        </p>
+                    </div>
 
                 <form action="{{ route('gallery.update', $gallery->id) }}" method="POST" enctype="multipart/form-data">
                     @csrf

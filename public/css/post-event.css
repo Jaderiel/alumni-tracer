@@ -149,6 +149,39 @@ body {
   margin-left: 37px;
 }
 
+.button-container {
+  display: flex;
+  justify-content: center; 
+  align-items: center; 
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+.delete-button-ann,
+.save-button-ann {
+  height: 40px;
+  border-radius: 2px;
+  outline: none;
+  border-color: transparent;
+  margin: 11px; 
+}
+
+.delete-button-ann {
+  width: 250px;
+  background-color: #e03821;
+}
+
+.save-button-ann {
+  width: 250px;
+  background-color: #00A36C;
+}
+
+.delete-button-ann:hover,
+.save-button-ann:hover {
+  background-color: #162F65;
+  color: #fff;
+}
+
 .container {
     width: 86.3%;
     height: 100%; /* Adjust the height as needed */

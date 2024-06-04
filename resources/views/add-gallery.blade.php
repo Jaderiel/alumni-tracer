@@ -30,7 +30,7 @@
             @endif
 
             @if(session('success'))
-                <div class="alert alert-success">
+                <div class="alert alert-success p-4" style="margin-left: 25px;">
                     {{ session('success') }}
                 </div>
             @endif
@@ -52,7 +52,7 @@
                 <div class="panel-body bio-graph-info">
                     <div class="row">
                         <p class="bold">
-                            Fill in the subject and body of gallery details and press ‘POST’ to notify all alumni
+                        Fill in the fields including the image title, course, image, and image description, then press 'POST' to <br> notify all alumni.
                         </p>
                     </div>
 

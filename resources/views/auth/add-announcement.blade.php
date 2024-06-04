@@ -20,12 +20,12 @@
     <section id="interface" class="ml-0 lg:ml-72 w-full">
 
         <h3 class="i-name">
-            <a href="{{ route('events') }}" class="back-link"><i class="fas fa-arrow-left"></i></a>Add Announcement
+            <a href="{{ route('events') }}" class="back-link"><i class="fa-solid fa-angles-left"></i> Back</a>Add Announcement
         </h3>
 
     <div style="display: flex; flex-direction: row; gap: 35px">
 
-    <div class="main-body mt-7 ml-4 mr-2" style="margin-left: 15px;">
+    <div class="main-body ml-4 mr-2" style="margin-left: 15px;">
 
         @if(session('error'))
             <div class="alert alert-danger">
@@ -51,7 +51,7 @@
             <div class="panel-body bio-graph-info">
                 <div class="row">
                     <p class="bold">
-                        Fill in the subject and body of announcement details and press ‘POST’ to notify all alumni
+                    Fill in the title and announcement details, then press 'POST' to notify all alumni.
                     </p>
                 </div>
                     <form action="{{ route('ann.store') }}" method="POST" enctype="multipart/form-data">
@@ -62,7 +62,7 @@
                             </div>
                         </div>
                         <div class="flex mx-4 lg:mx-10">
-                            <textarea placeholder="Event details" name="ann_details" class="border-2 w-full h-32 outline-none"></textarea>
+                            <textarea placeholder="  Announcement Details" name="ann_details" class="border-2 w-full h-32 outline-none"></textarea>
                         </div>
                         <button type="submit" class="post-button-ann text-white">POST</button>
                     </form>
@@ -78,14 +78,28 @@
 </html>
 
 <style>
+    .i-name {
+        color: #2D55B4;
+        font-size: 24px;
+        font-weight: 700;
+        margin-top: 20px;
+        margin-left: 10px;
+    }
+
     .back-link {
-        color: #333;
-        text-decoration: none;
+        margin-top: 20px;
         margin-right: 10px;
+        background-color: #FFFFFF;
+        color: #2974A7;
+        text-decoration: none;
+        padding: 5px 13px;
+        border-radius: 6px;
+        border: 1px solid #2974A7;
+        font-size: 13px;
     }
 
     .back-link:hover {
-        color: #000; 
+        background-color: #a6d0ec;
     }
     .container {
         height: 450px
