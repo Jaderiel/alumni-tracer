@@ -154,7 +154,11 @@
                         <tr class="hide-on-small">
                         <th width="30%">Location</th>
                         <td width="2%">:</td>
-                        <td>{{ ucwords(strtolower($user->employment->company_address)) }}</td>
+                        <td>@if ($user->employment)
+                                {{ ucwords(strtolower($user->employment->company_address)) }}
+                            @else
+                                N/A
+                            @endif</td>
                         </tr>
                         <div class="lg:hidden flex flex-col mb-4">
                         <h1 class="font-bold">Location</h1>
@@ -177,7 +181,7 @@
                         </tr>
                         <div class="lg:hidden flex flex-col mb-4">
                         <h1 class="font-bold">Degree Status</h1>
-                        <p>{{ Auth::user()->degree }}</p>
+                        <p>{{ $user->degree }}</p>
                     </div>
                     </table>
             </div>
