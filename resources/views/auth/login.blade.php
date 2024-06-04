@@ -174,7 +174,7 @@
 <!-- Modal content -->
 <div class="modal-content">
     <span class="close">&times;</span>
-    <h2><strong>TEMRS OF USE AND PRIVACY POLICY</strong></h2>
+    <h2><strong>TERMS OF USE AND PRIVACY POLICY</strong></h2>
 
     <ul>
         <li>

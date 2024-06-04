@@ -81,11 +81,13 @@
                                 <option value="Office Management">Office Management (OM)</option>
                             </select>
                         </div>
-                        <label for="file-upload" class="border-2 w-full p-2">
-                            <span>Add Image</span>
-                            <i class="fas fa-image"></i>
-                        </label>
-                        <input id="file-upload" type="file" name="image" accept="image/*" class="file-upload">
+                        <div class="border-2 w-full p-2">
+                                <label for="file-upload" class="cursor-pointer" id="file-upload-label">
+                                    <span>Add Image</span>
+                                    <i class="fas fa-image"></i>
+                                </label>
+                                <input id="file-upload" type="file" name="image" accept="image/*" class="file-upload w-full">
+                            </div>
                     </div>
                     <div class="flex flex-col lg:flex-row mx-4 lg:mx-10 gap-2 lg:gap-4 my-2">
                         <textarea placeholder="Image description" name="img_description" class="border-2 w-full p-2"></textarea>
@@ -100,3 +102,11 @@
 </body>
 <script src="{{ asset('js/header.js') }}"></script>
 </html>
+
+<script>
+    document.getElementById('file-upload').addEventListener('change', function() {
+        var fileName = this.files[0].name;
+        var label = document.getElementById('file-upload-label');
+        label.innerHTML = '<span>' + fileName + '</span> <i class="fas fa-image"></i>';
+    });
+</script>
