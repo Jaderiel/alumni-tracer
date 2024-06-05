@@ -109,7 +109,7 @@
                             <td class="action flex-col flex lg:flex-row items-center gap-2">
                                 <a href="{{ route('profile.show', ['id' => $user->id]) }}"><button>View</button></a>
                                 @if(auth()->check() && (auth()->user()->user_type == 'Admin' || Auth::user()->user_type === 'Super Admin'))
-                                <form action="{{ route('user.delete', ['userId' => $user->id]) }}" method="POST">
+                                <form id="delete-form" action="{{ route('user.delete', ['userId' => $user->id]) }}" method="POST" onsubmit="return confirmDelete();">
                                     @method('DELETE')
                                     @csrf
                                     <button type="submit" class="" style="background-color: maroon;">Delete</button>
@@ -158,6 +158,10 @@
     courseFilter.addEventListener('change', filterRows);
     batchFilter.addEventListener('change', filterRows);
 });
+
+function confirmDelete() {
+        return confirm('Are you sure you want to delete this post? This action cannot be undone.');
+    }
 
     </script>
 

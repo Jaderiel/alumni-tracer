@@ -79,7 +79,7 @@
                             
                     </form>
                     <!-- Separate form for deleting announcement -->
-                                <form action="{{ route('delete.ann', $ann->id) }}" method="POST">
+                                <form id="delete-form" action="{{ route('delete.ann', $ann->id) }}" method="POST" onsubmit="return confirmDelete();">
                                 @csrf
                                 @method('DELETE')
                                 <button type="submit" class="delete-button-ann text-white">DELETE</button>
@@ -95,6 +95,11 @@
 </body>
 <!-- <script src="{{ asset('js/dashboard.js') }}"></script> -->
 <!-- <script src="{{ asset('js/events.js') }}"></script> -->
+<script>
+    function confirmDelete() {
+        return confirm('Are you sure you want to delete this post? This action cannot be undone.');
+    }
+</script>
 </html>
 
 <style>

@@ -134,7 +134,7 @@
                         </form>
 
                         <div class="flex justify-center">
-                            <form id="delete-form" action="{{ route('delete.job', $job->id) }}" method="POST">
+                            <form id="delete-form" action="{{ route('delete.job', $job->id) }}" method="POST" onsubmit="return confirmDelete();">
                                 @csrf
                                 @method('DELETE')
                                 <button class="delete-button-annn" type="submit">DELETE</button>
@@ -148,6 +148,11 @@
 </body>
 <script src="{{ asset('js/header.js') }}"></script>
 <script src="{{ asset('js/job-location.js') }}"></script>
+<script>
+    function confirmDelete() {
+        return confirm('Are you sure you want to delete this post? This action cannot be undone.');
+    }
+</script>
 </html>
 
 <style>

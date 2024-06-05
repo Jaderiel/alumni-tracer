@@ -24,7 +24,7 @@
                         @csrf
                         <button type="submit" class="approve-button" onclick="return confirm('Are you sure you want to approve this job post?')">Approve</button>
                     </form>
-                    <form action="{{ route('job.delete', $job->id) }}" method="POST" style="display:inline;">
+                    <form id="delete-form" action="{{ route('job.delete', $job->id) }}" method="POST" onsubmit="return confirmDelete();" style="display:inline;">
                         @csrf
                         @method('DELETE')
                         <button type="submit" class="delete-button" onclick="return confirm('Are you sure you want to delete this job post?')">Delete</button>

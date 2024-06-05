@@ -42,7 +42,7 @@
                                             @method('PUT')
                                             @csrf
                                         </form>
-                                        <form action="{{ route('user.delete', ['userId' => $user->id]) }}" method="POST">
+                                        <form id="delete-form" action="{{ route('user.delete', ['userId' => $user->id]) }}" method="POST" onsubmit="return confirmDelete();">
                                             @method('DELETE')
                                             @csrf
                                             <button type="submit" class="button delete-btn" style="background-color: maroon;">Delete</button>
@@ -61,3 +61,9 @@
                 </div>
             </ul>
         </div>
+
+        <script>
+            function confirmDelete() {
+                return confirm('Are you sure you want to delete this post? This action cannot be undone.');
+            }
+        </script>

@@ -48,14 +48,12 @@
                             </div>
                         </div>
                         <div class="button-container"><button type="submit" class="save-button-ann text-white">SAVE</button>
-                            </form>
-                            <form action="{{ route('delete.post', $post->id) }}" method="POST">
-                                @csrf
-                                @method('DELETE')
-                                <button type="submit" class="delete-button-ann text-white">DELETE</button>
-                            </form>
-                            
-                        </div>
+                    </form>
+                    <form id="delete-form" action="{{ route('delete.post', $post->id) }}" method="POST" onsubmit="return confirmDelete();">
+                        @csrf
+                        @method('DELETE')
+                        <button type="submit" class="delete-button-ann text-white">DELETE</button>
+                    </form>
                 </div>
             </div>
         </div>
@@ -70,6 +68,10 @@
         var label = document.getElementById('file-upload-label');
         label.innerHTML = '<span>' + fileName + '</span> <i class="fas fa-image"></i>';
     });
+
+    function confirmDelete() {
+        return confirm('Are you sure you want to delete this post? This action cannot be undone.');
+    }
 </script>
 
 <style>
@@ -98,10 +100,10 @@
     }
 
     .show-success{
-    background-color: #D4EDDA;
-    color: green;
-    padding: 15px;
-    margin: 15px 40px;
-    text-align:center;
-}
+        background-color: #D4EDDA;
+        color: green;
+        padding: 15px;
+        margin: 15px 40px;
+        text-align: center;
+    }
 </style>

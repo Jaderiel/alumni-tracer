@@ -104,7 +104,7 @@
                     @method('DELETE')
                     <button type="submit" class="btn-sm btn-danger mb-1">Delete</button>
                 </form> -->
-                        <form action="{{ route('gallery.delete', $gallery->id) }}" method="POST">
+                        <form id="delete-form" action="{{ route('gallery.delete', $gallery->id) }}" method="POST" onsubmit="return confirmDelete();">
                             @csrf
                             @method('DELETE')
                             <button type="submit" class="delete-button-ann text-white">DELETE</button>
@@ -135,5 +135,8 @@ $(document).ready(function() {
     }
 });
 
+function confirmDelete() {
+        return confirm('Are you sure you want to delete this post? This action cannot be undone.');
+    }
 </script>
 </html>

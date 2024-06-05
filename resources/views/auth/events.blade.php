@@ -76,7 +76,7 @@
                                             <a href="{{ route('get.registered.users', ['eventId' => $event->id]) }}" style="display: inline-block; padding: 10px 20px; background-color: #007bff; color: #fff; text-decoration: none; border-radius: 5px; " class="view" >View Registered Users</a>
                                         </div>
                                         <div class="text-right" style="padding: 10px">
-                                            <form action="{{ route('delete.event', ['id' => $event->id]) }}" method="POST" style="display: inline-block; width: 100px;">
+                                            <form id="delete-form" action="{{ route('delete.event', ['id' => $event->id]) }}" method="POST" onsubmit="return confirmDelete();" style="display: inline-block; width: 100px;">
                                             @method('DELETE')
                                             @csrf
                                             <button type="submit" style="width: 100%; background-color: #dc3545; color: #fff; padding: 8px 16px; border: none; border-radius: 5px;">Delete</button>
@@ -120,6 +120,11 @@
 </body>
 <script src="{{ asset('js/dashboard.js') }}"></script>
 <script src="{{ asset('js/events.js') }}"></script>
+<script>
+    function confirmDelete() {
+        return confirm('Are you sure you want to delete this post? This action cannot be undone.');
+    }
+</script>
 </html>
 
 <style>

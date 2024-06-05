@@ -119,7 +119,7 @@ class EventsController extends Controller
         $ann->ann_details = $request->ann_details;
         $ann->save();
 
-        return redirect()->back()->with('success', 'Event created successfully!');
+        return redirect()->back()->with('success', 'Announcement created successfully!');
 
     }
 

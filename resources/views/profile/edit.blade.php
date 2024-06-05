@@ -46,7 +46,7 @@
                     <div class="flex ml-3 h-full">
                             <button type="submit" class="btn-save"><i class="fa-regular fa-bookmark"></i> Save</button>
                         </form>
-                        <form action="{{ route('users.destroy', $user->id) }}" method="POST">
+                        <form id="delete-form" action="{{ route('users.destroy', $user->id) }}" method="POST" onsubmit="return confirmDelete();">
                         @csrf
                         @method('DELETE')
                             <button class="delete-button" type="submit"><i class="fa-solid fa-user-xmark"></i> Delete</button>
@@ -302,6 +302,11 @@
 
 </body>
 <script src="{{ asset('js/job-location.js') }}"></script>
+<script>
+    function confirmDelete() {
+        return confirm('Are you sure you want to delete this post? This action cannot be undone.');
+    }
+</script>
 </html>
 
 
