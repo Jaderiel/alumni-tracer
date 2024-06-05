@@ -12,6 +12,10 @@ class AnalyticsController extends Controller
     public function index() {
         return view("auth.analytics");
     }
+
+    public function generatePdf() {
+        return view("components.generate-pdf");
+    }
     
 
     public function getUserAnalytics()
