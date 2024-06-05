@@ -40,7 +40,7 @@ class EventsController extends Controller
         ]);
 
         // Optionally, you can redirect the user or return a response
-        return redirect()->back()->with('success', 'Registration successful');
+        return redirect()->back()->with('success', 'Registration Successful');
     }
 
     public function getRegisteredUsers($eventId)
@@ -98,7 +98,7 @@ class EventsController extends Controller
         $event->event_time = $request->event_time;
         $event->save();
 
-        return redirect()->back()->with('success', 'Event created successfully!');
+        return redirect()->back()->with('success', 'Event Created Successfully!');
 
     }
 
@@ -119,7 +119,7 @@ class EventsController extends Controller
         $ann->ann_details = $request->ann_details;
         $ann->save();
 
-        return redirect()->back()->with('success', 'Announcement created successfully!');
+        return redirect()->back()->with('success', 'Announcement Created Successfully!');
 
     }
 
@@ -128,7 +128,7 @@ class EventsController extends Controller
         $event = Event::findOrFail($id);
         $event->delete();
 
-        return redirect()->back()->with('success', 'Event deleted successfully.');
+        return redirect()->back()->with('success', 'Event Deleted Successfully.');
     }
 
     public function edit($id) {
@@ -159,7 +159,7 @@ class EventsController extends Controller
         $event->save();
 
         // Redirect back to events page after updating
-        return redirect()->back()->with('success', 'Event Edited successfully.');
+        return redirect()->back()->with('success', 'Event Edited Successfully!');
     }
 
     public function editAnn($id) {
@@ -180,7 +180,7 @@ class EventsController extends Controller
         $announcement->save();
 
         // Redirect back to events page after updating
-        return redirect()->back()->with('success', 'Announcement Edited successfully.');
+        return redirect()->back()->with('success', 'Announcement Edited Successfully!');
     }
 
     public function deleteAnn($id)
@@ -188,7 +188,7 @@ class EventsController extends Controller
         $ann = Announcement::findOrFail($id);
         $ann->delete();
 
-        return redirect()->route('events')->with('success', 'Announcement deleted successfully.');
+        return redirect()->route('events')->with('success', 'Announcement Deleted Successfully!');
     }
 
     public function deletePastEvents()

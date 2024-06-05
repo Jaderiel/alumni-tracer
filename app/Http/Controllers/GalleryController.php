@@ -45,7 +45,7 @@ class GalleryController extends Controller
             $gallery->media_url = $mediaUrl;
             $gallery->save();
     
-            Session::flash('success', 'Post saved successfully. Please wait for the approval');
+            Session::flash('success', 'Post Saved Successfully! Please Wait For The Approval.');
             return redirect()->back();
         } catch (\Exception $e) {
             dd($e->getMessage()); 
@@ -76,7 +76,7 @@ class GalleryController extends Controller
         $gallery->save();
 
         // Redirect back to events page after updating
-        return redirect()->back()->with('success', 'Gallery Edited successfully.');
+        return redirect()->back()->with('success', 'Gallery Edited Successfully!');
     }
 
     public function delete($id)
@@ -84,6 +84,6 @@ class GalleryController extends Controller
         $gallery = Gallery::findOrFail($id);
         $gallery->delete();
 
-        return redirect()->route('gallery')->with('success', 'Job deleted successfully.');
+        return redirect()->route('gallery')->with('success', 'Gallery Deleted Successfully!');
     }
 }
