@@ -140,49 +140,35 @@ body {
     align-items: center;
     flex-wrap: wrap;
 } */
-
-.find .search-course{
-    display: flex;
-    /* width: 40%; */
+.find .search-course,
+.find .search-batch,
+.find .search {
+    flex: 1;
     height: 40px;
     align-items: center;
-    padding: 10px 10px 10px;
+    padding: 5px;
+    margin-right: 5px;
     border: 1px solid #2D55B4;
     border-radius: 4px;
 }
 
-.find .search-batch{
-    display: flex;
-    width: 40%;
-    height: 40px;
-    align-items: center;
-    padding: 10px 10px 10px;
-    border: 1px solid #2D55B4;
-    border-radius: 4px;
+.find .search:last-child {
+    margin-right: 0;
 }
 
-.find .search{
-    display: flex;
-    width: 40%;
-    /* height: 6%; */
-    align-items: center;
-    padding: 10px 10px 10px;
-    border: 1px solid #2D55B4;
-    border-radius: 4px;
-}
-
-.find .search i{
-    margin-right: 10px;
+.find .search i {
     color: gray;
+    width: 20px;
 }
 
-.find .search input{
+.find .search input {
     border: none;
     outline: none;
     font-size: 13px;
     background-color: #EFF2FB;
-    width: 100%;
+    flex: 1;
 }
+
 
 .find .search-course select{
     border: none;
