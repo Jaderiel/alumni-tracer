@@ -52,6 +52,11 @@
             width: 100% !important;
             height: auto !important;
         }
+
+        .chart-container.user {
+            grid-column: span 2;
+        }
+
     </style>
 
 <body class="w-full bg-customBgColor relative flex">
@@ -71,7 +76,7 @@
             -->
 
         <div class="dashboard">
-            <div class="chart-container">
+            <div class="chart-container user">
                 <canvas id="userChart"></canvas>
             </div>
             <div class="chart-container">
