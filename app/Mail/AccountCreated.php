@@ -29,6 +29,7 @@ class AccountCreated extends Mailable
     {
         return $this->from('yageisjade@gmail.com', 'Alumni Tracking System')
                     ->subject('Your Account has been Created')
-                    ->view('emails.account-created');
+                    ->view('emails.account-created')
+                    ->replyTo('noreply@example.com');
     }
 }

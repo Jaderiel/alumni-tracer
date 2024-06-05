@@ -20,7 +20,8 @@ class AccountApproved extends Mailable
     {
         return $this->from('yageisjade@gmail.com', 'Alumni Tracking System')
                     ->subject('Your account has been approved')
-                    ->view('emails.account-approved');
+                    ->view('emails.account-approved')
+                    ->replyTo('noreply@example.com');
     }
 }
 
