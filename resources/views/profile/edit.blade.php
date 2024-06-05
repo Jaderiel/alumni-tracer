@@ -284,7 +284,7 @@
                         <div class="border-2 w-full p-2" style="margin-bottom: 25px">
                             <select class="w-full outline-none" id="degree" name="degree">
                                 <option value="" {{ is_null($user->degree) ? 'selected' : '' }}>None</option>
-                                <option value="PhD" {{ $user->degree == 'PhD' ? 'selected' : '' }}>Ph.D.</option>
+                                <option value="Doctoral" {{ $user->degree == 'Doctoral' ? 'selected' : '' }}>Doctoral</option>
                                 <option value="Masters" {{ $user->degree == 'Masters' ? 'selected' : '' }}>Master's</option>
                                 <option value="Bachelors" {{ $user->degree == 'Bachelors' ? 'selected' : '' }}>Bachelor's</option>
                                 <option value="Associate" {{ $user->degree == 'Associate' ? 'selected' : '' }}>Associate</option>
