@@ -125,7 +125,7 @@
                     <div class="w-full">
                         <label for="username" class="label">Username</label>
                         <div class="border-2 w-full p-2">
-                            <input type="text" class="w-full outline-none" id="username" name="username" value="{{ $user->username }}">
+                            <input type="text" class="w-full outline-none" id="username" name="username" value="{{ $user->username }}" readonly style="pointer-events: none">
                         </div>
                     </div>
                 </div>

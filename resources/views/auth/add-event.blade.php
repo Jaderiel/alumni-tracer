@@ -39,7 +39,7 @@
         @endif
 
         @if(session('success'))
-            <div class="text-green-600" style="margin-left: 23px;">
+            <div class="show-success">
                 {{ session('success') }}
             </div>
         @endif
@@ -68,7 +68,7 @@
                                 <input type="text" name="event_title" placeholder="Title" class="w-full outline-none">
                             </div>
                             <div class="border-2 w-full lg:w-1/2 p-2">
-                                <label for="file-upload" class="cursor-pointer">
+                                <label for="file-upload" class="cursor-pointer" id="file-upload-label">
                                 <span>Add Image</span>
                                 <i class="fas fa-image"></i>
                                 </label>
@@ -98,6 +98,14 @@
 <!-- <script src="{{ asset('js/dashboard.js') }}"></script> -->
 <!-- <script src="{{ asset('js/events.js') }}"></script> -->
 </html>
+
+<script>
+    document.getElementById('file-upload').addEventListener('change', function() {
+        var fileName = this.files[0].name;
+        var label = document.getElementById('file-upload-label');
+        label.innerHTML = '<span>' + fileName + '</span> <i class="fas fa-image"></i>';
+    });
+</script>
 
 <style>
     .i-name {
@@ -131,4 +139,12 @@
         margin-bottom: 10px;
         display: flex;
     }
+
+    .show-success{
+    background-color: #D4EDDA;
+    color: green;
+    padding: 15px 250px;
+    margin: 15px 30px 0;
+    text-align:center;
+}
 </style>

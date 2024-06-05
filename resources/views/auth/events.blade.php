@@ -48,7 +48,7 @@
         @endif
 
         @if(session('success'))
-            <div class="text-green-600 p-4">
+            <div class="show-success">
                 {{ session('success') }}
             </div>
         @endif
@@ -145,4 +145,12 @@
     .register-btn {
         margin: 10px
     }
+
+    .show-success{
+    background-color: #D4EDDA;
+    color: green;
+    padding: 15px 130px;
+    margin: 15px 0 20px;
+    text-align:center;
+}
 </style>

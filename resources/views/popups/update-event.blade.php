@@ -38,7 +38,7 @@
         @endif
 
         @if(session('success'))
-            <div class="text-green-600 p-4" style="margin-left: 25px;">
+            <div class="show-success">
                 {{ session('success') }}
             </div>
         @endif
@@ -68,11 +68,11 @@
                                 <input type="text" name="event_title" value="{{ $event->event_title }}" placeholder="Title" class="w-full outline-none">
                             </div>
                             <div class="border-2 w-full lg:w-1/2 p-2">
-                                <label for="file-upload" class="cursor-pointer">
-                                <span>Add Image</span>
-                                <i class="fas fa-image"></i>
+                                <label for="file-upload" class="cursor-pointer" id="file-upload-label">
+                                    <span>{{ basename($event->media_url) ?: 'Add Image' }}</span>
+                                    <i class="fas fa-image"></i>
                                 </label>
-                                <input id="file-upload" type="file" name="media_url" value="{{ $event->media_url }}" accept="image/*" class="file-upload">
+                                <input id="file-upload" type="file" name="image" accept="image/*" class="file-upload w-full">
                             </div>
                         </div> 
                         <div class="flex flex-col lg:flex-row mx-4 lg:mx-10 gap-2 lg:gap-4 my-2">
@@ -95,6 +95,14 @@
 </section>
 
 </body>
+
+<script>
+    document.getElementById('file-upload').addEventListener('change', function() {
+        var fileName = this.files[0].name;
+        var label = document.getElementById('file-upload-label');
+        label.innerHTML = '<span>' + fileName + '</span> <i class="fas fa-image"></i>';
+    });
+</script>
 <!-- <script src="{{ asset('js/dashboard.js') }}"></script> -->
 <!-- <script src="{{ asset('js/events.js') }}"></script> -->
 </html>
@@ -132,4 +140,12 @@
         margin-bottom: 10px;
         display: flex;
     }
+
+    .show-success{
+    background-color: #D4EDDA;
+    color: green;
+    padding: 15px 460px;
+    margin: 25px 30px 0;
+    text-align:center;
+}
 </style>

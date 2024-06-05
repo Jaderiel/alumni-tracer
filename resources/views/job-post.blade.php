@@ -70,32 +70,44 @@
                     </div> -->
                 </div>
 
-                <div class="flex flex-col mx-4 lg:mx-10 gap-2 my-2">
+                <div class="flex flex-col lg:flex-row mx-4 lg:mx-10 gap-2 my-2">
+                <div class="w-full">
                     <div class="border-2 w-full p-2">
-                        <select id="country" class="form-control mb-2">
+                        <select id="country" class="w-full outline-none">
                             <option value="" selected disabled>Select Country</option>
                         </select>
                     </div>
+                </div>
+                <div class="w-full">
                     <div class="border-2 w-full p-2">
-                        <select id="region" class="form-control mb-2" disabled>
+                        <select id="region" class="w-full outline-none" disabled>
                             <option class="w-full outline-none" value="" selected disabled>Select Region</option>
                         </select>
                     </div>
+                </div>
+                <div class="w-full">
                     <div class="border-2 w-full p-2">
-                        <select id="province" class="form-control mb-2" disabled>
+                        <select id="province" class="w-full outline-none" disabled>
                             <option value="" selected disabled>Select Province</option>
                         </select>
                     </div>
+                </div>
+                </div>
+                <div class="flex flex-col lg:flex-row mx-4 lg:mx-10 gap-2 my-2">
+                <div class="w-full">
                     <div class="border-2 w-full p-2">
-                        <select id="city" class="form-control mb-2" disabled>
+                        <select id="city" class="w-full outline-none" disabled>
                             <option value="" selected disabled>Select City/Municipality</option>
                         </select>
                     </div>
+                </div>
+                <div class="w-full">
                     <div class="border-2 w-full p-2">
-                        <select id="barangay" class="form-control mb-2" disabled>
+                        <select id="barangay" class="w-full outline-none" disabled>
                             <option value="" selected disabled>Select Barangay</option>
                         </select>
                     </div>
+                </div>
                 </div>
                 
                 <div class="flex flex-col lg:flex-row mx-4 lg:mx-10 gap-2 lg:gap-4 my-2">

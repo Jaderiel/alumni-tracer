@@ -38,11 +38,11 @@
                             <p class="text-sm">({{ Auth::user()->degree }})</p>
                             @endif
                         </div>
-                        <p class="text-xs">{{ '@' . Auth::user()->username }}</p>
+                        <p class="text-xs">{{ '@' . Auth::user()->username }} readonly</p>
                     </div>
                     <div class="ml-0 lg:ml-40">
                         <a href="{{ route('profile.edit') }}">
-                            <button class="text-xs bg-customBlue text-white px-4 py-2 rounded-lg hover:bg-customTextBlue hover:text-black">Profile Settings</button>
+                            <button class="but-set text-xs bg-customBlue text-white px-4 py-2 rounded-lg hover:bg-customTextBlue hover:text-black">Profile Settings</button>
                         </a>
                     </div>
                 </div>
@@ -316,6 +316,8 @@
     text-align: left;
     overflow-wrap: break-word;
 }
+
+
 
 /* Media query to hide on small screens */
 @media (max-width: 600px) {

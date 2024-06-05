@@ -188,7 +188,7 @@ class EventsController extends Controller
         $ann = Announcement::findOrFail($id);
         $ann->delete();
 
-        return redirect()->route('events')->with('success', 'Event deleted successfully.');
+        return redirect()->route('events')->with('success', 'Announcement deleted successfully.');
     }
 
     public function deletePastEvents()

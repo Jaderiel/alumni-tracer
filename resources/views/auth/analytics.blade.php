@@ -306,14 +306,14 @@ $(document).ready(function() {
     });
 });
 </script>
-<script>
+<!-- <script>
     function checkUserRole() {
-            // Replace this with actual logic to get user role
-            const userRole = 'user'; // Example: 'admin' or 'user'
+            
+            const userRole = 'user'; 
             
             if (userRole !== 'admin') {
                 document.querySelector('.download-btn').style.display = 'none';
             }
         }
-</script>
+</script> -->
 </html>

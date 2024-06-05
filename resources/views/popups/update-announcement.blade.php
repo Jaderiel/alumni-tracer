@@ -17,7 +17,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
 </head>
 
-<body style="margin-top: 70px">
+<body style="margin-top: 90px">
     
     @include('main')
 
@@ -29,7 +29,7 @@
 
     <div style="display: flex; flex-direction: row; gap: 35px">
 
-        <div class="main-body mt-7 ml-4 mr-2" style="margin-left: 15px;">
+        <div class="main-body ml-4 mr-2" style="margin-left: 15px;">
 
         @if(session('error'))
             <div class="alert alert-danger">
@@ -138,7 +138,7 @@
     background-color: #D4EDDA;
     color: green;
     padding: 15px 420px;
-    margin: 15px 30px 0;
+    margin: 25px 30px 0;
     text-align:center;
 }
 </style>
