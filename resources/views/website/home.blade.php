@@ -119,20 +119,20 @@
                 </div>
             </div>
             
-            <div class="testimonial-row row-1">
-                <div class="testimonial-column ma" >
-                    <p class="pi">LVCC is very welcoming to its alumni, even when important events come up. Alumni can freely attend and participate as long as they inform their coordinators or program heads.
-
+            <div class="testimonial-row row-1 flex flex-col md:flex-row items-center mb-8">
+                <div class="testimonial-column ma md:w-2/3 p-4">
+                    <p class="pi mb-4">LVCC is very welcoming to its alumni, even when important events come up. Alumni can freely attend and participate as long as they inform their coordinators or program heads.
+            
                         In my case, as a BSIS alumna, I have been invited to speak about our Capstone research project during ICT Week celebration.
                         
                         I really appreciate the effort they always put forth whenever there are events in our program, or if there are charity events like feeding programs, free stores, and medical missions. Alumni are free to join these charity events. We also have our souvenir polo shirts. With all of these, all I can say is, "Thanks be to God for being part of this institution."
                         
                         As they say, "Once la Verdarianz, always La Verdarianz!"</p>
-                    <h3>Ms. Angel Blaze Candinato</h3>
-                    <p class="pos">Alumni | BSIS | Batch 2023 </p>
+                    <h3 class="font-bold text-lg mt-4">Mrs. Angel Blaze Candinato</h3>
+                    <p class="pos text-white-700">Alumni | BSIS | Batch 2023 </p>
                 </div>
-                <div class="testimonial-column president">
-                    <img src="{{ asset('images/website-images/mam_angel.jpg') }}" alt="Image">
+                <div class="testimonial-column president md:w-1/3 p-4">
+                    <img src="img/mam_angel.jpg" alt="Image" class="w-full rounded-lg">
                 </div>
             </div>
             <!-- <div class="testimonial testimonial-left">

@@ -71,7 +71,7 @@
         </div>
 
             @if (session('success'))
-                <div class="alert alert-success" style="background-color: #d4edda; color: #155724; border-color: #c3e6cb; padding: 15px; margin-bottom: 20px; border: 1px solid transparent; border-radius: .25rem;">
+                <div class="alert alert-success" style="background-color: #d4edda; color: #155724; border-color: #c3e6cb; padding: 15px; margin: 20px 30px 10px; border: 1px solid transparent; border-radius: .25rem;">
                     {{ session('success') }}
                 </div>
             @endif

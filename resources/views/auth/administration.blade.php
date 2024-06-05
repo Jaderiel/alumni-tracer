@@ -102,11 +102,11 @@
         .tabs {
             margin-top: 20px;
             display: flex;
-            justify-content: start;
+            justify-content: center;
         }
         
         .tab {
-            padding: 10px 20px;
+            padding: 10px 50px;
             background-color: #f0f0f0;
             border: 1px solid #ccc;
             border-radius: 5px 5px 0 0;

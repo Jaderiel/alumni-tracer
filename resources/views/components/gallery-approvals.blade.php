@@ -87,6 +87,7 @@
     .approve-button {
         padding: 2px 10px 2px 10px;
         background-color: #00A36C;
+        height: 35px;
         color: white;
         cursor: pointer;
         border: none;
@@ -99,7 +100,8 @@
 
     .delete-button {
         padding: 2px 10px 2px 10px;
-        background-color: maroon;
+        background-color: #e03821;
+        height: 35px;
         color: white;
         cursor: pointer;
         border: none;
