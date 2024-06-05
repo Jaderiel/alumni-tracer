@@ -12,7 +12,7 @@
     <section class="ml-0 lg:ml-72 w-full flex flex-col justify-center">
 
         <h3 class="i-name-user">
-            <a href="{{ route('user-profile') }}" class="back-link"><i class="fa-solid fa-angles-left"></i> Back</a>
+            <a href="{{ route('profile.edit') }}" class="back-link"><i class="fa-solid fa-angles-left"></i> Back</a>
             Change Password
         </h3>
 
