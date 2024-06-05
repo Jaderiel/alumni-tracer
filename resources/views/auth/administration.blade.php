@@ -12,7 +12,11 @@
 <body style="margin-top: 70px">
     @include('main')
 
-    <section class="ml-0 lg:ml-72 w-full flex flex-col justify-center">
+    <div id="mobile-popup">
+        <p>This page should be viewed in desktop.</p>
+    </div>
+
+    <section id="main-content" class="ml-0 lg:ml-72 w-full flex flex-col justify-center">
 
         <h3 class="i-name">Administration</h3>
 
@@ -87,10 +91,10 @@
 </script>
 
 <script>
-            function confirmDelete() {
-                return confirm('Are you sure you want to delete this post? This action cannot be undone.');
-            }
-        </script>
+    function confirmDelete() {
+        return confirm('Are you sure you want to delete this post? This action cannot be undone.');
+    }
+</script>
 
 </html>
 
@@ -133,5 +137,53 @@
         
         .tab-content.active {
             display: block;
+        }
+
+        #mobile-popup {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: white;
+            padding: 20px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            z-index: 1000;
+            text-align: center;
+        }
+
+        #mobile-popup button {
+            margin-top: 10px;
+            padding: 5px 10px;
+            border: none;
+            background-color: #2974A7;
+            color: white;
+            cursor: pointer;
+        }
+
+        #mobile-popup button:hover {
+            background-color: #205a8e;
+        }
+
+        /* Media query for small screens */
+        @media (max-width: 768px) {
+            body {
+                overflow: hidden;
+            }
+
+            #mobile-popup {
+                display: block;
+            }
+
+            .tabs, .tab-content, .i-name {
+                pointer-events: none;
+                user-select: none;
+            }
+
+            #main-content {
+                filter: blur(5px);
+                pointer-events: none;
+                user-select: none;
+            }
         }
 </style>
