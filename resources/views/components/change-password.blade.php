@@ -28,6 +28,9 @@
                         @error('new_password')
                             <span class="text-red-500 text-xs">{{ $message }}</span>
                         @enderror
+                        @if (session('success'))
+                            <span class="text-green-500 text-xs">{{ session('success') }}</span>
+                        @endif
                     </div>
                     <div>
                         <p>Enter Current Password</p>
