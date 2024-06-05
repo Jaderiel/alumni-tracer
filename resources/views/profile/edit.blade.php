@@ -129,6 +129,11 @@
                         </div>
                     </div>
                 </div>
+                <div class="flex flex-col lg:flex-row mx-4 lg:mx-10 gap-2 my-2">
+                    <div class="w-full">
+                        <button class="bg-customBlue hover:bg-customTextBlue hover:text-black py-2 px-4">Change Password</button>
+                    </div>
+                </div>
             </div>
 
             <div class="heading" style="margin-top: 30px">

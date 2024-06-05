@@ -93,7 +93,7 @@ Route::group(['middleware' => ['auth.user']], function () {
     Route::post('/gallery/add-gallery', [GalleryController::class, 'store'])->name('gallery.store');
     Route::get('/update-gallery/{gallery}', [GalleryController::class, 'edit'])->name('gallery.edit');
     Route::put('/update-gallery/{gallery}', [GalleryController::class, 'update'])->name('gallery.update');
-    Route::delete('/gallery/{id}', [GalleryController::class, 'delete'])->name('gallery.delete');
+    Route::delete('/update-gallery/{id}', [GalleryController::class, 'delete'])->name('gallery.delete');
 
     Route::get('/user-profile', [ProfileController::class, 'index'])->name('user-profile');
     Route::get('/show-profile/{id}', [ProfileController::class, 'show'])->name('profile.show');
@@ -112,7 +112,7 @@ Route::group(['middleware' => ['auth.user']], function () {
     Route::put('/administration/{userId}', [AdminController::class, 'approveUser'])->name('user.approve');
     Route::post('/administration', [AdminController::class, 'createAccount'])->name('user.create');
     Route::post('/administration/{id}', [AdminController::class, 'approveGallery'])->name('gallery.approve');
-    Route::delete('/administration/{id}', [AdminController::class, 'deleteGallery'])->name('gallery.delete');
+    Route::delete('/administration/{id}', [AdminController::class, 'deleteGallery'])->name('gallery.deletee');
     Route::post('/job-approvals/{id}', [AdminController::class, 'approveJob'])->name('job.approve');
     Route::delete('/job-approvals/{id}', [AdminController::class, 'deleteJob'])->name('job.delete');
     Route::post('/update-role', [AdminController::class, 'updateRole'])->name('updateRole');

@@ -84,6 +84,6 @@ class GalleryController extends Controller
         $gallery = Gallery::findOrFail($id);
         $gallery->delete();
 
-        return redirect()->route('gallery')->with('success', 'Job deleted successfully.');
+        return redirect()->route('gallery')->with('success', 'Gallery deleted successfully.');
     }
 }
