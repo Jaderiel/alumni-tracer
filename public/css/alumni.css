@@ -140,49 +140,35 @@ body {
     align-items: center;
     flex-wrap: wrap;
 } */
-
-.find .search-course{
-    display: flex;
-    /* width: 40%; */
+.find .search-course,
+.find .search-batch,
+.find .search {
+    flex: 1;
     height: 40px;
     align-items: center;
-    padding: 10px 10px 10px;
+    padding: 5px;
+    margin-right: 5px;
     border: 1px solid #2D55B4;
     border-radius: 4px;
 }
 
-.find .search-batch{
-    display: flex;
-    /* width: 25%; */
-    height: 40px;
-    align-items: center;
-    padding: 10px 10px 10px;
-    border: 1px solid #2D55B4;
-    border-radius: 4px;
+.find .search:last-child {
+    margin-right: 0;
 }
 
-.find .search{
-    display: flex;
-    /* width: 30%;
-    height: 6%; */
-    align-items: center;
-    padding: 10px 10px 10px;
-    border: 1px solid #2D55B4;
-    border-radius: 4px;
-}
-
-.find .search i{
-    margin-right: 10px;
+.find .search i {
     color: gray;
+    width: 20px;
 }
 
-.find .search input{
+.find .search input {
     border: none;
     outline: none;
     font-size: 13px;
     background-color: #EFF2FB;
-    width: 100%;
+    flex: 1;
 }
+
 
 .find .search-course select{
     border: none;
@@ -265,15 +251,18 @@ tbody tr td{
     text-align: start;
 }
 
-.board-list .action button{
-    padding: 3px 12px;
+.board-list .action button {
+    padding: 5px;
     border-radius: 3px;
     color: #fff;
     border-style: none;
     background: #00A36C;
     margin-left: 7px;
     font-size: 13px;
+    height: 30px; /* You can adjust the height as needed */
+    width: 80px; /* Adjust the width as needed */
 }
+
 
 .board-list tbody tr:nth-child(odd) {
     background-color: #fff;

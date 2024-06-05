@@ -13,21 +13,85 @@
     <script src="profile.js" defer></script>
 </head>
 
+<style>
+         .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 80%;
+            margin: 20px 0;
+        }
+
+        /* .download-btn {
+            padding: 10px 10px;
+            background-color: #4e73df;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .download-btn:hover {
+            background-color: #2e59d9;
+        } */
+      
+        .dashboard {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+            margin: 20px;
+        }
+        .chart-container {
+            width: 100%;
+            height: 100%;
+            background-color: white;
+            padding: 20px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+        }
+        .chart-container canvas {
+            width: 100% !important;
+            height: auto !important;
+        }
+
+        .chart-container.user {
+            grid-column: span 2;
+        }
+
+    </style>
+
 <body class="w-full bg-customBgColor relative flex">
     @include('main')
 
     <section id="interface">
+        <div class="header">
+            <h3 class="i-name">Analytics</h3>
+            <!-- <button class="download-btn" onclick="downloadCharts()">Download Charts</button> -->
+        </div>
+            
+            <!-- <canvas id="userChart" width="400" height="200"></canvas>
+            <canvas id="employmentChart" width="400" height="200"></canvas>
+            <canvas id="alignedAlumniChart" width="400" height="200"></canvas>
+            <canvas id="ownedBusinessChart" width="400" height="200"></canvas>
+            <canvas id="salaryChart" width="400" height="200"></canvas>
+            -->
 
-        <h3 class="i-name">
-        Analytics
-        </h3>
-        
-        <canvas id="userChart" width="400" height="200"></canvas>
-        <canvas id="employmentChart" width="400" height="200"></canvas>
-        <canvas id="alignedAlumniChart" width="400" height="200"></canvas>
-        <canvas id="ownedBusinessChart" width="400" height="200"></canvas>
-        <canvas id="salaryChart" width="400" height="200"></canvas>
-        
+        <div class="dashboard">
+            <div class="chart-container user">
+                <canvas id="userChart"></canvas>
+            </div>
+            <div class="chart-container">
+                <canvas id="employmentChart"></canvas>
+            </div>
+            <div class="chart-container">
+                <canvas id="alignedAlumniChart"></canvas>
+            </div>
+            <div class="chart-container">
+                <canvas id="ownedBusinessChart"></canvas>
+            </div>
+            <div class="chart-container">
+                <canvas id="salaryChart"></canvas>
+            </div>
+        </div>
     </section>
 </div>
 
@@ -241,5 +305,15 @@ $(document).ready(function() {
         }
     });
 });
+</script>
+<script>
+    function checkUserRole() {
+            // Replace this with actual logic to get user role
+            const userRole = 'user'; // Example: 'admin' or 'user'
+            
+            if (userRole !== 'admin') {
+                document.querySelector('.download-btn').style.display = 'none';
+            }
+        }
 </script>
 </html>
