@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use App\Models\User;
+use App\Mail\PasswordChangedMail;
+use Illuminate\Support\Facades\Mail;
 
 class ChangePasswordController extends Controller
 {
@@ -33,6 +35,8 @@ class ChangePasswordController extends Controller
         $user = auth()->user();
         $user->password = Hash::make($request->new_password);
         $user->save();
+
+        Mail::to($user->email)->send(new PasswordChangedMail());
 
         // Redirect with a success message
         return redirect()->route('change-password.show')->with('success', 'Password changed successfully.');
