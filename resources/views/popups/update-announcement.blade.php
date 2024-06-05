@@ -137,7 +137,7 @@
     .show-success{
     background-color: #D4EDDA;
     color: green;
-    padding: 15px 410px;
+    padding: 15px 420px;
     margin: 15px 30px 0;
     text-align:center;
 }
