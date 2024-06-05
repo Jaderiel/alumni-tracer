@@ -153,7 +153,7 @@ body {
 
 .find .search-batch{
     display: flex;
-    /* width: 25%; */
+    width: 40%;
     height: 40px;
     align-items: center;
     padding: 10px 10px 10px;
@@ -163,8 +163,8 @@ body {
 
 .find .search{
     display: flex;
-    /* width: 30%;
-    height: 6%; */
+    width: 40%;
+    /* height: 6%; */
     align-items: center;
     padding: 10px 10px 10px;
     border: 1px solid #2D55B4;
