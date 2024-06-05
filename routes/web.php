@@ -16,6 +16,7 @@ use App\Http\Controllers\WebsiteController;
 use App\Http\Controllers\ForgotPasswordController;
 use App\Http\Controllers\ResetPasswordController;
 use App\Http\Controllers\ReactionController;
+use App\Http\Controllers\ChangePasswordController;
 
 
 Route::get('/', [AuthController::class, 'login'])->name('login.show');
@@ -120,6 +121,9 @@ Route::group(['middleware' => ['auth.user']], function () {
     Route::post('/like', [ReactionController::class, 'like'])->name('like');
 
     Route::get('/align-users-to-course', [AnalyticsController::class, 'alignUsersToCourse'])->name('align.users.to.course');
+
+    Route::get('/change-password', [ChangePasswordController::class, 'index'])->name('change-password.show');
+    Route::put('/update-password', [ChangePasswordController::class, 'updatePassword'])->name('update.password');
 });
 
 

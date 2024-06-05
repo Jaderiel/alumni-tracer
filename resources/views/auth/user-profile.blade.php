@@ -38,7 +38,7 @@
                             <p class="text-sm">({{ Auth::user()->degree }})</p>
                             @endif
                         </div>
-                        <p class="text-xs">{{ '@' . Auth::user()->username }} readonly</p>
+                        <p class="text-xs">{{ '@' . Auth::user()->username }}</p>
                     </div>
                     <div class="ml-0 lg:ml-40">
                         <a href="{{ route('profile.edit') }}">
