@@ -273,7 +273,7 @@
                 </div>
                 <div class="flex justify-between">
                     <div class="flex flex-col lg:flex-row mx-4 lg:mx-10 gap-2 my-2">
-                        <a href="#">
+                        <a href="{{ route('employment-history.show') }}">
                             <div class="w-full">
                                 <div class="bg-customBlue text-white text-xs hover:bg-customTextBlue hover:text-black py-2 px-4">Employment History</div>
                             </div>
@@ -358,57 +358,62 @@
 </script>
 
 <script>
-// Add event listener to the "End this Employment" button
-document.getElementById('endEmploymentBtn').addEventListener('click', function(event) {
-    event.preventDefault(); // Prevent the default action of the link
+document.addEventListener('DOMContentLoaded', function() {
+    document.getElementById('endEmploymentBtn').addEventListener('click', function(event) {
+        event.preventDefault(); // Prevent the default action of the link
 
-    // Show confirmation dialog
-    var confirmEnd = confirm('Are you sure you want to end this employment?');
+        // Show confirmation dialog
+        var confirmEnd = confirm('Are you sure you want to end this employment?');
 
-    if (confirmEnd) {
-        // If the user clicked "OK", proceed with ending the employment
+        if (confirmEnd) {
+            // If the user clicked "OK", proceed with ending the employment
 
-        // Extract values from HTML elements
-        var jobTitle = document.getElementById('job').value;
-        var company = document.getElementById('company').value;
-        var industry = document.getElementById('industry').value;
-        var dateOfEmployment = document.getElementById('date2').value;
-        var salary = document.getElementById('salaryy').value;
-        var location = document.getElementById('location').value;
+            // Extract values from HTML elements
+            var jobTitle = document.getElementById('job').value;
+            var company = document.getElementById('company').value;
+            var industry = document.getElementById('industry').value;
+            var dateOfEmployment = document.getElementById('date2').value;
+            var salary = document.getElementById('salaryy').value;
+            var location = document.getElementById('location').value;
 
-        // Debugging: Log the value of salary to the console
-        console.log('Salary:', salary);
+            // Debugging: Log the value of salary to the console
+            console.log('Salary:', salary);
 
-        // Get CSRF token value from meta tag
-        var csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+            // Get CSRF token value from meta tag
+            var csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
 
-        // Send AJAX request to backend
-        var xhr = new XMLHttpRequest();
-        xhr.open('POST', '/end-employment', true);
-        xhr.setRequestHeader('Content-Type', 'application/json');
-        xhr.setRequestHeader('X-CSRF-TOKEN', csrfToken); // Set CSRF token in request header
-        xhr.onreadystatechange = function() {
-            if (xhr.readyState === XMLHttpRequest.DONE) {
-                if (xhr.status === 200) {
-                    // Success
-                    console.log('Employment ended successfully.');
-                } else {
-                    // Error
-                    console.error('Error ending employment:', xhr.responseText);
+            // Send AJAX request to backend
+            var xhr = new XMLHttpRequest();
+            xhr.open('POST', '/end-employment', true);
+            xhr.setRequestHeader('Content-Type', 'application/json');
+            xhr.setRequestHeader('X-CSRF-TOKEN', csrfToken); // Set CSRF token in request header
+            xhr.onreadystatechange = function() {
+                if (xhr.readyState === XMLHttpRequest.DONE) {
+                    console.log('AJAX request completed. Status:', xhr.status);
+                    if (xhr.status === 200) {
+                        // Success
+                        console.log('Employment ended successfully.');
+                        window.location.reload(true);
+                    } else {
+                        // Error
+                        console.error('Error ending employment:', xhr.responseText);
+                    }
                 }
-            }
-        };
-        var data = JSON.stringify({
-            job_title: jobTitle,
-            company: company,
-            industry: industry,
-            date_of_employment: dateOfEmployment,
-            salary: salary,
-            location: location
-        });
-        xhr.send(data);
-    }
+            };
+            var data = JSON.stringify({
+                job_title: jobTitle,
+                company: company,
+                industry: industry,
+                date_of_employment: dateOfEmployment,
+                salary: salary,
+                location: location
+            });
+            console.log('Sending data:', data);
+            xhr.send(data);
+        }
+    });
 });
+
 </script>
 <script>
     document.addEventListener('DOMContentLoaded', function() {

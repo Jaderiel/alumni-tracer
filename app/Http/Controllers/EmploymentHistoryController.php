@@ -30,5 +30,9 @@ class EmploymentHistoryController extends Controller
                 return response()->json(['message' => 'Error ending employment: ' . $e->getMessage()], 500);
             }
     }
+
+    public function index() {
+        return view('components.employment-history');
+    }
 }
 

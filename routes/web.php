@@ -127,6 +127,7 @@ Route::group(['middleware' => ['auth.user']], function () {
     Route::put('/update-password', [ChangePasswordController::class, 'updatePassword'])->name('update.password');
 
     Route::post('/end-employment', [EmploymentHistoryController::class, 'endEmployment']);
+    Route::get('/employment-history', [EmploymentHistoryController::class, 'index'])->name('employment-history.show');
 });
 
 
