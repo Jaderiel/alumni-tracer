@@ -51,10 +51,15 @@
         .forgot-password-container .input-group input:focus {
             border-color: #007BFF;
         }
+        .forgot-password-container .btn-container {
+            display: flex;
+            justify-content: space-between;
+        }
         .forgot-password-container .btn {
             display: inline-block;
-            width: 100%;
+            width: 48%;
             padding: 10px;
+            margin-bottom: 20px;
             background-color: #E8AF30;
             color: #fff;
             border: none;
@@ -62,10 +67,16 @@
             font-size: 16px;
             cursor: pointer;
             transition: background-color 0.2s;
-            margin-bottom: 20px;
         }
         .forgot-password-container .btn:hover {
             background-color: #E09B00;
+        }
+        .forgot-password-container .cancel-btn {
+            background-color: #ccc;
+            color: black;
+        }
+        .forgot-password-container .cancel-btn:hover {
+            background-color: #999;
         }
         .forgot-password-container .status-message, .forgot-password-container .error-message {
             margin-bottom: 15px;
@@ -98,7 +109,10 @@
                 <label for="email">Email</label>
                 <input id="email" type="email" name="email" required autofocus>
             </div>
-            <button type="submit" class="btn">Send Password Reset Link</button>
+            <div class="btn-container">
+                <button type="button" class="btn cancel-btn">Cancel</button>
+                <button type="submit" class="btn">Send</button>
+            </div>
         </form>
     </div>
 </body>
