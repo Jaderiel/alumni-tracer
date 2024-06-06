@@ -187,6 +187,12 @@
 
                 <div class="flex flex-col lg:flex-row mx-4 lg:mx-10 gap-2 my-2">
                     <div class="w-full">
+                        <label for="company" class="label">Company</label>
+                        <div class="border-2 w-full p-2">
+                            <input type="text" class="w-full outline-none" id="company" name="company_name" value="{{ $user->employment ? $user->employment->company_name : '' }}">
+                        </div>
+                    </div>
+                    <div class="w-full">
                         <label for="industry" class="label">Industry</label>
                         <div class="border-2 w-full p-2">
                             <select class="w-full outline-none" id="industry" name="industry" value="{{ $user->employment ? $user->employment->industry : '' }}">
@@ -210,12 +216,6 @@
                         <label for="job" class="label">Job Title</label>
                         <div class="border-2 w-full p-2">
                             <input type="text" class="w-full outline-none" id="job" name="job_title" value="{{ $user->employment ? $user->employment->job_title : '' }}">
-                        </div>
-                    </div>
-                    <div class="w-full">
-                        <label for="company" class="label">Company</label>
-                        <div class="border-2 w-full p-2">
-                            <input type="text" class="w-full outline-none" id="company" name="company_name" value="{{ $user->employment ? $user->employment->company_name : '' }}">
                         </div>
                     </div>
                     <div class="w-full">
