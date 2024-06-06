@@ -32,27 +32,27 @@
         </h3>
         <p class="i-nameee pl-4 lg:pl-8">Welcome back, {{ Auth::user()->username }}!</p>
         <div class="values gap-4 p-4 lg:p-8">
-            <div class="val-box p-0">
+            <a href="{{ route('jobs') }}" class="val-box p-0">
                 <i class="fa-solid fa-briefcase"></i>
                 <div>
                     <h3>{{ $jobCount }}</h3>
                     <span>Job Post</span>
                 </div>
-            </div>
-            <div class="val-box">
+            </a>
+            <a href="{{ route('events') }}" class="val-box">
                 <i class="fa-solid fa-calendar-days"></i>
                 <div>
                     <h3>{{ $eventCount }}</h3>
                     <span>Events</span>
                 </div>
-            </div>
-            <div class="val-box">
+            </a>
+            <a href="{{ route('alumni-list') }}" class="val-box">
                 <i class="fa-solid fa-users"></i>
                 <div>
                     <h3>{{ $verifiedAlumniCount }}</h3>
                     <span>Alumni</span>
                 </div>
-            </div>
+            </a>
         </div>
 
         <div class="flex">

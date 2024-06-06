@@ -133,6 +133,10 @@ h2 {
     color: #828997;
 }
 
+.values .val-box:hover {
+    box-shadow: 0 0 10px #E8C766; 
+}
+
 .board{  
     display: flex; 
     background-color: #EFEFF2;

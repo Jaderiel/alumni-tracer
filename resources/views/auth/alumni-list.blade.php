@@ -92,8 +92,12 @@
                         <tr>
                             <td>
                                 <div>
-                                    <h5>{{ $user->first_name }} {{ $user->last_name }}</h5>
+                                <h5>{{ $user->first_name }} {{ $user->last_name }}</h5>
+                                @if(auth()->check() && 
+                                (auth()->user()->id == $user->id || 
+                                in_array(auth()->user()->user_type, ['Admin', 'Super Admin', 'Program Head', 'Alumni Officer'])))
                                     <p>{{ $user->email }}</p>
+                                @endif
                                 </div>
                             </td>
                             <td class="hide-on-small">
@@ -107,14 +111,21 @@
                                 </div>
                             </td>
                             <td class="action flex-col flex lg:flex-row items-center gap-2">
-                                <a href="{{ route('profile.show', ['id' => $user->id]) }}"><button>View</button></a>
-                                @if(auth()->check() && (auth()->user()->user_type == 'Admin' || Auth::user()->user_type === 'Super Admin'))
-                                <form id="delete-form" action="{{ route('user.delete', ['userId' => $user->id]) }}" method="POST" onsubmit="return confirmDelete();">
-                                    @method('DELETE')
-                                    @csrf
-                                    <button type="submit" class="" style="background-color: maroon;">Delete</button>
-                                </form>
-                                @endif
+                            <a href="{{ route('profile.show', ['id' => $user->id]) }}">
+                            @if(auth()->check() && 
+                                (auth()->user()->id == $user->id || 
+                                in_array(auth()->user()->user_type, ['Admin', 'Super Admin', 'Program Head', 'Alumni Officer'])))
+                                <button>View</button>
+                            @endif
+                        </a>
+
+                        @if(auth()->check() && in_array(auth()->user()->user_type, ['Admin', 'Super Admin', 'Program Head', 'Alumni Officer']))
+                            <form id="delete-form" action="{{ route('user.delete', ['userId' => $user->id]) }}" method="POST" onsubmit="return confirmDelete();">
+                                @method('DELETE')
+                                @csrf
+                                <button type="submit" class="" style="background-color: maroon;">Delete</button>
+                            </form>
+                        @endif
                             </td>
                         </tr>
                         @endforeach

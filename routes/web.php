@@ -17,7 +17,7 @@ use App\Http\Controllers\ForgotPasswordController;
 use App\Http\Controllers\ResetPasswordController;
 use App\Http\Controllers\ReactionController;
 
-
+// Route::get('/download-pdf', 'PDFController@downloadPDF')->name('download.pdf')->middleware('auth');
 Route::get('/', [AuthController::class, 'login'])->name('login.show');
 Route::get('/mobile-login', [AuthController::class, 'mobileLogin'])->name('mobileLogin.show');
 Route::get('/mobile-signup', [AuthController::class, 'mobileSignUp'])->name('mobileSignUp.show');
