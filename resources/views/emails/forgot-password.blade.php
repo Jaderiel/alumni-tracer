@@ -110,7 +110,7 @@
                 <input id="email" type="email" name="email" required autofocus>
             </div>
             <div class="btn-container">
-                <button type="button" class="btn cancel-btn">Cancel</button>
+                <button type="button" class="btn cancel-btn" onclick="window.location.href='{{ route('login.show') }}'">Cancel</button>
                 <button type="submit" class="btn">Send</button>
             </div>
         </form>
