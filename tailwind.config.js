@@ -20,6 +20,7 @@ module.exports = {
     './resources/views/auth/show-profile.blade.php',
     './resources/views/popups/update-post.blade.php',
     './resources/views/auth/analytics.blade.php',
+    './resources/views/components/change-password.blade.php',
 
   ],
   theme: {

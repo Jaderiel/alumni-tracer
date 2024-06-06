@@ -130,9 +130,11 @@
                     </div>
                 </div>
                 <div class="flex flex-col lg:flex-row mx-4 lg:mx-10 gap-2 my-2">
-                    <div class="w-full">
-                        <button class="bg-customBlue hover:bg-customTextBlue hover:text-black py-2 px-4">Change Password</button>
-                    </div>
+                    <a href="{{ route('change-password.show') }}">
+                        <div class="w-full">
+                            <div class="bg-customBlue text-white text-xs hover:bg-customTextBlue hover:text-black py-2 px-4">Change Password</div>
+                        </div>
+                    </a>
                 </div>
             </div>
 
