@@ -64,7 +64,8 @@
             color: #fff;
             border: none;
             border-radius: 4px;
-            font-size: 16px;
+            font-size: .9rem;
+            font-weight: bold;
             cursor: pointer;
             transition: background-color 0.2s;
         }
@@ -73,7 +74,7 @@
         }
         .forgot-password-container .cancel-btn {
             background-color: #ccc;
-            color: black;
+            color: #5E5D5D;
         }
         .forgot-password-container .cancel-btn:hover {
             background-color: #999;

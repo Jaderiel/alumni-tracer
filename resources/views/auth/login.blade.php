@@ -15,113 +15,110 @@
             <div class="form-wrapper align-items-center">
                 <div class="form sign-up">
                     <h1>Create Account</h1>
-                    <form method="POST" action="{{ route('register') }}">
-                @csrf
-                @if ($errors->any())
-                    <div class="alert alert-danger">
-                        <p>{{ $errors->first() }}</p>
-                    </div>
-                @endif
-                <div class="input-group">
-                    <select name="user_type" id="user_type" required>
-                            <option value="" selected disabled>User type</option>
-                            <!-- <option value="Admin">Admin</option> -->
-                            <option value="Alumni">Alumni</option>
-                    </select>
-                </div>
-                <div class="input-group">
-                    <input type="text" name="first_name" placeholder="First Name" required>
-                </div>
-                <div class="input-group">
-                    <input type="text" name="middle_name" placeholder="Middle Name">
-                </div>
-                <div class="input-group">
-                    <input type="text" name="last_name" placeholder="Last Name" required>
-                </div>
-                <div class="input-group">
-                    <select name="course" id="course" required>
-                            <option value="" selected disabled>Course</option>
-                            <option value="Bachelor of Arts in Broadcasting">Bachelor of Arts in Broadcasting (BAB)</option>
-                            <option value="Bachelor of Science in Accountancy">Bachelor of Science in Accountancy (BSA)</option>
-                            <option value="Bachelor of Science in Accounting Technology">Bachelor of Science in Accounting Technology (BSAT)</option>
-                            <option value="Bachelor of Science in Accounting Information Systems">Bachelor of Science in Accounting Information Systems (BSAIS)</option>
-                            <option value="Bachelor of Science in Social Work">Bachelor of Science in Social Work (BSSW)</option>
-                            <option value="Bachelor of Science in Information Systems">Bachelor of Science in Information Systems (BSIS)</option>
-                            <option value="Associate in Computer Technology">Associate in Computer Technology (ACT)</option>
-                            <option value="Computer Technology">Computer Technology (CT)</option>
-                            <option value="Computer Programming">Computer Programming (CP)</option>
-                            <option value="Health Care Services">Health Care Services (HCS)</option>
-                            <option value="International Cookery">International Cookery (IC)</option>
-                            <option value="Mass Communication">Mass Communication (MC)</option>
-                            <option value="Nursing Student">Nursing Student (NS)</option>
-                            <option value="Office Management">Office Management (OM)</option>
-                    </select>
-                </div>
-
-                <div class="input-group">
-                    <select name="batch" id="batch" required>
-                        <option value="" selected disabled>Batch</option>
-                        @for ($year = date('Y'); $year >= 2006; $year--)
-                            @php
-                                $nextYear = $year + 1;
-                            @endphp
-                            <option value="{{ $year }} - {{ $nextYear }}">{{ $year }}-{{ $nextYear }}</option>
-                        @endfor
-                    </select>
-                </div>
-
-                <div class="input-group">
-                    <input type="email" name="email" id="email" placeholder="Email" required>
-                </div>
-                <div class="input-group">
-                    <input type="text" name="username" placeholder="Username" required>
-                </div>
-                <div class="input-group">
-                    <input type="password" name="password" placeholder="Password" required>
-                </div>
-                <div class="input-group">
-                    <input type="password" name="password_confirmation" placeholder="Confirm Password" required>
-                </div>
-                <div class="input-group">
-                    <input type="checkbox" id="termsCheckbox" required>
-                    <label for="termsCheckbox">I accept the <span id="termsLink">Terms of Use and Privacy Policy</span></label>
-                </div>
-                <button type="submit" class="btn" onclick="openPopup()" id="signupBtn">SIGN UP</button>
-            </form>
-
-                                <p>
-                                    <span>
-                                        Already have an account?
-                                    </span>
-                                    <b onclick="toggle()" class="pointer">
-                                        Sign in here
-                                    </b>
-                                </p>
+                    <form method="POST" action="{{ route('register') }}" onsubmit="return validatePasswords(event)">
+                        @csrf
+                        @if ($errors->any())
+                            <div class="alert alert-danger">
+                                <p>{{ $errors->first() }}</p>
                             </div>
+                        @endif
+                        <div class="input-group">
+                            <select name="user_type" id="user_type" required>
+                                <option value="" selected disabled>User type</option>
+                                <!-- <option value="Admin">Admin</option> -->
+                                <option value="Alumni">Alumni</option>
+                            </select>
                         </div>
-                    
-                    </div>
-                    <div class="col align-items-center flex-col sign-in">
-                        <div class="form-wrapper align-items-center">
-                            <div class="form sign-in">
-                                <h1>Sign in</h1>
-                                <form method="POST" action="{{ route('login') }}">
-                                    @csrf
-                                    @if ($errors->any())
-                                        <div class="alert alert-danger">
-                                            <p>{{ $errors->first() }}</p>
-                                        </div>
-                                    @endif
-                                    <div class="input-group">
-                                        <input type="text" name="username" placeholder="Username" required>
-                                    </div>
-                                    <div class="input-group">
-                                        <input type="password" name="password" placeholder="Password" required>
-                                    </div>
-                                    <button type="submit">Sign In</button>
-                                </form>
+                        <div class="input-group">
+                            <input type="text" name="first_name" placeholder="First Name" required>
+                        </div>
+                        <div class="input-group">
+                            <input type="text" name="middle_name" placeholder="Middle Name">
+                        </div>
+                        <div class="input-group">
+                            <input type="text" name="last_name" placeholder="Last Name" required>
+                        </div>
+                        <div class="input-group">
+                            <select name="course" id="course" required>
+                                <option value="" selected disabled>Course</option>
+                                <option value="Bachelor of Arts in Broadcasting">Bachelor of Arts in Broadcasting (BAB)</option>
+                                <option value="Bachelor of Science in Accountancy">Bachelor of Science in Accountancy (BSA)</option>
+                                <option value="Bachelor of Science in Accounting Technology">Bachelor of Science in Accounting Technology (BSAT)</option>
+                                <option value="Bachelor of Science in Accounting Information Systems">Bachelor of Science in Accounting Information Systems (BSAIS)</option>
+                                <option value="Bachelor of Science in Social Work">Bachelor of Science in Social Work (BSSW)</option>
+                                <option value="Bachelor of Science in Information Systems">Bachelor of Science in Information Systems (BSIS)</option>
+                                <option value="Associate in Computer Technology">Associate in Computer Technology (ACT)</option>
+                                <option value="Computer Technology">Computer Technology (CT)</option>
+                                <option value="Computer Programming">Computer Programming (CP)</option>
+                                <option value="Health Care Services">Health Care Services (HCS)</option>
+                                <option value="International Cookery">International Cookery (IC)</option>
+                                <option value="Mass Communication">Mass Communication (MC)</option>
+                                <option value="Nursing Student">Nursing Student (NS)</option>
+                                <option value="Office Management">Office Management (OM)</option>
+                            </select>
+                        </div>
 
-                                <p><a href="{{ route('password.request') }}" style="text-decoration: none; color: gray;">Forgot password?</a></p>
+                        <div class="input-group">
+                            <select name="batch" id="batch" required>
+                                <option value="" selected disabled>Batch</option>
+                                @for ($year = date('Y'); $year >= 2006; $year--)
+                                    @php
+                                        $nextYear = $year + 1;
+                                    @endphp
+                                    <option value="{{ $year }} - {{ $nextYear }}">{{ $year }}-{{ $nextYear }}</option>
+                                @endfor
+                            </select>
+                        </div>
+
+                        <div class="input-group">
+                            <input type="email" name="email" id="email" placeholder="Email" required>
+                        </div>
+                        <div class="input-group">
+                            <input type="text" name="username" placeholder="Username" required>
+                        </div>
+                        <div class="input-group">
+                            <input type="password" name="password" id="password" placeholder="Password" required>
+                        </div>
+                        <div class="input-group">
+                            <input type="password" name="password_confirmation" id="password_confirmation" placeholder="Confirm Password" required>
+                        </div>
+                        <div class="input-group">
+                            <input type="checkbox" id="termsCheckbox" required>
+                            <label for="termsCheckbox">I accept the <span id="termsLink">Terms of Use and Privacy Policy</span></label>
+                        </div>
+                        <button type="submit" class="btn" id="signupBtn">SIGN UP</button>
+                    </form>
+                    <p>
+                        <span>
+                            Already have an account?
+                        </span>
+                        <b onclick="toggle()" class="pointer">
+                            Sign in here
+                        </b>
+                    </p>
+                </div>
+            </div>
+        </div>
+        <div class="col align-items-center flex-col sign-in">
+            <div class="form-wrapper align-items-center">
+                <div class="form sign-in">
+                    <h1>Sign in</h1>
+                    <form method="POST" action="{{ route('login') }}">
+                        @csrf
+                        @if ($errors->any())
+                            <div class="alert alert-danger">
+                                <p>{{ $errors->first() }}</p>
+                            </div>
+                        @endif
+                        <div class="input-group">
+                            <input type="text" name="username" placeholder="Username" required>
+                        </div>
+                        <div class="input-group">
+                            <input type="password" name="password" placeholder="Password" required>
+                        </div>
+                        <button type="submit">Sign In</button>
+                    </form>
+                    <p><a href="{{ route('password.request') }}" style="text-decoration: none; color: gray;">Forgot password?</a></p>
                     <p>
                         <span>
                             Don't have an account?
@@ -213,21 +210,19 @@
 <script src="{{ asset('js/login.js') }}"></script>
 <script>
     // Get the modal element
-var modal = document.getElementById("myModal");
+    var modal = document.getElementById("myModal");
 
-// Get the close button element
-var closeButton = document.getElementsByClassName("close")[0];
+    // Get the close button element
+    var closeButton = document.getElementsByClassName("close")[0];
 
-// Function to close the modal
-function closeModal() {
-    modal.style.display = "none";
-}
+    // Function to close the modal
+    function closeModal() {
+        modal.style.display = "none";
+    }
 
-// Event listener for the close button
-closeButton.addEventListener("click", closeModal);
+    // Event listener for the close button
+    closeButton.addEventListener("click", closeModal);
 
-</script>
-<script>
     document.addEventListener('DOMContentLoaded', function() {
         if (window.innerWidth <= 768) {
             window.location.href = "{{ route('mobileLogin.show') }}";
@@ -239,6 +234,15 @@ closeButton.addEventListener("click", closeModal);
             window.location.href = "{{ route('mobileLogin.show') }}";
         }
     });
+
+    function validatePasswords(event) {
+        var password = document.getElementById('password').value;
+        var passwordConfirmation = document.getElementById('password_confirmation').value;
+
+        if (password !== passwordConfirmation) {
+            event.preventDefault();
+            alert("Passwords do not match!");
+        }
+    }
 </script>
 </html>
-
