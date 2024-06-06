@@ -6,6 +6,7 @@
     <title>Edit Profile</title>
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
     <link rel="stylesheet" href="{{ asset('css/profile.css') }}">
     <link rel="stylesheet" href="{{ asset('css/job-post.css') }}">
@@ -202,8 +203,8 @@
                     </div>
                     <div class="w-full">
                         <label for="salary" class="label">Salary per Month</label>
-                        <select class="border-2 w-full p-2" id="salaryy" name="annual_salary" value="{{ $user->employment ? $user->employment->annual_salary : '' }}">
-                            <option value="" disabled selected>{{ $user->employment ? $user->employment->annual_salary : '' }}</option>
+                        <select class="border-2 w-full p-2" id="salaryy" name="annual_salary">
+                            <option value="{{ $user->employment ? $user->employment->annual_salary : '' }}" disabled selected>{{ $user->employment ? $user->employment->annual_salary : '' }}</option>
                             <option value="below ₱4000">below ₱4,000</option>
                             <option value="₱4001 - ₱8000">₱4,001 - ₱8,000</option>
                             <option value="₱8001 - ₱16000">₱8,001 - ₱16,000</option>
@@ -279,11 +280,9 @@
                         </a>
                     </div>
                     <div class="flex flex-col lg:flex-row mx-4 lg:mx-10 gap-2 my-2">
-                        <a href="#">
                             <div class="w-full">
-                                <div class="bg-customDanger text-white text-xs hover:bg-customTextBlue hover:text-black py-2 px-4">End this Employment</div>
+                                <div id="endEmploymentBtn" class="bg-customDanger text-white text-xs hover:bg-customTextBlue hover:text-black py-2 px-4 cursor-pointer">End this Employment</div>
                             </div>
-                        </a>
                     </div>
                 </div>
             </div>
@@ -344,7 +343,7 @@
 <script>
     document.addEventListener('DOMContentLoaded', function () {
         const employmentStatus = document.getElementById('employmentStatus');
-        const fieldsToToggle = ['job', 'company', 'industry', 'date2', 'salaryy', 'country'];
+        const fieldsToToggle = ['job', 'company', 'industry', 'date2', 'salaryy', 'country',];
 
         function toggleFields() {
             const isUnemployed = employmentStatus.value === 'unemployed';
@@ -357,6 +356,83 @@
         toggleFields(); // Initial call to set the correct state on page load
     });
 </script>
+
+<script>
+// Add event listener to the "End this Employment" button
+document.getElementById('endEmploymentBtn').addEventListener('click', function(event) {
+    event.preventDefault(); // Prevent the default action of the link
+
+    // Show confirmation dialog
+    var confirmEnd = confirm('Are you sure you want to end this employment?');
+
+    if (confirmEnd) {
+        // If the user clicked "OK", proceed with ending the employment
+
+        // Extract values from HTML elements
+        var jobTitle = document.getElementById('job').value;
+        var company = document.getElementById('company').value;
+        var industry = document.getElementById('industry').value;
+        var dateOfEmployment = document.getElementById('date2').value;
+        var salary = document.getElementById('salaryy').value;
+        var location = document.getElementById('location').value;
+
+        // Debugging: Log the value of salary to the console
+        console.log('Salary:', salary);
+
+        // Get CSRF token value from meta tag
+        var csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+
+        // Send AJAX request to backend
+        var xhr = new XMLHttpRequest();
+        xhr.open('POST', '/end-employment', true);
+        xhr.setRequestHeader('Content-Type', 'application/json');
+        xhr.setRequestHeader('X-CSRF-TOKEN', csrfToken); // Set CSRF token in request header
+        xhr.onreadystatechange = function() {
+            if (xhr.readyState === XMLHttpRequest.DONE) {
+                if (xhr.status === 200) {
+                    // Success
+                    console.log('Employment ended successfully.');
+                } else {
+                    // Error
+                    console.error('Error ending employment:', xhr.responseText);
+                }
+            }
+        };
+        var data = JSON.stringify({
+            job_title: jobTitle,
+            company: company,
+            industry: industry,
+            date_of_employment: dateOfEmployment,
+            salary: salary,
+            location: location
+        });
+        xhr.send(data);
+    }
+});
+</script>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+    var employmentStatus = document.getElementById('employmentStatus');
+    var endEmploymentBtn = document.getElementById('endEmploymentBtn');
+
+    function toggleEndEmploymentButton() {
+        if (employmentStatus.value === 'unemployed') {
+            endEmploymentBtn.classList.add('disabled');
+            endEmploymentBtn.style.pointerEvents = 'none'; // Disable link clicking
+        } else {
+            endEmploymentBtn.classList.remove('disabled');
+            endEmploymentBtn.style.pointerEvents = 'auto'; // Enable link clicking
+        }
+    }
+
+    // Initial check
+    toggleEndEmploymentButton();
+
+    // Add event listener to monitor changes
+    employmentStatus.addEventListener('change', toggleEndEmploymentButton);
+});
+</script>
+
 </html>
 
 
@@ -379,5 +455,9 @@
 
 .label {
     color: #3058af;
+}
+
+.disabled {
+    background: #d3d3d3;
 }
 </style>

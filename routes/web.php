@@ -17,6 +17,7 @@ use App\Http\Controllers\ForgotPasswordController;
 use App\Http\Controllers\ResetPasswordController;
 use App\Http\Controllers\ReactionController;
 use App\Http\Controllers\ChangePasswordController;
+use App\Http\Controllers\EmploymentHistoryController;
 
 // Route::get('/download-pdf', 'PDFController@downloadPDF')->name('download.pdf')->middleware('auth');
 Route::get('/', [AuthController::class, 'login'])->name('login.show');
@@ -124,6 +125,8 @@ Route::group(['middleware' => ['auth.user']], function () {
 
     Route::get('/change-password', [ChangePasswordController::class, 'index'])->name('change-password.show');
     Route::put('/update-password', [ChangePasswordController::class, 'updatePassword'])->name('update.password');
+
+    Route::post('/end-employment', [EmploymentHistoryController::class, 'endEmployment']);
 });
 
 
