@@ -132,7 +132,7 @@
                     <p class="pos text-white-700">Alumni | BSIS | Batch 2023 </p>
                 </div>
                 <div class="testimonial-column president md:w-1/3 p-4">
-                    <img src="img/mam_angel.jpg" alt="Image" class="w-full rounded-lg">
+                    <img src="{{ asset('images/website-images/mam_angel.jpg') }}" alt="Image" class="w-full rounded-lg">
                 </div>
             </div>
             <!-- <div class="testimonial testimonial-left">
