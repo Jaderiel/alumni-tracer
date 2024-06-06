@@ -128,7 +128,7 @@
                         I really appreciate the effort they always put forth whenever there are events in our program, or if there are charity events like feeding programs, free stores, and medical missions. Alumni are free to join these charity events. We also have our souvenir polo shirts. With all of these, all I can say is, "Thanks be to God for being part of this institution."
                         
                         As they say, "Once la Verdarianz, always La Verdarianz!"</p>
-                    <h3 class="font-bold text-lg mt-4">Mrs. Angel Blaze Candinato</h3>
+                    <h3 class="font-bold text-lg mt-4">Ms. Angel Blaze Candinato</h3>
                     <p class="pos text-white-700">Alumni | BSIS | Batch 2023 </p>
                 </div>
                 <div class="testimonial-column president md:w-1/3 p-4">
