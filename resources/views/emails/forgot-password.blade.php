@@ -81,9 +81,8 @@
         }
         .forgot-password-container .status-message, .forgot-password-container .error-message {
             margin-bottom: 15px;
-            padding: 10px;
-            border-radius: 4px;
-            font-size: 14px;
+            padding: 5px;
+            font-size: 12px;
         }
         .forgot-password-container .status-message {
             background-color: #d4edda;
@@ -111,8 +110,8 @@
                 <input id="email" type="email" name="email" required autofocus>
             </div>
             <div class="btn-container">
-                <button type="button" class="btn cancel-btn" onclick="window.location.href='{{ route('login.show') }}'">Cancel</button>
-                <button type="submit" class="btn">Send</button>
+                <button type="button" class="btn cancel-btn" onclick="window.location.href='{{ route('login.show') }}'">CANCEL</button>
+                <button type="submit" class="btn">SEND</button>
             </div>
         </form>
     </div>

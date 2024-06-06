@@ -18,8 +18,8 @@
                     <form method="POST" action="{{ route('register') }}" onsubmit="return validatePasswords(event)">
                         @csrf
                         @if ($errors->any())
-                            <div class="alert alert-danger">
-                                <p>{{ $errors->first() }}</p>
+                            <div class="show-error">
+                                {{ $errors->first() }}
                             </div>
                         @endif
                         <div class="input-group">
@@ -106,8 +106,8 @@
                     <form method="POST" action="{{ route('login') }}">
                         @csrf
                         @if ($errors->any())
-                            <div class="alert alert-danger">
-                                <p>{{ $errors->first() }}</p>
+                            <div class="show-error">
+                                {{ $errors->first() }}
                             </div>
                         @endif
                         <div class="input-group">

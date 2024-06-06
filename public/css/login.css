@@ -151,6 +151,14 @@ cursor: pointer;
     color: #757575;
 }
 
+.show-error{
+    background-color: #FFC2C2;
+    color: red;
+    font-size: .7rem;
+    padding: 5px 0;
+    margin: 15px 85px 20px 85px;
+}
+
 .flex-col {
     flex-direction: column;
 }
