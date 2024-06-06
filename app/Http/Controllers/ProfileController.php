@@ -16,6 +16,12 @@ class ProfileController extends Controller
 
     public function show($id)
     {
+        // Check if the authenticated user's ID matches the profile ID
+        $currentUserType = auth()->user()->user_type;
+        if ($currentUserType !== 'Super Admin' && $currentUserType !== 'Admin' && auth()->user()->id != $id) {
+            return redirect()->back()->with('error', 'You are not authorized to view this profile.');
+        }
+
         $user = User::find($id);
 
         // Pass the user data to the view

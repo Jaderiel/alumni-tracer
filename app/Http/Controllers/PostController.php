@@ -130,6 +130,12 @@ public function delete($id) {
 
     public function showUpdatePost($id) {
         $post = Forum::findOrFail($id);
+    
+        // Check if the authenticated user's ID matches the post's user ID
+        if (auth()->user()->id != $post->user_id) {
+            return redirect()->route('dashboard');
+        }
+    
         return view('popups.update-post', compact('post'));
-    }
+    }    
 }

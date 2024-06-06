@@ -53,6 +53,10 @@ class GalleryController extends Controller
     }
 
     public function edit(Gallery $gallery) {
+        $currentUserType = auth()->user()->user_type;
+        if ($currentUserType !== 'Super Admin' && $currentUserType !== 'Admin' && $gallery->user_id !== auth()->user()->id) {
+            return redirect()->back()->with('error', 'You are not authorized to edit this gallery post.');
+        }
         return view('popups.update-gallery', compact('gallery'));
     }
 
@@ -82,6 +86,10 @@ class GalleryController extends Controller
     public function delete($id)
     {
         $gallery = Gallery::findOrFail($id);
+        $currentUserType = auth()->user()->user_type;
+        if ($currentUserType !== 'Super Admin' && $currentUserType !== 'Admin' && $gallery->user_id !== auth()->user()->id) {
+            return redirect()->back()->with('error', 'You are not authorized to delete this gallery post.');
+        }
         $gallery->delete();
 
         return redirect()->route('gallery')->with('success', 'Gallery deleted successfully.');

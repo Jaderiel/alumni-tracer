@@ -103,6 +103,10 @@ class EventsController extends Controller
     }
 
     public function addAnn() {
+        $currentUserType = auth()->user()->user_type;
+        if ($currentUserType !== 'Super Admin' && $currentUserType !== 'Admin') {
+            return redirect()->back()->with('error', 'You are not authorized to add announcements.');
+        }
         return view('auth.add-announcement');
     }
 
@@ -126,12 +130,23 @@ class EventsController extends Controller
     public function delete($id)
     {
         $event = Event::findOrFail($id);
+
+        $currentUserType = auth()->user()->user_type;
+        if ($currentUserType !== 'Admin' && $currentUserType !== 'Super Admin' && $event->user_id !== auth()->user()->id) {
+            return redirect()->back()->with('error', 'You are not authorized to delete this event.');
+        }
+
         $event->delete();
 
         return redirect()->back()->with('success', 'Event Deleted Successfully.');
     }
 
     public function edit($id) {
+        $currentUserType = auth()->user()->user_type;
+        if ($currentUserType !== 'Super Admin' && $currentUserType !== 'Admin') {
+            return redirect()->back()->with('error', 'You are not authorized to view this page.');
+        }
+
         $event = Event::findOrFail($id);
 
         return view("popups.update-event", compact('event'));
@@ -163,6 +178,10 @@ class EventsController extends Controller
     }
 
     public function editAnn($id) {
+        $currentUserType = auth()->user()->user_type;
+        if ($currentUserType !== 'Super Admin' && $currentUserType !== 'Admin') {
+            return redirect()->back()->with('error', 'You are not authorized to edit announcements.');
+        }
 
         $ann = Announcement::findOrFail($id);
 
@@ -186,6 +205,10 @@ class EventsController extends Controller
     public function deleteAnn($id)
     {
         $ann = Announcement::findOrFail($id);
+        $currentUserType = auth()->user()->user_type;
+        if ($currentUserType !== 'Super Admin' && $currentUserType !== 'Admin') {
+            return redirect()->back()->with('error', 'You are not authorized to Delete announcements.');
+        }
         $ann->delete();
 
         return redirect()->route('events')->with('success', 'Announcement Deleted Successfully!');

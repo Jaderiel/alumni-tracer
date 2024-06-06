@@ -145,47 +145,26 @@
             <div class="panel-btn flex flex-col my-4">
                 <div class="flex flex-col lg:flex-row mx-4 lg:mx-10 gap-2 my-2">
                     <div class="w-full">
-                        <label for="employment" class="label">Employment Status</label>
+                        <label for="employment" class="label">Current Employment Status</label>
                         <div class="border-2 w-full p-2">
-                            <select class="w-full outline-none" id="employment" name="employment_status">
+                            <select class="w-full outline-none" id="employmentStatus" name="employment_status">
                                 <option value="employed" {{ $user->employment && $user->employment->is_employed ? 'selected' : '' }}>Employed</option>
                                 <option value="unemployed" {{ (!$user->employment || !$user->employment->is_employed) ? 'selected' : '' }}>Unemployed</option>
                             </select>
                         </div>
                     </div>
                     <div class="w-full">
-                        <label for="date" class="label">Date of First Employment</label>
+                        <label for="job" class="label">Job Title</label>
                         <div class="border-2 w-full p-2">
-                            <input type="date" class="w-full outline-none" id="date" name="date_of_first_employment" value="{{ $user->employment ? $user->employment->date_of_first_employment : '' }}">
+                            <input type="text" class="w-full outline-none" id="job" name="job_title" value="{{ $user->employment ? $user->employment->job_title : '' }}">
                         </div>
                     </div>
                     <div class="w-full">
-                        <label for="date2" class="label">Date of Employment</label>
+                        <label for="company" class="label">Company</label>
                         <div class="border-2 w-full p-2">
-                            <input type="date" class="w-full outline-none" id="date2" name="date_of_employment" value="{{ $user->employment ? $user->employment->date_of_employment : '' }}">
+                            <input type="text" class="w-full outline-none" id="company" name="company_name" value="{{ $user->employment ? $user->employment->company_name : '' }}">
                         </div>
                     </div>
-                    <div class="w-full">
-                        <label for="salary" class="label">Salary per Year</label>
-                        <select class="border-2 w-full p-2" name="annual_salary" value="{{ $user->employment ? $user->employment->annual_salary : '' }}">
-                            <option value="" disabled selected>{{ $user->employment ? $user->employment->annual_salary : '' }}</option>
-                            <option value="₱50,000 - ₱100,000">₱50,000 - ₱100,000</option>
-                            <option value="₱100,001 - ₱200,000">₱100,001 - ₱200,000</option>
-                            <option value="₱200,001 - ₱300,000">₱200,001 - ₱300,000</option>
-                            <option value="₱300,001 - ₱400,000">₱300,001 - ₱400,000</option>
-                            <option value="₱400,001 - ₱500,000">₱400,001 - ₱500,000</option>
-                            <option value="₱500,001 - ₱600,000">₱500,001 - ₱600,000</option>
-                            <option value="₱600,001 - ₱700,000">₱600,001 - ₱700,000</option>
-                            <option value="₱700,001 - ₱800,000">₱700,001 - ₱800,000</option>
-                            <option value="₱800,001 - ₱900,000">₱800,001 - ₱900,000</option>
-                            <option value="₱900,001 - ₱1,000,000">₱900,001 - ₱1,000,000</option>
-                            <option value="₱1,000,001 - ₱1,100,000">₱1,000,001 - ₱1,100,000</option>
-                            <option value="₱1,100,001 - ₱1,200,000">₱1,100,001 - ₱1,200,000</option>
-                        </select>
-                    </div>
-                </div>
-
-                <div class="flex flex-col lg:flex-row mx-4 lg:mx-10 gap-2 my-2">
                     <div class="w-full">
                         <label for="industry" class="label">Industry</label>
                         <div class="border-2 w-full p-2">
@@ -206,26 +185,40 @@
                             </select>
                         </div>
                     </div>
-                    <div class="w-full">
-                        <label for="job" class="label">Job Title</label>
+                    <!-- <div class="w-full">
+                        <label for="date" class="label">Date of First Employment</label>
                         <div class="border-2 w-full p-2">
-                            <input type="text" class="w-full outline-none" id="job" name="job_title" value="{{ $user->employment ? $user->employment->job_title : '' }}">
+                            <input type="date" class="w-full outline-none" id="date" name="date_of_first_employment" value="{{ $user->employment ? $user->employment->date_of_first_employment : '' }}">
+                        </div>
+                    </div> -->
+                </div>
+
+                <div class="flex flex-col lg:flex-row mx-4 lg:mx-10 gap-2 my-2">
+                    <div class="w-full">
+                        <label for="date2" class="label">Date of Employment</label>
+                        <div class="border-2 w-full p-2">
+                            <input type="date" class="w-full outline-none" id="date2" name="date_of_employment" value="{{ $user->employment ? $user->employment->date_of_employment : '' }}">
                         </div>
                     </div>
                     <div class="w-full">
-                        <label for="company" class="label">Company</label>
-                        <div class="border-2 w-full p-2">
-                            <input type="text" class="w-full outline-none" id="company" name="company_name" value="{{ $user->employment ? $user->employment->company_name : '' }}">
-                        </div>
-                    </div>
-                    <div class="w-full">
-                        <label for="employment" class="label">Do you own a business?</label>
-                        <div class="border-2 w-full p-2">
-                            <select class="w-full outline-none" id="ownedBusiness" name="is_owned_business">
-                                <option value="yes" {{ $user->employment && $user->employment->is_owned_business ? 'selected' : '' }}>Yes</option>
-                                <option value="no" {{ (!$user->employment || !$user->employment->is_owned_business) ? 'selected' : '' }}>No</option>
-                            </select>
-                        </div>
+                        <label for="salary" class="label">Salary per Month</label>
+                        <select class="border-2 w-full p-2" id="salaryy" name="annual_salary" value="{{ $user->employment ? $user->employment->annual_salary : '' }}">
+                            <option value="" disabled selected>{{ $user->employment ? $user->employment->annual_salary : '' }}</option>
+                            <option value="below ₱4000">below ₱4,000</option>
+                            <option value="₱4001 - ₱8000">₱4,001 - ₱8,000</option>
+                            <option value="₱8001 - ₱16000">₱8,001 - ₱16,000</option>
+                            <option value="₱16001 - ₱25000">₱16,001 - ₱25,000</option>
+                            <option value="₱25001 - ₱33000">₱25,001 - ₱33,000</option>
+                            <option value="₱33001 - ₱41000">₱33,001 - ₱41,000</option>
+                            <option value="₱41001 - ₱50000">₱41,001 - ₱50,000</option>
+                            <option value="₱50001 - ₱58000">₱50,001 - ₱58,000</option>
+                            <option value="₱58001 - ₱66000">₱58,001 - ₱66,000</option>
+                            <option value="₱66001 - ₱75000">₱66,001 - ₱75,000</option>
+                            <option value="₱75001 - ₱83000">₱75,001 - ₱83,000</option>
+                            <option value="₱83001 - ₱91000">₱83,001 - ₱91,000</option>
+                            <option value="₱91001 - ₱100000">₱91,001 - ₱100,000</option>
+                            <option value="₱100001 above">₱100,001 above</option>
+                        </select>
                     </div>
                 </div>
                 
@@ -277,6 +270,40 @@
                         <input type="text" id="location" class="w-full outline-none" name="company_address" value="{{ $user->employment ? $user->employment->company_address : '' }}" placeholder="Location" readonly>
                     </div>
                 </div>
+                <div class="flex justify-between">
+                    <div class="flex flex-col lg:flex-row mx-4 lg:mx-10 gap-2 my-2">
+                        <a href="#">
+                            <div class="w-full">
+                                <div class="bg-customBlue text-white text-xs hover:bg-customTextBlue hover:text-black py-2 px-4">Employment History</div>
+                            </div>
+                        </a>
+                    </div>
+                    <div class="flex flex-col lg:flex-row mx-4 lg:mx-10 gap-2 my-2">
+                        <a href="#">
+                            <div class="w-full">
+                                <div class="bg-customDanger text-white text-xs hover:bg-customTextBlue hover:text-black py-2 px-4">End this Employment</div>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="heading" style="margin-top: 30px">
+                USER BUSINESS INFORMATION
+            </div>
+
+            <div class="panel-btn">
+                <div class="flex flex-col lg:flex-row mx-4 lg:mx-10 gap-2 lg:gap-4 my-6">
+                    <div class="w-full">
+                        <label for="employment" class="label">Do you own a business?</label>
+                        <div class="border-2 w-full p-2">
+                            <select class="w-full outline-none" id="ownedBusiness" name="is_owned_business">
+                                <option value="yes" {{ $user->employment && $user->employment->is_owned_business ? 'selected' : '' }}>Yes</option>
+                                <option value="no" {{ (!$user->employment || !$user->employment->is_owned_business) ? 'selected' : '' }}>No</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
             </div>
 
 
@@ -313,6 +340,22 @@
     function confirmDelete() {
         return confirm('Are you sure you want to delete this post? This action cannot be undone.');
     }
+</script>
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const employmentStatus = document.getElementById('employmentStatus');
+        const fieldsToToggle = ['job', 'company', 'industry', 'date2', 'salaryy', 'country'];
+
+        function toggleFields() {
+            const isUnemployed = employmentStatus.value === 'unemployed';
+            fieldsToToggle.forEach(id => {
+                document.getElementById(id).disabled = isUnemployed;
+            });
+        }
+
+        employmentStatus.addEventListener('change', toggleFields);
+        toggleFields(); // Initial call to set the correct state on page load
+    });
 </script>
 </html>
 

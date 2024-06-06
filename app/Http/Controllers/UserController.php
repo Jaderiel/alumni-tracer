@@ -129,10 +129,28 @@ class UserController extends Controller
 
     public function delete($id)
     {
+        // Find the user by ID
         $user = User::findOrFail($id);
+
+        // Check if the authenticated user is either an Admin or a Super Admin
+        $currentUserType = auth()->user()->user_type;
+        if ($currentUserType !== 'Admin' && $currentUserType !== 'Super Admin') {
+            // Prevent deletion of other users' accounts
+            return redirect()->back()->with('error', 'You are not authorized to delete other users\' accounts.');
+        }
+
+        // If the user is trying to delete their own account
+        if ($user->id === auth()->user()->id) {
+            // Delete the user's account
+            $user->delete();
+            return redirect()->route('login.show')->with('success', 'Your account has been deleted.');
+        }
+
+        // Delete the user's account
         $user->delete();
 
-        return redirect()->back()->with('success', 'User deleted successfully.');
+        return redirect()->back()->with('success', 'User account deleted successfully.');
     }
+
 
 }

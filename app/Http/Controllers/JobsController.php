@@ -63,12 +63,20 @@ class JobsController extends Controller
 
     public function show(Job $job)
     {
+        $currentUserType = auth()->user()->user_type;
+        if ($currentUserType !== 'Super Admin' && $currentUserType !== 'Admin' && $job->user_id !== auth()->user()->id) {
+            return redirect()->back()->with('error', 'You are not authorized to view this job post.');
+        }
         return view('popups.update-job', compact('job'));
     }
 
     public function deleteJob($id)
     {
         $job = Job::findOrFail($id);
+        $currentUserType = auth()->user()->user_type;
+        if ($currentUserType !== 'Super Admin' && $currentUserType !== 'Admin' && $job->user_id !== auth()->user()->id) {
+            return redirect()->back()->with('error', 'You are not authorized to Delete this job post.');
+        }
         $job->delete();
 
         return redirect()->route('jobs')->with('success', 'Job deleted successfully.');

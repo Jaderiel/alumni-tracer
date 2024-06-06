@@ -14,6 +14,11 @@ use App\Models\Job;
 class AdminController extends Controller
 {
     public function index() {
+        $currentUserType = auth()->user()->user_type;
+        if ($currentUserType === 'Alumni') {
+            return redirect()->back()->with('error', 'You are not authorized to view this page.');
+        }
+
         $unverifiedUsers = User::where('is_email_verified', false)->get();
         $gallery = Gallery::where('is_approved', false)->get();
         $jobs = Job::where('is_approved', false)->get();
@@ -27,6 +32,11 @@ class AdminController extends Controller
 
     public function approveUser($userId)
     {
+        // Check if the authenticated user is either an Admin or a Super Admin
+        if (!in_array(auth()->user()->user_type, ['Admin', 'Super Admin'])) {
+            return redirect()->back()->with('error', 'You are not authorized to approve users.');
+        }
+
         // Find the user by ID
         $user = User::findOrFail($userId);
 
@@ -41,7 +51,11 @@ class AdminController extends Controller
         return redirect()->back()->with('success', 'User account approved successfully.');
     }
 
+
     public function createAccount(Request $request) {
+        if (auth()->user()->user_type !== 'Super Admin') {
+            return redirect()->back()->with('error', 'You are not authorized to create user accounts.');
+        }
         // Define validation rules
         $rules = [
             'user_type' => 'required',
@@ -86,6 +100,10 @@ class AdminController extends Controller
 
     public function approveGallery($id)
     {
+        $currentUserType = auth()->user()->user_type;
+        if (!in_array($currentUserType, ['Admin', 'Super Admin'])) {
+            return redirect()->back()->with('error', 'You are not authorized to approve gallery posts.');
+        }
         // Find the user by ID
         $gallery = Gallery::findOrFail($id);
 
@@ -102,6 +120,10 @@ class AdminController extends Controller
     
     public function deleteGallery($id)
     {
+        $currentUserType = auth()->user()->user_type;
+        if (!in_array($currentUserType, ['Admin', 'Super Admin'])) {
+            return redirect()->back()->with('error', 'You are not authorized to delete gallery posts.');
+        }
         // Find the gallery item by ID
         $gallery = Gallery::findOrFail($id);
 
@@ -113,6 +135,10 @@ class AdminController extends Controller
 
     public function approveJob($id)
     {
+        $currentUserType = auth()->user()->user_type;
+        if (!in_array($currentUserType, ['Admin', 'Super Admin'])) {
+            return redirect()->back()->with('error', 'You are not authorized to approve job posts.');
+        }
         // Find the user by ID
         $jobs = Job::findOrFail($id);
 
@@ -129,6 +155,10 @@ class AdminController extends Controller
 
     public function deleteJob($id)
     {
+        $currentUserType = auth()->user()->user_type;
+        if (!in_array($currentUserType, ['Admin', 'Super Admin'])) {
+            return redirect()->back()->with('error', 'You are not authorized to delete job posts.');
+        }
         // Find the gallery item by ID
         $jobs = Job::findOrFail($id);
 
@@ -141,6 +171,10 @@ class AdminController extends Controller
     // UserController.php
     public function updateRole(Request $request)
     {
+        if (auth()->user()->user_type !== 'Super Admin') {
+            return redirect()->back()->with('error', 'You are not authorized to update user roles.');
+        }
+        
         $request->validate([
             'user_id' => 'required|exists:users,id',
             'user_role' => 'required|in:Super Admin,Admin,Program Head,Alumni Officer',

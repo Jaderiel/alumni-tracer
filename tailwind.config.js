@@ -38,6 +38,7 @@ module.exports = {
         customTextBlue: '#ABAEB7',
         customGreen: '#00A36C',
         primaryYellow: "#E8AF30",
+        customDanger: '#BB0237',
       },
     },
   },

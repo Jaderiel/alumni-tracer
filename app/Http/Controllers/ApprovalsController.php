@@ -20,6 +20,9 @@ class ApprovalsController extends Controller
     // Method to approve a user's account
     public function approveUser($userId)
     {
+        if (!in_array(auth()->user()->user_type, ['Admin', 'Super Admin'])) {
+            return redirect()->back()->with('error', 'You are not authorized to approve users.');
+        }
         // Find the user by ID
         $user = User::findOrFail($userId);
 
