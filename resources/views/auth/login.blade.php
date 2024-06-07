@@ -196,7 +196,7 @@
 </div>
 
     <div id="successMessage" class="success-popup">
-        Registration successful! You can now sign in.
+        Registration successful! Please wait for the Admin to verify your account.
     </div>
 </body>
 <script src="{{ asset('js/login.js') }}"></script>
