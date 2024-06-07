@@ -18,10 +18,12 @@
         </h3>
 
         <div class="flex justify-end mx-40">
-            <div class="flex items-center gap-4 bg-customYellow px-4 py-1 hover:bg-customTextBlue hover:text-white cursor-pointer">
-            <i class="fas fa-circle-plus"></i>
-            <p>Add Past Employment</p>
-            </div>
+            <a href="{{ route('add-past-employment.show') }}">
+                <div class="flex items-center gap-4 bg-customYellow px-4 py-1 hover:bg-customTextBlue hover:text-white cursor-pointer rounded-md border-black border-2">
+                <i class="fas fa-circle-plus"></i>
+                <p>Add Past Employment</p>
+                </div>
+            </a>
         </div>
 
         @foreach ($employmentHistories as $history)

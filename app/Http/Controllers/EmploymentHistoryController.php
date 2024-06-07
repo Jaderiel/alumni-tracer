@@ -51,5 +51,33 @@ class EmploymentHistoryController extends Controller
 
         return response()->json(['message' => 'Unauthorized'], 403);
     }
+
+    public function addPastEmployment() {
+        return view('components.add-past-employment');
+    }
+
+    public function store(Request $request)
+    {
+        $request->validate([
+            'job_title' => 'required|string|max:255',
+            'company' => 'required|string|max:255',
+            'industry' => 'required|string|max:255',
+            'date_of_employment' => 'required|date',
+            'salary' => 'required|string|max:255',
+            'location' => 'required|string|max:255',
+        ]);
+
+        $employmentHistory = new EmploymentHistory();
+        $employmentHistory->user_id = auth()->user()->id;
+        $employmentHistory->job_title = $request->job_title;
+        $employmentHistory->company = $request->company;
+        $employmentHistory->industry = $request->industry;
+        $employmentHistory->date_of_employment = $request->date_of_employment;
+        $employmentHistory->salary = $request->salary;
+        $employmentHistory->location = $request->location;
+        $employmentHistory->save();
+
+        return response()->json(['message' => 'Employment history added successfully.']);
+    }
 }
 

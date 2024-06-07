@@ -22,6 +22,7 @@ module.exports = {
     './resources/views/auth/analytics.blade.php',
     './resources/views/components/change-password.blade.php',
     './resources/views/components/employment-history.blade.php',
+    './resources/views/components/add-past-employment.blade.php',
 
   ],
   theme: {
