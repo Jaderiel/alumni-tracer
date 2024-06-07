@@ -101,12 +101,13 @@ Route::group(['middleware' => ['auth.user']], function () {
     Route::get('/show-profile/{id}', [ProfileController::class, 'show'])->name('profile.show');
 
     Route::get('/analytics', [AnalyticsController::class, 'index'])->name('analytics');
-    Route::get('/analytics/generate-pdf', [AnalyticsController::class, 'generatePdf'])->name('generate-pdf.show');
     Route::get('/user-analytics', [AnalyticsController::class, 'getUserAnalytics']);
     Route::get('/user-employment-analytics', [AnalyticsController::class, 'getUserEmploymentAnalytics']);
     Route::get('/user-aligned-analytics', [AnalyticsController::class, 'alignUsersToCourse']);
     Route::get('/user-owned-business', [AnalyticsController::class, 'isOwnedBusiness']);
     Route::get('/salary-range', [AnalyticsController::class, 'getSalaryRange']);
+    Route::get('/analytics/generate-pdf', [AnalyticsController::class, 'pdfPreview'])->name('generate-pdf.show');
+    Route::get('/generate-pdf', [AnalyticsController::class, 'PDFgeneration'])->name('generate.pdf');
 
     // Route::put('/approvals/{userId}', [ApprovalsController::class, 'approveUser'])->name('user.approve');
 

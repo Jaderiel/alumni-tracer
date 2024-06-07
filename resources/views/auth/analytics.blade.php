@@ -6,15 +6,14 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Analytics</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+    <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" /> -->
     <link rel="stylesheet" href="{{ asset('css/dashboard.css') }}">
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <script src="profile.js" defer></script>
 </head>
 
 <style>
-         .header {
+        .header {
             display: flex;
             justify-content: space-between;
             align-items: center;
@@ -33,7 +32,7 @@
         .download-btn:hover {
             background-color: #2e59d9;
         } */
-      
+    
         .dashboard {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
@@ -48,10 +47,10 @@
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
             border-radius: 10px;
         }
-        .chart-container canvas {
+        /* .chart-container canvas {
             width: 100% !important;
             height: auto !important;
-        }
+        } */
 
         .chart-container.user {
             grid-column: span 2;
@@ -74,6 +73,14 @@
             <canvas id="ownedBusinessChart" width="400" height="200"></canvas>
             <canvas id="salaryChart" width="400" height="200"></canvas>
             -->
+        <div class="flex gap-4 justify-end mx-5">
+            <a href="{{ route('generate-pdf.show') }}">
+                <button class="flex items-center gap-4 bg-customYellow px-4 py-1 hover:bg-customTextBlue hover:text-white cursor-pointer rounded-md border-black border-2 generate-report-btn">Preview</button>
+            </a>
+            <a href="{{ route('generate.pdf') }}">
+                <button class="flex items-center gap-4 bg-customYellow px-4 py-1 hover:bg-customTextBlue hover:text-white cursor-pointer rounded-md border-black border-2 generate-report-btn">Generate Report</button>
+            </a>
+        </div>
 
         <div class="dashboard">
             <div class="chart-container user">
@@ -97,7 +104,6 @@
 
 </body>
 <script src="{{ asset('js/profile.js') }}"></script>
-<script src="{{ asset('js/header.js') }}"></script>
 <script>
 $(document).ready(function() {
     // Fetch data from the backend
@@ -306,14 +312,4 @@ $(document).ready(function() {
     });
 });
 </script>
-<!-- <script>
-    function checkUserRole() {
-            
-            const userRole = 'user'; 
-            
-            if (userRole !== 'admin') {
-                document.querySelector('.download-btn').style.display = 'none';
-            }
-        }
-</script> -->
 </html>

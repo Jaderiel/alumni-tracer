@@ -3,9 +3,13 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Dompdf\Dompdf;
+use Illuminate\Support\Facades\View;
 use App\Models\User;
 use Illuminate\Support\Facades\DB;
 use App\Models\UserEmployment;
+use App\Helpers\Chart;
+
 
 class AnalyticsController extends Controller
 {
@@ -13,9 +17,61 @@ class AnalyticsController extends Controller
         return view("auth.analytics");
     }
 
-    public function generatePdf() {
-        return view("components.generate-pdf");
+    public function pdfPreview() {
+        $userAnalytics = $this->getUserAnalytics();
+        $employmentAnalytics = $this->getUserEmploymentAnalytics();
+        $alignedUsersAnalytics = $this->alignUsersToCourse();
+        $businessAnalytics = $this->isOwnedBusiness();
+        $salaryRange = $this->getSalaryRange();
+    
+        // Pass data to the Blade view
+        $data = [
+            'userAnalytics' => $userAnalytics,
+            'employmentAnalytics' => $employmentAnalytics,
+            'alignedUsersAnalytics' => $alignedUsersAnalytics,
+            'businessAnalytics' => $businessAnalytics,
+            'salaryRange' => $salaryRange,
+        ];
+
+        return view("components.generate-pdf", $data)->render();
     }
+
+    public function PDFgeneration()
+    {
+        // Retrieve data for the PDF report
+        $userAnalytics = $this->getUserAnalytics();
+        $employmentAnalytics = $this->getUserEmploymentAnalytics();
+        $alignedUsersAnalytics = $this->alignUsersToCourse();
+        $businessAnalytics = $this->isOwnedBusiness();
+        $salaryRange = $this->getSalaryRange();
+        
+    
+        // Pass data to the Blade view
+        $data = [
+            'userAnalytics' => $userAnalytics,
+            'employmentAnalytics' => $employmentAnalytics,
+            'alignedUsersAnalytics' => $alignedUsersAnalytics,
+            'businessAnalytics' => $businessAnalytics,
+            'salaryRange' => $salaryRange,
+        ];
+    
+        // Render the Blade view into HTML content
+        $html = view('components.generate-pdf', $data)->render();
+    
+        // Load the HTML content into Dompdf
+        $pdf = new Dompdf();
+        $pdf->loadHtml($html);
+    
+        // Set paper size and orientation
+        $pdf->setPaper('A4', 'portrait');
+    
+        // Render the PDF
+        $pdf->render();
+    
+        // Output the PDF
+        return $pdf->stream('analytics_report.pdf');
+    }
+
     
 
     public function getUserAnalytics()
@@ -33,7 +89,7 @@ class AnalyticsController extends Controller
         $labels = $courseCounts->pluck('course')->push('Total Alumni');
         $counts = $courseCounts->pluck('user_count')->push($totalAlumniCount);
 
-        return response()->json(['labels' => $labels, 'counts' => $counts]);
+        return ['labels' => $labels, 'counts' => $counts];
     }
 
     public function getUserEmploymentAnalytics()
@@ -57,7 +113,7 @@ class AnalyticsController extends Controller
 
     $unemployedCount = $unemploymentCounts->sum('count');
 
-    return response()->json(['employedCount' => $employedCount, 'unemployedCount' => $unemployedCount]);
+    return ['employedCount' => $employedCount, 'unemployedCount' => $unemployedCount];
 }
 
     public function alignUsersToCourse() {
@@ -80,7 +136,7 @@ class AnalyticsController extends Controller
 
     $unalignedUsersCount = $unalignedUsersCounts->sum('count');
 
-    return response()->json(['alignedUsersCount' => $alignedUsersCount, 'unalignedUsersCount' => $unalignedUsersCount]);
+    return ['alignedUsersCount' => $alignedUsersCount, 'unalignedUsersCount' => $unalignedUsersCount];
     }
 
     public function isOwnedBusiness() {
@@ -102,7 +158,7 @@ class AnalyticsController extends Controller
 
         $doNotOwnedBusinessCount = $doNotOwnedBusinessCounts->sum('count');
 
-        return response()->json(['ownedBusinessCount' => $ownedBusinessCount, 'doNotOwnedBusinessCount' => $doNotOwnedBusinessCount]);
+        return ['ownedBusinessCount' => $ownedBusinessCount, 'doNotOwnedBusinessCount' => $doNotOwnedBusinessCount];
     }
 
     public function getSalaryRange(){
@@ -114,6 +170,6 @@ class AnalyticsController extends Controller
                         ->groupBy('user_employment.annual_salary')
                         ->get();
     
-        return response()->json(['salaryCounts' => $salaryCounts]);
+        return ['salaryCounts' => $salaryCounts];
     }    
 }

@@ -40,7 +40,7 @@ class JobsController extends Controller
         $job->job_title = $request->job_title;
         $job->job_location = $request->job_location;
         $job->job_type = $request->job_type;
-        $job->job_description = $jobDescription; // Assign truncated description
+        $job->job_description = $jobDescription;
         $job->company = $request->company;
         $job->salary = $request->salary;
         $job->link = $request->link;
