@@ -141,19 +141,18 @@
                                     </div>
                                 </div>
                             </div>
-
-                            <div class="forum-section2 bg-white rounded-b-xl">
+                            @php
+                                $user = Auth::user();
+                                $isLiked = $user && $user->reactions()->where('forum_id', $post->id)->where('is_liked', true)->exists();
+                            @endphp
+                            <div class="forum-section2 bg-white rounded-b-xl thumbs-up-iconn" id="thumbsUpIcon-{{ $post->id }}" data-forum-id="{{ $post->id }}">
                                 <table>
                                     <thead>
                                         <tr>
                                             <td>
-                                                @php
-                                                    $user = Auth::user();
-                                                    $isLiked = $user && $user->reactions()->where('forum_id', $post->id)->where('is_liked', true)->exists();
-                                                @endphp
-                                                <i id="thumbsUpIcon-{{ $post->id }}" 
+                                                
+                                                <i  
                                                 class="fa-solid fa-thumbs-up thumbs-up-icon" 
-                                                data-forum-id="{{ $post->id }}" 
                                                 style="color: {{ $isLiked ? '#228BE6' : 'inherit' }};">
                                                 </i>
                                             </td>
@@ -255,7 +254,7 @@
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
     $(document).ready(function() {
-        $('.thumbs-up-icon').click(function() {
+        $('.thumbs-up-iconn').click(function() {
             var forumId = $(this).data('forum-id');
             var icon = $(this);
 
