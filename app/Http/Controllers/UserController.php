@@ -24,7 +24,7 @@ class UserController extends Controller
     {
         $verifiedAlumni = User::where('user_type', 'Alumni')
                             ->where('is_email_verified', true)
-                            ->get();
+                            ->paginate(20); // Remove the get() method
 
         return view('auth.alumni-list', ['verifiedAlumni' => $verifiedAlumni]);
     }

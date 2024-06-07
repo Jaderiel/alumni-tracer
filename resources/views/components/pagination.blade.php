@@ -44,3 +44,39 @@
         </ul>
     </nav>
 @endif
+
+<style>
+    .pagination {
+    display: flex;
+    justify-content: center;
+    list-style: none;
+}
+
+.pagination .page-item {
+    margin: 0 5px;
+}
+
+.pagination .page-link {
+    padding: 5px 10px;
+    border: 1px solid #ccc;
+    text-decoration: none;
+    color: #333;
+    border-radius: 5px;
+}
+
+.pagination .page-item.active .page-link {
+    background-color: #007bff;
+    color: #fff;
+    border-color: #007bff;
+}
+
+.pagination .page-item.disabled .page-link {
+    color: #999;
+    border-color: #999;
+    cursor: not-allowed;
+}
+
+.page{
+    margin-bottom: 20px;
+}
+</style>
