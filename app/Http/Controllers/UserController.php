@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use Illuminate\Http\Request;
+use App\Rules\NotSuperAdmin;
 
 class UserController extends Controller
 {
@@ -44,6 +45,8 @@ class UserController extends Controller
         $request->validate([
             'profile_pic' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:10048',
             'is_owned_business' => 'required|in:yes,no',
+            'employment_status' => 'required|in:employed,unemployed',
+            'job_title' => ['nullable', new NotSuperAdmin],
         ]);
 
         if ($request->hasFile('profile_pic')) {
