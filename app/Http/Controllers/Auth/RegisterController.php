@@ -12,9 +12,8 @@ class RegisterController extends Controller
     public function register(Request $request)
     {
         $token = Str::random(60);
-        // Validate the incoming request data
+
         $request->validate([
-            'user_type' => 'required',
             'first_name' => 'required',
             'last_name' => 'required',
             'course' => 'required',
@@ -24,9 +23,8 @@ class RegisterController extends Controller
             'password' => 'required|min:6|confirmed',
         ]);
 
-        // Create and save the new user
         $user = User::create([
-            'user_type' => $request->user_type,
+            'user_type' => 'Alumni',
             'first_name' => $request->first_name,
             'middle_name' => $request->middle_name,
             'last_name' => $request->last_name,
@@ -37,10 +35,8 @@ class RegisterController extends Controller
             'password' => bcrypt($request->password),
         ]);
 
-        // Redirect the user after successful registration
         return redirect(url('/'))->with('success', 'Registration successful! You can now sign in.');
 
-        // Generate a verification token
         $verificationUrl = route('verify.email', ['token' => $token]);
 
         Mail::to($request->input('email'))->send(new VerifyEmail($verificationUrl));

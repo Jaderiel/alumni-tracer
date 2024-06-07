@@ -23,7 +23,7 @@ use App\Http\Controllers\EmploymentHistoryController;
 Route::get('/', [AuthController::class, 'login'])->name('login.show');
 Route::get('/mobile-login', [AuthController::class, 'mobileLogin'])->name('mobileLogin.show');
 Route::get('/mobile-signup', [AuthController::class, 'mobileSignUp'])->name('mobileSignUp.show');
-Route::post('/register', 'Auth\RegisterController@register')->name('register');
+// Route::post('/register', 'Auth\RegisterController@register')->name('register');
 Route::post('/register', [RegisterController::class, 'register'])->name('register');
 Route::get('/verify-email/{token}', [VerificationController::class, 'verifyEmail'])->name('verify.email');
 Route::post('/login', 'App\Http\Controllers\Auth\LoginController@login')->name('login');
