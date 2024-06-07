@@ -34,7 +34,9 @@ class EmploymentHistoryController extends Controller
     public function index() {
 
         $user = auth()->user();
-        $employmentHistories = EmploymentHistory::where('user_id', $user->id)->get();
+        $employmentHistories = EmploymentHistory::where('user_id', $user->id)
+                                                ->orderBy('date_of_employment', 'desc')
+                                                ->get();
 
         return view('components.employment-history', compact('employmentHistories'));
     }

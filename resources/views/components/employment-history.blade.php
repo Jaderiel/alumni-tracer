@@ -17,7 +17,7 @@
         <a href="{{ route('profile.edit') }}" class="back-link"><i class="fa-solid fa-angles-left"></i> Back</a>Employment History
         </h3>
 
-        <div class="flex justify-end mx-40">
+        <div class="flex mt-5 justify-end mx-5 lg:mx-40">
             <a href="{{ route('add-past-employment.show') }}">
                 <div class="flex items-center gap-4 bg-customYellow px-4 py-1 hover:bg-customTextBlue hover:text-white cursor-pointer rounded-md border-black border-2">
                 <i class="fas fa-circle-plus"></i>
@@ -27,16 +27,16 @@
         </div>
 
         @foreach ($employmentHistories as $history)
-            <div class="bg-white mx-40 mt-5 p-4 flex flex-col gap-2 rounded-md shadow-lg hover:shadow-customYellow" data-id="{{ $history->id }}">
+            <div class="bg-white mx-5 lg:mx-40 mt-5 p-4 flex flex-col gap-2 rounded-md shadow-lg hover:shadow-customYellow" data-id="{{ $history->id }}">
                 <div class="flex justify-end">
                     <div class="bg-customDanger text-white hover:bg-customTextBlue hover:text-black w-20 py-1 flex justify-center items-center text-xs cursor-pointer delete-btn">Delete</div>
                 </div>
-                <p><strong>Job Title:</strong> {{ $history->job_title }}</p>
-                <p><strong>Company:</strong> {{ $history->company }}</p>
-                <p><strong>Industry:</strong> {{ $history->industry }}</p>
-                <p><strong>Date of employment:</strong> {{ $history->date_of_employment }}</p>
-                <p><strong>Salary:</strong> {{ $history->salary }}</p>
-                <p><strong>Location:</strong> {{ $history->location }}</p>
+                <p class="text-sm lg:text-lg"><strong>Job Title:</strong> {{ $history->job_title }}</p>
+                <p class="text-sm lg:text-lg"><strong>Company:</strong> {{ $history->company }}</p>
+                <p class="text-sm lg:text-lg"><strong>Industry:</strong> {{ $history->industry }}</p>
+                <p class="text-sm lg:text-lg"><strong>Date of employment:</strong> {{ $history->date_of_employment }}</p>
+                <p class="text-sm lg:text-lg"><strong>Salary:</strong> {{ $history->salary }}</p>
+                <p class="text-sm lg:text-lg"><strong>Location:</strong> {{ $history->location }}</p>
             </div>
         @endforeach
 

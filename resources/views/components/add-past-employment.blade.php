@@ -135,7 +135,7 @@
                         </div>
                     </div>
                     <div class="flex flex-col lg:flex-row mx-4 lg:mx-10 gap-2 lg:gap-4 my-2 justify-center">
-                        <div id="submit-btn" class="bg-customGreen text-white px-4 py-1 cursor-pointer">Add Employment</div>
+                        <div id="submit-btn" class="bg-customGreen hover:bg-customTextBlue text-white px-4 py-1 cursor-pointer flex justify-center items-center">Add Employment</div>
                     </div>
                 </div>
             </div>
@@ -160,7 +160,7 @@
             var industry = $('#industry').val();
             var dateOfEmployment = $('#date2').val();
             var salary = $('#salaryy').val();
-            var location = $('#location').val();
+            var locationInput = $('#location').val(); // renamed to avoid conflict
 
             $.ajax({
                 type: 'POST',
@@ -171,10 +171,11 @@
                     industry: industry,
                     date_of_employment: dateOfEmployment,
                     salary: salary,
-                    location: location
+                    location: locationInput // renamed to avoid conflict
                 },
                 success: function(response) {
                     alert(response.message);
+                    window.location.reload(); // explicitly using window.location.reload to avoid conflict
                 },
                 error: function(response) {
                     alert('Error: ' + response.responseJSON.message);
