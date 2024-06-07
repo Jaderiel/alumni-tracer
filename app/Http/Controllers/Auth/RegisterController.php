@@ -16,6 +16,7 @@ class RegisterController extends Controller
         $request->validate([
             'first_name' => ['required', new NotSuperAdmin],
             'last_name' => ['required', new NotSuperAdmin],
+            'middle_name' => ['nullable', new NotSuperAdmin],
             'course' => 'required|in:Bachelor of Arts in Broadcasting,Bachelor of Science in Accountancy,Bachelor of Science in Accounting Technology,Bachelor of Science in Accounting Information Systems,Bachelor of Science in Social Work,Bachelor of Science in Information Systems,Associate in Computer Technology,Computer Technology,Computer Programming,Health Care Services,International Cookery,Mass Communication,Nursing Student,Office Management',
             'batch' => 'required|in:' . $this->generateBatchOptions(),
             'username' => ['required', 'unique:users', new NotSuperAdmin],
