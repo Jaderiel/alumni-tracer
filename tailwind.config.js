@@ -21,6 +21,7 @@ module.exports = {
     './resources/views/popups/update-post.blade.php',
     './resources/views/auth/analytics.blade.php',
     './resources/views/components/change-password.blade.php',
+    './resources/views/components/employment-history.blade.php',
 
   ],
   theme: {

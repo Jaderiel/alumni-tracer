@@ -392,11 +392,12 @@ document.addEventListener('DOMContentLoaded', function() {
                     console.log('AJAX request completed. Status:', xhr.status);
                     if (xhr.status === 200) {
                         // Success
-                        console.log('Employment ended successfully.');
+                        console.log('Employment ended successfully. You can check it on you employment history');
+                        alert('Employment ended successfully.');
                         window.location.reload(true);
                     } else {
                         // Error
-                        console.error('Error ending employment:', xhr.responseText);
+                        alert('Error ending employment: Please fill out all the fields', xhr.responseText);
                     }
                 }
             };

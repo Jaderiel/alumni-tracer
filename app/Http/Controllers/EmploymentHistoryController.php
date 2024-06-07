@@ -32,7 +32,24 @@ class EmploymentHistoryController extends Controller
     }
 
     public function index() {
-        return view('components.employment-history');
+
+        $user = auth()->user();
+        $employmentHistories = EmploymentHistory::where('user_id', $user->id)->get();
+
+        return view('components.employment-history', compact('employmentHistories'));
+    }
+
+    public function destroy($id)
+    {
+        $employmentHistory = EmploymentHistory::findOrFail($id);
+
+        // Check if the authenticated user owns this employment history record
+        if ($employmentHistory->user_id == auth()->user()->id) {
+            $employmentHistory->delete();
+            return response()->json(['message' => 'Employment history deleted successfully.']);
+        }
+
+        return response()->json(['message' => 'Unauthorized'], 403);
     }
 }
 

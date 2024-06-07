@@ -128,6 +128,7 @@ Route::group(['middleware' => ['auth.user']], function () {
 
     Route::post('/end-employment', [EmploymentHistoryController::class, 'endEmployment']);
     Route::get('/employment-history', [EmploymentHistoryController::class, 'index'])->name('employment-history.show');
+    Route::delete('/employment-history/{id}', [EmploymentHistoryController::class, 'destroy'])->name('employment.history.destroy');
 });
 
 
