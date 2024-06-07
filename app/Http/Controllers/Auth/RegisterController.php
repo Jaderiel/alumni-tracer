@@ -11,7 +11,6 @@ class RegisterController extends Controller
 {
     public function register(Request $request)
     {
-        $token = Str::random(60);
 
         $request->validate([
             'first_name' => 'required',
@@ -35,11 +34,7 @@ class RegisterController extends Controller
             'password' => bcrypt($request->password),
         ]);
 
-        return redirect(url('/'))->with('success', 'Registration successful! You can now sign in.');
-
-        $verificationUrl = route('verify.email', ['token' => $token]);
-
-        Mail::to($request->input('email'))->send(new VerifyEmail($verificationUrl));
+        return response()->json(['success' => 'Registration successful!']);
 
     }
 }

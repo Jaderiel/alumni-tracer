@@ -5,23 +5,19 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sign Up / Sign In Form</title>
     <link rel="stylesheet" href="{{ asset('css/login.css') }}">
+    <!-- <link rel="stylesheet" href="{{ asset('css/tailwind.css') }}"> -->
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap" rel="stylesheet">
     <!-- <link rel="stylesheet" href="{{ asset('css/tailwind.css') }}"> -->
 </head>
-<body>
+<body class="w-full">
 <div id="container" class="container">
     <div class="row"> 
         <div class="col align-items-center flex-col sign-up">
             <div class="form-wrapper align-items-center">
                 <div class="form sign-up">
                     <h1>Create Account</h1>
-                    <form method="POST" action="{{ route('register') }}" onsubmit="return validatePasswords(event)">
+                    <form id="registerForm">
                         @csrf
-                        @if ($errors->any())
-                            <div class="show-error">
-                                {{ $errors->first() }}
-                            </div>
-                        @endif
                         <div class="input-group">
                             <input type="text" name="first_name" placeholder="First Name" required>
                         </div>
@@ -153,7 +149,6 @@
 </div>
 
 <div class="popup" id="popup">
-    <img src="img/check.jpg" alt="">
     <h2>Thank you for signing up!</h2>
     <p>For added security, we need to verify your email address. We've sent a verification code to <span id="userEmail"></span></p>
     <button type="button" onclick="closePopup()">OK</button>
@@ -199,6 +194,10 @@
 </div>
 
 </div>
+
+    <div id="successMessage" class="success-popup">
+        Registration successful! You can now sign in.
+    </div>
 </body>
 <script src="{{ asset('js/login.js') }}"></script>
 <script>
@@ -228,14 +227,53 @@
         }
     });
 
-    function validatePasswords(event) {
-        var password = document.getElementById('password').value;
-        var passwordConfirmation = document.getElementById('password_confirmation').value;
+</script>
 
-        if (password !== passwordConfirmation) {
-            event.preventDefault();
-            alert("Passwords do not match!");
-        }
-    }
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+<script>
+    $(document).ready(function() {
+        $('#registerForm').on('submit', function(e) {
+            e.preventDefault();
+            $.ajax({
+                type: 'POST',
+                url: '{{ route("register") }}',
+                data: $(this).serialize(),
+                success: function(response) {
+                    if (response.success) {
+                        $('#successMessage').fadeIn().delay(3000).fadeOut();
+                        $('#registerForm')[0].reset();
+                    } else {
+                        alert('Unexpected response from the server.');
+                    }
+                },
+                error: function(xhr) {
+                    if (xhr.status === 422) {
+                        var errors = xhr.responseJSON.errors;
+                        $.each(errors, function(key, value) {
+                            alert(value[0]);
+                        });
+                    } else {
+                        alert('Registration failed. Please check your input and try again.');
+                    }
+                }
+            });
+        });
+    });
 </script>
 </html>
+
+<style>
+    .success-popup {
+            display: none;
+            position: fixed;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: #4CAF50;
+            color: white;
+            padding: 15px;
+            border-radius: 5px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+        }
+</style>

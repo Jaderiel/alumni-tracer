@@ -24,6 +24,7 @@ module.exports = {
     './resources/views/components/employment-history.blade.php',
     './resources/views/components/add-past-employment.blade.php',
     './resources/views/components/generate-pdf.blade.php',
+    './resources/views/auth/login.blade.php',
 
   ],
   theme: {
