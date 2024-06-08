@@ -21,17 +21,17 @@
 <body style="margin-top: 70px">
     @include('main')
 
-<section id="interface" class="ml-0 lg:ml-[300px] w-full flex justify-center">
+<section id="" class="flex flex-col ml-0 lg:ml-72 w-full justify-center">
 
     <h3 class="i-name">
         Events & Announcement
     </h3>
 
-    <div class="event flex flex-col lg:flex-row m-0 p-5">
+    <div class="event flex flex-col lg:flex-row mx-3 p-5 gap-2">
         @if(auth()->check() && (auth()->user()->user_type == 'Alumni'))
         <!-- <button href="{{ route('events') }}" class="up-event">Upcoming Events and Announcement</button> -->
         @elseif(auth()->check() && (auth()->user()->user_type != 'Alumni'))
-        <button href="{{ route('events') }}" class="up-event w-full">Upcoming Events and Announcement</button>
+        <a href="{{ route('events') }}" class="up-event w-full">Upcoming Events and Announcement</a>
         <a href="{{ route('add-event') }}" class="post-event w-full">Add Event</a>
         <a href="{{ route('add-ann') }}" class="post-event w-full">Add Announcement</a>
         @endif
