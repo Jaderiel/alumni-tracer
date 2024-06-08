@@ -13,7 +13,7 @@
         </div>
         <div class="bg-white p-10 m-10 rounded-xl flex flex-col items-center">
             <h1 class="text-3xl font-bold">Create Account</h1>
-            <form method="POST" action="{{ route('register') }}">
+            <form id="registerForm">
             @csrf
                 <div class="flex flex-col items-center">
                     @if ($errors->any())
@@ -84,6 +84,9 @@
             </div>
         </div>
     </div>
+    <div id="successMessage" class="success-popup">
+        Registration successful! Please wait for the Admin to verify your account.
+    </div>
 </body>
 <script>
     document.addEventListener('DOMContentLoaded', function() {
@@ -96,6 +99,38 @@
         if (window.innerWidth >= 768) {
             window.location.href = "{{ route('login.show') }}";
         }
+    });
+</script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+<script>
+    $(document).ready(function() {
+        $('#registerForm').on('submit', function(e) {
+            e.preventDefault();
+            $.ajax({
+                type: 'POST',
+                url: '{{ route("register") }}',
+                data: $(this).serialize(),
+                success: function(response) {
+                    if (response.success) {
+                        $('#successMessage').fadeIn().delay(3000).fadeOut();
+                        $('#registerForm')[0].reset();
+                    } else {
+                        alert('Unexpected response from the server.');
+                    }
+                },
+                error: function(xhr) {
+                    if (xhr.status === 422) {
+                        var errors = xhr.responseJSON.errors;
+                        $.each(errors, function(key, value) {
+                            alert(value[0]);
+                        });
+                    } else {
+                        alert('Registration failed. Please check your input and try again.');
+                    }
+                }
+            });
+        });
     });
 </script>
 </html>
@@ -143,4 +178,17 @@
         pointer-events: auto;
         padding-left: 0.90rem;
     }
+    
+    .success-popup {
+            display: none;
+            position: fixed;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: #4CAF50;
+            color: white;
+            padding: 15px;
+            border-radius: 5px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+        }
 </style>
