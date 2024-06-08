@@ -10,8 +10,6 @@
     <!-- <link rel="stylesheet" href="{{ asset('bootstrap/bootstrap.min.css') }}"> -->
     <link rel="stylesheet" href="{{ asset('css/add-gallery.css') }}">
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
-    <script src="jquery-3.5.1.min.js"></script>
-    <script src="bootstrap/js/bootstrap.min.js"></script>
 </head>
 
 <body style="margin-top: 70px">
@@ -100,7 +98,7 @@
                                     <span>Add Image</span>
                                     <i class="fas fa-image"></i>
                                 </label>
-                                <input id="file-upload" type="file" name="image" accept="image/*" class="file-upload w-full" >
+                                <input id="file-upload" type="file" name="image" accept="image/*" class="file-upload w-full">
                             </div>
                         </div>
                     </div>

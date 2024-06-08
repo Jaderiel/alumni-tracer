@@ -71,6 +71,14 @@ class GalleryController extends Controller
 
     public function update(Request $request, Gallery $gallery)
     {
+        // Validate request data
+        $validatedData = $request->validate([
+            'img_title' => 'required|string',
+            'course' => ['required', new ValidCourses],
+            'img_description' => 'required|string',
+            'media_url' => 'image|mimes:jpeg,png,jpg,gif|max:10048',
+        ]);
+
         // Handle image upload if a new file is uploaded
         if ($request->hasFile('media_url')) {
             $image = $request->file('media_url');
@@ -82,15 +90,17 @@ class GalleryController extends Controller
         }
 
         // Update other fields
-        $gallery->img_title = $request->input('img_title');
-        $gallery->course = $request->input('course');
-        $gallery->img_description = $request->input('img_description');
+        $gallery->img_title = $validatedData['img_title'];
+        $gallery->course = $validatedData['course'];
+        $gallery->img_description = $validatedData['img_description'];
+
         // Save the updated event
         $gallery->save();
 
         // Redirect back to events page after updating
         return redirect()->back()->with('success', 'Gallery Edited Successfully!');
     }
+
 
     public function delete($id)
     {
