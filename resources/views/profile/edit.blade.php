@@ -343,19 +343,33 @@
 <script>
     document.addEventListener('DOMContentLoaded', function () {
         const employmentStatus = document.getElementById('employmentStatus');
-        const fieldsToToggle = ['job', 'company', 'industry', 'date2', 'salaryy', 'country',];
+        const fieldsToToggle = ['job', 'company', 'industry', 'date2', 'salaryy', 'country'];
+
+        function clearFields() {
+            document.getElementById('job').value = '';
+            document.getElementById('company').value = '';
+            document.getElementById('industry').value = '';
+            document.getElementById('date2').value = '';
+            document.getElementById('salaryy').value = '';
+            document.getElementById('location').value = '';
+        }
 
         function toggleFields() {
             const isUnemployed = employmentStatus.value === 'unemployed';
             fieldsToToggle.forEach(id => {
                 document.getElementById(id).disabled = isUnemployed;
             });
+
+            if (isUnemployed) {
+                clearFields();
+            }
         }
 
         employmentStatus.addEventListener('change', toggleFields);
         toggleFields(); // Initial call to set the correct state on page load
     });
 </script>
+
 
 <script>
 document.addEventListener('DOMContentLoaded', function() {

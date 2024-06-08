@@ -41,14 +41,14 @@ class UserController extends Controller
     public function updateProfile(Request $request)
     {
         $user = auth()->user(); 
-
+    
         $request->validate([
             'profile_pic' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:10048',
             'is_owned_business' => 'required|in:yes,no',
             'employment_status' => 'required|in:employed,unemployed',
             'job_title' => ['nullable', new NotSuperAdmin],
         ]);
-
+    
         if ($request->hasFile('profile_pic')) {
             $image = $request->file('profile_pic');
             $imageName = time().'.'.$image->getClientOriginalExtension();
@@ -59,46 +59,64 @@ class UserController extends Controller
         } else {
             \Log::info('No profile picture uploaded.');
         }
-
+    
         $user->update($request->except('profile_pic'));
-
+    
         if ($request->has('degree')) {
             $user->degree = $request->input('degree');
         }
-
+    
         $user->save();
         \Log::info('User updated: ' . $user);
-
-        $employmentData = $request->only(['is_employed', 'date_of_first_employment', 'date_of_employment', 'industry', 'job_title', 'company_name', 'company_address', 'annual_salary']);
-
-        if (isset($employmentData['industry'])) {
-            if ($user->course === 'Bachelor of Science in Information Systems' && $employmentData['industry'] === 'IT Industry') {
-                $employmentData['is_aligned_to_course'] = true;
-            } elseif ($user->course === 'Bachelor of Arts in Broadcasting' && $employmentData['industry'] === 'Entertainment') {
-                $employmentData['is_aligned_to_course'] = true;
-            } elseif ($employmentData['industry'] === 'Finance' && $user->course === 'Bachelor of Science in Accountancy') {
-                $employmentData['is_aligned_to_course'] = true;
-            } elseif ($user->course === 'Bachelor of Science in Accounting Technology' && 
-                    ($employmentData['industry'] === 'Finance' || $employmentData['industry'] === 'IT Industry')) {
-                $employmentData['is_aligned_to_course'] = true;
-            } else {
-                $employmentData['is_aligned_to_course'] = false;
-            }                     
+    
+        // Prepare employment data based on employment status
+        $employmentData = [];
+        if ($request->employment_status === 'unemployed') {
+            $employmentData = [
+                'job_title' => null,
+                'company_name' => null,
+                'industry' => null,
+                'date_of_employment' => null,
+                'annual_salary' => null,
+                'company_address' => null,
+                'is_employed' => false,
+            ];
+        } else {
+            $employmentData = $request->only([
+                'job_title',
+                'company_name',
+                'industry',
+                'date_of_employment',
+                'annual_salary',
+                'company_address'
+            ]);
+    
+            // Check alignment to course
+            if (isset($employmentData['industry'])) {
+                if ($user->course === 'Bachelor of Science in Information Systems' && $employmentData['industry'] === 'IT Industry') {
+                    $employmentData['is_aligned_to_course'] = true;
+                } elseif ($user->course === 'Bachelor of Arts in Broadcasting' && $employmentData['industry'] === 'Entertainment') {
+                    $employmentData['is_aligned_to_course'] = true;
+                } elseif ($employmentData['industry'] === 'Finance' && $user->course === 'Bachelor of Science in Accountancy') {
+                    $employmentData['is_aligned_to_course'] = true;
+                } elseif ($user->course === 'Bachelor of Science in Accounting Technology' && 
+                        ($employmentData['industry'] === 'Finance' || $employmentData['industry'] === 'IT Industry')) {
+                    $employmentData['is_aligned_to_course'] = true;
+                } else {
+                    $employmentData['is_aligned_to_course'] = false;
+                }                     
+            }
+            $employmentData['is_employed'] = true;
         }
-
+    
         $employment = $user->employment()->updateOrCreate([], $employmentData);
-
+    
         $employment->is_owned_business = $request->input('is_owned_business') === 'yes';
         $employment->save();
-
-        if ($user->employment) {
-            $user->employment->update(['is_employed' => $request->employment_status === 'employed']);
-        } else {
-            $user->employment()->create(['is_employed' => $request->employment_status === 'unemployed']);
-        }
-
+    
         return redirect()->back()->with('success', 'Profile updated successfully.');
     }
+    
 
     public function getUserEmployment($userId)
     {
