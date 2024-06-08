@@ -73,14 +73,17 @@
             <canvas id="ownedBusinessChart" width="400" height="200"></canvas>
             <canvas id="salaryChart" width="400" height="200"></canvas>
             -->
+
+        @if(auth()->check() && in_array(auth()->user()->user_type, ['Admin', 'Super Admin', 'Program Head', 'Alumni Officer']))
         <div class="flex gap-4 justify-end mx-5">
             <a href="{{ route('generate-pdf.show') }}">
-                <button class="flex items-center gap-4 bg-customYellow px-4 py-1 hover:bg-customTextBlue hover:text-white cursor-pointer rounded-md border-black border-2 generate-report-btn" disabled>Preview</button>
+                <button class="flex items-center gap-4 bg-customYellow px-4 py-1 hover:bg-customTextBlue hover:text-white cursor-pointer rounded-md border-black border-2 generate-report-btn">Preview</button>
             </a>
             <a href="{{ route('generate.pdf') }}">
-                <button class="flex items-center gap-4 bg-customYellow px-4 py-1 hover:bg-customTextBlue hover:text-white cursor-pointer rounded-md border-black border-2 generate-report-btn" disabled>Generate Report</button>
+                <button class="flex items-center gap-4 bg-customYellow px-4 py-1 hover:bg-customTextBlue hover:text-white cursor-pointer rounded-md border-black border-2 generate-report-btn">Generate Report</button>
             </a>
         </div>
+        @endif
 
         <div class="dashboard">
             <div class="chart-container user">
