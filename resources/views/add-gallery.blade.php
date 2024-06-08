@@ -62,7 +62,7 @@
                                 <p class="text-red-500 text-xs">{{ $message }}</p>
                             @enderror
                             <div class="border-2 w-full p-2">
-                                <input type="text" name="img_title" placeholder="Image Title" class="w-full outline-none" >
+                                <input type="text" name="img_title" placeholder="Image Title" class="w-full outline-none" value="{{ old('img_title') }}" required>
                             </div>
                         </div>
                         <div class="w-full">
@@ -70,7 +70,7 @@
                                 <p class="text-red-500 text-xs">{{ $message }}</p>
                             @enderror
                             <div class="border-2 w-full p-2">
-                                <select class="w-full outline-none"  name="course" id="course" >
+                                <select class="w-full outline-none"  name="course" id="course" required>
                                     <option value="" selected disabled>Course</option>
                                     <option value="Bachelor of Arts in Broadcasting">Bachelor of Arts in Broadcasting (BAB)</option>
                                     <option value="Bachelor of Science in Accountancy">Bachelor of Science in Accountancy (BSA)</option>
@@ -98,7 +98,7 @@
                                     <span>Add Image</span>
                                     <i class="fas fa-image"></i>
                                 </label>
-                                <input id="file-upload" type="file" name="image" accept="image/*" class="file-upload w-full">
+                                <input id="file-upload" type="file" name="image" accept="image/*" class="file-upload w-full" required>
                             </div>
                         </div>
                     </div>
@@ -107,7 +107,7 @@
                             @error('img_description')
                                 <p class="text-red-500 text-xs">{{ $message }}</p>
                             @enderror
-                            <textarea placeholder="Image description" name="img_description" class="border-2 w-full p-2" ></textarea>
+                            <textarea placeholder="Image description" name="img_description" class="border-2 w-full p-2" required></textarea>
                         </div>
                     </div>
                     <div class="flex justify-center">
