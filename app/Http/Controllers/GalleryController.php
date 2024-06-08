@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Gallery;
 use Illuminate\Support\Facades\Session;
+use App\Rules\ValidCourses;
 
 class GalleryController extends Controller
 {
@@ -19,38 +20,46 @@ class GalleryController extends Controller
     }
 
     public function store(Request $request) {
-        try {
-            $request->validate([
-                'course' => 'required|string',
+
+            // Validate request data
+            $validatedData = $request->validate([
+                'course' => ['required', new ValidCourses],
                 'img_title' => 'required|string',
                 'img_description' => 'required|string',
-                'media_url' => 'image|mimes:jpeg,png,jpg,gif|max:10048',
+                'media_url' => 'required|image|mimes:jpeg,png,jpg,gif|max:10048',
             ]);
-
-            $mediaUrl = null;
-
+    
             // Handle image upload
+            $mediaUrl = null;
             if ($request->hasFile('image')) {
                 $image = $request->file('image');
                 $imageName = time().'.'.$image->getClientOriginalExtension();
                 $image->move(public_path('images'), $imageName);
                 $mediaUrl = 'images/'.$imageName;
             }
-
-            $gallery = new Gallery;
+    
+            // Create new Gallery instance and fill with validated data
+            $gallery = new Gallery($validatedData);
             $gallery->user_id = auth()->id();
-            $gallery->course = $request->course;
-            $gallery->img_title = $request->img_title;
-            $gallery->img_description = $request->img_description;
             $gallery->media_url = $mediaUrl;
+    
+            // Check if user is Super Admin or Admin and set is_approved accordingly
+            $user = auth()->user();
+            if ($user->user_type === 'Super Admin' || $user->user_type === 'Admin') {
+                $gallery->is_approved = true;
+                $message = 'Post Saved Successfully!';
+            } else {
+                $message = 'Post Saved Successfully! Please Wait For The Approval.';
+            }
+    
+            // Save the Gallery instance
             $gallery->save();
     
-            Session::flash('success', 'Post Saved Successfully! Please Wait For The Approval.');
-            return redirect()->back();
-        } catch (\Exception $e) {
-            dd($e->getMessage()); 
-        }
+            // Redirect back with success message
+            return redirect()->back()->with('success', $message);
+
     }
+    
 
     public function edit(Gallery $gallery) {
         $currentUserType = auth()->user()->user_type;

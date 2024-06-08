@@ -59,38 +59,58 @@
                 <form action="{{ route('gallery.store') }}" method="POST" enctype="multipart/form-data">
                     @csrf
                     <div class="flex flex-col lg:flex-row mx-4 lg:mx-10 gap-2 lg:gap-4 my-2">
-                        <div class="border-2 w-full p-2">
-                            <input type="text" name="img_title" placeholder="Image Title" class="w-full outline-none">
+                        <div class="w-full">
+                            @error('img_title')
+                                <p class="text-red-500 text-xs">{{ $message }}</p>
+                            @enderror
+                            <div class="border-2 w-full p-2">
+                                <input type="text" name="img_title" placeholder="Image Title" class="w-full outline-none" >
+                            </div>
                         </div>
-                        <div class="border-2 w-full p-2">
-                            <select class="w-full outline-none"  name="course" id="course" required>
-                                <option value="" selected disabled>Course</option>
-                                <option value="Bachelor of Arts in Broadcasting">Bachelor of Arts in Broadcasting (BAB)</option>
-                                <option value="Bachelor of Science in Accountancy">Bachelor of Science in Accountancy (BSA)</option>
-                                <option value="Bachelor of Science in Accounting Technology">Bachelor of Science in Accounting Technology (BSAT)</option>
-                                <option value="Bachelor of Science in Accounting Information Systems">Bachelor of Science in Accounting Information Systems (BSAIS)</option>
-                                <option value="Bachelor of Science in Social Work">Bachelor of Science in Social Work (BSSW)</option>
-                                <option value="Bachelor of Science in Information Systems">Bachelor of Science in Information Systems (BSIS)</option>
-                                <option value="Associate in Computer Technology">Associate in Computer Technology (ACT)</option>
-                                <option value="Computer Technology">Computer Technology (CT)</option>
-                                <option value="Computer Programming">Computer Programming (CP)</option>
-                                <option value="Health Care Services">Health Care Services (HCS)</option>
-                                <option value="International Cookery">International Cookery (IC)</option>
-                                <option value="Mass Communication">Mass Communication (MC)</option>
-                                <option value="Nursing Student">Nursing Student (NS)</option>
-                                <option value="Office Management">Office Management (OM)</option>
-                            </select>
+                        <div class="w-full">
+                            @error('course')
+                                <p class="text-red-500 text-xs">{{ $message }}</p>
+                            @enderror
+                            <div class="border-2 w-full p-2">
+                                <select class="w-full outline-none"  name="course" id="course" >
+                                    <option value="" selected disabled>Course</option>
+                                    <option value="Bachelor of Arts in Broadcasting">Bachelor of Arts in Broadcasting (BAB)</option>
+                                    <option value="Bachelor of Science in Accountancy">Bachelor of Science in Accountancy (BSA)</option>
+                                    <option value="Bachelor of Science in Accounting Technology">Bachelor of Science in Accounting Technology (BSAT)</option>
+                                    <option value="Bachelor of Science in Accounting Information Systems">Bachelor of Science in Accounting Information Systems (BSAIS)</option>
+                                    <option value="Bachelor of Science in Social Work">Bachelor of Science in Social Work (BSSW)</option>
+                                    <option value="Bachelor of Science in Information Systems">Bachelor of Science in Information Systems (BSIS)</option>
+                                    <option value="Associate in Computer Technology">Associate in Computer Technology (ACT)</option>
+                                    <option value="Computer Technology">Computer Technology (CT)</option>
+                                    <option value="Computer Programming">Computer Programming (CP)</option>
+                                    <option value="Health Care Services">Health Care Services (HCS)</option>
+                                    <option value="International Cookery">International Cookery (IC)</option>
+                                    <option value="Mass Communication">Mass Communication (MC)</option>
+                                    <option value="Nursing Student">Nursing Student (NS)</option>
+                                    <option value="Office Management">Office Management (OM)</option>
+                                </select>
+                            </div>
                         </div>
-                        <div class="border-2 w-full p-2">
+                        <div class="w-full">
+                            @error('media_url')
+                                <p class="text-red-500 text-xs">{{ $message }}</p>
+                            @enderror
+                            <div class="border-2 w-full p-2">
                                 <label for="file-upload" class="cursor-pointer" id="file-upload-label">
                                     <span>Add Image</span>
                                     <i class="fas fa-image"></i>
                                 </label>
-                                <input id="file-upload" type="file" name="image" accept="image/*" class="file-upload w-full">
+                                <input id="file-upload" type="file" name="image" accept="image/*" class="file-upload w-full" >
                             </div>
+                        </div>
                     </div>
                     <div class="flex flex-col lg:flex-row mx-4 lg:mx-10 gap-2 lg:gap-4 my-2">
-                        <textarea placeholder="Image description" name="img_description" class="border-2 w-full p-2"></textarea>
+                        <div class="w-full">
+                            @error('img_description')
+                                <p class="text-red-500 text-xs">{{ $message }}</p>
+                            @enderror
+                            <textarea placeholder="Image description" name="img_description" class="border-2 w-full p-2" ></textarea>
+                        </div>
                     </div>
                     <div class="flex justify-center">
                         <button type="submit" class="post-button-ann text-white px-20 py-2 m-4">POST</button>
