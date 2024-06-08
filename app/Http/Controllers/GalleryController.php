@@ -26,7 +26,7 @@ class GalleryController extends Controller
                 'course' => ['required', new ValidCourses],
                 'img_title' => 'required|string',
                 'img_description' => 'required|string',
-                'media_url' => 'required|image|mimes:jpeg,png,jpg,gif|max:10048',
+                'media_url' => 'image|mimes:jpeg,png,jpg,gif|max:10048',
             ]);
     
             // Handle image upload
