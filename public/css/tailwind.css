@@ -1321,6 +1321,16 @@ video {
   color: rgb(202 138 4 / var(--tw-text-opacity));
 }
 
+.text-green-200 {
+  --tw-text-opacity: 1;
+  color: rgb(187 247 208 / var(--tw-text-opacity));
+}
+
+.text-customGreen {
+  --tw-text-opacity: 1;
+  color: rgb(0 163 108 / var(--tw-text-opacity));
+}
+
 .opacity-75 {
   opacity: 0.75;
 }

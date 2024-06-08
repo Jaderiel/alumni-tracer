@@ -75,10 +75,17 @@
             -->
         <div class="flex gap-4 justify-end mx-5">
             <a href="{{ route('generate-pdf.show') }}">
+<<<<<<< HEAD
                 <button class="flex items-center gap-4 px-5 py-1 hover:bg-customTextBlue hover:text-black cursor-pointer rounded-md generate-report-btn" style="background-color: #007bff; color: #fff; font-size: 15px" disabled>Preview</button>
             </a>
             <a href="{{ route('generate.pdf') }}">
                 <button class="flex items-center gap-4 px-5 py-1 hover:bg-customTextBlue hover:text-black cursor-pointer rounded-md generate-report-btn" style="background-color: #28a745; color: #fff; font-size: 15px" disabled>Generate Report</button>
+=======
+                <button class="flex items-center gap-4 px-5 py-1 hover:bg-customTextBlue hover:text-black cursor-pointer rounded-md generate-report-btn" style="background-color: #007bff; color: #fff; font-size: 15px">Preview</button>
+            </a>
+            <a href="{{ route('generate.pdf') }}">
+                <button class="flex items-center gap-4 px-5 py-1 hover:bg-customTextBlue hover:text-black cursor-pointer rounded-md generate-report-btn" style="background-color: #28a745; color: #fff; font-size: 15px">Generate Report</button>
+>>>>>>> a8f6b8204ebedf209d1f46223addaf38b2fcba80
             </a>
         </div>
 

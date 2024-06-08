@@ -144,7 +144,9 @@
                 <option value="Program Head">Program Head</option>
                 <option value="Alumni Officer">Alumni Officer</option>
             </select>
-            <button type="submit" class="update-button">Change Role</button>
+            <div class="flex justify-center">
+                <button type="submit" class="update-button">Change Role</button>
+            </div>
         </form>
     </div>
 </div>
@@ -267,8 +269,7 @@ select {
     font-size: 13px;
     align-items: center;
     text-align: center;
-    margin-left: 50px;
-    margin-bottom: 10px;
+
 }
 
 .update-button:hover {

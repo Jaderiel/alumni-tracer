@@ -24,7 +24,7 @@
             <div>
                 
                 @if (session('success'))
-                    <span class="text-green-200 text-xs">{{ session('success') }}</span>
+                    <span class="text-customGreen text-xs">{{ session('success') }}</span>
                 @endif
             </div>
             <div>
