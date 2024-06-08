@@ -132,7 +132,7 @@ public function delete($id) {
         $post = Forum::findOrFail($id);
     
         // Check if the authenticated user's ID matches the post's user ID
-        if (auth()->user()->id != $post->user_id) {
+        if (auth()->user()->id != $post->user_id && !in_array(auth()->user()->user_type, ['Super Admin', 'Admin'])) {
             return redirect()->route('dashboard');
         }
     

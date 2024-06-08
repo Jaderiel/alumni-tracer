@@ -73,14 +73,24 @@
             <canvas id="ownedBusinessChart" width="400" height="200"></canvas>
             <canvas id="salaryChart" width="400" height="200"></canvas>
             -->
+
+        @if(auth()->check() && in_array(auth()->user()->user_type, ['Admin', 'Super Admin', 'Program Head', 'Alumni Officer']))
         <div class="flex gap-4 justify-end mx-5">
             <a href="{{ route('generate-pdf.show') }}">
+<<<<<<< HEAD
                 <button class="flex items-center gap-4 px-5 py-1 hover:bg-customTextBlue hover:text-black cursor-pointer rounded-md generate-report-btn" style="background-color: #007bff; color: #fff; font-size: 15px" disabled>Preview</button>
             </a>
             <a href="{{ route('generate.pdf') }}">
                 <button class="flex items-center gap-4 px-5 py-1 hover:bg-customTextBlue hover:text-black cursor-pointer rounded-md generate-report-btn" style="background-color: #28a745; color: #fff; font-size: 15px" disabled>Generate Report</button>
+=======
+                <button class="flex items-center gap-4 bg-customYellow px-4 py-1 hover:bg-customTextBlue hover:text-white cursor-pointer rounded-md border-black border-2 generate-report-btn">Preview</button>
+            </a>
+            <a href="{{ route('generate.pdf') }}">
+                <button class="flex items-center gap-4 bg-customYellow px-4 py-1 hover:bg-customTextBlue hover:text-white cursor-pointer rounded-md border-black border-2 generate-report-btn">Generate Report</button>
+>>>>>>> e554f066e21baf29a09f3cbfef9240af29fe1990
             </a>
         </div>
+        @endif
 
         <div class="dashboard">
             <div class="chart-container user">
@@ -290,7 +300,7 @@ $(document).ready(function() {
                 data: {
                     labels: salaries,
                     datasets: [{
-                        label: 'Annual Salaries',
+                        label: 'Monthly Salaries',
                         data: counts,
                         backgroundColor: 'rgba(255, 159, 64, 0.2)', // Changed color
                         borderColor: 'rgba(255, 159, 64, 1)', // Changed color

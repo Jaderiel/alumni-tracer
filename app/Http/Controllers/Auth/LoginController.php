@@ -17,21 +17,17 @@ class LoginController extends Controller
         'password' => 'required|string',
     ];
 
-    // Custom error messages
     $messages = [
         'username.required' => 'Please enter your username.',
         'password.required' => 'Please enter your password.',
     ];
 
-    // Validate the request data
     $validator = Validator::make($request->all(), $rules, $messages);
 
-    // Check if validation fails
     if ($validator->fails()) {
         return redirect()->back()->withErrors($validator)->withInput();
     }
 
-    // Check if the user exists in the database
     $user = User::where('username', $request->username)->first();
     if (!$user) {
         return redirect()->back()->withErrors(['message' => 'Invalid username or password.'])->withInput();
@@ -42,19 +38,17 @@ class LoginController extends Controller
         'password' => 'required|string',
     ]);
 
-    // Attempt to authenticate the user
     $credentials = $request->only('username', 'password');
     if (Auth::attempt($credentials)) {
         $user = Auth::user();
             if (!$user->is_email_verified) {
-                Auth::logout(); // Log out the user
+                Auth::logout();
                 return redirect()->back()->withErrors(['message' => 'Your email is not verified. Please wait for the admin to verify your email'])->withInput();
             }
-        // Authentication successful
-        return redirect()->intended('/dashboard'); // Redirect to the intended page after login
+
+        return redirect()->intended('/dashboard');
     }
 
-    // Authentication failed
     return redirect()->back()->withErrors(['message' => 'Invalid username or password.'])->withInput();
 }
 

@@ -51,7 +51,6 @@
                             <option value="Super Admin">Super Admin</option>
                             <option value="Admin">Admin</option>
                             <option value="Program Head">Program Head</option>
-                            <option value="Alumni">Alumni</option>
                             <option value="Alumni Officer">Alumni Officer</option>
                         </select>
                     </div>

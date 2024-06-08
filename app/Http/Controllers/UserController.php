@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use Illuminate\Http\Request;
 use App\Rules\NotSuperAdmin;
+use App\Rules\ValidIndustryOption;
+use App\Rules\ValidAnnualSalaryOption;
 
 class UserController extends Controller
 {
@@ -39,38 +41,64 @@ class UserController extends Controller
     }
 
     public function updateProfile(Request $request)
-    {
-        $user = auth()->user(); 
+{
+    $user = auth()->user(); 
 
-        $request->validate([
-            'profile_pic' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:10048',
-            'is_owned_business' => 'required|in:yes,no',
-            'employment_status' => 'required|in:employed,unemployed',
-            'job_title' => ['nullable', new NotSuperAdmin],
+    $request->validate([
+        'profile_pic' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:10048',
+        'is_owned_business' => 'required|in:yes,no',
+        'employment_status' => 'required|in:employed,unemployed',
+        'job_title' => ['nullable', new NotSuperAdmin],
+        'company_name' => ['nullable', new NotSuperAdmin],
+        'industry' => ['nullable', new ValidIndustryOption],
+        'date_of_employment' => 'nullable|date',
+        'annual_salary' => 'nullable|in:below ₱4000,₱4001 - ₱8000,₱8001 - ₱16000,₱16001 - ₱25000,₱25001 - ₱33000,₱33001 - ₱41000,₱41001 - ₱50000,₱50001 - ₱58000,₱58001 - ₱66000,₱66001 - ₱75000,₱75001 - ₱83000,₱83001 - ₱91000,₱91001 - ₱100000,₱100001 above',
+        'user_type' => 'nullable|in:'.$user->user_type, // Validation for user_type
+    ]);
+
+    if ($request->hasFile('profile_pic')) {
+        $image = $request->file('profile_pic');
+        $imageName = time().'.'.$image->getClientOriginalExtension();
+        $image->move(public_path('images'), $imageName);
+        $profile_pic = 'images/'.$imageName;
+        $user->profile_pic = $profile_pic;
+        \Log::info('Profile picture updated: ' . $profile_pic);
+    } else {
+        \Log::info('No profile picture uploaded.');
+    }
+
+    $user->update($request->except(['profile_pic', 'user_type'])); // Exclude user_type from update
+
+    if ($request->has('degree')) {
+        $user->degree = $request->input('degree');
+    }
+
+    $user->save();
+    \Log::info('User updated: ' . $user);
+
+    // Prepare employment data based on employment status
+    $employmentData = [];
+    if ($request->employment_status === 'unemployed') {
+        $employmentData = [
+            'job_title' => null,
+            'company_name' => null,
+            'industry' => null,
+            'date_of_employment' => null,
+            'annual_salary' => null,
+            'company_address' => null,
+            'is_employed' => false,
+        ];
+    } else {
+        $employmentData = $request->only([
+            'job_title',
+            'company_name',
+            'industry',
+            'date_of_employment',
+            'annual_salary',
+            'company_address'
         ]);
 
-        if ($request->hasFile('profile_pic')) {
-            $image = $request->file('profile_pic');
-            $imageName = time().'.'.$image->getClientOriginalExtension();
-            $image->move(public_path('images'), $imageName);
-            $profile_pic = 'images/'.$imageName;
-            $user->profile_pic = $profile_pic;
-            \Log::info('Profile picture updated: ' . $profile_pic);
-        } else {
-            \Log::info('No profile picture uploaded.');
-        }
-
-        $user->update($request->except('profile_pic'));
-
-        if ($request->has('degree')) {
-            $user->degree = $request->input('degree');
-        }
-
-        $user->save();
-        \Log::info('User updated: ' . $user);
-
-        $employmentData = $request->only(['is_employed', 'date_of_first_employment', 'date_of_employment', 'industry', 'job_title', 'company_name', 'company_address', 'annual_salary']);
-
+        // Check alignment to course
         if (isset($employmentData['industry'])) {
             if ($user->course === 'Bachelor of Science in Information Systems' && $employmentData['industry'] === 'IT Industry') {
                 $employmentData['is_aligned_to_course'] = true;
@@ -85,20 +113,18 @@ class UserController extends Controller
                 $employmentData['is_aligned_to_course'] = false;
             }                     
         }
-
-        $employment = $user->employment()->updateOrCreate([], $employmentData);
-
-        $employment->is_owned_business = $request->input('is_owned_business') === 'yes';
-        $employment->save();
-
-        if ($user->employment) {
-            $user->employment->update(['is_employed' => $request->employment_status === 'employed']);
-        } else {
-            $user->employment()->create(['is_employed' => $request->employment_status === 'unemployed']);
-        }
-
-        return redirect()->back()->with('success', 'Profile updated successfully.');
+        $employmentData['is_employed'] = true;
     }
+
+    $employment = $user->employment()->updateOrCreate([], $employmentData);
+
+    $employment->is_owned_business = $request->input('is_owned_business') === 'yes';
+    $employment->save();
+
+    return redirect()->back()->with('success', 'Profile updated successfully.');
+}
+
+    
 
     public function getUserEmployment($userId)
     {

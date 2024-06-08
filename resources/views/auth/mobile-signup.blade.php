@@ -3,33 +3,19 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mobile Version</title>
+    <title>Sign up</title>
     <link rel="stylesheet" href="{{ asset('css/tailwind.css') }}">
 </head>
 <body class="bg-customBlue font-Poppins">
     <div class="flex flex-col justify-center items-center">
         <div class="text-white text-4xl font-bold mt-10">
-            <h1>Join with us !</h1>
+            <h1>Join us!</h1>
         </div>
-        <div class="bg-white p-10 m-10 rounded-xl flex flex-col items-center">
+        <div class="px-1 py-4 m-5 rounded-xl flex flex-col items-center gap-4 bg-white">
             <h1 class="text-3xl font-bold">Create Account</h1>
-            <form method="POST" action="{{ route('register') }}">
+            <form id="registerForm">
             @csrf
                 <div class="flex flex-col items-center">
-                    @if ($errors->any())
-                    
-                        @foreach ($errors->all() as $error)
-                            <p class="text-xs text-red-500">{{ $error }}</p>
-                        @endforeach
-                            
-                    @endif
-                    <div class="input-group">
-                        <select name="user_type" id="user_type" required>
-                                <option value="" selected disabled>User type</option>
-                                <!-- <option value="Admin">Admin</option> -->
-                                <option value="Alumni">Alumni</option>
-                        </select>
-                    </div>
                     <div class="input-group">
                         <input type="text" name="first_name" placeholder="First Name" required>
                     </div>
@@ -81,7 +67,9 @@
                     <div class="input-group">
                         <input type="password" name="password_confirmation" placeholder="Confirm Password" required>
                     </div>
-                    <div class="text-xs text-customTextBlue">
+                </div>
+                <div class="flex flex-col gap-4 justify-center items-center">
+                    <div class="text-xs text-customTextBlue flex justify-center items-center gap-2 mt-2">
                         <input type="checkbox" id="termsCheckbox" required>
                         <label for="termsCheckbox">I accept the <span id="termsLink">Terms of Use and Privacy Policy</span></label>
                     </div>
@@ -92,6 +80,9 @@
                 <p class="text-xs text-customTextBlue">Already have an account? <a href="{{ route('mobileLogin.show') }}"><strong class="text-black cursor-pointer">Sign in here</strong></a></p>
             </div>
         </div>
+    </div>
+    <div id="successMessage" class="success-popup">
+        Registration successful! Please wait for the Admin to verify your account.
     </div>
 </body>
 <script>
@@ -105,6 +96,38 @@
         if (window.innerWidth >= 768) {
             window.location.href = "{{ route('login.show') }}";
         }
+    });
+</script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+<script>
+    $(document).ready(function() {
+        $('#registerForm').on('submit', function(e) {
+            e.preventDefault();
+            $.ajax({
+                type: 'POST',
+                url: '{{ route("register") }}',
+                data: $(this).serialize(),
+                success: function(response) {
+                    if (response.success) {
+                        $('#successMessage').fadeIn().delay(3000).fadeOut();
+                        $('#registerForm')[0].reset();
+                    } else {
+                        alert('Unexpected response from the server.');
+                    }
+                },
+                error: function(xhr) {
+                    if (xhr.status === 422) {
+                        var errors = xhr.responseJSON.errors;
+                        $.each(errors, function(key, value) {
+                            alert(value[0]);
+                        });
+                    } else {
+                        alert('Registration failed. Please check your input and try again.');
+                    }
+                }
+            });
+        });
     });
 </script>
 </html>
@@ -152,4 +175,17 @@
         pointer-events: auto;
         padding-left: 0.90rem;
     }
+    
+    .success-popup {
+            display: none;
+            position: fixed;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: #4CAF50;
+            color: white;
+            padding: 15px;
+            border-radius: 5px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+        }
 </style>

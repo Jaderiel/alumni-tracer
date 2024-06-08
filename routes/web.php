@@ -26,7 +26,7 @@ Route::get('/mobile-signup', [AuthController::class, 'mobileSignUp'])->name('mob
 // Route::post('/register', 'Auth\RegisterController@register')->name('register');
 Route::post('/register', [RegisterController::class, 'register'])->name('register');
 Route::get('/verify-email/{token}', [VerificationController::class, 'verifyEmail'])->name('verify.email');
-Route::post('/login', 'App\Http\Controllers\Auth\LoginController@login')->name('login');
+Route::post('/', 'App\Http\Controllers\Auth\LoginController@login')->name('login');
 Route::post('/logout', 'App\Http\Controllers\Auth\LoginController@logout')->name('logout');
 
 Route::get('/home', [WebsiteController::class, 'index'])->name('website.show');
