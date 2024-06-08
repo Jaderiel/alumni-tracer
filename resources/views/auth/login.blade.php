@@ -231,6 +231,8 @@
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
+
+Copy code
 <script>
     $(document).ready(function() {
         $('#registerForm').on('submit', function(e) {
@@ -250,9 +252,11 @@
                 error: function(xhr) {
                     if (xhr.status === 422) {
                         var errors = xhr.responseJSON.errors;
+                        var errorMessage = "";
                         $.each(errors, function(key, value) {
-                            alert(value[0]);
+                            errorMessage += value[0] + "\n";
                         });
+                        alert(errorMessage);
                     } else {
                         alert('Registration failed. Please check your input and try again.');
                     }

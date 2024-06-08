@@ -131,22 +131,23 @@
     </div>
 
     <div id="myModal" class="modal">
-        <div class="modal-content">
-            <span class="close">&times;</span>
-            <form id="editRoleForm" action="{{ route('updateRole') }}" method="POST">
-                @csrf
-                <input type="hidden" name="user_id" id="modalUserId">
-                <p id="modalUserName"></p>
-                <select name="user_role" id="modalUserRole" required>
-                    <option value="Super Admin">Super Admin</option>
-                    <option value="Admin">Admin</option>
-                    <option value="Program Head">Program Head</option>
-                    <option value="Alumni Officer">Alumni Officer</option>
-                </select>
-                <button type="submit">Update Role</button>
-            </form>
-        </div>
+    <div class="modal-content">
+        <span class="close">&times;</span>
+        <h2>Edit User Role</h2>
+        <form id="editRoleForm" action="{{ route('updateRole') }}" method="POST">
+            @csrf
+            <input type="hidden" name="user_id" id="modalUserId">
+            <p class="modal-username" id="modalUserName"></p>
+            <select name="user_role" id="modalUserRole" required>
+                <option value="Super Admin">Super Admin</option>
+                <option value="Admin">Admin</option>
+                <option value="Program Head">Program Head</option>
+                <option value="Alumni Officer">Alumni Officer</option>
+            </select>
+            <button type="submit" class="update-button">Change Role</button>
+        </form>
     </div>
+</div>
 
     <script>
         document.addEventListener('DOMContentLoaded', function() {
@@ -196,41 +197,82 @@
         display: flex;
         justify-content: start;
     }
-    /* Modal styles */
+
     .modal {
-        display: none; /* Hidden by default */
-        position: fixed; /* Stay in place */
-        z-index: 1; /* Sit on top */
-        left: 0;
-        top: 0;
-        width: 100%; /* Full width */
-        height: 100%; /* Full height */
-        overflow: auto; /* Enable scroll if needed */
-        background-color: rgb(0,0,0); /* Fallback color */
-        background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
-    }
+    display: none;
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.4);
+    margin: 50px;
+}
 
-    /* Modal content */
-    .modal-content {
-        background-color: #fefefe;
-        margin: 20% auto; /* 15% from the top and centered */
-        padding: 20px;
-        border: 1px solid #888;
-        width: 30%; /* Could be more or less, depending on screen size */
-    }
+.modal-content {
+    background-color: #fefefe;
+    margin: 10% auto;
+    padding: 20px 30px;
+    border: 1px solid #888;
+    width: 80%;
+    max-width: 250px;
+    border-radius: 10px;
+    position: relative;
+}
 
-    /* Close button */
-    .close {
-        color: #aaa;
-        float: right;
-        font-size: 28px;
-        font-weight: bold;
-    }
+.close {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    font-size: 28px;
+    color: #aaa;
+    cursor: pointer;
+}
 
-    .close:hover,
-    .close:focus {
-        color: black;
-        text-decoration: none;
-        cursor: pointer;
-    }
+.close:hover,
+.close:focus {
+    color: red;
+}
+
+h2 {
+    margin-bottom: 30px;
+}
+
+.modal-username {
+    font-weight: bold;
+    font-size: 15px;
+}
+
+select {
+    width: 100%;
+    padding: 2px;
+    margin-top: 8px;
+    margin-bottom: 16px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+    font-size: 13px;
+}
+
+.update-button {
+    background-color: #00A36C;
+    color: white;
+    padding: 4px 8px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    width: 55%;
+    font-size: 13px;
+    align-items: center;
+    text-align: center;
+    margin-left: 50px;
+    margin-bottom: 10px;
+}
+
+.update-button:hover {
+    background-color: #2D55B4;
+}
+
 </style>

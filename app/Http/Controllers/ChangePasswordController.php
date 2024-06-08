@@ -21,18 +21,17 @@ class ChangePasswordController extends Controller
         // Validate the request data
         $request->validate([
             'current_password' => 'required',
-            'new_password' => 'required|min:8|confirmed',
+            'new_password' => 'required|min:6|confirmed',
         ]);
 
         $user = auth()->user();
 
         // Check if the current password matches the user's password
         if (!Hash::check($request->current_password, auth()->user()->password)) {
-            return back()->withErrors(['current_password' => 'The current password is incorrect.']);
+            return back()->withErrors(['current_password' => 'The current password is incorrect. Please try again.'])->withInput();
         }
 
         // Update the user's password
-        $user = auth()->user();
         $user->password = Hash::make($request->new_password);
         $user->save();
 

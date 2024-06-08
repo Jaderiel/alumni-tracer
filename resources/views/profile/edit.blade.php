@@ -146,7 +146,7 @@
             <div class="panel-btn flex flex-col my-4">
                 <div class="flex flex-col lg:flex-row mx-4 lg:mx-10 gap-2 my-2">
                     <div class="w-full">
-                        <label for="employment" class="label">Current Employment Status</label>
+                        <label for="employment" class="label">Current Status</label>
                         <div class="border-2 w-full p-2">
                             <select class="w-full outline-none" id="employmentStatus" name="employment_status">
                                 <option value="employed" {{ $user->employment && $user->employment->is_employed ? 'selected' : '' }}>Employed</option>
@@ -281,7 +281,7 @@
                     </div>
                     <div class="flex flex-col lg:flex-row mx-4 lg:mx-10 gap-2 my-2">
                             <div class="w-full">
-                                <div id="endEmploymentBtn" class="bg-customDanger text-white text-xs hover:bg-customTextBlue hover:text-black py-2 px-4 cursor-pointer">End this Employment</div>
+                                <div id="endEmploymentBtn" class="bg-customDanger text-white text-xs hover:bg-customTextBlue hover:text-black py-2 px-4 cursor-pointer">End Curent Employment</div>
                             </div>
                     </div>
                 </div>
