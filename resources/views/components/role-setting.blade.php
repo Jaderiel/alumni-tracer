@@ -6,9 +6,9 @@
     <link rel="stylesheet" href="{{ asset('css/alumni.css') }}">
 </head>
 <body id="container">
-    <h3 style="margin: 10px 0 1px 20px">Super Admin</h3>
+    <h3 style="margin: 10px 0 1px 480px">Super Admin</h3>
 
-    <div class="table-holder" style="margin-left: 20px">
+    <div class="table-holder" style="margin-left: 280px">
         <div class="board-list" style="width: 500px">
             <table width="100%" id="userTable">
                 <thead>
@@ -37,9 +37,9 @@
         </div>
     </div>
 
-    <h3 style="margin: 30px 0 1px 20px;">Admin</h3>
+    <h3 style="margin: 30px 0 1px 500px;">Admin</h3>
 
-    <div class="table-holder" style="margin-left: 20px">
+    <div class="table-holder" style="margin-left: 280px">
         <div class="board-list" style="width: 500px">
             <table width="100%" id="userTable">
                 <thead>
@@ -68,9 +68,9 @@
         </div>
     </div>
 
-    <h3 style="margin: 30px 0 1px 20px;">Program Head</h3>
+    <h3 style="margin: 30px 0 1px 470px;">Program Head</h3>
 
-    <div class="table-holder" style="margin-left: 20px">
+    <div class="table-holder" style="margin-left: 280px">
         <div class="board-list" style="width: 500px">
             <table width="100%" id="userTable">
                 <thead>
@@ -99,9 +99,9 @@
         </div>
     </div>
 
-    <h3 style="margin: 30px 0 1px 20px;">Alumni Officer</h3>
+    <h3 style="margin: 30px 0 1px 475px;">Alumni Officer</h3>
 
-    <div class="table-holder" style="margin-left: 20px">
+    <div class="table-holder" style="margin-left: 280px">
         <div class="board-list" style="width: 500px">
             <table width="100%" id="userTable">
                 <thead>
