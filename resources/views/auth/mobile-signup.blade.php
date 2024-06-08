@@ -11,16 +11,11 @@
         <div class="text-white text-4xl font-bold mt-10">
             <h1>Join us!</h1>
         </div>
-        <div class="bg-white p-10 m-10 rounded-xl flex flex-col items-center">
+        <div class="px-1 py-4 m-10 rounded-xl flex flex-col items-center gap-4 bg-white">
             <h1 class="text-3xl font-bold">Create Account</h1>
             <form id="registerForm">
             @csrf
                 <div class="flex flex-col items-center">
-                    @if ($errors->any())
-                        @foreach ($errors->all() as $error)
-                            <p class="text-xs text-red-500">{{ $error }}</p>
-                        @endforeach
-                    @endif
                     <div class="input-group">
                         <input type="text" name="first_name" placeholder="First Name" required>
                     </div>
@@ -72,7 +67,9 @@
                     <div class="input-group">
                         <input type="password" name="password_confirmation" placeholder="Confirm Password" required>
                     </div>
-                    <div class="text-xs text-customTextBlue">
+                </div>
+                <div class="flex flex-col gap-4 justify-center items-center">
+                    <div class="text-xs text-customTextBlue flex justify-center items-center gap-2 mt-2">
                         <input type="checkbox" id="termsCheckbox" required>
                         <label for="termsCheckbox">I accept the <span id="termsLink">Terms of Use and Privacy Policy</span></label>
                     </div>
