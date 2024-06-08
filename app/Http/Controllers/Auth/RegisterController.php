@@ -6,6 +6,8 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\User;
 use Illuminate\Support\Str;
+use App\Rules\ValidCourses;
+use App\Rules\ValidBatches;
 
 class RegisterController extends Controller
 {
@@ -15,8 +17,8 @@ class RegisterController extends Controller
         $request->validate([
             'first_name' => 'required',
             'last_name' => 'required',
-            'course' => 'required',
-            'batch' => 'required',
+            'course' => ['required', new ValidCourses],
+            'batch' => ['required', new ValidBatches],
             'username' => 'required|unique:users',
             'email' => 'required|email|unique:users',
             'password' => 'required|min:6|confirmed',
