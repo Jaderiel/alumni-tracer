@@ -3,13 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mobile Version</title>
+    <title>Sign up</title>
     <link rel="stylesheet" href="{{ asset('css/tailwind.css') }}">
 </head>
 <body class="bg-customBlue font-Poppins">
     <div class="flex flex-col justify-center items-center">
         <div class="text-white text-4xl font-bold mt-10">
-            <h1>Join with us !</h1>
+            <h1>Join us!</h1>
         </div>
         <div class="bg-white p-10 m-10 rounded-xl flex flex-col items-center">
             <h1 class="text-3xl font-bold">Create Account</h1>
