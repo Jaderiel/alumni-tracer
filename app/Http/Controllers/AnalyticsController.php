@@ -54,21 +54,17 @@ class AnalyticsController extends Controller
             'businessAnalytics' => $businessAnalytics,
             'salaryRange' => $salaryRange,
         ];
-    
-        // Render the Blade view into HTML content
+
         $html = view('components.generate-pdf', $data)->render();
-    
-        // Load the HTML content into Dompdf
+
         $pdf = new Dompdf();
         $pdf->loadHtml($html);
-    
-        // Set paper size and orientation
+
         $pdf->setPaper('A4', 'portrait');
     
-        // Render the PDF
+
         $pdf->render();
-    
-        // Output the PDF
+
         return $pdf->stream('analytics_report.pdf');
     }
 
