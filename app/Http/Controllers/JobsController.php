@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Job;
+use App\Rules\ValidSalaries;
+use Illuminate\Validation\Rule;
 
 class JobsController extends Controller
 {
@@ -18,50 +20,63 @@ class JobsController extends Controller
     }
 
     public function store(Request $request)
-    {
-        $validatedData = $request->validate([
-            'job_title' => 'required|string',
-            'job_location' => 'required|string',
-            'job_type' => 'required|string',
-            'job_description' => 'required|string|max:65535',
-            'company' => 'required|string',
-            'salary' => 'required|string',
-            'link' => 'required|url',
-        ]);
-    
-        // Truncate job description if it exceeds the maximum length
-        $jobDescription = substr($validatedData['job_description'], 0, 65535);
-    
-        $userId = auth()->user()->id;
-        $userType = auth()->user()->user_type;
-    
-        $job = new Job;
-        $job->user_id = $userId;
-        $job->job_title = $validatedData['job_title'];
-        $job->job_location = $validatedData['job_location'];
-        $job->job_type = $validatedData['job_type'];
-        $job->job_description = $jobDescription;
-        $job->company = $validatedData['company'];
-        $job->salary = $validatedData['salary'];
-        $job->link = $validatedData['link'];
-    
-        // Set is_approved to true if user_type is Super Admin or Admin
-        if ($userType === 'Super Admin' || $userType === 'Admin') {
-            $job->is_approved = true;
-        }
-    
+{
+    $validatedData = $request->validate([
+        'job_title' => 'required|string',
+        'job_location' => 'required|string',
+        'job_type' => ['required', 'string', Rule::in(['full-time', 'part-time'])],
+        'job_description' => 'required|string|max:65535',
+        'company' => 'required|string',
+        'salary' => ['required', new ValidSalaries],
+        'link' => 'required|url',
+    ]);
+
+    // Truncate job description if it exceeds the maximum length
+    $jobDescription = substr($validatedData['job_description'], 0, 65535);
+
+    $userId = auth()->user()->id;
+    $userType = auth()->user()->user_type;
+
+    $job = new Job;
+    $job->user_id = $userId;
+    $job->job_title = $validatedData['job_title'];
+    $job->job_location = $validatedData['job_location'];
+    $job->job_type = $validatedData['job_type'];
+    $job->job_description = $jobDescription;
+    $job->company = $validatedData['company'];
+    $job->salary = $validatedData['salary'];
+    $job->link = $validatedData['link'];
+
+    // Set is_approved to true if user_type is Super Admin or Admin
+    if ($userType === 'Super Admin' || $userType === 'Admin') {
+        $job->is_approved = true;
         $job->save();
-    
-        return redirect()->back()->with('success', 'Job details saved successfully. Please wait for approval');
+        return redirect()->back()->with('success', 'Job details saved successfully!');
     }
+
+    $job->save();
+
+    return redirect()->back()->with('success', 'Job details saved successfully. Please wait for approval');
+}
+
     
 
 
 
     public function update(Request $request, Job $job)
     {
+        $validatedData = $request->validate([
+            'job_title' => 'required|string',
+            'job_location' => 'required|string',
+            'job_type' => ['required', 'string', Rule::in(['full-time', 'part-time'])],
+            'job_description' => 'required|string|max:65535',
+            'company' => 'required|string',
+            'salary' => ['required', new ValidSalaries],
+            'link' => 'required|url',
+        ]);
+
         $job = Job::find($job->id);
-        $job->update($request->all());
+        $job->update($validatedData);
         
         return redirect()->route('jobs');
     }

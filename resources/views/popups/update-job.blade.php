@@ -23,14 +23,19 @@
 
         <div style="display: flex; flex-direction: row; gap: 35px">
             <div class="main-body mt-7 ml-4 mr-2">
-            @if(session('error'))
-                <div class="alert alert-danger">
-                    {{ session('error') }}
+            @if(session('success'))
+                <div id="show-success" class="show-success">
+                    {{ session('success') }}
                 </div>
             @endif
-            @if(session('success'))
-                <div class="text-green-600">
-                    {{ session('success') }}
+
+            @if($errors->any())
+                <div id="show-error" class="bg-customError text-customErrorText flex justify-center mx-10 my-2 py-2">
+                    <ul class="flex flex-col justify-center items-center">
+                        @foreach ($errors->all() as $error)
+                            <li>{{ $error }}</li>
+                        @endforeach
+                    </ul>
                 </div>
             @endif
             </div>
@@ -98,12 +103,12 @@
                     
                     <div class="flex flex-col mx-4 lg:mx-10 gap-2 my-2">
                         <select class="border-2 w-full p-2" name="job_type">
-                            <option value="{{$job->job_type}}" class="type" disabled selected>{{$job->job_type}}</option>
+                            <option value="{{$job->job_type}}" class="type" selected>{{$job->job_type}}</option>
                             <option value="full-time">Full Time</option>
                             <option value="part-time">Part Time</option>
                         </select>
                         <select class="border-2 w-full p-2" name="salary">
-                            <option value="{{$job->salary}}" disabled selected>{{$job->salary}}</option>
+                            <option value="{{$job->salary}}" selected>{{$job->salary}}</option>
                             <option value="₱5,000 - ₱10,000">₱5,000 - ₱10,000</option>
                             <option value="₱20,000 - ₱30,000">₱20,000 - ₱30,000</option>
                             <option value="₱30,001 - ₱40,000">₱30,001 - ₱40,000</option>
@@ -146,7 +151,22 @@
         </div>
     </section>
 </body>
-<script src="{{ asset('js/header.js') }}"></script>
+<script>
+    // Hide the error message after 5 seconds
+    document.addEventListener('DOMContentLoaded', function() {
+        setTimeout(function() {
+            var errorBox = document.getElementById('show-error');
+            var successBox = document.getElementById('show-success');
+            if (errorBox) {
+                errorBox.style.display = 'none';
+            }
+
+            if (successBox) {
+                successBox.style.display = 'none';
+            }
+        }, 5000); // 5000 milliseconds = 5 seconds
+    });
+</script>
 <script src="{{ asset('js/job-location.js') }}"></script>
 <script>
     function confirmDelete() {
