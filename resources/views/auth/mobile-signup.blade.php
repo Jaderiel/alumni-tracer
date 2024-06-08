@@ -11,7 +11,7 @@
         <div class="text-white text-4xl font-bold mt-10">
             <h1>Join us!</h1>
         </div>
-        <div class="px-1 py-4 m-10 rounded-xl flex flex-col items-center gap-4 bg-white">
+        <div class="px-1 py-4 m-5 rounded-xl flex flex-col items-center gap-4 bg-white">
             <h1 class="text-3xl font-bold">Create Account</h1>
             <form id="registerForm">
             @csrf
