@@ -31,7 +31,6 @@ class AnalyticsController extends Controller
             'alignedUsersAnalytics' => $alignedUsersAnalytics,
             'businessAnalytics' => $businessAnalytics,
             'salaryRange' => $salaryRange,
-            'chartImagePath' => $chartImagePath,
         ];
 
         return view("components.generate-pdf", $data)->render();
