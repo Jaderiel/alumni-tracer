@@ -77,17 +77,10 @@
         @if(auth()->check() && in_array(auth()->user()->user_type, ['Admin', 'Super Admin', 'Program Head', 'Alumni Officer']))
         <div class="flex gap-4 justify-end mx-5">
             <a href="{{ route('generate-pdf.show') }}">
-<<<<<<< HEAD
-                <button class="flex items-center gap-4 px-5 py-1 hover:bg-customTextBlue hover:text-black cursor-pointer rounded-md generate-report-btn" style="background-color: #007bff; color: #fff; font-size: 15px" disabled>Preview</button>
+                <button class="flex items-center gap-4 px-5 py-1 hover:bg-customTextBlue hover:text-black cursor-pointer rounded-md generate-report-btn" style="background-color: #007bff; color: #fff; font-size: 15px">Preview</button>
             </a>
             <a href="{{ route('generate.pdf') }}">
-                <button class="flex items-center gap-4 px-5 py-1 hover:bg-customTextBlue hover:text-black cursor-pointer rounded-md generate-report-btn" style="background-color: #28a745; color: #fff; font-size: 15px" disabled>Generate Report</button>
-=======
-                <button class="flex items-center gap-4 bg-customYellow px-4 py-1 hover:bg-customTextBlue hover:text-white cursor-pointer rounded-md border-black border-2 generate-report-btn">Preview</button>
-            </a>
-            <a href="{{ route('generate.pdf') }}">
-                <button class="flex items-center gap-4 bg-customYellow px-4 py-1 hover:bg-customTextBlue hover:text-white cursor-pointer rounded-md border-black border-2 generate-report-btn">Generate Report</button>
->>>>>>> e554f066e21baf29a09f3cbfef9240af29fe1990
+                <button class="flex items-center gap-4 px-5 py-1 hover:bg-customTextBlue hover:text-black cursor-pointer rounded-md generate-report-btn" style="background-color: #28a745; color: #fff; font-size: 15px">Generate Report</button>
             </a>
         </div>
         @endif
