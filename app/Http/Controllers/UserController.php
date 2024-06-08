@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use Illuminate\Http\Request;
 use App\Rules\NotSuperAdmin;
+use App\Rules\ValidIndustryOption;
+use App\Rules\ValidAnnualSalaryOption;
 
 class UserController extends Controller
 {
@@ -47,6 +49,10 @@ class UserController extends Controller
             'is_owned_business' => 'required|in:yes,no',
             'employment_status' => 'required|in:employed,unemployed',
             'job_title' => ['nullable', new NotSuperAdmin],
+            'company_name' => ['nullable', new NotSuperAdmin],
+            'industry' => ['nullable', new ValidIndustryOption],
+            'date_of_employment' => 'nullable|date',
+            'annual_salary' => 'nullable|in:below ₱4000,₱4001 - ₱8000,₱8001 - ₱16000,₱16001 - ₱25000,₱25001 - ₱33000,₱33001 - ₱41000,₱41001 - ₱50000,₱50001 - ₱58000,₱58001 - ₱66000,₱66001 - ₱75000,₱75001 - ₱83000,₱83001 - ₱91000,₱91001 - ₱100000,₱100001 above',
         ]);
     
         if ($request->hasFile('profile_pic')) {

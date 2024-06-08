@@ -290,7 +290,7 @@ $(document).ready(function() {
                 data: {
                     labels: salaries,
                     datasets: [{
-                        label: 'Annual Salaries',
+                        label: 'Monthly Salaries',
                         data: counts,
                         backgroundColor: 'rgba(255, 159, 64, 0.2)', // Changed color
                         borderColor: 'rgba(255, 159, 64, 1)', // Changed color
