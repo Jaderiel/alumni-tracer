@@ -17,19 +17,10 @@
             @csrf
                 <div class="flex flex-col items-center">
                     @if ($errors->any())
-                    
                         @foreach ($errors->all() as $error)
                             <p class="text-xs text-red-500">{{ $error }}</p>
                         @endforeach
-                            
                     @endif
-                    <div class="input-group">
-                        <select name="user_type" id="user_type" required>
-                                <option value="" selected disabled>User type</option>
-                                <!-- <option value="Admin">Admin</option> -->
-                                <option value="Alumni">Alumni</option>
-                        </select>
-                    </div>
                     <div class="input-group">
                         <input type="text" name="first_name" placeholder="First Name" required>
                     </div>
