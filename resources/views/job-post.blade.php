@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -23,14 +22,19 @@
 
         <div style="display: flex; flex-direction: row; gap: 35px">
             <div class="main-body mt-7 ml-4 mr-2">
-            @if(session('error'))
-                <div class="alert alert-danger">
-                    {{ session('error') }}
+            @if(session('success'))
+                <div id="show-success" class="show-success">
+                    {{ session('success') }}
                 </div>
             @endif
-            @if(session('success'))
-                <div class="show-success">
-                    {{ session('success') }}
+
+            @if($errors->any())
+                <div id="show-error" class="bg-customError text-customErrorText flex justify-center mx-10 my-2 py-2">
+                    <ul class="flex flex-col justify-center items-center">
+                        @foreach ($errors->all() as $error)
+                            <li>{{ $error }}</li>
+                        @endforeach
+                    </ul>
                 </div>
             @endif
             </div>
@@ -60,10 +64,10 @@
                 @csrf
                 <div class="flex flex-col lg:flex-row mx-4 lg:mx-10 gap-2 lg:gap-4 my-2">
                     <div class="border-2 w-full p-2">
-                        <input type="text" name="job_title" class="w-full outline-none" placeholder="Job Title">
+                        <input type="text" name="job_title" value="{{ old('job_title') }}" class="w-full outline-none" placeholder="Job Title" required>
                     </div>
                     <div class="border-2 w-full p-2">
-                        <input type="text" name="company" class="w-full outline-none" placeholder="Company">
+                        <input type="text" name="company" value="{{ old('company') }}" class="w-full outline-none" placeholder="Company" required>
                     </div>
                     <!-- <div class="title-input">
                         <a href="{{ route('job-location.component') }}" class="show-location-button"><input type="text" name="job_location" class="form-control" placeholder="Location" value="{{ $jobLocation }}" readonly></a>
@@ -80,14 +84,14 @@
                 </div>
                 <div class="w-full">
                     <div class="border-2 w-full p-2">
-                        <select id="region" class="w-full outline-none" disabled>
+                        <select id="region" class="w-full outline-none" disabled required>
                             <option class="w-full outline-none" value="" selected disabled>Select Region</option>
                         </select>
                     </div>
                 </div>
                 <div class="w-full">
                     <div class="border-2 w-full p-2">
-                        <select id="province" class="w-full outline-none" disabled>
+                        <select id="province" class="w-full outline-none" disabled required>
                             <option value="" selected disabled>Select Province</option>
                         </select>
                     </div>
@@ -96,14 +100,14 @@
                 <div class="flex flex-col lg:flex-row mx-4 lg:mx-10 gap-2 my-2">
                 <div class="w-full">
                     <div class="border-2 w-full p-2">
-                        <select id="city" class="w-full outline-none" disabled>
+                        <select id="city" class="w-full outline-none" disabled required>
                             <option value="" selected disabled>Select City/Municipality</option>
                         </select>
                     </div>
                 </div>
                 <div class="w-full">
                     <div class="border-2 w-full p-2">
-                        <select id="barangay" class="w-full outline-none" disabled>
+                        <select id="barangay" class="w-full outline-none" disabled required>
                             <option value="" selected disabled>Select Barangay</option>
                         </select>
                     </div>
@@ -112,37 +116,37 @@
                 
                 <div class="flex flex-col lg:flex-row mx-4 lg:mx-10 gap-2 lg:gap-4 my-2">
                     <div class="border-2 w-full p-2">
-                        <input type="text" id="location" class="w-full outline-none" name="job_location" placeholder="Location" readonly>
+                        <input type="text" id="location" class="w-full outline-none" name="job_location" value="{{ old('job_location') }}" placeholder="Location" readonly required>
                     </div>
                 </div>
                     
                 <div class="flex flex-col lg:flex-row mx-4 lg:mx-10 gap-2 lg:gap-4 my-2">
-                    <select class="border-2 w-full p-2" name="job_type">
-                        <option value="" class="type" disabled selected>Job Type</option>
-                        <option value="full-time">Full Time</option>
-                        <option value="part-time">Part Time</option>
+                    <select class="border-2 w-full p-2" name="job_type" required>
+                        <option value="" class="type" disabled {{ old('job_type') == '' ? 'selected' : '' }}>Job Type</option>
+                        <option value="full-time" {{ old('job_type') == 'full-time' ? 'selected' : '' }}>Full Time</option>
+                        <option value="part-time" {{ old('job_type') == 'part-time' ? 'selected' : '' }}>Part Time</option>
                     </select>
                     <select class="border-2 w-full p-2" name="salary">
-                        <option value="" disabled selected>Select Salary Range</option>
-                        <option value="₱5,000 - ₱10,000">₱5,000 - ₱10,000</option>
-                        <option value="₱20,000 - ₱30,000">₱20,000 - ₱30,000</option>
-                        <option value="₱30,001 - ₱40,000">₱30,001 - ₱40,000</option>
-                        <option value="₱40,001 - ₱50,000">₱40,001 - ₱50,000</option>
-                        <option value="₱50,001 - ₱60,000">₱50,001 - ₱60,000</option>
-                        <option value="₱60,001 - ₱70,000">₱60,001 - ₱70,000</option>
-                        <option value="₱70,001 - ₱80,000">₱70,001 - ₱80,000</option>
-                        <option value="₱80,001 - ₱90,000">₱80,001 - ₱90,000</option>
-                        <option value="₱90,001 - ₱100,000">₱90,001 - ₱100,000</option>
-                        <option value="₱100,001 - ₱110,000">₱100,001 - ₱110,000</option>
-                        <option value="₱110,001 - ₱120,000">₱110,001 - ₱120,000</option>
+                        <option value="" disabled {{ old('salary') == '' ? 'selected' : '' }}>Select Salary Range</option>
+                        <option value="₱5,000 - ₱10,000" {{ old('salary') == '₱5,000 - ₱10,000' ? 'selected' : '' }}>₱5,000 - ₱10,000</option>
+                        <option value="₱20,000 - ₱30,000" {{ old('salary') == '₱20,000 - ₱30,000' ? 'selected' : '' }}>₱20,000 - ₱30,000</option>
+                        <option value="₱30,001 - ₱40,000" {{ old('salary') == '₱30,001 - ₱40,000' ? 'selected' : '' }}>₱30,001 - ₱40,000</option>
+                        <option value="₱40,001 - ₱50,000" {{ old('salary') == '₱40,001 - ₱50,000' ? 'selected' : '' }}>₱40,001 - ₱50,000</option>
+                        <option value="₱50,001 - ₱60,000" {{ old('salary') == '₱50,001 - ₱60,000' ? 'selected' : '' }}>₱50,001 - ₱60,000</option>
+                        <option value="₱60,001 - ₱70,000" {{ old('salary') == '₱60,001 - ₱70,000' ? 'selected' : '' }}>₱60,001 - ₱70,000</option>
+                        <option value="₱70,001 - ₱80,000" {{ old('salary') == '₱70,001 - ₱80,000' ? 'selected' : '' }}>₱70,001 - ₱80,000</option>
+                        <option value="₱80,001 - ₱90,000" {{ old('salary') == '₱80,001 - ₱90,000' ? 'selected' : '' }}>₱80,001 - ₱90,000</option>
+                        <option value="₱90,001 - ₱100,000" {{ old('salary') == '₱90,001 - ₱100,000' ? 'selected' : '' }}>₱90,001 - ₱100,000</option>
+                        <option value="₱100,001 - ₱110,000" {{ old('salary') == '₱100,001 - ₱110,000' ? 'selected' : '' }}>₱100,001 - ₱110,000</option>
+                        <option value="₱110,001 - ₱120,000" {{ old('salary') == '₱110,001 - ₱120,000' ? 'selected' : '' }}>₱110,001 - ₱120,000</option>
                     </select>
                     <div class="border-2 w-full p-2">
-                        <input type="text" name="link" class="w-full outline-none" placeholder="Application Link">
+                        <input type="text" name="link" value="{{ old('link') }}" class="w-full outline-none" placeholder="Application Link" required>
                     </div>
                 </div>
                 
                 <div class="flex flex-col lg:flex-row mx-4 lg:mx-10 gap-2 lg:gap-4 my-2">
-                    <textarea class="border-2 w-full p-2" name="job_description"    placeholder="Job Description"></textarea>
+                    <textarea class="border-2 w-full p-2" name="job_description"    placeholder="Job Description" required>{{ old('job_description') }}</textarea>
                 </div>
 
                 <div class="post-button-holder">
@@ -152,7 +156,22 @@
         </div>
     </section>
 </body>
-<script src="{{ asset('js/header.js') }}"></script>
+<script>
+    // Hide the error message after 5 seconds
+    document.addEventListener('DOMContentLoaded', function() {
+        setTimeout(function() {
+            var errorBox = document.getElementById('show-error');
+            var successBox = document.getElementById('show-success');
+            if (errorBox) {
+                errorBox.style.display = 'none';
+            }
+
+            if (successBox) {
+                successBox.style.display = 'none';
+            }
+        }, 5000); // 5000 milliseconds = 5 seconds
+    });
+</script>
 <script src="{{ asset('js/job-location.js') }}"></script>
 </html>
 

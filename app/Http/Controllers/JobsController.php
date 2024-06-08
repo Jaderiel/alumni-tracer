@@ -18,9 +18,8 @@ class JobsController extends Controller
     }
 
     public function store(Request $request)
-{
-    try {
-        $request->validate([
+    {
+        $validatedData = $request->validate([
             'job_title' => 'required|string',
             'job_location' => 'required|string',
             'job_type' => 'required|string',
@@ -29,28 +28,34 @@ class JobsController extends Controller
             'salary' => 'required|string',
             'link' => 'required|url',
         ]);
-
+    
         // Truncate job description if it exceeds the maximum length
-        $jobDescription = substr($request->job_description, 0, 65535);
-
+        $jobDescription = substr($validatedData['job_description'], 0, 65535);
+    
         $userId = auth()->user()->id;
-
+        $userType = auth()->user()->user_type;
+    
         $job = new Job;
         $job->user_id = $userId;
-        $job->job_title = $request->job_title;
-        $job->job_location = $request->job_location;
-        $job->job_type = $request->job_type;
+        $job->job_title = $validatedData['job_title'];
+        $job->job_location = $validatedData['job_location'];
+        $job->job_type = $validatedData['job_type'];
         $job->job_description = $jobDescription;
-        $job->company = $request->company;
-        $job->salary = $request->salary;
-        $job->link = $request->link;
+        $job->company = $validatedData['company'];
+        $job->salary = $validatedData['salary'];
+        $job->link = $validatedData['link'];
+    
+        // Set is_approved to true if user_type is Super Admin or Admin
+        if ($userType === 'Super Admin' || $userType === 'Admin') {
+            $job->is_approved = true;
+        }
+    
         $job->save();
-
+    
         return redirect()->back()->with('success', 'Job details saved successfully. Please wait for approval');
-    } catch (\Exception $e) {
-        dd($e->getMessage());
     }
-}
+    
+
 
 
     public function update(Request $request, Job $job)
