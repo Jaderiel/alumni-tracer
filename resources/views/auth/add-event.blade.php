@@ -32,14 +32,18 @@
 
         <div class="main-body mt-7 ml-4 mr-2" style="margin-left: 15px;">
 
-        @if(session('error'))
-            <div class="text-red-600">
-                {{ session('error') }}
+        @if($errors->any())
+            <div id="show-error" class="bg-customError text-customErrorText flex justify-center mx-10 my-2 py-2">
+                <ul class="flex flex-col justify-center items-center">
+                    @foreach ($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
             </div>
         @endif
 
         @if(session('success'))
-            <div class="show-success">
+            <div id="show-success" class="show-success">
                 {{ session('success') }}
             </div>
         @endif
@@ -95,8 +99,6 @@
 </section>
 
 </body>
-<!-- <script src="{{ asset('js/dashboard.js') }}"></script> -->
-<!-- <script src="{{ asset('js/events.js') }}"></script> -->
 </html>
 
 <script>
@@ -104,6 +106,22 @@
         var fileName = this.files[0].name;
         var label = document.getElementById('file-upload-label');
         label.innerHTML = '<span>' + fileName + '</span> <i class="fas fa-image"></i>';
+    });
+</script>
+<script>
+    // Hide the error message after 5 seconds
+    document.addEventListener('DOMContentLoaded', function() {
+        setTimeout(function() {
+            var errorBox = document.getElementById('show-error');
+            var successBox = document.getElementById('show-success');
+            if (errorBox) {
+                errorBox.style.display = 'none';
+            }
+
+            if (successBox) {
+                successBox.style.display = 'none';
+            }
+        }, 5000); // 5000 milliseconds = 5 seconds
     });
 </script>
 

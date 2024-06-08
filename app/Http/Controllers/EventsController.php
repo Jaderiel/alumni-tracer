@@ -104,7 +104,7 @@ class EventsController extends Controller
 
     public function addAnn() {
         $currentUserType = auth()->user()->user_type;
-        if ($currentUserType !== 'Super Admin' && $currentUserType !== 'Admin') {
+        if ($currentUserType !== 'Super Admin' && $currentUserType !== 'Admin' && $currentUserType !== 'Program Head' && $currentUserType !== 'Alumni Officer') {
             return redirect()->back()->with('error', 'You are not authorized to add announcements.');
         }
         return view('auth.add-announcement');
@@ -132,7 +132,7 @@ class EventsController extends Controller
         $event = Event::findOrFail($id);
 
         $currentUserType = auth()->user()->user_type;
-        if ($currentUserType !== 'Admin' && $currentUserType !== 'Super Admin' && $event->user_id !== auth()->user()->id) {
+        if ($currentUserType == 'Alumni' && $event->user_id !== auth()->user()->id) {
             return redirect()->back()->with('error', 'You are not authorized to delete this event.');
         }
 
@@ -143,7 +143,7 @@ class EventsController extends Controller
 
     public function edit($id) {
         $currentUserType = auth()->user()->user_type;
-        if ($currentUserType !== 'Super Admin' && $currentUserType !== 'Admin') {
+        if ($currentUserType == 'Alumni') {
             return redirect()->back()->with('error', 'You are not authorized to view this page.');
         }
 
@@ -179,7 +179,7 @@ class EventsController extends Controller
 
     public function editAnn($id) {
         $currentUserType = auth()->user()->user_type;
-        if ($currentUserType !== 'Super Admin' && $currentUserType !== 'Admin') {
+        if ($currentUserType == 'Alumni') {
             return redirect()->back()->with('error', 'You are not authorized to edit announcements.');
         }
 
@@ -206,7 +206,7 @@ class EventsController extends Controller
     {
         $ann = Announcement::findOrFail($id);
         $currentUserType = auth()->user()->user_type;
-        if ($currentUserType !== 'Super Admin' && $currentUserType !== 'Admin') {
+        if ($currentUserType == 'Alumni') {
             return redirect()->back()->with('error', 'You are not authorized to Delete announcements.');
         }
         $ann->delete();

@@ -28,9 +28,9 @@
     </h3>
 
     <div class="event flex flex-col lg:flex-row m-0 p-5">
-        @if(auth()->check() && (auth()->user()->user_type == 'Alumni' || Auth::user()->user_type === 'Program Head'))
+        @if(auth()->check() && (auth()->user()->user_type == 'Alumni'))
         <!-- <button href="{{ route('events') }}" class="up-event">Upcoming Events and Announcement</button> -->
-        @elseif(auth()->check() && (auth()->user()->user_type == 'Admin' || Auth::user()->user_type === 'Super Admin' || Auth::user()->user_type === 'Alumni Officer'))
+        @elseif(auth()->check() && (auth()->user()->user_type != 'Alumni'))
         <button href="{{ route('events') }}" class="up-event w-full">Upcoming Events and Announcement</button>
         <a href="{{ route('add-event') }}" class="post-event w-full">Add Event</a>
         <a href="{{ route('add-ann') }}" class="post-event w-full">Add Announcement</a>
@@ -70,7 +70,7 @@
                                         <span class="text-green-500">REGISTERED</span>
                                     </div>
                                 @else
-                                    @if(auth()->check() && (auth()->user()->user_type == 'Admin' || Auth::user()->user_type === 'Super Admin'))
+                                    @if(auth()->check() && (auth()->user()->user_type != 'Alumni'))
                                     <div class="w-full flex flex-col items-center lg:items-end">
                                         <div class="text-right" style="padding: 10px">
                                             <a href="{{ route('get.registered.users', ['eventId' => $event->id]) }}" style="display: inline-block; padding: 10px 20px; background-color: #007bff; color: #fff; text-decoration: none; border-radius: 5px; " class="view" >View Registered Users</a>

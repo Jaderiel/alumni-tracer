@@ -43,6 +43,8 @@ module.exports = {
         customGreen: '#00A36C',
         primaryYellow: "#E8AF30",
         customDanger: '#BB0237',
+        customError: '#F8D7DA',
+        customErrorText: '#721C24',
       },
     },
   },

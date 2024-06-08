@@ -13,7 +13,7 @@
     @include('main')
 
     <div id="mobile-popup">
-        <p>This page should be viewed in desktop.</p>
+        <p>This page should be viewed on desktop.</p>
     </div>
 
     <section id="main-content" class="ml-0 lg:ml-72 w-full flex flex-col justify-center">

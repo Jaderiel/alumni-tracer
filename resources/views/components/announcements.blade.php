@@ -9,7 +9,7 @@
                 
                     @foreach($announcements as $announcement)
 
-                    @if(auth()->check() && (auth()->user()->user_type == 'Admin' || Auth::user()->user_type === 'Super Admin'))
+                    @if(auth()->check() && (auth()->user()->user_type != 'Alumni'))
                         <a style="text-decoration: none;" href="{{ route('update-ann', ['id' => $announcement->id]) }}">
                             <div class="announcement-info"  >
                                 <div>
