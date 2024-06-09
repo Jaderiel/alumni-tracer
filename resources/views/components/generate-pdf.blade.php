@@ -11,23 +11,16 @@
     * {
         font-family: 'Poppins', sans-serif;
     }
-
-    .container {
-        display: flex;
-        flex-direction: column;
-        gap: 10px
-    }
-
-    .title {
-        display: flex;
-        justify-content: center;
-    }
 </style>
 <body>
 
-    <div class="container">
-        <div class="title">
+    <div style="display: flex;
+        flex-direction: column;
+        gap: 10px">
+        <div style="display: flex;
+        justify-content: center;">
             <h1>Analytics Report</h1>
+            <img src="{{ asset('images/website-images/lvcc_logo.png') }}" alt="">
         </div>
 
         <div>
