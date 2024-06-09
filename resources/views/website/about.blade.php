@@ -56,11 +56,11 @@
             <div class="mission-vision-philosophy">
                 <div class="vision">
                     <h3>Mission</h3>
-                    <p>To cultivate lasting connection among LVCC alumni, promoting support and alignment with institution's core values.</p>
+                    <p style="color: #BD8D00">To cultivate lasting connection among LVCC alumni, promoting support and alignment with institution's core values.</p>
                 </div>
                 <div class="philosophy">
                     <h3>Vision</h3>
-                    <p>A strong LVCC Alumni network, embracing academic excellence and moral values.</p>
+                    <p style="color: #BD8D00">A strong LVCC Alumni network, embracing academic excellence and moral values.</p>
                 </div>
             </div>
         </div>
