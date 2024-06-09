@@ -84,24 +84,31 @@
 
         <div class="dashboard">
             <div class="chart-container user">
+                <h5 style="font-size: 15px; text-align: center; margin-bottom: 10px"><b>TOTAL NUMBER OF ALUMNI USING THE SYSTEM, CATEGORIZED BY COURSE</b></h5>
                 <canvas id="userChart"></canvas>
             </div>
             <div class="chart-container">
+                <h5 style="font-size: 15px; text-align: center; margin-bottom: 10px"><b>PERCENTAGE OF EMPLOYED AND UNEMPLOYED ALUMNI</b></h5>
                 <canvas id="employmentChart"></canvas>
             </div>
             <div class="chart-container">
+                <h5 style="font-size: 15px; text-align: center; margin-bottom: 10px"><b>PERCENTAGE OF ALUMNI JOB ALIGNED TO THEIR COURSES</b></h5>
                 <canvas id="alignedAlumniChart"></canvas>
             </div>
             <div class="chart-container">
+                <h5 style="font-size: 15px; text-align: center; margin-bottom: 10px"><b>PERCENTAGE ANALYSIS OF ALUMNI: BUSINESS OWNERS AND NON-OWNERS</b></h5>
                 <canvas id="ownedBusinessChart"></canvas>
             </div>
             <div class="chart-container">
+                <h5 style="font-size: 15px; text-align: center; margin-bottom: 10px"><b>ALUMNI MONTHLY SALARY RANGE ANALYSIS</b></h5>
                 <canvas id="salaryChart"></canvas>
             </div>
             <div class="chart-container">
+                <h5 style="font-size: 15px; text-align: center; margin-bottom: 10px"><b>ALUMNI EMPLOYMENT LOCATION ANALYSIS</b></h5>
                 <canvas id="locationChart" width="400" height="200"></canvas>
             </div>
             <div class="chart-container">
+                <h5 style="font-size: 15px; text-align: center; margin-bottom: 10px"><b>ALUMNI DEGREES HELD ANALYSIS</b></h5>
                 <canvas id="degreeChart" width="400" height="200"></canvas>
             </div>
             @if(auth()->check() && (auth()->user()->user_type == 'Admin' || Auth::user()->user_type === 'Super Admin'))
