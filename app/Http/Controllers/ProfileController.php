@@ -4,14 +4,17 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\User;
+use App\Models\DegreeStatus;
 
 class ProfileController extends Controller
 {
     public function index() {   
         $user = auth()->user()->load('employment');
         $userId = $user->id;
+        $users = auth()->user();
+        $degrees = $users->degrees()->get();
 
-        return view("auth.user-profile", compact('user', 'userId'));
+        return view("auth.user-profile", compact('user', 'userId', 'degrees'));
     }
 
     public function show($id)

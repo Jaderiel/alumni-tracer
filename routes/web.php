@@ -18,6 +18,7 @@ use App\Http\Controllers\ResetPasswordController;
 use App\Http\Controllers\ReactionController;
 use App\Http\Controllers\ChangePasswordController;
 use App\Http\Controllers\EmploymentHistoryController;
+use App\Http\Controllers\DegreeStatusController;
 
 // Route::get('/download-pdf', 'PDFController@downloadPDF')->name('download.pdf')->middleware('auth');
 Route::middleware(['auth.redirect'])->group(function () {
@@ -51,6 +52,7 @@ Route::group(['middleware' => ['auth.user']], function () {
     Route::put('/update-user-verification/{userId}', [UserController::class, 'updateVerification'])->name('user.updateVerification');
     Route::get('/alumni-list', [UserController::class, 'showVerifiedAlumni'])->name('alumni-list');
     Route::delete('/approvals/{userId}', [UserController::class, 'delete'])->name('user.delete');
+    Route::delete('/degrees/{id}', [UserController::class, 'destroyDegree']);
     // Route::get('/alumni-list', [AuthController::class, 'alumniList'])->name('alumni-list');
     Route::get('/profile', [AuthController::class, 'profile'])->name('profile');
     Route::get('/profile/edit', [UserController::class, 'editProfile'])->name('profile.edit');
@@ -137,6 +139,7 @@ Route::group(['middleware' => ['auth.user']], function () {
     Route::delete('/employment-history/{id}', [EmploymentHistoryController::class, 'destroy'])->name('employment.history.destroy');
     Route::get('/add-past-employment', [EmploymentHistoryController::class, 'addPastEmployment'])->name('add-past-employment.show');
     Route::post('/add-past-employment', [EmploymentHistoryController::class, 'store'])->name('employment.history.store');
+
 });
 
 

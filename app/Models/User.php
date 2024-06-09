@@ -54,4 +54,9 @@ class User extends Authenticatable implements CanResetPassword
         return $this->hasMany(Reaction::class);
     }
 
+    public function degrees()
+    {
+        return $this->hasMany(DegreeStatus::class);
+    }
+
 }

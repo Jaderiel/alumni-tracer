@@ -1268,6 +1268,14 @@ video {
   line-height: 1;
 }
 
+.text-\[2px\] {
+  font-size: 2px;
+}
+
+.text-\[4px\] {
+  font-size: 4px;
+}
+
 .font-bold {
   font-weight: 700;
 }
@@ -1589,6 +1597,10 @@ video {
 
   .lg\:gap-6 {
     gap: 1.5rem;
+  }
+
+  .lg\:gap-2 {
+    gap: 0.5rem;
   }
 
   .lg\:self-end {

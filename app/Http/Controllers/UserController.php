@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use App\Models\DegreeStatus;
 use Illuminate\Http\Request;
 use App\Rules\NotSuperAdmin;
 use App\Rules\ValidIndustryOption;
@@ -36,13 +37,31 @@ class UserController extends Controller
     {
         $user = auth()->user();
         $userId = $user->id;
+        $users = auth()->user();
+        $degrees = $users->degrees()->get();
 
-        return view('profile.edit', compact('user', 'userId'));
+        return view('profile.edit', compact('user', 'userId', 'degrees'));
     }
 
     public function updateProfile(Request $request)
 {
     $user = auth()->user(); 
+
+    $validatedData = $request->validate([
+        'degree' => 'required',
+        'school' => 'required',
+        'is_ongoing' => 'required|boolean', // Assuming it's a boolean value
+    ]);
+
+    // Save the data to the database
+    $degreeStatus = new DegreeStatus();
+    $degreeStatus->user_id = auth()->user()->id;
+    $degreeStatus->degree = $request->degree;
+    $degreeStatus->school = $request->school;
+    $degreeStatus->is_ongoing = $request->is_ongoing;
+    // You might also need to associate it with a user, assuming you have user authentication
+    // $degreeStatus->user_id = auth()->user()->id;
+    $degreeStatus->save();
 
     $request->validate([
         'profile_pic' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:10048',
@@ -181,5 +200,37 @@ class UserController extends Controller
         return redirect()->back()->with('success', 'User account deleted successfully.');
     }
 
+    public function storeDegreeStatus(Request $request)
+    {
+        // Validate the incoming request data
+        $validatedData = $request->validate([
+            'degree' => 'nullable|string',
+            'school' => 'nullable|string',
+            'is_ongoing' => 'nullable|boolean',
+        ]);
+
+        // Create a new DegreeStatus instance with the validated data
+        $degreeStatus = new DegreeStatus();
+        $degreeStatus->user_id = auth()->id(); // Assuming you're using authentication
+        $degreeStatus->degree = $validatedData['degree'];
+        $degreeStatus->school = $validatedData['school'];
+        $degreeStatus->is_ongoing = $validatedData['is_ongoing'];
+        $degreeStatus->save();
+
+        // Redirect back or return a response indicating success
+        return redirect()->back()->with('success', 'Degree status saved successfully!');
+    }
+
+    public function destroyDegree($id)
+    {
+        $degree = DegreeStatus::find($id);
+
+        if ($degree) {
+            $degree->delete();
+            return response()->json(['message' => 'Degree deleted successfully']);
+        } else {
+            return response()->json(['message' => 'Degree not found'], 404);
+        }
+    }
 
 }

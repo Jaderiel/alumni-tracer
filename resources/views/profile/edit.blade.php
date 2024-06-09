@@ -311,21 +311,73 @@
             </div>
                     
             <div class="panel-btn">
-                <div class="flex flex-col lg:flex-row mx-4 lg:mx-10 gap-2 lg:gap-4 my-2" style="margin-top: 25px">
+                <div class="flex flex-col mx-10 my-2 gap-4">
+                    <h1 class="font-bold">Degrees Held</h1>
+                    @if($degrees->count() > 0)
+                        <div class="flex flex-col gap-2 text-sm">
+                            @foreach($degrees as $degree)
+                                <div class="flex flex-col">
+                                    <div class="flex gap-2 items-center">
+                                        <p class="font-bold">Degree:</p>
+                                        <p class="text-xs">{{ $degree->degree }}</p>
+                                    </div>
+                                    <div class="flex gap-2 items-center">
+                                        <p class="font-bold">School:</p>
+                                        <p class="text-xs">{{ $degree->school }}</p>
+                                    </div>
+                                    <div class="flex gap-2 items-center">
+                                        <p class="font-bold">Status:</p>
+                                        @isset($degree)
+                                            <p class="text-xs" style="color: {{ $degree->is_ongoing ? 'green' : 'white' }}; background-color: {{ $degree->is_ongoing ? 'transparent' : 'green' }}; border-radius: {{ $degree->is_ongoing ? '' : '5px' }}; padding: {{ $degree->is_ongoing ? '' : '2px 5px' }}">
+                                                {{ $degree->is_ongoing ? 'Ongoing' : 'Done' }}
+                                            </p>
+                                        @else
+                                            <p class="text-xs">No degree information available</p>
+                                        @endisset
+                                    </div>
+                                    <div class="flex">
+                                        <p class="bg-customDanger text-white px-2 py-1 text-xs cursor-pointer hover:bg-customTextBlue hover:text-black delete-degree-btn" data-degree-id="{{ $degree->id }}">Delete</p>
+                                    </div>
+                                </div>
+                            @endforeach
+                        </div>
+                    @else
+                        <p>No degrees found.</p>
+                    @endif
+                </div>
+                <div class="flex flex-col lg:flex-row mx-4 lg:mx-10 gap-2 lg:gap-4 my-2 degree-status-fields" style="display: none;">
                     <div class="w-full">
                         <label for="degree" class="label">Degree Status</label>
-                        <div class="border-2 w-full p-2" style="margin-bottom: 25px">
+                        <div class="border-2 w-full p-2">
                             <select class="w-full outline-none" id="degree" name="degree">
-                                <option value="" {{ is_null($user->degree) ? 'selected' : '' }}>None</option>
-                                <option value="Doctoral" {{ $user->degree == 'Doctoral' ? 'selected' : '' }}>Doctoral</option>
-                                <option value="Masters" {{ $user->degree == 'Masters' ? 'selected' : '' }}>Master's</option>
-                                <option value="Bachelors" {{ $user->degree == 'Bachelors' ? 'selected' : '' }}>Bachelor's</option>
-                                <option value="Associate" {{ $user->degree == 'Associate' ? 'selected' : '' }}>Associate</option>
-                                <option value="Diploma" {{ $user->degree == 'Diploma' ? 'selected' : '' }}>Diploma</option>
-                                <option value="Certificate" {{ $user->degree == 'Certificate' ? 'selected' : '' }}>Certificate</option>
+                                <option value="">None</option>
+                                <option value="Doctoral">Doctoral</option>
+                                <option value="Master's">Master's</option>
+                                <option value="Bachelor's">Bachelor's</option>
+                                <option value="Associate">Associate</option>
+                                <option value="Diploma">Diploma</option>
+                                <option value="Certificate">Certificate</option>
                             </select>
                         </div>
                     </div>
+                    <div class="w-full">
+                        <label for="school" class="label">School</label>
+                        <div class="border-2 w-full p-2">
+                            <input type="text" name="school" class="w-full outline-none">
+                        </div>
+                    </div>
+                    <div class="w-full">
+                        <label class="label">Ongoing</label>
+                        <div class="border-2 w-full p-2" style="margin-bottom: 25px">
+                            <select class="w-full outline-none" name="is_ongoing">
+                                <option value="1" {{ isset($degree) && $degree->is_ongoing ? 'selected' : '' }}>Yes</option>
+                                <option value="0" {{ isset($degree) && !$degree->is_ongoing ? 'selected' : '' }}>No</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="flex flex-col lg:flex-row mx-4 lg:mx-10 gap-2 lg:gap-4 my-2">
+                    <div id="add-degree-btn" class="bg-customBlue text-white hover:bg-customTextBlue hover:text-black cursor-pointer px-4 py-1 text-xs">Add a Degree</div>
                 </div>
             </div>
         </div>
@@ -451,6 +503,56 @@ document.addEventListener('DOMContentLoaded', function() {
     // Add event listener to monitor changes
     employmentStatus.addEventListener('change', toggleEndEmploymentButton);
 });
+</script>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const addDegreeBtn = document.getElementById('add-degree-btn');
+        const degreeStatusFields = document.querySelector('.degree-status-fields');
+
+        addDegreeBtn.addEventListener('click', function() {
+            degreeStatusFields.style.display = 'flex';
+        });
+    });
+</script>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const deleteDegreeButtons = document.querySelectorAll('.delete-degree-btn');
+
+        deleteDegreeButtons.forEach(function(button) {
+            button.addEventListener('click', function() {
+                const degreeId = button.getAttribute('data-degree-id');
+
+                // Show confirmation dialog
+                const confirmDelete = confirm('Are you sure you want to delete this degree?');
+
+                if (confirmDelete) {
+                    // User confirmed deletion
+                    // Send AJAX request to delete the degree
+                    fetch(`/degrees/${degreeId}`, {
+                        method: 'DELETE',
+                        headers: {
+                            'X-CSRF-TOKEN': '{{ csrf_token() }}',
+                            'Content-Type': 'application/json',
+                            'Accept': 'application/json'
+                        }
+                    })
+                    .then(response => {
+                        if (response.ok) {
+                            // Degree deleted successfully
+                            // You can reload the page or remove the deleted degree from the UI
+                            location.reload(); // Reload the page
+                        } else {
+                            // Error deleting degree
+                            console.error('Error deleting degree');
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Error deleting degree:', error);
+                    });
+                }
+            });
+        });
+    });
 </script>
 
 </html>
