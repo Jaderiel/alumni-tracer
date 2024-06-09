@@ -171,7 +171,9 @@ class AnalyticsController extends Controller
 
     public function getLocation() {
         $userLocations = DB::table('user_employment')
-                            ->pluck('company_address');
+                            ->join('users', 'user_employment.user_id', '=', 'users.id')
+                            ->where('users.user_type', 'Alumni')
+                            ->pluck('user_employment.company_address');
         
         return response()->json($userLocations);
     }
@@ -183,4 +185,14 @@ class AnalyticsController extends Controller
         
         return response()->json(['alumniCount' => $alumniCount]);
     }
+
+    public function getAllDegrees() {
+        $userDegrees = DB::table('degree_status')
+                        ->join('users', 'degree_status.user_id', '=', 'users.id')
+                        ->where('users.user_type', 'Alumni')
+                        ->pluck('degree_status.degree');
+        
+        return response()->json($userDegrees);
+    }
+
 }

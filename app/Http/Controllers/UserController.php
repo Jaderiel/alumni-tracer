@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use App\Rules\NotSuperAdmin;
 use App\Rules\ValidIndustryOption;
 use App\Rules\ValidAnnualSalaryOption;
+use App\Rules\ValidDegrees;
 
 class UserController extends Controller
 {
@@ -48,19 +49,17 @@ class UserController extends Controller
     $user = auth()->user(); 
 
     $validatedData = $request->validate([
-        'degree' => 'required',
+        'degree' => ['required', new ValidDegrees],
         'school' => 'required',
-        'is_ongoing' => 'required|boolean', // Assuming it's a boolean value
+        'is_ongoing' => 'required|boolean', 
     ]);
 
-    // Save the data to the database
     $degreeStatus = new DegreeStatus();
     $degreeStatus->user_id = auth()->user()->id;
     $degreeStatus->degree = $request->degree;
     $degreeStatus->school = $request->school;
     $degreeStatus->is_ongoing = $request->is_ongoing;
-    // You might also need to associate it with a user, assuming you have user authentication
-    // $degreeStatus->user_id = auth()->user()->id;
+
     $degreeStatus->save();
 
     $request->validate([
