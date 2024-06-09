@@ -188,9 +188,9 @@ class AnalyticsController extends Controller
 
     public function getAllDegrees() {
         $userDegrees = DB::table('degree_status')
-                         ->join('users', 'degree_status.user_id', '=', 'users.id')
-                         ->where('users.user_type', 'Alumni')
-                         ->pluck('degree_status.degree');
+                        ->join('users', 'degree_status.user_id', '=', 'users.id')
+                        ->where('users.user_type', 'Alumni')
+                        ->pluck('degree_status.degree');
         
         return response()->json($userDegrees);
     }

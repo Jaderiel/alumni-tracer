@@ -397,8 +397,9 @@ $(document).ready(function() {
                     <p class="text-lg mb-2">Alumni Users: ${alumniCount}</p>
                     <p class="text-lg mb-2">Overall Alumni: ${totalAlumniCount}</p>
                     
-                    <div class="flex justify-center items-center p-10">
+                    <div class="flex flex-col justify-center items-center p-10">
                         <p class="text-6xl font-bold">${percentage}%</p>
+                        <p class="text-xs">Percent of Alumni are using the System</p>
                     </div>
                 `;
             })
