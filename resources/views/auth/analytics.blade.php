@@ -101,6 +101,17 @@
             <div class="chart-container">
                 <canvas id="locationChart" width="400" height="200"></canvas>
             </div>
+            @if(auth()->check() && (auth()->user()->user_type == 'Admin' || Auth::user()->user_type === 'Super Admin'))
+            <div class="chart-container">
+            @if(session('error'))
+                <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative" role="alert">
+                    <strong class="font-bold">Error!</strong>
+                    <span class="block sm:inline">{{ session('error') }}</span>
+                </div>
+            @endif
+                <div id="user-count-container"></div>
+            </div>
+            @endif
         </div>
     </section>
 </div>
@@ -316,58 +327,79 @@ $(document).ready(function() {
 });
 </script>
 <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            fetch('/user-locations')
-                .then(response => response.json())
-                .then(data => {
-                    const locationCounts = {};
+    document.addEventListener('DOMContentLoaded', function() {
+        fetch('/user-locations')
+            .then(response => response.json())
+            .then(data => {
+                const locationCounts = {};
 
-                    data.forEach(location => {
-                        // Check if location is not null or empty
-                        if (location) {
-                            // Split the location string by comma and trim any extra spaces
-                            const parts = location.split(',').map(part => part.trim());
-                            // Get the third part (index 2) of the split string
-                            const middlePart = parts.length > 2 ? parts[2] : '';
-                            // Count occurrences of each middlePart
-                            if (middlePart) {
-                                if (locationCounts[middlePart]) {
-                                    locationCounts[middlePart]++;
-                                } else {
-                                    locationCounts[middlePart] = 1;
-                                }
+                data.forEach(location => {
+                    // Check if location is not null or empty
+                    if (location) {
+                        // Split the location string by comma and trim any extra spaces
+                        const parts = location.split(',').map(part => part.trim());
+                        // Get the third part (index 2) of the split string
+                        const middlePart = parts.length > 2 ? parts[2] : '';
+                        // Count occurrences of each middlePart
+                        if (middlePart) {
+                            if (locationCounts[middlePart]) {
+                                locationCounts[middlePart]++;
+                            } else {
+                                locationCounts[middlePart] = 1;
                             }
                         }
-                    });
+                    }
+                });
 
-                    // Prepare data for the chart
-                    const labels = Object.keys(locationCounts);
-                    const counts = Object.values(locationCounts);
+                // Prepare data for the chart
+                const labels = Object.keys(locationCounts);
+                const counts = Object.values(locationCounts);
 
-                    // Create the chart
-                    const ctx = document.getElementById('locationChart').getContext('2d');
-                    new Chart(ctx, {
-                        type: 'bar',
-                        data: {
-                            labels: labels,
-                            datasets: [{
-                                label: 'User Employment Locations',
-                                data: counts,
-                                backgroundColor: 'rgba(75, 192, 192, 0.2)',
-                                borderColor: 'rgba(75, 192, 192, 1)',
-                                borderWidth: 1
-                            }]
-                        },
-                        options: {
-                            scales: {
-                                y: {
-                                    beginAtZero: true
-                                }
+                // Create the chart
+                const ctx = document.getElementById('locationChart').getContext('2d');
+                new Chart(ctx, {
+                    type: 'bar',
+                    data: {
+                        labels: labels,
+                        datasets: [{
+                            label: 'User Employment Locations',
+                            data: counts,
+                            backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                            borderColor: 'rgba(75, 192, 192, 1)',
+                            borderWidth: 1
+                        }]
+                    },
+                    options: {
+                        scales: {
+                            y: {
+                                beginAtZero: true
                             }
                         }
-                    });
-                })
-                .catch(error => console.error('Error fetching company names:', error));
-        });
-    </script>
+                    }
+                });
+            })
+            .catch(error => console.error('Error fetching company names:', error));
+    });
+</script>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        fetch('/all-users')
+            .then(response => response.json())
+            .then(data => {
+                const container = document.getElementById('user-count-container');
+                const totalAlumniCount = 2070; // Total number of alumni overall
+                const alumniCount = data.alumniCount;
+                const percentage = ((alumniCount / totalAlumniCount) * 100).toFixed(2); // Calculate percentage
+                container.innerHTML = `
+                    <p class="text-lg mb-2">Alumni Users: ${alumniCount}</p>
+                    <p class="text-lg mb-2">Overall Alumni: ${totalAlumniCount}</p>
+                    
+                    <div class="flex justify-center items-center p-10">
+                        <p class="text-6xl font-bold">${percentage}%</p>
+                    </div>
+                `;
+            })
+            .catch(error => console.error('Error fetching user count:', error));
+    });
+</script>
 </html>

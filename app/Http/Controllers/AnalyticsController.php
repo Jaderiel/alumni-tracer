@@ -175,4 +175,12 @@ class AnalyticsController extends Controller
         
         return response()->json($userLocations);
     }
+
+    public function getAllUsers() {
+        $alumniCount = DB::table('users')
+                        ->where('user_type', 'Alumni')
+                        ->count();
+        
+        return response()->json(['alumniCount' => $alumniCount]);
+    }
 }
