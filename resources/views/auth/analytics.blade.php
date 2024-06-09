@@ -98,6 +98,9 @@
             <div class="chart-container">
                 <canvas id="salaryChart"></canvas>
             </div>
+            <div class="chart-container">
+                <canvas id="locationChart" width="400" height="200"></canvas>
+            </div>
         </div>
     </section>
 </div>
@@ -290,7 +293,7 @@ $(document).ready(function() {
                 data: {
                     labels: salaries,
                     datasets: [{
-                        label: 'Annual Salaries',
+                        label: 'Monthly Salaries',
                         data: counts,
                         backgroundColor: 'rgba(255, 159, 64, 0.2)', // Changed color
                         borderColor: 'rgba(255, 159, 64, 1)', // Changed color
@@ -312,4 +315,59 @@ $(document).ready(function() {
     });
 });
 </script>
+<script>
+        document.addEventListener('DOMContentLoaded', function() {
+            fetch('/user-locations')
+                .then(response => response.json())
+                .then(data => {
+                    const locationCounts = {};
+
+                    data.forEach(location => {
+                        // Check if location is not null or empty
+                        if (location) {
+                            // Split the location string by comma and trim any extra spaces
+                            const parts = location.split(',').map(part => part.trim());
+                            // Get the third part (index 2) of the split string
+                            const middlePart = parts.length > 2 ? parts[2] : '';
+                            // Count occurrences of each middlePart
+                            if (middlePart) {
+                                if (locationCounts[middlePart]) {
+                                    locationCounts[middlePart]++;
+                                } else {
+                                    locationCounts[middlePart] = 1;
+                                }
+                            }
+                        }
+                    });
+
+                    // Prepare data for the chart
+                    const labels = Object.keys(locationCounts);
+                    const counts = Object.values(locationCounts);
+
+                    // Create the chart
+                    const ctx = document.getElementById('locationChart').getContext('2d');
+                    new Chart(ctx, {
+                        type: 'bar',
+                        data: {
+                            labels: labels,
+                            datasets: [{
+                                label: 'User Employment Locations',
+                                data: counts,
+                                backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                                borderColor: 'rgba(75, 192, 192, 1)',
+                                borderWidth: 1
+                            }]
+                        },
+                        options: {
+                            scales: {
+                                y: {
+                                    beginAtZero: true
+                                }
+                            }
+                        }
+                    });
+                })
+                .catch(error => console.error('Error fetching company names:', error));
+        });
+    </script>
 </html>

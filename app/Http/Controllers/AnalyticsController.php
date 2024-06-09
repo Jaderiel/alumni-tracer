@@ -167,5 +167,12 @@ class AnalyticsController extends Controller
                         ->get();
     
         return ['salaryCounts' => $salaryCounts];
-    }    
+    }
+
+    public function getLocation() {
+        $userLocations = DB::table('user_employment')
+                            ->pluck('company_address');
+        
+        return response()->json($userLocations);
+    }
 }
