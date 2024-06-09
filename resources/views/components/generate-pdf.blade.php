@@ -61,10 +61,33 @@
             <h2>Salary Range Analytics</h2>
             <ul>
                 @foreach ($salaryRange['salaryCounts'] as $salaryCount)
-                    <li>{{ $salaryCount->annual_salary }}: {{ $salaryCount->user_count }}</li>
+                    @if ($salaryCount->annual_salary !== null)
+                        <li>{{ $salaryCount->annual_salary }}: {{ $salaryCount->user_count }}</li>
+                    @endif
                 @endforeach
             </ul>
         </div>
+
+        <div>
+            <h2>User Locations</h2>
+            <ul>
+                @foreach ($userLocations as $location)
+                    @if ($location)
+                        <li>{{ $location }}</li>
+                    @endif
+                @endforeach
+            </ul>
+        </div>
+
+        <div>
+            <h2>User Degrees</h2>
+            <ul>
+                @foreach ($userDegrees as $degree)
+                    <li>{{ $degree }}</li>
+                @endforeach
+            </ul>
+        </div>
+
     </div>
 
 </body>

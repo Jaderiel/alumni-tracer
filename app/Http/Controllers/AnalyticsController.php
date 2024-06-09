@@ -23,6 +23,8 @@ class AnalyticsController extends Controller
         $alignedUsersAnalytics = $this->alignUsersToCourse();
         $businessAnalytics = $this->isOwnedBusiness();
         $salaryRange = $this->getSalaryRange();
+        $userLocations = $this->getLocation();
+        $userDegrees = $this->getAllDegrees(); // Retrieve user locations
     
         // Pass data to the Blade view
         $data = [
@@ -31,10 +33,13 @@ class AnalyticsController extends Controller
             'alignedUsersAnalytics' => $alignedUsersAnalytics,
             'businessAnalytics' => $businessAnalytics,
             'salaryRange' => $salaryRange,
+            'userLocations' => $userLocations,
+            'userDegrees' => $userDegrees // Pass user locations to the view
         ];
-
+    
         return view("components.generate-pdf", $data)->render();
     }
+    
 
     public function PDFgeneration()
     {
@@ -44,8 +49,11 @@ class AnalyticsController extends Controller
         $alignedUsersAnalytics = $this->alignUsersToCourse();
         $businessAnalytics = $this->isOwnedBusiness();
         $salaryRange = $this->getSalaryRange();
-        
-    
+
+        // Filter location and degree data by user_type 'Alumni'
+        $userLocations = $this->getLocation();
+        $userDegrees = $this->getAllDegrees();
+
         // Pass data to the Blade view
         $data = [
             'userAnalytics' => $userAnalytics,
@@ -53,6 +61,8 @@ class AnalyticsController extends Controller
             'alignedUsersAnalytics' => $alignedUsersAnalytics,
             'businessAnalytics' => $businessAnalytics,
             'salaryRange' => $salaryRange,
+            'userLocations' => $userLocations,
+            'userDegrees' => $userDegrees
         ];
 
         $html = view('components.generate-pdf', $data)->render();
@@ -61,12 +71,12 @@ class AnalyticsController extends Controller
         $pdf->loadHtml($html);
 
         $pdf->setPaper('A4', 'portrait');
-    
 
         $pdf->render();
 
         return $pdf->stream('analytics_report.pdf');
     }
+
 
     
 
@@ -175,7 +185,7 @@ class AnalyticsController extends Controller
                             ->where('users.user_type', 'Alumni')
                             ->pluck('user_employment.company_address');
         
-        return response()->json($userLocations);
+        return ($userLocations);
     }
 
     public function getAllUsers() {
@@ -183,7 +193,7 @@ class AnalyticsController extends Controller
                         ->where('user_type', 'Alumni')
                         ->count();
         
-        return response()->json(['alumniCount' => $alumniCount]);
+        return (['alumniCount' => $alumniCount]);
     }
 
     public function getAllDegrees() {
@@ -192,7 +202,7 @@ class AnalyticsController extends Controller
                         ->where('users.user_type', 'Alumni')
                         ->pluck('degree_status.degree');
         
-        return response()->json($userDegrees);
+        return ($userDegrees);
     }
 
 }
