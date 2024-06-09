@@ -108,6 +108,7 @@
                 <canvas id="locationChart" width="400" height="200"></canvas>
             </div>
             <div class="chart-container">
+                <h5 style="font-size: 15px; text-align: center; margin-bottom: 10px"><b>ALUMNI DEGREES HELD ANALYSIS</b></h5>
                 <canvas id="degreeChart" width="400" height="200"></canvas>
             </div>
             @if(auth()->check() && (auth()->user()->user_type == 'Admin' || Auth::user()->user_type === 'Super Admin'))
