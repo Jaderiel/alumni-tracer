@@ -101,6 +101,9 @@
             <div class="chart-container">
                 <canvas id="locationChart" width="400" height="200"></canvas>
             </div>
+            <div class="chart-container">
+                <canvas id="degreeChart" width="400" height="200"></canvas>
+            </div>
             @if(auth()->check() && (auth()->user()->user_type == 'Admin' || Auth::user()->user_type === 'Super Admin'))
             <div class="chart-container">
             @if(session('error'))
@@ -400,6 +403,49 @@ $(document).ready(function() {
                 `;
             })
             .catch(error => console.error('Error fetching user count:', error));
+    });
+</script>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        fetch('/all-degrees')
+            .then(response => response.json())
+            .then(data => {
+                const degrees = data;
+                const degreeCounts = {};
+                degrees.forEach(degree => {
+                    if (degreeCounts[degree]) {
+                        degreeCounts[degree]++;
+                    } else {
+                        degreeCounts[degree] = 1;
+                    }
+                });
+
+                const labels = Object.keys(degreeCounts);
+                const counts = Object.values(degreeCounts);
+
+                const ctx = document.getElementById('degreeChart').getContext('2d');
+                const chart = new Chart(ctx, {
+                    type: 'bar',
+                    data: {
+                        labels: labels,
+                        datasets: [{
+                            label: 'Degrees Held by the Alumni',
+                            data: counts,
+                            backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                            borderColor: 'rgba(75, 192, 192, 1)',
+                            borderWidth: 1
+                        }]
+                    },
+                    options: {
+                        scales: {
+                            y: {
+                                beginAtZero: true
+                            }
+                        }
+                    }
+                });
+            })
+            .catch(error => console.error('Error fetching degrees:', error));
     });
 </script>
 </html>

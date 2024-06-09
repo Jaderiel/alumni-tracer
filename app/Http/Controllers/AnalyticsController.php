@@ -183,4 +183,10 @@ class AnalyticsController extends Controller
         
         return response()->json(['alumniCount' => $alumniCount]);
     }
+
+    public function getAllDegrees() {
+        $userDegrees = DB::table('degree_status')->pluck('degree');
+        return response()->json($userDegrees);
+    }
+
 }

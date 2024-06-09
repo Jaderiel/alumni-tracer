@@ -113,6 +113,7 @@ Route::group(['middleware' => ['auth.user']], function () {
     Route::get('/salary-range', [AnalyticsController::class, 'getSalaryRange']);
     Route::get('/user-locations', [AnalyticsController::class, 'getLocation']);
     Route::get('/all-users', [AnalyticsController::class, 'getAllUsers'])->middleware('user.type');
+    Route::get('/all-degrees', [AnalyticsController::class, 'getAllDegrees']);
     Route::get('/analytics/generate-pdf', [AnalyticsController::class, 'pdfPreview'])->name('generate-pdf.show');
     Route::get('/generate-pdf', [AnalyticsController::class, 'PDFgeneration'])->name('generate.pdf');
 
