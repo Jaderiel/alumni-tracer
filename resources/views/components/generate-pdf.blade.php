@@ -20,7 +20,6 @@
         <div style="display: flex;
         justify-content: center;">
             <h1>Analytics Report</h1>
-            <img src="{{ asset('images/website-images/lvcc_logo.png') }}" alt="">
         </div>
 
         <div>
