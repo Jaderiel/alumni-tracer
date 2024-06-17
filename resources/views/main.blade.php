@@ -15,44 +15,44 @@
                 <img class="w-20 lg:w-32 h-20 lg:h-32" src="{{ asset('images/website-images/lvcc_logo.png') }}" alt="">
             </div>
             <div class="flex flex-col mb-16">
-                <a href="{{ route('dashboard') }}">
+                <a href="{{ route('dashboard') }}" class="sidebar-link">
                     <div class="flex text-white hover:bg-customYellow hover:text-customBlue cursor-pointer items-center p-2">
                         <div class="w-1/6 flex justify-center"><i class="fa-solid fa-house text-sm p-0 m-0"></i></div>
                         <div class="w-5/6 flex justify-start items-center"><p class="text-lg">Dashboard</p></div>
                     </div>
                 </a>
-                <a href="{{ route('alumni-list') }}">
+                <a href="{{ route('alumni-list') }}" class="sidebar-link">
                     <div class="flex text-white hover:bg-customYellow hover:text-customBlue cursor-pointer items-center p-2">
                         <div class="w-1/6 flex justify-center"><i class="fa-solid fa-users text-sm p-0 m-0"></i></div>
                         <div class="w-5/6 flex justify-start items-center"><p class="text-lg">Alumni List</p></div>
                     </div>
                 </a>
-                <a href="{{ route('events') }}">
+                <a href="{{ route('events') }}" class="sidebar-link">
                     <div class="flex text-white hover:bg-customYellow hover:text-customBlue cursor-pointer items-center p-2">
                         <div class="w-1/6 flex justify-center"><i class="fa-solid fa-calendar-days text-sm p-0 m-0"></i></div>
                         <div class="w-5/6 flex justify-start items-center"><p class="text-lg">Events</p></div>
                     </div>
                 </a>
-                <a href="{{ route('jobs') }}">
+                <a href="{{ route('jobs') }}" class="sidebar-link">
                     <div class="flex text-white hover:bg-customYellow hover:text-customBlue cursor-pointer items-center p-2">
                         <div class="w-1/6 flex justify-center"><i class="fa-solid fa-briefcase text-sm p-0 m-0"></i></div>
                         <div class="w-5/6 flex justify-start items-center"><p class="text-lg">Jobs</p></div>
                     </div>
                 </a>
-                <a href="{{ route('gallery') }}">
+                <a href="{{ route('gallery') }}" class="sidebar-link">
                     <div class="flex text-white hover:bg-customYellow hover:text-customBlue cursor-pointer items-center p-2">
                         <div class="w-1/6 flex justify-center"><i class="fa-solid fa-image text-sm p-0 m-0"></i></div>
                         <div class="w-5/6 flex justify-start items-center"><p class="text-lg">Gallery</p></div>
                     </div>
                 </a>
-                <a href="{{ route('analytics') }}">
+                <a href="{{ route('analytics') }}" class="sidebar-link">
                     <div class="flex text-white hover:bg-customYellow hover:text-customBlue cursor-pointer items-center p-2">
                         <div class="w-1/6 flex justify-center"><i class="fa-solid fa-chart-line text-sm p-0 m-0"></i></div>
                         <div class="w-5/6 flex justify-start items-center"><p class="text-lg">Analytics</p></div>
                     </div>
                 </a>
                 @if(auth()->check() && (auth()->user()->user_type == 'Admin' || Auth::user()->user_type === 'Super Admin'))
-                <a href="{{ route('administration.show') }}">
+                <a href="{{ route('administration.show') }}" class="sidebar-link">
                     <div class="flex text-white hover:bg-customYellow hover:text-customBlue cursor-pointer items-center p-2">
                         <div class="w-1/6 flex justify-center"><i class="fa-solid fa-user-tie text-sm p-0 m-0"></i></div>
                         <div class="w-5/6 flex justify-start items-center"><p class="text-lg">Administration</p></div>
@@ -61,13 +61,13 @@
                 @endif
             </div>
             <div class="mb-16">
-                <a href="{{ route('user-profile') }}">
+                <a href="{{ route('user-profile') }}" class="sidebar-link">
                     <div class="flex text-white hover:bg-customYellow hover:text-customBlue cursor-pointer items-center p-2">
                         <div class="w-1/6 flex justify-center"><i class="fa-solid fa-user-gear text-sm p-0 m-0"></i></div>
                         <div class="w-5/6 flex justify-start items-center"><p class="text-lg">Profile</p></div>
                     </div>
                 </a>
-                <a href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                <a href="{{ route('logout') }}" class="sidebar-link" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
                     <div class="flex text-white hover:bg-customYellow hover:text-customBlue cursor-pointer items-center p-2">
                     <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
                         @csrf
@@ -106,17 +106,15 @@
     </a>
 
 
-    <script>
-        function toggleMenu() {
-            const sideNav = document.getElementById('sideNavigation');
-            const headNav = document.getElementById('headNavigation');
+<script>
+    function toggleMenu() {
+        const sideNav = document.getElementById('sideNavigation');
+        const headNav = document.getElementById('headNavigation');
 
-            sideNav.classList.toggle('-translate-x-full');
-            sideNav.classList.toggle('translate-x-0');
-
-            // headNav.classList.toggle('pt-72');
-        }
-    </script>
+        sideNav.classList.toggle('-translate-x-full');
+        sideNav.classList.toggle('translate-x-0');
+    }
+</script>
 
 <script>
     function showPrivacyNotice(element) {
@@ -131,5 +129,30 @@
         paragraph.classList.add("hidden");
     }
 </script>
+<script>
+    // Add event listeners to sidebar links
+    document.querySelectorAll('.sidebar-link').forEach(link => {
+        link.addEventListener('click', function() {
+            document.querySelectorAll('.sidebar-link').forEach(link => link.children[0].classList.remove('active'));
+            this.children[0].classList.add('active');
+        });
+    });
+
+    // Persist the active state based on the current route
+    const currentRoute = "{{ Route::currentRouteName() }}";
+    document.querySelectorAll('.sidebar-link').forEach(link => {
+        const href = link.getAttribute('href');
+        if (href.includes(currentRoute)) {
+            link.children[0].classList.add('active');
+        }
+    });
+</script>
 </body>
 </html>
+
+<style>
+    .active {
+        background-color: #E8C766; /* Replace with your Tailwind custom yellow */
+        color: #162F65; /* Replace with your Tailwind custom blue */
+    }
+</style>
