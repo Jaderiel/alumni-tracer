@@ -143,7 +143,7 @@
     document.querySelectorAll('.sidebar-link').forEach(link => {
         const href = link.getAttribute('href');
         if (href.includes(currentRoute)) {
-            link.children[0].classList.add('active');
+            link.children[0].classList.add('actives');
         }
     });
 </script>
@@ -151,7 +151,7 @@
 </html>
 
 <style>
-    .active {
+    .actives {
         background-color: #E8C766; /* Replace with your Tailwind custom yellow */
         color: #162F65; /* Replace with your Tailwind custom blue */
     }
