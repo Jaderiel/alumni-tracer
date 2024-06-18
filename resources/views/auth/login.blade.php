@@ -198,6 +198,11 @@
     <div id="successMessage" class="success-popup">
         Registration successful! Please wait for the Admin to verify your account.
     </div>
+
+    <div id="errorMessage" class="error-popup">
+        Registration failed. Please check your input and try again.
+    </div>
+
 </body>
 <script src="{{ asset('js/login.js') }}"></script>
 <script>
@@ -231,8 +236,6 @@
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
-
-Copy code
 <script>
     $(document).ready(function() {
         $('#registerForm').on('submit', function(e) {
@@ -246,7 +249,7 @@ Copy code
                         $('#successMessage').fadeIn().delay(3000).fadeOut();
                         $('#registerForm')[0].reset();
                     } else {
-                        alert('Unexpected response from the server.');
+                        $('#errorMessage').text('Unexpected response from the server.').fadeIn().delay(3000).fadeOut();
                     }
                 },
                 error: function(xhr) {
@@ -256,28 +259,37 @@ Copy code
                         $.each(errors, function(key, value) {
                             errorMessage += value[0] + "\n";
                         });
-                        alert(errorMessage);
+                        $('#errorMessage').text(errorMessage).fadeIn().delay(3000).fadeOut();
                     } else {
-                        alert('Registration failed. Please check your input and try again.');
+                        $('#errorMessage').text('Registration failed. Please check your input and try again.').fadeIn().delay(3000).fadeOut();
                     }
                 }
             });
         });
     });
 </script>
+
 </html>
 
 <style>
-    .success-popup {
+    .success-popup, .error-popup {
         display: none;
         position: fixed;
         top: 20px;
         left: 50%;
         transform: translateX(-50%);
-        background-color: #4CAF50;
-        color: white;
         padding: 15px;
         border-radius: 5px;
         box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+    }
+
+    .success-popup {
+        background-color: #4CAF50;
+        color: white;
+    }
+
+    .error-popup {
+        background-color: #F44336;
+        color: white;
     }
 </style>

@@ -119,7 +119,7 @@ Route::group(['middleware' => ['auth.user']], function () {
 
     // Route::put('/approvals/{userId}', [ApprovalsController::class, 'approveUser'])->name('user.approve');
 
-    Route::get('/administration', [AdminController::class, 'index'])->name('administration.show');
+    Route::get('/administration', [AdminController::class, 'index'])->name('administration');
     Route::put('/administration/{userId}', [AdminController::class, 'approveUser'])->name('user.approve');
     Route::post('/administration', [AdminController::class, 'createAccount'])->name('user.create');
     Route::post('/administration/{id}', [AdminController::class, 'approveGallery'])->name('gallery.approve');

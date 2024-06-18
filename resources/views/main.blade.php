@@ -52,7 +52,7 @@
                     </div>
                 </a>
                 @if(auth()->check() && (auth()->user()->user_type == 'Admin' || Auth::user()->user_type === 'Super Admin'))
-                <a href="{{ route('administration.show') }}" class="sidebar-link">
+                <a href="{{ route('administration') }}" class="sidebar-link">
                     <div class="flex text-white hover:bg-customYellow hover:text-customBlue cursor-pointer items-center p-2">
                         <div class="w-1/6 flex justify-center"><i class="fa-solid fa-user-tie text-sm p-0 m-0"></i></div>
                         <div class="w-5/6 flex justify-start items-center"><p class="text-lg">Administration</p></div>
@@ -133,8 +133,8 @@
     // Add event listeners to sidebar links
     document.querySelectorAll('.sidebar-link').forEach(link => {
         link.addEventListener('click', function() {
-            document.querySelectorAll('.sidebar-link').forEach(link => link.children[0].classList.remove('active'));
-            this.children[0].classList.add('active');
+            document.querySelectorAll('.sidebar-link').forEach(link => link.children[0].classList.remove('actives'));
+            this.children[0].classList.add('actives');
         });
     });
 
