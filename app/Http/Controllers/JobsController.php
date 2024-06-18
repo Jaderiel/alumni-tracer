@@ -78,7 +78,7 @@ class JobsController extends Controller
         $job = Job::find($job->id);
         $job->update($validatedData);
         
-        return redirect()->route('jobs');
+        return redirect()->route('jobs')->with('success', 'Job details saved successfully.');
     }
 
     public function show(Job $job)
