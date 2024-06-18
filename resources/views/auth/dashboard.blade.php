@@ -269,11 +269,9 @@
                     if (response.success) {
                         if (response.is_liked) {
                             icon.css('color', '#228BE6');
-                            alert('Post liked successfully!');
                             location.reload();
                         } else {
                             icon.css('color', 'inherit');
-                            alert('Post unliked successfully!');
                             location.reload();
                         }
                     }

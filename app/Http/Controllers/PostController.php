@@ -86,33 +86,43 @@ class PostController extends Controller
 }
 
 public function updatePost(Request $request, $id) {
-    $post = Forum::findOrFail($id);
-    $post->caption = $request->caption;
+    $request->validate([
+        'caption' => 'required|string|max:255',
+        'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048'
+    ]);
 
-    if ($request->hasFile('image')) {
-        // Get the file extension from the original file
-        $extension = $request->file('image')->getClientOriginalExtension();
+    try {
+        $post = Forum::findOrFail($id);
+        $post->caption = $request->caption;
 
-        // Generate a new file name with the appropriate extension
-        $newFileName = 'image_' . time() . '.' . $extension;
+        if ($request->hasFile('image')) {
+            // Get the file extension from the original file
+            $extension = $request->file('image')->getClientOriginalExtension();
 
-        // Ensure the destination directory exists
-        $destinationPath = 'uploads';
-        if (!Storage::exists($destinationPath)) {
-            Storage::makeDirectory($destinationPath);
+            // Generate a new file name with the appropriate extension
+            $newFileName = 'image_' . time() . '.' . $extension;
+
+            // Ensure the destination directory exists
+            $destinationPath = 'uploads';
+            if (!Storage::exists($destinationPath)) {
+                Storage::makeDirectory($destinationPath);
+            }
+
+            // Move the uploaded file to the desired location with the new file name and extension
+            $request->file('image')->move(public_path($destinationPath), $newFileName);
+
+            // Update the post's media_url with the new file path including the extension
+            $post->media_url = $destinationPath . '/' . $newFileName;
         }
 
-        // Move the uploaded file to the desired location with the new file name and extension
-        $request->file('image')->move(public_path($destinationPath), $newFileName);
+        $post->save();
 
-        // Update the post's media_url with the new file path including the extension
-        $post->media_url = $destinationPath . '/' . $newFileName;
+        return redirect()->back()->with('success', 'Post updated successfully!');
+    } catch (\Exception $e) {
+        return redirect()->back()->with('error', 'An error occurred while updating the post: ' . $e->getMessage());
     }
-
-    $post->save();
-
-    return redirect()->back()->with('success', 'Post updated successfully!');
 }
+
 
 
 
