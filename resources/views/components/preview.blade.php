@@ -14,6 +14,13 @@
             <h3 class="i-name">
                 <a href="{{ route('analytics') }}" class="back-link" ><i class="fa-solid fa-angles-left text-sm"></i> Back</a>Preview
             </h3>
+            <div class="flex gap-4 justify-end mx-5">
+            @if(auth()->check() && (auth()->user()->user_type == 'Admin' || Auth::user()->user_type === 'Super Admin'))
+                <a href="{{ route('generate.pdf') }}">
+                    <button class="flex items-center gap-4 px-5 py-1 hover:bg-customTextBlue hover:text-black cursor-pointer rounded-md generate-report-btn" style="background-color: #28a745; color: #fff; font-size: 15px">Download as PDF</button>
+                </a>
+            @endif
+        </div>
             @include('components.generate-pdf')
         </div>
     </section>
