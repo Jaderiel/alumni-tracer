@@ -99,7 +99,7 @@
                                     @if(auth()->check() && 
                                         (auth()->user()->id == $user->id || 
                                         in_array(auth()->user()->user_type, ['Admin', 'Super Admin', 'Program Head', 'Alumni Officer'])))
-                                        <button>View</button>
+                                        <button style="background-color: #00A36C;">View</button>
                                     @endif
                                 </a>
 
