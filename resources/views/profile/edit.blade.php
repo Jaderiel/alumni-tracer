@@ -133,7 +133,7 @@
                 <div class="flex flex-col lg:flex-row mx-4 lg:mx-10 gap-2 my-2">
                     <a href="{{ route('change-password.show') }}">
                         <div class="w-full">
-                            <div class="bg-customBlue text-white text-xs hover:bg-customTextBlue hover:text-black py-2 px-4">Change Password</div>
+                            <div class="bg-customBlue text-white text-xs py-2 px-4 change-btn" style="margin-top: 10px">Change Password</div>
                         </div>
                     </a>
                 </div>
@@ -275,13 +275,13 @@
                     <div class="flex flex-col lg:flex-row mx-4 lg:mx-10 gap-2 my-2">
                         <a href="{{ route('employment-history.show') }}">
                             <div class="w-full">
-                                <div class="bg-customBlue text-white text-xs hover:bg-customTextBlue hover:text-black py-2 px-4">Employment History</div>
+                                <div class="bg-customBlue text-white text-xs py-2 px-4 change-btn">Employment History</div>
                             </div>
                         </a>
                     </div>
                     <div class="flex flex-col lg:flex-row mx-4 lg:mx-10 gap-2 my-2">
                             <div class="w-full">
-                                <div id="endEmploymentBtn" class="bg-customDanger text-white text-xs hover:bg-customTextBlue hover:text-black py-2 px-4 cursor-pointer">End Curent Employment</div>
+                                <div id="endEmploymentBtn" class="bg-customDanger text-white text-xs py-2 px-4 cursor-pointer change-btn">End Curent Employment</div>
                             </div>
                     </div>
                 </div>
@@ -311,77 +311,76 @@
             </div>
                     
             <div class="panel-btn">
-                <div class="flex flex-col mx-10 my-2 gap-4">
-                    <h1 class="font-bold">Degrees Held</h1>
-                    @if($degrees->count() > 0)
-                        <div class="flex flex-col gap-2 text-sm">
-                            @foreach($degrees as $degree)
-                                <div class="flex flex-col">
-                                    <div class="flex gap-2 items-center">
-                                        <p class="font-bold">Degree:</p>
-                                        <p class="text-xs">{{ $degree->degree }}</p>
-                                    </div>
-                                    <div class="flex gap-2 items-center">
-                                        <p class="font-bold">School:</p>
-                                        <p class="text-xs">{{ $degree->school }}</p>
-                                    </div>
-                                    <div class="flex gap-2 items-center">
-                                        <p class="font-bold">Status:</p>
-                                        @isset($degree)
-                                            <p class="text-xs" style="color: {{ $degree->is_ongoing ? 'green' : 'white' }}; background-color: {{ $degree->is_ongoing ? 'transparent' : 'green' }}; border-radius: {{ $degree->is_ongoing ? '' : '5px' }}; padding: {{ $degree->is_ongoing ? '' : '2px 5px' }}">
-                                                {{ $degree->is_ongoing ? 'Ongoing' : 'Done' }}
-                                            </p>
-                                        @else
-                                            <p class="text-xs">No degree information available</p>
-                                        @endisset
-                                    </div>
-                                    <div class="flex">
-                                        <p class="bg-customDanger text-white px-2 py-1 text-xs cursor-pointer hover:bg-customTextBlue hover:text-black delete-degree-btn" data-degree-id="{{ $degree->id }}">Delete</p>
-                                    </div>
-                                </div>
-                            @endforeach
-                        </div>
-                    @else
-                        <p>No degrees found.</p>
-                    @endif
-                </div>
-                <div class="flex flex-col lg:flex-row mx-4 lg:mx-10 gap-2 lg:gap-4 my-2 degree-status-fields" style="display: none;">
-                    <div class="w-full">
-                        <label for="degree" class="label">Degree Status</label>
-                        <div class="border-2 w-full p-2">
-                            <select class="w-full outline-none" id="degree" name="degree">
-                                <option value="">None</option>
-                                <option value="Doctoral">Doctoral</option>
-                                <option value="Master's">Master's</option>
-                                <option value="Bachelor's">Bachelor's</option>
-                                <option value="Associate">Associate</option>
-                                <option value="Diploma">Diploma</option>
-                                <option value="Certificate">Certificate</option>
-                            </select>
-                        </div>
-                    </div>
-                    <div class="w-full">
-                        <label for="school" class="label">School</label>
-                        <div class="border-2 w-full p-2">
-                            <input type="text" name="school" class="w-full outline-none">
-                        </div>
-                    </div>
-                    <div class="w-full">
-                        <label class="label">Ongoing</label>
-                        <div class="border-2 w-full p-2" style="margin-bottom: 25px">
-                            <select class="w-full outline-none" name="is_ongoing">
-                                <option value="1" {{ isset($degree) && $degree->is_ongoing ? 'selected' : '' }}>Yes</option>
-                                <option value="0" {{ isset($degree) && !$degree->is_ongoing ? 'selected' : '' }}>No</option>
-                            </select>
-                        </div>
-                    </div>
-                </div>
-                <div class="flex flex-col lg:flex-row mx-4 lg:mx-10 gap-2 lg:gap-4 my-2">
-                    <div id="add-degree-btn" class="bg-customBlue text-white hover:bg-customTextBlue hover:text-black cursor-pointer px-4 py-1 text-xs">Add a Degree</div>
-                </div>
+    <div class="flex flex-col lg:flex-row mx-4 lg:mx-10 gap-2 lg:gap-4 my-2 degree-status-fields" style="display: none; margin-top: 20px">
+        <!-- Degree input fields -->
+        <div class="w-full">
+            <label for="degree" class="label">Degree Status</label>
+            <div class="border-2 w-full p-2">
+                <select class="w-full outline-none" id="degree" name="degree">
+                    <option value="">None</option>
+                    <option value="Doctoral">Doctoral</option>
+                    <option value="Master's">Master's</option>
+                    <option value="Bachelor's">Bachelor's</option>
+                    <option value="Associate">Associate</option>
+                    <option value="Diploma">Diploma</option>
+                    <option value="Certificate">Certificate</option>
+                </select>
             </div>
         </div>
+        <div class="w-full">
+            <label for="school" class="label">School</label>
+            <div class="border-2 w-full p-2">
+                <input type="text" name="school" class="w-full outline-none">
+            </div>
+        </div>
+        <div class="w-full">
+            <label class="label">Ongoing</label>
+            <div class="border-2 w-full p-2" style="margin-bottom: 25px">
+                <select class="w-full outline-none" name="is_ongoing">
+                    <option value="1" {{ isset($degree) && $degree->is_ongoing ? 'selected' : '' }}>Yes</option>
+                    <option value="0" {{ isset($degree) && !$degree->is_ongoing ? 'selected' : '' }}>No</option>
+                </select>
+            </div>
+        </div>
+        <button type="submit" class="btn-save" style="width: 350px; height: 30px; margin-top: 30px"><i class="fa-regular fa-bookmark"></i> Save Degree</button>
     </div>
+    
+    <!-- Degrees loop -->
+    @if($degrees->count() > 0)
+        @foreach($degrees as $degree)
+            <div class="flex flex-col lg:flex-row mx-4 lg:mx-10 gap-2 my-2">
+                <div class="w-full">
+                    <label for="degree" class="label">Degree</label>
+                    <div class="border-2 w-full p-2">
+                        <input type="text" class="w-full outline-none" name="degree" value="{{ $degree->degree }}">
+                    </div>
+                </div>
+                <div class="w-full">
+                    <label for="school" class="label">School</label>
+                    <div class="border-2 w-full p-2">
+                        <input type="text" class="w-full outline-none" name="school" value="{{ $degree->school }}">
+                    </div>
+                </div>
+                <div class="w-full">
+                    <label for="status" class="label">Status</label>
+                    <div class="border-2 w-full p-2">
+                        <input type="text" class="w-full outline-none" name="status" value="{{ $degree->status }}">
+                        <p class="text-xs" style="color: {{ $degree->is_ongoing ? 'green' : 'white' }}; background-color: {{ $degree->is_ongoing ? 'transparent' : 'green' }}; border-radius: {{ $degree->is_ongoing ? '' : '5px' }}; padding: {{ $degree->is_ongoing ? '' : '2px 5px' }}">
+                            {{ $degree->is_ongoing ? 'Ongoing' : 'Done' }}
+                        </p>
+                    </div>
+                </div>
+            </div>
+        @endforeach
+    @else
+        <p class="label" style="margin: 10px 10px; color: red">No degrees found.</p>
+    @endif
+    
+    <!-- Add degree button -->
+    <div class="flex flex-col lg:flex-row mx-4 lg:mx-10 gap-2 lg:gap-4 my-2" style="margin-bottom: 30px">
+        <div id="add-degree-btn" class="bg-customBlue text-white text-xs py-2 px-4 cursor-pointer change-btn">Add Degree</div>
+    </div>
+</div>
 <br>
 </section>
 
@@ -409,7 +408,7 @@
         function toggleFields() {
             const isUnemployed = employmentStatus.value === 'unemployed';
             fieldsToToggle.forEach(id => {
-                document.getElementById(id).disabled = isUnemployed;
+                doent.getElementById(id).disabled = isUnemployed;
             });
 
             if (isUnemployed) {
@@ -581,5 +580,28 @@ document.addEventListener('DOMContentLoaded', function() {
 
 .disabled {
     background: #d3d3d3;
+}
+
+button {
+    border: none;
+    color: #fff;
+    margin: 0;
+    border-radius: 4px;
+    font-size: 10px;
+    cursor: pointer;
+}
+
+.btn-save {
+    background: #00A36C; 
+    padding: 0;
+    
+}
+
+.btn-save:hover {
+    background: #016443; 
+}
+
+.change-btn:hover {
+    background-color: #000033;
 }
 </style>

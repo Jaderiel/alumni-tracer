@@ -26,27 +26,27 @@
         <div class="create-account-holder">
             <div class="heading">USER INFORMATION</div>
                 <div class="inline-group">
-                    <div class="form-group">
+                    <div class="group">
                         <label for="first_name">First Name</label>
-                        <input type="text" class="form-controll" id="first_name" name="first_name" value="">
+                        <input type="text" class="controll" id="first_name" name="first_name" value="">
                     </div>
-                    <div class="form-group">
+                    <div class="group">
                         <label for="middle_name">Middle Name</label>
-                        <input type="text" class="form-controll" id="middle_name" name="middle_name" value="">
+                        <input type="text" class="controll" id="middle_name" name="middle_name" value="">
                     </div>
-                    <div class="form-group">
+                    <div class="group">
                         <label for="last_name">Last Name</label>
-                        <input type="text" class="form-controll" id="last_name" name="last_name" value="">
+                        <input type="text" class="controll" id="last_name" name="last_name" value="">
                     </div>
                 </div>
                 <div class="inline-group">
-                    <div class="form-group">
+                    <div class="group">
                         <label for="email">Email Address</label>
-                        <input type="email" class="form-controll" id="email" name="email" value="">
+                        <input type="email" class="controll" id="email" name="email" value="">
                     </div>
-                    <div class="form-group">
+                    <div class="group">
                         <label for="role">Role</label>
-                        <select class="form-controll" id="role" name="user_type"  style="font-size:13px; width:35%">
+                        <select class="controll" id="role" name="user_type"  style="font-size:13px; width:35%">
                             <option value="" selected disabled>Role</option>
                             <option value="Super Admin">Super Admin</option>
                             <option value="Admin">Admin</option>
@@ -56,17 +56,17 @@
                     </div>
                 </div>
                 <div class="inline-group">
-                    <div class="form-group">
+                    <div class="group">
                             <label for="username">Username</label>
-                            <input type="text" class="form-controll" id="username" name="username" value="">
+                            <input type="text" class="controll" id="username" name="username" value="">
                     </div>
-                    <div class="form-group">
+                    <div class="group">
                         <label for="password">Password</label>
-                        <input type="password" class="form-controll" id="password" name="password" value="" style="width: 100%;">
+                        <input type="password" class="controll" id="password" name="password" value="" style="width: 100%;">
                     </div>
-                    <div class="form-group">
+                    <div class="group">
                         <label for="password_confirmation">Confirm Password</label>
-                        <input type="password" class="form-controll" id="password_confirmation" name="password_confirmation" value="">
+                        <input type="password" class="controll" id="password_confirmation" name="password_confirmation" value="">
                     </div>
                 </div>
             <div class="button-holder">
@@ -118,20 +118,21 @@
             color: #fff;
         }
 
-        .form-group {
+        .group {
             margin-left: 0;
             flex: 1;
             min-width: 200px;
         }
 
-        .form-group label {
+        .group label {
             display: block;
             margin-bottom: 5px;
             font-weight: bold;
+            font-size: 13px;
             color: #555;
         }
 
-        .form-controll {
+        .controll {
             width: 100%;
             border: 1px solid #ccc;
             border-radius: 5px;
@@ -149,5 +150,20 @@
             outline: none;
             border: 2px solid #ADBCF2;
         }
+
+        .group input {
+        padding: 5px;
+        border: 1px solid #2D55B4;
+        border-radius: 3px;
+        font-size: 12px;
+    }
+
+        .group select { 
+        padding: 4px;
+        border: 1px solid #2D55B4;
+        border-radius: 3px;
+        color: #000000b2;   
+        margin: 0;
+}
 
 </style>

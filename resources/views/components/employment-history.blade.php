@@ -19,24 +19,71 @@
 
         <div class="flex mt-5 justify-end mx-5 lg:mx-40">
             <a href="{{ route('add-past-employment.show') }}">
-                <div class="flex items-center gap-4 bg-customYellow px-4 py-1 hover:bg-customTextBlue hover:text-white cursor-pointer rounded-md border-black border-2">
-                <i class="fas fa-circle-plus"></i>
-                <p>Add Past Employment</p>
-                </div>
+            <button class="up-event w-full">Add Past Employment <i class="fas fa-circle-plus"></i></button>
             </a>
         </div>
 
         @foreach ($employmentHistories as $history)
             <div class="bg-white mx-5 lg:mx-40 mt-5 p-4 flex flex-col gap-2 rounded-md shadow-lg hover:shadow-customYellow" data-id="{{ $history->id }}">
+                <table class="table table-auto">
+                    <tr class="hide-on-small">
+                        <th width="30%">Job Title</th>
+                        <td width="2%">:</td>
+                        <td>{{ $history->job_title }}</td>
+                    </tr>
+                    <div class="lg:hidden flex flex-col mb-2">
+                        <h1 class="font-bold">Job Title</h1>
+                        <p>{{ $history->job_title }}</p>
+                    </div>
+                    <tr class="hide-on-small">
+                        <th width="30%">Company</th>
+                        <td width="2%">:</td>
+                        <td>{{ $history->company }}</td>
+                    </tr>
+                    <div class="lg:hidden flex flex-col mb-2">
+                        <h1 class="font-bold">Company</h1>
+                        <p>{{ $history->company }}</p>
+                    </div>
+                    <tr class="hide-on-small">
+                        <th width="30%">Industry</th>
+                        <td width="2%">:</td>
+                        <td>{{ $history->industry }}</td>
+                    </tr>
+                    <div class="lg:hidden flex flex-col mb-2">
+                        <h1 class="font-bold">Industry</h1>
+                        <p>{{ $history->industry }}</p>
+                    </div>
+                    <tr class="hide-on-small">
+                        <th width="30%">Date of Employment</th>
+                        <td width="2%">:</td>
+                        <td>{{ $history->date_of_employment }}</td>
+                    </tr>
+                    <div class="lg:hidden flex flex-col mb-2">
+                        <h1 class="font-bold">Date of Employment</h1>
+                        <p>{{ $history->date_of_employment }}</p>
+                    </div>
+                    <tr class="hide-on-small">
+                        <th width="30%">Salary</th>
+                        <td width="2%">:</td>
+                        <td>{{ $history->salary }}</td>
+                    </tr>
+                    <div class="lg:hidden flex flex-col mb-2">
+                        <h1 class="font-bold">Salary</h1>
+                        <p>{{ $history->salary }}</p>
+                    </div>
+                    <tr class="hide-on-small">
+                        <th width="30%">Location</th>
+                        <td width="2%">:</td>
+                        <td>{{ $history->location }}</td>
+                    </tr>
+                    <div class="lg:hidden flex flex-col">
+                        <h1 class="font-bold">Location</h1>
+                        <p>{{ $history->location }}</p>
+                    </div>
+                </table>
                 <div class="flex justify-end">
-                    <div class="bg-customDanger text-white hover:bg-customTextBlue hover:text-black w-20 py-1 flex justify-center items-center text-xs cursor-pointer delete-btn">Delete</div>
+                    <div class="bg-customDanger text-white w-20 py-1 flex justify-center items-center text-xs cursor-pointer delete-btn" style="padding: 8px 16px; border: none; border-radius: 5px; margin-bottom: 5px">Delete</div>
                 </div>
-                <p class="text-sm lg:text-lg"><strong>Job Title:</strong> {{ $history->job_title }}</p>
-                <p class="text-sm lg:text-lg"><strong>Company:</strong> {{ $history->company }}</p>
-                <p class="text-sm lg:text-lg"><strong>Industry:</strong> {{ $history->industry }}</p>
-                <p class="text-sm lg:text-lg"><strong>Date of employment:</strong> {{ $history->date_of_employment }}</p>
-                <p class="text-sm lg:text-lg"><strong>Salary:</strong> {{ $history->salary }}</p>
-                <p class="text-sm lg:text-lg"><strong>Location:</strong> {{ $history->location }}</p>
             </div>
         @endforeach
 
@@ -95,4 +142,52 @@
     .back-link:hover {
         background-color: #a6d0ec;
     }
+
+    .table {
+    margin-left: 15px;
+    background-color: transparent;
+    border-collapse: collapse;
+}
+
+.table th,
+.table td {
+    padding: .10rem; 
+    text-align: left;
+    overflow-wrap: break-word;
+}
+
+.up-event{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 40px;
+    padding: 10px 15px;
+    border: 1px solid lightsteelblue;
+    border-radius: 4px;
+    background-color: #E8C766;
+    outline: none;
+    color: #000;
+    text-decoration: none;
+    font-size: 14px;
+}
+
+.up-event:hover{
+    background-color: #ddaa10;
+}
+
+.delete-btn:hover {
+    background-color: #800000;
+}
+
+.fas {
+    color: #000 ;
+    margin-left: 5px;
+}
+
+/* Media query to hide on small screens */
+@media (max-width: 600px) {
+    .hide-on-small {
+        display: none;
+    }
+}
 </style>
