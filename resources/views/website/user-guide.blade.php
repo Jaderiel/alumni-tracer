@@ -52,19 +52,31 @@
             </div>
         </div>
 
-        <div class="user-guide">
-            
-        </div>
+        <iframe src="http://heyzine.com/flip-book/615d393007.html#page/4" width="100%" height="600px">
+        </iframe>
+       
 
 
         <footer class="footer">
             <div class="footer-content">
                 <img src="{{ asset('images/website-images/lvcc_logo.png') }}" alt="Logo">
-                <p class="footer-name">LVCC Alumni 
+                <p class="footer-name">LVCC Alumni
                     Association</p>
             </div>
-            <p><a href="{{ route('privacy-notice.show') }}">Privacy Notice</a></p>
+            <div>
+                <p style="display: inline-block; margin-right: 5px;"><a href="{{ route('privacy-notice.show') }}">Privacy Notice</a></p>
+                <p style="display: inline-block;"><a href="{{ route('user-guide.show') }}">User Guide</a></p>
+            </div>
         </footer>
+
     </div>
 </body>
+<style>
+    .iframe {
+  border: none;
+  background-color: transparent;
+  outline: none;
+}
+
+</style>
 </html>

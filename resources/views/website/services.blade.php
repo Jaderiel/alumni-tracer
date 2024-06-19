@@ -134,21 +134,18 @@
                 <p>From accessing a detailed dashboard to browsing through our extensive alumni list, discovering job opportunities, viewing memorable moments in our gallery, engaging in meaningful discussions on our forum, and staying updated with exciting event announcements – our platform offers it all. <strong>Join us now!</strong> </p>
             </div>
         </div>
-
-        
-
-        
-        
         <footer class="footer">
             <div class="footer-content">
                 <img src="{{ asset('images/website-images/lvcc_logo.png') }}" alt="Logo">
-                <p class="footer-name">LVCC Alumni 
+                <p class="footer-name">LVCC Alumni
                     Association</p>
             </div>
-            <p><a href="{{ route('privacy-notice.show') }}">Privacy Notice</a></p>
+            <div>
+                <p style="display: inline-block; margin-right: 5px;"><a href="{{ route('privacy-notice.show') }}">Privacy Notice</a></p>
+                <p style="display: inline-block;"><a href="{{ route('user-guide.show') }}">User Guide</a></p>
+            </div>
         </footer>
+
     </div>
-    
-   
 </body>
 </html>
