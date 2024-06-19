@@ -43,7 +43,7 @@
                 </ul>
             </nav>
             <div class="login-button">
-                <a href="{{ route('login.show') }}">Login</a>
+                <a href="{{ route('login.show') }}">Sign in</a>
             </div>
         </div>
 
