@@ -79,7 +79,7 @@
                                     <h5>{{ $user->first_name }} {{ $user->last_name }}</h5>
                                     @if(auth()->check() && 
                                     (auth()->user()->id == $user->id || 
-                                    in_array(auth()->user()->user_type, ['Admin', 'Super Admin', 'Program Head', 'Alumni Officer'])))
+                                    in_array(auth()->user()->user_type, ['Admin', 'Super Admin'])))
                                         <p>{{ $user->email }}</p>
                                     @endif
                                 </div>
@@ -98,12 +98,12 @@
                                 <a href="{{ route('profile.show', ['id' => $user->id]) }}">
                                     @if(auth()->check() && 
                                         (auth()->user()->id == $user->id || 
-                                        in_array(auth()->user()->user_type, ['Admin', 'Super Admin', 'Program Head', 'Alumni Officer'])))
+                                        in_array(auth()->user()->user_type, ['Admin', 'Super Admin'])))
                                         <button style="background-color: #00A36C;">View</button>
                                     @endif
                                 </a>
 
-                                @if(auth()->check() && in_array(auth()->user()->user_type, ['Admin', 'Super Admin', 'Program Head', 'Alumni Officer']))
+                                @if(auth()->check() && in_array(auth()->user()->user_type, ['Admin', 'Super Admin']))
                                     <form id="delete-form" action="{{ route('user.delete', ['userId' => $user->id]) }}" method="POST" onsubmit="return confirmDelete();">
                                         @method('DELETE')
                                         @csrf
