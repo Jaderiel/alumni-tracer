@@ -205,4 +205,27 @@ class AnalyticsController extends Controller
         return ($userDegrees);
     }
 
+    public function preview() {
+        $userAnalytics = $this->getUserAnalytics();
+        $employmentAnalytics = $this->getUserEmploymentAnalytics();
+        $alignedUsersAnalytics = $this->alignUsersToCourse();
+        $businessAnalytics = $this->isOwnedBusiness();
+        $salaryRange = $this->getSalaryRange();
+        $userLocations = $this->getLocation();
+        $userDegrees = $this->getAllDegrees(); // Retrieve user locations
+    
+        // Pass data to the Blade view
+        $data = [
+            'userAnalytics' => $userAnalytics,
+            'employmentAnalytics' => $employmentAnalytics,
+            'alignedUsersAnalytics' => $alignedUsersAnalytics,
+            'businessAnalytics' => $businessAnalytics,
+            'salaryRange' => $salaryRange,
+            'userLocations' => $userLocations,
+            'userDegrees' => $userDegrees // Pass user locations to the view
+        ];
+
+        return view("components.preview", $data)->render();
+    }
+
 }

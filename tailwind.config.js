@@ -26,6 +26,9 @@ module.exports = {
     './resources/views/components/generate-pdf.blade.php',
     './resources/views/auth/login.blade.php',
     './resources/views/auth/privacy-notice.blade.php',
+    './resources/views/website/user-guide.blade.php',
+    './resources/views/components/preview.blade.php',
+
 
   ],
   theme: {

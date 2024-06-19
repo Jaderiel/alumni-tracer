@@ -37,6 +37,7 @@ Route::get('/home', [WebsiteController::class, 'index'])->name('website.show');
 Route::get('/about', [WebsiteController::class, 'about'])->name('about.show');
 Route::get('/services', [WebsiteController::class, 'services'])->name('services.show');
 Route::get('/privacy-notice', [WebsiteController::class, 'privacyNotice'])->name('privacy-notice.show');
+Route::get('/user-guide', [WebsiteController::class, 'userGuide'])->name('user-guide.show');
 Route::get('/main', [WebsiteController::class, 'main'])->name('main');
 
 Route::get('/forgot-password', [ForgotPasswordController::class, 'showForgotPasswordForm'])->name('password.request');
@@ -116,6 +117,7 @@ Route::group(['middleware' => ['auth.user']], function () {
     Route::get('/all-degrees', [AnalyticsController::class, 'getAllDegrees']);
     Route::get('/analytics/generate-pdf', [AnalyticsController::class, 'pdfPreview'])->name('generate-pdf.show');
     Route::get('/generate-pdf', [AnalyticsController::class, 'PDFgeneration'])->name('generate.pdf');
+    Route::get('/preview', [AnalyticsController::class, 'preview'])->name('preview.show');
 
     // Route::put('/approvals/{userId}', [ApprovalsController::class, 'approveUser'])->name('user.approve');
 
