@@ -24,8 +24,8 @@
             <a href="#" class="tab active" data-tab="account-approvals">Account Approvals</a>
             <a href="#" class="tab" data-tab="gallery-approvals">Gallery Approvals</a>
             <a href="#" class="tab" data-tab="job-approvals">Job Approvals</a>
-            <a href="#" class="tab" data-tab="role-setting">Role Setting</a>
             @if(auth()->check() && (auth()->user()->user_type == 'Super Admin'))
+            <a href="#" class="tab" data-tab="role-setting">Role Setting</a>
             <a href="#" class="tab" data-tab="create-account">Create Account</a>
             @endif
         </div>

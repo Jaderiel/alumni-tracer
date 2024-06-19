@@ -1079,6 +1079,11 @@ video {
   background-color: rgb(250 204 21 / var(--tw-bg-opacity));
 }
 
+.bg-customDelete {
+  --tw-bg-opacity: 1;
+  background-color: rgb(128 0 0 / var(--tw-bg-opacity));
+}
+
 .p-0 {
   padding: 0px;
 }

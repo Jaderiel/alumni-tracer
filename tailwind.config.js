@@ -28,6 +28,7 @@ module.exports = {
     './resources/views/auth/privacy-notice.blade.php',
     './resources/views/website/user-guide.blade.php',
     './resources/views/components/preview.blade.php',
+    './resources/views/components/role-setting.blade.php',
 
 
   ],
@@ -49,6 +50,7 @@ module.exports = {
         customDanger: '#BB0237',
         customError: '#F8D7DA',
         customErrorText: '#721C24',
+        customDelete: 'maroon',
       },
     },
   },
