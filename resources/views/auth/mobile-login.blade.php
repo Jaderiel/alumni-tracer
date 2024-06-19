@@ -67,3 +67,17 @@
     </div>
 </body>
 </html>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        if (window.innerWidth >= 768) {
+            window.location.href = "{{ route('login.show') }}";
+        }
+    });
+
+    window.addEventListener('resize', function() {
+        if (window.innerWidth >= 768) {
+            window.location.href = "{{ route('login.show') }}";
+        }
+    });
+</script>
