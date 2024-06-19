@@ -303,7 +303,7 @@
                     </div>
                     <div class="flex flex-col lg:flex-row mx-4 lg:mx-10 gap-2 my-2">
                             <div class="w-full">
-                                <div id="endEmploymentBtn" class="bg-customDanger text-white text-xs hover:bg-customTextBlue hover:text-black py-2 px-4 cursor-pointer">End Curent Employment</div>
+                                <div id="endEmploymentBtn" class="bg-customDanger text-white text-xs hover:bg-customTextBlue hover:text-black py-2 px-4 cursor-pointer">End Current Employment</div>
                             </div>
                     </div>
                 </div>
@@ -333,40 +333,43 @@
             </div>
                     
             <div class="panel-btn">
-                <div class="flex flex-col mx-10 my-2 gap-4">
-                    <h1 class="font-bold">Degrees Held</h1>
-                    @if($degrees->count() > 0)
-                        <div class="flex flex-col gap-2 text-sm">
-                            @foreach($degrees as $degree)
-                                <div class="flex flex-col">
-                                    <div class="flex gap-2 items-center">
-                                        <p class="font-bold">Degree:</p>
-                                        <p class="text-xs">{{ $degree->degree }}</p>
-                                    </div>
-                                    <div class="flex gap-2 items-center">
-                                        <p class="font-bold">School:</p>
-                                        <p class="text-xs">{{ $degree->school }}</p>
-                                    </div>
-                                    <div class="flex gap-2 items-center">
-                                        <p class="font-bold">Status:</p>
-                                        @isset($degree)
-                                            <p class="text-xs" style="color: {{ $degree->is_ongoing ? 'green' : 'white' }}; background-color: {{ $degree->is_ongoing ? 'transparent' : 'green' }}; border-radius: {{ $degree->is_ongoing ? '' : '5px' }}; padding: {{ $degree->is_ongoing ? '' : '2px 5px' }}">
-                                                {{ $degree->is_ongoing ? 'Ongoing' : 'Done' }}
-                                            </p>
-                                        @else
-                                            <p class="text-xs">No degree information available</p>
-                                        @endisset
-                                    </div>
-                                    <div class="flex">
-                                        <p class="bg-customDanger text-white px-2 py-1 text-xs cursor-pointer hover:bg-customTextBlue hover:text-black delete-degree-btn" data-degree-id="{{ $degree->id }}">Delete</p>
-                                    </div>
-                                </div>
-                            @endforeach
+    <div class="flex flex-col mx-10 my-2 gap-4">
+        <!-- <h1 class="font-bold">Degrees Held</h1> -->
+        
+        @if($degrees->count() > 0)
+            <div class="flex flex-col gap-4">
+                @foreach($degrees as $degree)
+                    <div class="border-2 p-4 flex items-start justify-between">
+                        <div class="flex flex-col gap-2">
+                            <div class="flex gap-2 items-center">
+                                <p class="font-bold">Degree:</p>
+                                <p class="text-sm">{{ $degree->degree }}</p>
+                            </div>
+                            <div class="flex gap-2 items-center">
+                                <p class="font-bold">School:</p>
+                                <p class="text-sm">{{ $degree->school }}</p>
+                            </div>
+                            <div class="flex gap-2 items-center">
+                                <p class="font-bold">Status:</p>
+                                <p class="text-sm" style="color: {{ $degree->is_ongoing ? 'green' : 'red' }};">
+                                    {{ $degree->is_ongoing ? 'Ongoing' : 'Done' }}
+                                </p>
+                            </div>
                         </div>
-                    @else
-                        <p>No degrees found.</p>
-                    @endif
-                </div>
+                        <div>
+                            <p class="bg-customDanger text-white text-xs hover:bg-customTextBlue hover:text-black py-2 px-4 cursor-pointer delete-degree-btn" data-degree-id="{{ $degree->id }}">Delete</p>
+                        </div>
+                    </div>
+                @endforeach
+            </div>
+        @else
+            <p>No degrees found.</p>
+        @endif
+    </div>
+</div>
+
+
+               
                 <div class="flex flex-col lg:flex-row mx-4 lg:mx-10 gap-2 lg:gap-4 my-2 degree-status-fields" style="display: none;">
                     <div class="w-full">
                         <label for="degree" class="label">Degree Status</label>
@@ -399,7 +402,8 @@
                     </div>
                 </div>
                 <div class="flex flex-col lg:flex-row mx-4 lg:mx-10 gap-2 lg:gap-4 my-2">
-                    <div id="add-degree-btn" class="bg-customBlue text-white hover:bg-customTextBlue hover:text-black cursor-pointer px-4 py-1 text-xs">Add a Degree</div>
+                    <div id="add-degree-btn" class="bg-customBlue text-white text-xs hover:bg-customTextBlue hover:text-black py-2 px-4">Add a Degree</div>
+                
                 </div>
             </div>
         </div>
