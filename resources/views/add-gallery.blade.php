@@ -21,17 +21,17 @@
 
         <div style="display: flex; flex-direction: row; gap: 35px">
             <div class="main-body mt-7 ml-4 mr-2">
-            @if(session('error'))
-                <div class="alert alert-danger">
+                @if(session('error'))
+                <div id="errorMessage" class="error-popup">
                     {{ session('error') }}
                 </div>
-            @endif
+                @endif
 
-            @if(session('success'))
-                <div class="show-success">
+                @if(session('success'))
+                <div id="successMessage" class="success-popup">
                     {{ session('success') }}
                 </div>
-            @endif
+                @endif
             </div>
         </div>
 
@@ -127,4 +127,45 @@
         var label = document.getElementById('file-upload-label');
         label.innerHTML = '<span>' + fileName + '</span> <i class="fas fa-image"></i>';
     });
+
+    $(document).ready(function() {
+        if ("{{ session('success') }}") {
+            $('#successMessage').fadeIn().delay(5000).fadeOut();
+        }
+
+        if ("{{ $errors->any() }}") {
+            $('#errorMessage').fadeIn().delay(5000).fadeOut();
+        }
+    });
 </script>
+
+<style>
+    .success-popup, .error-popup {
+            display: none;
+            position: fixed;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            color: white;
+            padding: 15px;
+            border-radius: 5px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+            z-index: 1000;
+        }
+
+        .success-popup {
+            background-color: #4CAF50;
+        }
+
+        .error-popup {
+            background-color: #F44336;
+        }
+
+        .show-success {
+            background-color: #D4EDDA;
+            color: green;
+            padding: 15px;
+            margin: 15px 40px;
+            text-align: center;
+        }
+</style>

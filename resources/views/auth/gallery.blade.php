@@ -32,6 +32,18 @@
 
     <section class="ml-0 lg:ml-72 w-full flex flex-col justify-center">
 
+                @if(session('error'))
+                <div id="errorMessage" class="error-popup">
+                    {{ session('error') }}
+                </div>
+                @endif
+
+                @if(session('success'))
+                <div id="successMessage" class="success-popup">
+                    {{ session('success') }}
+                </div>
+                @endif
+
         <h3 class="i-name">Gallery</h3>
 
         <div class="mx-10">
@@ -164,6 +176,17 @@
             });
         });
     </script>
+    <script>
+        $(document).ready(function() {
+        if ("{{ session('success') }}") {
+            $('#successMessage').fadeIn().delay(5000).fadeOut();
+        }
+
+        if ("{{ $errors->any() }}") {
+            $('#errorMessage').fadeIn().delay(5000).fadeOut();
+        }
+    });
+    </script>
 </body>
 
 </html>
@@ -191,4 +214,33 @@
     .modal {
         transition: opacity 0.25s ease;
     }
+
+    .success-popup, .error-popup {
+            display: none;
+            position: fixed;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            color: white;
+            padding: 15px;
+            border-radius: 5px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+            z-index: 1000;
+        }
+
+        .success-popup {
+            background-color: #4CAF50;
+        }
+
+        .error-popup {
+            background-color: #F44336;
+        }
+
+        .show-success {
+            background-color: #D4EDDA;
+            color: green;
+            padding: 15px;
+            margin: 15px 40px;
+            text-align: center;
+        }
 </style>
