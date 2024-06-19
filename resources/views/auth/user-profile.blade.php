@@ -34,7 +34,7 @@
                     <div class="flex flex-col justify-center items-center lg:items-start">
                         <div class="flex gap-4">
                             <h1 class="font-bold">{{ Auth::user()->first_name }} {{ Auth::user()->last_name }}</h1>
-                            @if (Auth::user()->degree)
+                            
                             <p>(</p>
                             @forelse ($degrees as $degree)
                             <p class="text-sm">{{ $degree->degree }},</p>
@@ -42,7 +42,7 @@
                             <p></p>
                             @endforelse
                             <p>)</p>
-                            @endif
+                            
                         </div>
                         <p class="text-xs">{{ '@' . Auth::user()->username }}</p>
                     </div>
