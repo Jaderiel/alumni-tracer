@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Edit Post</title>
     <link rel="stylesheet" href="{{ asset('css/post-event.css') }}">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script> <!-- Include jQuery -->
 </head>
 <body style="margin-top: 70px">
     @include('main')
@@ -15,8 +16,14 @@
         </h3>
 
         @if(session('success'))
-            <div class="show-success">
+            <div id="successMessage" class="success-popup">
                 {{ session('success') }}
+            </div>
+        @endif
+
+        @if($errors->any())
+            <div id="errorMessage" class="error-popup">
+                {{ implode('', $errors->all(':message ')) }}
             </div>
         @endif
 
@@ -25,7 +32,7 @@
                 <div class="bio-graph-heading">
                     EDIT POST
                 </div>
-                <div class="panel-body bio-graph-info" >
+                <div class="panel-body bio-graph-info">
                     <div class="row">
                         <p class="bold">
                         To edit, make the necessary changes to the caption or image, then press 'SAVE' to update. <br>If you want to delete the post, select 'DELETE'.
@@ -69,6 +76,16 @@
         label.innerHTML = '<span>' + fileName + '</span> <i class="fas fa-image"></i>';
     });
 
+    document.addEventListener('DOMContentLoaded', function() {
+        if ("{{ session('success') }}") {
+            $('#successMessage').fadeIn().delay(3000).fadeOut();
+        }
+
+        if ("{{ $errors->any() }}") {
+            $('#errorMessage').fadeIn().delay(3000).fadeOut();
+        }
+    });
+
     function confirmDelete() {
         return confirm('Are you sure you want to delete this post? This action cannot be undone.');
     }
@@ -105,5 +122,26 @@
         padding: 15px;
         margin: 15px 40px;
         text-align: center;
+    }
+
+    .success-popup, .error-popup {
+        display: none;
+        position: fixed;
+        top: 20px;
+        left: 50%;
+        transform: translateX(-50%);
+        color: white;
+        padding: 15px;
+        border-radius: 5px;
+        box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+        z-index: 1000;
+    }
+
+    .success-popup {
+        background-color: #4CAF50;
+    }
+
+    .error-popup {
+        background-color: #F44336;
     }
 </style>

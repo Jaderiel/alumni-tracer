@@ -23,21 +23,21 @@
 
         <div style="display: flex; flex-direction: row; gap: 35px">
             <div class="main-body mt-7 ml-4 mr-2">
-            @if(session('success'))
-                <div id="show-success" class="show-success">
-                    {{ session('success') }}
-                </div>
-            @endif
-
             @if($errors->any())
-                <div id="show-error" class="bg-customError text-customErrorText flex justify-center mx-10 my-2 py-2">
-                    <ul class="flex flex-col justify-center items-center">
-                        @foreach ($errors->all() as $error)
-                            <li>{{ $error }}</li>
-                        @endforeach
-                    </ul>
-                </div>
-            @endif
+                    <div id="errorMessage" class="error-popup">
+                        <ul class="flex flex-col justify-center items-center">
+                            @foreach ($errors->all() as $error)
+                                <li>{{ $error }}</li>
+                            @endforeach
+                        </ul>
+                    </div>
+                @endif
+
+                @if(session('success'))
+                    <div id="successMessage" class="success-popup">
+                        {{ session('success') }}
+                    </div>
+                @endif
             </div>
         </div>
 
@@ -152,19 +152,14 @@
     </section>
 </body>
 <script>
-    // Hide the error message after 5 seconds
     document.addEventListener('DOMContentLoaded', function() {
-        setTimeout(function() {
-            var errorBox = document.getElementById('show-error');
-            var successBox = document.getElementById('show-success');
-            if (errorBox) {
-                errorBox.style.display = 'none';
-            }
+        if ("{{ session('success') }}") {
+            $('#successMessage').fadeIn().delay(5000).fadeOut();
+        }
 
-            if (successBox) {
-                successBox.style.display = 'none';
-            }
-        }, 5000); // 5000 milliseconds = 5 seconds
+        if ("{{ $errors->any() }}") {
+            $('#errorMessage').fadeIn().delay(5000).fadeOut();
+        }
     });
 </script>
 <script src="{{ asset('js/job-location.js') }}"></script>
@@ -220,4 +215,32 @@
         /* padding-top: 10px */
     }
 
+    .success-popup, .error-popup {
+        display: none;
+        position: fixed;
+        top: 20px;
+        left: 50%;
+        transform: translateX(-50%);
+        color: white;
+        padding: 15px;
+        border-radius: 5px;
+        box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+        z-index: 1000;
+    }
+
+    .success-popup {
+        background-color: #4CAF50;
+    }
+
+    .error-popup {
+        background-color: #F44336;
+    }
+
+    .show-success {
+        background-color: #D4EDDA;
+        color: green;
+        padding: 15px;
+        margin: 15px 40px;
+        text-align: center;
+    }
 </style>

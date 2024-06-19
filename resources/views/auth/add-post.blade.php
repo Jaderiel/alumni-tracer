@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Make a Post</title>
     <link rel="stylesheet" href="{{ asset('css/post-event.css') }}">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
 <body style="margin-top: 70px">
     @include('main')
@@ -14,11 +15,9 @@
             <a href="{{ route('dashboard') }}" class="back-link" ><i class="fa-solid fa-angles-left"></i> Back</a>Make a Post
         </h3>
 
-        @if(session('success'))
-            <div class="show-success">
-                {{ session('success') }}
-            </div>
-        @endif
+        <div id="successMessage" class="success-popup">
+            Post created successfully!
+        </div>
 
         <div class="bg-white p-4 lg:m-5" style="margin: 20px 40px">
             <div class="panel">
@@ -52,7 +51,6 @@
             </div>
         </div>
     </section>
-    
 </body>
 </html>
 
@@ -62,9 +60,29 @@
         var label = document.getElementById('file-upload-label');
         label.innerHTML = '<span>' + fileName + '</span> <i class="fas fa-image"></i>';
     });
+
+    document.addEventListener('DOMContentLoaded', function() {
+        if ("{{ session('success') }}") {
+            $('#successMessage').fadeIn().delay(3000).fadeOut();
+        }
+    });
 </script>
 
 <style>
+
+.success-popup {
+        display: none;
+        position: fixed;
+        top: 20px;
+        left: 50%;
+        transform: translateX(-50%);
+        background-color: #4CAF50;
+        color: white;
+        padding: 15px;
+        border-radius: 5px;
+        box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+        z-index: 1000;
+    }
 
 .i-name{
     color:#2D55B4;

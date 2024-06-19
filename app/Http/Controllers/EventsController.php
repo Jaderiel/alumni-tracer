@@ -154,28 +154,32 @@ class EventsController extends Controller
     }
 
     public function update(Request $request, Event $event)
-    {
-        // Handle image upload if a new file is uploaded
-        if ($request->hasFile('media_url')) {
-            $image = $request->file('media_url');
-            $imageName = time().'.'.$image->getClientOriginalExtension();
-            $image->move(public_path('images'), $imageName);
-            $mediaUrl = 'images/'.$imageName;
-            // Update media_url with the new file path
-            $event->media_url = $mediaUrl;
-        }
+{
+    $request->validate([
+        'event_title' => 'required|string|max:255',
+        'event_date' => 'required|date',
+        'event_time' => 'required',
+        'event_details' => 'required|string',
+        'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+    ]);
 
-        // Update other fields
-        $event->event_title = $request->input('event_title');
-        $event->event_date = $request->input('event_date');
-        $event->event_time = $request->input('event_time');
-        $event->event_details = $request->input('event_details');
-        // Save the updated event
-        $event->save();
-
-        // Redirect back to events page after updating
-        return redirect()->back()->with('success', 'Event Edited Successfully!');
+    if ($request->hasFile('image')) {
+        $image = $request->file('image');
+        $imageName = time().'.'.$image->getClientOriginalExtension();
+        $image->move(public_path('images'), $imageName);
+        $mediaUrl = 'images/'.$imageName;
+        $event->media_url = $mediaUrl;
     }
+
+    $event->event_title = $request->input('event_title');
+    $event->event_date = $request->input('event_date');
+    $event->event_time = $request->input('event_time');
+    $event->event_details = $request->input('event_details');
+    $event->save();
+
+    return redirect()->back()->with('success', 'Event Edited Successfully!');
+}
+
 
     public function editAnn($id) {
         $currentUserType = auth()->user()->user_type;
@@ -190,17 +194,24 @@ class EventsController extends Controller
     }
 
     public function updateAnn(Request $request, Announcement $announcement)
-    {
+{
+    // Validate the form data
+    $request->validate([
+        'ann_title' => 'required|string|max:255',
+        'ann_details' => 'required|string',
+    ]);
 
-        // Update other fields
-        $announcement->ann_title = $request->input('ann_title');
-        $announcement->ann_details = $request->input('ann_details');
-        // Save the updated event
-        $announcement->save();
+    // Update other fields
+    $announcement->ann_title = $request->input('ann_title');
+    $announcement->ann_details = $request->input('ann_details');
 
-        // Redirect back to events page after updating
-        return redirect()->back()->with('success', 'Announcement Edited Successfully!');
-    }
+    // Save the updated announcement
+    $announcement->save();
+
+    // Redirect back to events page after updating with success message
+    return redirect()->back()->with('success', 'Announcement Edited Successfully!');
+}
+
 
     public function deleteAnn($id)
     {

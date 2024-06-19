@@ -13,7 +13,7 @@
     <!-- <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script> -->
     <!-- <script src="jquery-3.5.1.min.js"></script> -->
     <!-- <script src="bootstrap/js/bootstrap.min.js"></script> -->
-    <!-- <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script> -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
 </head>
 
@@ -32,16 +32,26 @@
         <div class="main-body ml-4 mr-2" style="margin-left: 15px;">
 
         @if(session('error'))
-            <div class="alert alert-danger">
-                {{ session('error') }}
-            </div>
-        @endif
+                    <div id="errorMessage" class="alert alert-danger">
+                        {{ session('error') }}
+                    </div>
+                @endif
 
-        @if(session('success'))
-            <div class="show-success">
-                {{ session('success') }}
-            </div>
-        @endif
+                @if(session('success'))
+                    <div id="successMessage" class="alert alert-success">
+                        {{ session('success') }}
+                    </div>
+                @endif
+
+                @if ($errors->any())
+                    <div id="errorMessage" class="alert alert-danger">
+                        <ul>
+                            @foreach ($errors->all() as $error)
+                                <li>{{ $error }}</li>
+                            @endforeach
+                        </ul>
+                    </div>
+                @endif
 
         </div>
 
@@ -99,6 +109,17 @@
     function confirmDelete() {
         return confirm('Are you sure you want to delete this post? This action cannot be undone.');
     }
+
+    $(document).ready(function() {
+            // Check if success message exists and fade it out after delay
+            if ($("#successMessage").length > 0) {
+                $("#successMessage").fadeIn().delay(3000).fadeOut();
+            }
+            // Check if error message exists and fade it out after delay
+            if ($("#errorMessage").length > 0) {
+                $("#errorMessage").fadeIn().delay(3000).fadeOut();
+            }
+        });
 </script>
 </html>
 
@@ -134,11 +155,27 @@
         display: flex;
     }
 
-    .show-success{
-    background-color: #D4EDDA;
-    color: green;
-    padding: 15px 420px;
-    margin: 25px 30px 0;
-    text-align:center;
-}
+    .alert {
+            display: none;
+            position: fixed;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            color: white;
+            padding: 15px;
+            border-radius: 5px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+            z-index: 1000;
+            max-width: 500px;
+            width: 100%;
+            text-align: center;
+        }
+
+        .alert-success {
+            background-color: #4CAF50;
+        }
+
+        .alert-danger {
+            background-color: #F44336;
+        }
 </style>

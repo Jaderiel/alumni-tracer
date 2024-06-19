@@ -17,6 +17,31 @@
 
     <section id="interface" class="ml-0 lg:ml-72 w-full flex flex-col justify-center">
 
+    @if(session('success'))
+        <div id="successMessage" class="success-popup">
+            {{ session('success') }}
+        </div>
+    @endif
+
+    @if(session('error'))
+        <div id="errorMessage" class="error-popup">
+            {{ session('error') }}
+        </div>
+    @endif
+
+<!-- Display summary of all validation errors -->
+    @if($errors->any())
+    <div id="errorMessage" class="error-popup">
+        <ul>
+            @foreach ($errors->all() as $error)
+            <li>{{ $error }}</li>
+            @endforeach
+        </ul>
+    </div>
+    @endif
+
+
+
     <h3 class="i-name py-4 px-10">
         <a href="{{ route('user-profile') }}" class="back-link"><i class="fa-solid fa-angles-left"></i> Back</a> Profile Settings
     </h3>
@@ -553,7 +578,19 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 </script>
+<script>
+    $(document).ready(function() {
+        // Show success message if session('success') is set
+        if ("{{ session('success') }}") {
+            $('#successMessage').fadeIn().delay(5000).fadeOut();
+        }
 
+        // Show error message if there are any errors (using Blade's $errors variable)
+        @if($errors->any())
+            $('#errorMessage').fadeIn().delay(5000).fadeOut();
+        @endif
+    });
+</script>
 </html>
 
 
@@ -604,4 +641,26 @@ button {
 .change-btn:hover {
     background-color: #000033;
 }
+.success-popup, .error-popup {
+    display: none;
+    position: fixed;
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    color: white;
+    padding: 15px;
+    border-radius: 5px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+    z-index: 1000;
+}
+
+.success-popup {
+    background-color: #4CAF50;
+}
+
+.error-popup {
+    background-color: #F44336;
+}
+
+
 </style>

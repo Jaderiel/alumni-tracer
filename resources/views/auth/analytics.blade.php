@@ -74,12 +74,14 @@
             <canvas id="salaryChart" width="400" height="200"></canvas>
             -->
         <div class="flex gap-4 justify-end mx-5">
-            <a href="{{ route('generate-pdf.show') }}">
-                <button class="flex items-center gap-4 px-5 py-1 hover:bg-customTextBlue hover:text-black cursor-pointer rounded-md generate-report-btn" style="background-color: #007bff; color: #fff; font-size: 15px">Preview</button>
+        @if(auth()->check() && (auth()->user()->user_type == 'Admin' || Auth::user()->user_type === 'Super Admin'))
+            <a href="{{ route('preview.show') }}">
+                <button class="flex items-center gap-4 px-5 py-1 hover:bg-customTextBlue hover:text-black cursor-pointer rounded-md generate-report-btn" style="background-color: #007bff; color: #fff; font-size: 15px">Generate Report</button>
             </a>
             <a href="{{ route('generate.pdf') }}">
-                <button class="flex items-center gap-4 px-5 py-1 hover:bg-customTextBlue hover:text-black cursor-pointer rounded-md generate-report-btn" style="background-color: #28a745; color: #fff; font-size: 15px">Generate Report</button>
+                <button class="flex items-center gap-4 px-5 py-1 hover:bg-customTextBlue hover:text-black cursor-pointer rounded-md generate-report-btn" style="background-color: #28a745; color: #fff; font-size: 15px">Download as PDF</button>
             </a>
+        @endif
         </div>
 
         <div class="dashboard">

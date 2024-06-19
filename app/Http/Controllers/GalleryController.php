@@ -111,6 +111,6 @@ class GalleryController extends Controller
         }
         $gallery->delete();
 
-        return redirect()->route('gallery')->with('success', 'Gallery deleted successfully.');
+        return redirect()->route('gallery')->with('success', 'Post deleted successfully.');
     }
 }

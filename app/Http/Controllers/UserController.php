@@ -9,6 +9,8 @@ use App\Rules\NotSuperAdmin;
 use App\Rules\ValidIndustryOption;
 use App\Rules\ValidAnnualSalaryOption;
 use App\Rules\ValidDegrees;
+use App\Rules\ValidCourses;
+use App\Rules\ValidBatches;
 
 class UserController extends Controller
 {
@@ -46,21 +48,7 @@ class UserController extends Controller
 
     public function updateProfile(Request $request)
 {
-    $user = auth()->user(); 
-
-    $validatedData = $request->validate([
-        'degree' => ['required', new ValidDegrees],
-        'school' => 'required',
-        'is_ongoing' => 'required|boolean', 
-    ]);
-
-    $degreeStatus = new DegreeStatus();
-    $degreeStatus->user_id = auth()->user()->id;
-    $degreeStatus->degree = $request->degree;
-    $degreeStatus->school = $request->school;
-    $degreeStatus->is_ongoing = $request->is_ongoing;
-
-    $degreeStatus->save();
+    $user = auth()->user();
 
     $request->validate([
         'profile_pic' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:10048',
@@ -71,10 +59,18 @@ class UserController extends Controller
         'industry' => ['nullable', new ValidIndustryOption],
         'date_of_employment' => 'nullable|date',
         'annual_salary' => ['nullable', new ValidAnnualSalaryOption],
-        'user_type' => 'nullable|in:'.$user->user_type, // Validation for user_type
+        'user_type' => 'nullable|in:'.$user->user_type,
+        'degree' => ['nullable', new ValidDegrees],
+        'school' => 'nullable',
+        'is_ongoing' => 'nullable|boolean',
+        'last_name' => 'required',
+        'first_name' => 'required',
+        'email' => 'required|email',
     ]);
 
+    // Update profile picture if provided
     if ($request->hasFile('profile_pic')) {
+        // Handle profile picture upload
         $image = $request->file('profile_pic');
         $imageName = time().'.'.$image->getClientOriginalExtension();
         $image->move(public_path('images'), $imageName);
@@ -85,18 +81,34 @@ class UserController extends Controller
         \Log::info('No profile picture uploaded.');
     }
 
-    $user->update($request->except(['profile_pic', 'user_type'])); // Exclude user_type from update
+    // Update user profile data excluding profile_pic, user_type, degree, school, and is_ongoing
+    $user->update($request->except(['profile_pic', 'user_type', 'degree', 'school', 'is_ongoing']));
 
-    if ($request->has('degree')) {
-        $user->degree = $request->input('degree');
+    // Handle degree status update if degree and school are provided
+    if ($request->filled('degree') && $request->filled('school')) {
+        // Handle degree status update
+        $degreeStatus = $user->degreeStatus; // Retrieve existing degree status if it exists
+
+        if (!$degreeStatus) {
+            $degreeStatus = new DegreeStatus();
+            $degreeStatus->user_id = $user->id;
+        }
+
+        // Update degree status fields
+        $degreeStatus->degree = $request->input('degree');
+        $degreeStatus->school = $request->input('school');
+        $degreeStatus->is_ongoing = $request->input('is_ongoing', false); // Default to false if not provided
+
+        $degreeStatus->save();
+    } elseif ($user->degreeStatus) {
+        // Clear existing degree status if degree and school are not provided
+        $user->degreeStatus->delete();
     }
-
-    $user->save();
-    \Log::info('User updated: ' . $user);
 
     // Prepare employment data based on employment status
     $employmentData = [];
     if ($request->employment_status === 'unemployed') {
+        // Handle unemployed status
         $employmentData = [
             'job_title' => null,
             'company_name' => null,
@@ -107,6 +119,7 @@ class UserController extends Controller
             'is_employed' => false,
         ];
     } else {
+        // Handle employed status
         $employmentData = $request->only([
             'job_title',
             'company_name',
@@ -116,7 +129,7 @@ class UserController extends Controller
             'company_address'
         ]);
 
-        // Check alignment to course
+        // Check alignment to course (if applicable)
         if (isset($employmentData['industry'])) {
             if ($user->course === 'Bachelor of Science in Information Systems' && $employmentData['industry'] === 'IT Industry') {
                 $employmentData['is_aligned_to_course'] = true;
@@ -129,20 +142,21 @@ class UserController extends Controller
                 $employmentData['is_aligned_to_course'] = true;
             } else {
                 $employmentData['is_aligned_to_course'] = false;
-            }                     
+            } 
         }
         $employmentData['is_employed'] = true;
     }
 
+    // Update or create employment record
     $employment = $user->employment()->updateOrCreate([], $employmentData);
 
     $employment->is_owned_business = $request->input('is_owned_business') === 'yes';
     $employment->save();
 
+    // Redirect back with success message
     return redirect()->back()->with('success', 'Profile updated successfully.');
 }
 
-    
 
     public function getUserEmployment($userId)
     {
