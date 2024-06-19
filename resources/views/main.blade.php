@@ -114,6 +114,24 @@
         sideNav.classList.toggle('-translate-x-full');
         sideNav.classList.toggle('translate-x-0');
     }
+
+    // Persist the active state based on the current route
+    document.addEventListener('DOMContentLoaded', () => {
+        const currentRoute = "{{ Route::currentRouteName() }}";
+        const links = document.querySelectorAll('.sidebar-link');
+        
+        links.forEach(link => {
+            const href = link.getAttribute('href');
+            if (href.includes(currentRoute)) {
+                link.children[0].classList.add('actives');
+            }
+
+            link.addEventListener('click', function() {
+                links.forEach(link => link.children[0].classList.remove('actives'));
+                this.children[0].classList.add('actives');
+            });
+        });
+    });
 </script>
 
 <script>
@@ -128,24 +146,6 @@
         paragraph.classList.remove("show");
         paragraph.classList.add("hidden");
     }
-</script>
-<script>
-    // Add event listeners to sidebar links
-    document.querySelectorAll('.sidebar-link').forEach(link => {
-        link.addEventListener('click', function() {
-            document.querySelectorAll('.sidebar-link').forEach(link => link.children[0].classList.remove('actives'));
-            this.children[0].classList.add('actives');
-        });
-    });
-
-    // Persist the active state based on the current route
-    const currentRoute = "{{ Route::currentRouteName() }}";
-    document.querySelectorAll('.sidebar-link').forEach(link => {
-        const href = link.getAttribute('href');
-        if (href.includes(currentRoute)) {
-            link.children[0].classList.add('actives');
-        }
-    });
 </script>
 </body>
 </html>
