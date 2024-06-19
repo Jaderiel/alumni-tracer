@@ -104,7 +104,7 @@
                     Association</p>
             </div>
             <div>
-                <p style="display: inline-block; margin-right: 5px;"><a href="{{ route('privacy-notice.show') }}">Privacy Notice</a></p>
+                <p style="display: inline-block; margin-right: 5px;"><a href="{{ route('privacy-notice.show') }}">Privacy Notice</a> |</p>
                 <p style="display: inline-block;"><a href="{{ route('user-guide.show') }}">User Guide</a></p>
             </div>
         </footer>
