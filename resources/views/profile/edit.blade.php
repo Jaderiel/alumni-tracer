@@ -29,7 +29,6 @@
         </div>
     @endif
 
-<!-- Display summary of all validation errors -->
     @if($errors->any())
     <div id="errorMessage" class="error-popup">
         <ul>
@@ -39,8 +38,6 @@
         </ul>
     </div>
     @endif
-
-
 
     <h3 class="i-name py-4 px-10">
         <a href="{{ route('user-profile') }}" class="back-link"><i class="fa-solid fa-angles-left"></i> Back</a> Profile Settings
@@ -640,6 +637,4 @@ document.addEventListener('DOMContentLoaded', function() {
 .error-popup {
     background-color: #F44336;
 }
-
-
 </style>
