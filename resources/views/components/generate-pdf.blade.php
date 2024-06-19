@@ -13,6 +13,18 @@
             padding: 0;
         }
 
+        /* body {
+            font-family: 'Poppins', sans-serif;
+            line-height: 1.6;
+            background-color: #f2f2f2;
+            padding: 20px;
+        } */
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
         .section {
             margin-top: 20px;
             background-color: #fff;
