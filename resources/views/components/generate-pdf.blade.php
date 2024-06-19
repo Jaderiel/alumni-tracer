@@ -13,12 +13,12 @@
             padding: 0;
         }
 
-        body {
+        /* body {
             font-family: 'Poppins', sans-serif;
             line-height: 1.6;
             background-color: #f2f2f2;
             padding: 20px;
-        }
+        } */
 
         .container {
             max-width: 800px;
@@ -51,16 +51,9 @@
             background-color: #162F65;
         }
 
-       
-        .section h1 {
-            font-size: 1.5em;
-            text-align: center;
-            margin-bottom: 5px;
-        }
-
         .section h2 {
             font-weight: bold;
-            font-size: 1.5em;
+            font-size: 1.1em;
             margin-bottom: 10px;
         }
 
