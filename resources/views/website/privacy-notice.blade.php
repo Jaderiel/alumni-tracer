@@ -62,7 +62,7 @@
                     <p class="data-info">The System collects the following types of user information:</p>
                     
                     <ul>
-                        <li> <strong>User information:</strong><br> Name, email address, and any other details provided during registration.</li>
+                        <li> <strong>User information:</strong><br> First, middle(optional), and last name, course, batch, email, and any other details provided during registration.</li>
                         <li> <strong>Educational information:</strong><br> Academic history, degrees earned, and courses completed.</li>
                         <li> <strong>Post-graduation information:</strong><br> Details about post-graduation activities, such as further education or employment.</li>
                         <li> <strong>Employment details:</strong><br> Date of first employment, annual salary, industry, job title, company name, and location.
