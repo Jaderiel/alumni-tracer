@@ -51,16 +51,9 @@
             background-color: #162F65;
         }
 
-       
-        .section h1 {
-            font-size: 1.5em;
-            text-align: center;
-            margin-bottom: 5px;
-        }
-
         .section h2 {
             font-weight: bold;
-            font-size: 1.5em;
+            font-size: 1.1em;
             margin-bottom: 10px;
         }
 
