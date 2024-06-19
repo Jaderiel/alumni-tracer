@@ -342,15 +342,15 @@
                     <div class="border-2 p-4 flex items-start justify-between">
                         <div class="flex flex-col gap-2">
                             <div class="flex gap-2 items-center">
-                                <p class="font-bold">Degree:</p>
+                                <p class="label">Degree:</p>
                                 <p class="text-sm">{{ $degree->degree }}</p>
                             </div>
                             <div class="flex gap-2 items-center">
-                                <p class="font-bold">School:</p>
+                                <p class="label">School:</p>
                                 <p class="text-sm">{{ $degree->school }}</p>
                             </div>
                             <div class="flex gap-2 items-center">
-                                <p class="font-bold">Status:</p>
+                                <p class="label">Status:</p>
                                 <p class="text-sm" style="color: {{ $degree->is_ongoing ? 'green' : 'red' }};">
                                     {{ $degree->is_ongoing ? 'Ongoing' : 'Done' }}
                                 </p>
