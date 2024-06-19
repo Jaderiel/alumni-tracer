@@ -29,6 +29,7 @@ module.exports = {
     './resources/views/website/user-guide.blade.php',
     './resources/views/components/preview.blade.php',
     './resources/views/components/role-setting.blade.php',
+    './resources/views/emails/reset-password.blade.php',
 
 
   ],
