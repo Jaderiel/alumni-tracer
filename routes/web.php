@@ -129,6 +129,8 @@ Route::group(['middleware' => ['auth.user']], function () {
     Route::post('/job-approvals/{id}', [AdminController::class, 'approveJob'])->name('job.approve');
     Route::delete('/job-approvals/{id}', [AdminController::class, 'deleteJob'])->name('job.delete');
     Route::post('/update-role', [AdminController::class, 'updateRole'])->name('updateRole')->middleware('superadmin');
+    Route::delete('/delete-admin/{id}', [AdminController::class, 'deleteAdmin'])->name('deleteAdmin');
+
 
     Route::post('/like', [ReactionController::class, 'like'])->name('like');
 

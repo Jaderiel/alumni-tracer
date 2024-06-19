@@ -187,4 +187,21 @@ class AdminController extends Controller
         return redirect()->back()->with('success', 'User role updated successfully.');
     }
 
+    public function deleteAdmin($id)
+    {
+        if (auth()->user()->user_type !== 'Super Admin') {
+            return redirect()->back()->with('error', 'You are not authorized to delete user.');
+        }
+
+        $user = User::find($id);
+
+        if ($user) {
+            $user->delete();
+            return redirect()->back()->with('success', 'User deleted successfully.');
+        }
+
+        return redirect()->back()->with('error', 'User not found.');
+    }
+
+
 }

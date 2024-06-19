@@ -15,7 +15,6 @@
     @include('main')
 
     <section id="" class="flex flex-col ml-0 lg:ml-72 w-full justify-center">
-
         <h3 class="i-name">Events & Announcement</h3>
 
         <div class="event flex flex-col lg:flex-row mx-3 p-5 gap-2">
@@ -75,7 +74,7 @@
                                         </div>
                                         @else
                                         <div class="text-right">
-                                            <a href="{{ route('register-to-event', ['user_id' => Auth::user()->id, 'event_id' => $event->id]) }}" id="registerBtn" class="btn btn-success btn-sm mb-1 register-btn">REGISTER</a>
+                                            <a href="#" onclick="return confirmRegistration('{{ route('register-to-event', ['user_id' => Auth::user()->id, 'event_id' => $event->id]) }}');" id="registerBtn" class="btn btn-success btn-sm mb-1 register-btn">REGISTER</a>
                                         </div>
                                         @endif
                                     @endif
@@ -108,6 +107,13 @@
     <script>
         function confirmDelete() {
             return confirm('Are you sure you want to delete this post? This action cannot be undone.');
+        }
+
+        function confirmRegistration(url) {
+            if (confirm('Are you sure you want to register for this event?')) {
+                window.location.href = url;
+            }
+            return false;
         }
 
         document.addEventListener('DOMContentLoaded', function() {

@@ -27,7 +27,14 @@
                         </td>
                         <td class="action" style="display: flex">
                             @if(auth()->check() && auth()->user()->user_type === 'Super Admin')
-                            <a href="#" class="button openModal" data-user-id="{{ $superadmin->id }}" data-user-name="{{ $superadmin->first_name }} {{ $superadmin->last_name }}" data-user-role="{{ $superadmin->user_type }}">Edit Role</a>
+                            <div class="flex gap-1">
+                                <a href="#" class="button openModal" data-user-id="{{ $superadmin->id }}" data-user-name="{{ $superadmin->first_name }} {{ $superadmin->last_name }}" data-user-role="{{ $superadmin->user_type }}">Edit Role</a>
+                                <form action="{{ route('deleteAdmin', $superadmin->id) }}" method="POST" class="deleteForm">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button type="submit" class="bg-customDelete text-white text-sm flex justify-center items-center px-4 py-1 rounded-sm cursor-pointer">Delete</button>
+                                </form>
+                            </div>
                             @endif
                         </td>
                     </tr>
@@ -58,7 +65,14 @@
                         </td>
                         <td class="action" style="display: flex">
                             @if(auth()->check() && auth()->user()->user_type === 'Super Admin')
-                            <a href="#" class="button openModal" data-user-id="{{ $adminUser->id }}" data-user-name="{{ $adminUser->first_name }} {{ $adminUser->last_name }}" data-user-role="{{ $adminUser->user_type }}">Edit Role</a>
+                            <div class="flex gap-1">
+                                <a href="#" class="button openModal" data-user-id="{{ $adminUser->id }}" data-user-name="{{ $adminUser->first_name }} {{ $adminUser->last_name }}" data-user-role="{{ $adminUser->user_type }}">Edit Role</a>
+                                <form action="{{ route('deleteAdmin', $adminUser->id) }}" method="POST" class="deleteForm">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button type="submit" class="bg-customDelete text-white text-sm flex justify-center items-center px-4 py-1 rounded-sm cursor-pointer">Delete</button>
+                                </form>
+                            </div>
                             @endif
                         </td>
                     </tr>
@@ -89,7 +103,14 @@
                         </td>
                         <td class="action" style="display: flex">
                             @if(auth()->check() && auth()->user()->user_type === 'Super Admin')
-                            <a href="#" class="button openModal" data-user-id="{{ $programhead->id }}" data-user-name="{{ $programhead->first_name }} {{ $programhead->last_name }}" data-user-role="{{ $programhead->user_type }}">Edit Role</a>
+                            <div class="flex gap-1">
+                                <a href="#" class="button openModal" data-user-id="{{ $programhead->id }}" data-user-name="{{ $programhead->first_name }} {{ $programhead->last_name }}" data-user-role="{{ $programhead->user_type }}">Edit Role</a>
+                                <form action="{{ route('deleteAdmin', $programhead->id) }}" method="POST" class="deleteForm">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button type="submit" class="bg-customDelete text-white text-sm flex justify-center items-center px-4 py-1 rounded-sm cursor-pointer">Delete</button>
+                                </form>
+                            </div>
                             @endif
                         </td>
                     </tr>
@@ -120,7 +141,14 @@
                         </td>
                         <td class="action" style="display: flex">
                             @if(auth()->check() && auth()->user()->user_type === 'Super Admin')
-                            <a href="#" class="button openModal" data-user-id="{{ $alumniofficer->id }}" data-user-name="{{ $alumniofficer->first_name }} {{ $alumniofficer->last_name }}" data-user-role="{{ $alumniofficer->user_type }}">Edit Role</a>
+                            <div class="flex gap-1">
+                                <a href="#" class="button openModal" data-user-id="{{ $alumniofficer->id }}" data-user-name="{{ $alumniofficer->first_name }} {{ $alumniofficer->last_name }}" data-user-role="{{ $alumniofficer->user_type }}">Edit Role</a>
+                                <form action="{{ route('deleteAdmin', $alumniofficer->id) }}" method="POST" class="deleteForm">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button type="submit" class="bg-customDelete text-white text-sm flex justify-center items-center px-4 py-1 rounded-sm cursor-pointer">Delete</button>
+                                </form>
+                            </div>
                             @endif
                         </td>
                     </tr>
@@ -151,37 +179,45 @@
     </div>
 </div>
 
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            var modal = document.getElementById('myModal');
-            var span = document.getElementsByClassName("close")[0];
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        var modal = document.getElementById('myModal');
+        var span = document.getElementsByClassName("close")[0];
 
-            document.querySelectorAll('.openModal').forEach(button => {
-                button.addEventListener('click', function(event) {
-                    event.preventDefault();
-                    var userId = this.dataset.userId;
-                    var userName = this.dataset.userName;
-                    var userRole = this.dataset.userRole;
+        document.querySelectorAll('.openModal').forEach(button => {
+            button.addEventListener('click', function(event) {
+                event.preventDefault();
+                var userId = this.dataset.userId;
+                var userName = this.dataset.userName;
+                var userRole = this.dataset.userRole;
 
-                    document.getElementById('modalUserId').value = userId;
-                    document.getElementById('modalUserName').innerText = userName;
-                    document.getElementById('modalUserRole').value = userRole;
+                document.getElementById('modalUserId').value = userId;
+                document.getElementById('modalUserName').innerText = userName;
+                document.getElementById('modalUserRole').value = userRole;
 
-                    modal.style.display = "block";
-                });
+                modal.style.display = "block";
             });
+        });
 
-            span.onclick = function() {
+        span.onclick = function() {
+            modal.style.display = "none";
+        }
+
+        window.onclick = function(event) {
+            if (event.target == modal) {
                 modal.style.display = "none";
             }
+        }
 
-            window.onclick = function(event) {
-                if (event.target == modal) {
-                    modal.style.display = "none";
+        document.querySelectorAll('.deleteForm').forEach(form => {
+            form.addEventListener('submit', function(event) {
+                if (!confirm('Are you sure you want to delete this user?')) {
+                    event.preventDefault();
                 }
-            }
+            });
         });
-    </script>
+    });
+</script>
 </body>
 </html>
 
@@ -201,79 +237,79 @@
     }
 
     .modal {
-    display: none;
-    position: fixed;
-    z-index: 1;
-    left: 0;
-    top: 0;
-    width: 100%;
-    height: 100%;
-    overflow: auto;
-    background-color: rgba(0, 0, 0, 0.4);
-    margin: 50px;
-}
+        display: none;
+        position: fixed;
+        z-index: 1;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        overflow: auto;
+        background-color: rgba(0, 0, 0, 0.4);
+        margin: 50px;
+    }
 
-.modal-content {
-    background-color: #fefefe;
-    margin: 10% auto;
-    padding: 20px 30px;
-    border: 1px solid #888;
-    width: 80%;
-    max-width: 250px;
-    border-radius: 10px;
-    position: relative;
-}
+    .modal-content {
+        background-color: #fefefe;
+        margin: 10% auto;
+        padding: 20px 30px;
+        border: 1px solid #888;
+        width: 80%;
+        max-width: 250px;
+        border-radius: 10px;
+        position: relative;
+    }
 
-.close {
-    position: absolute;
-    top: 10px;
-    right: 10px;
-    font-size: 28px;
-    color: #aaa;
-    cursor: pointer;
-}
+    .close {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        font-size: 28px;
+        color: #aaa;
+        cursor: pointer;
+    }
 
-.close:hover,
-.close:focus {
-    color: red;
-}
+    .close:hover,
+    .close:focus {
+        color: red;
+    }
 
-h2 {
-    margin-bottom: 30px;
-}
+    h2 {
+        margin-bottom: 30px;
+    }
 
-.modal-username {
-    font-weight: bold;
-    font-size: 15px;
-}
+    .modal-username {
+        font-weight: bold;
+        font-size: 15px;
+    }
 
-select {
-    width: 100%;
-    padding: 2px;
-    margin-top: 8px;
-    margin-bottom: 16px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    box-sizing: border-box;
-    font-size: 13px;
-}
+    select {
+        width: 100%;
+        padding: 2px;
+        margin-top: 8px;
+        margin-bottom: 16px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        box-sizing: border-box;
+        font-size: 13px;
+    }
 
-.update-button {
-    background-color: #00A36C;
-    color: white;
-    padding: 4px 8px;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    width: 55%;
-    font-size: 13px;
-    align-items: center;
-    text-align: center;
+    .update-button {
+        background-color: #00A36C;
+        color: white;
+        padding: 4px 8px;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        width: 55%;
+        font-size: 13px;
+        align-items: center;
+        text-align: center;
 
-}
+    }
 
-.update-button:hover {
-    background-color: #2D55B4;
-}
+    .update-button:hover {
+        background-color: #2D55B4;
+    }
 
 </style>
