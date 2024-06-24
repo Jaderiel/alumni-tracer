@@ -23,6 +23,13 @@ body {
     background-color: #162F65;
 }
 
+.logo {
+    display: block; /* Ensure it behaves as a block element */
+    margin: 0 auto 20px; /* Center horizontally and add bottom margin */
+    max-width: 100%; /* Limit maximum width */
+    height: 100px; /* Maintain aspect ratio */
+}
+
 .container {
     position: relative;
     min-height: 100vh;

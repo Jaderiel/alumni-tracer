@@ -89,8 +89,10 @@
             </div>
         </div>
         <div class="col align-items-center flex-col sign-in">
+            
             <div class="form-wrapper align-items-center">
                 <div class="form sign-in">
+                <img src="images/website-images/lv-logo.png" alt="Logo" class="logo">
                     <h1>Sign in</h1>
                     <form method="POST" action="{{ route('login') }}">
                         @csrf
