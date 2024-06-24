@@ -34,7 +34,7 @@
                     <div class="flex flex-col justify-center items-center lg:items-start">
                         <div class="flex gap-4">
                             <h1 class="font-bold">{{ Auth::user()->first_name }} {{ Auth::user()->last_name }}</h1>
-                            @if (Auth::user()->degree)
+                            
                             <p>(</p>
                             @forelse ($degrees as $degree)
                             <p class="text-sm">{{ $degree->degree }},</p>
@@ -42,7 +42,7 @@
                             <p></p>
                             @endforelse
                             <p>)</p>
-                            @endif
+                            
                         </div>
                         <p class="text-xs">{{ '@' . Auth::user()->username }}</p>
                     </div>
@@ -111,7 +111,7 @@
                                 Employment information not available
                             @endif</p>
                     </div>
-                    <tr class="hide-on-small">
+                    <!-- <tr class="hide-on-small">
                         <th width="30%">Date of First Employment</th>
                         <td width="2%">:</td>
                         <td>
@@ -121,15 +121,15 @@
                                 N/A
                             @endif
                         </td>
-                    </tr>
-                    <div class="lg:hidden flex flex-col mb-4">
+                    </tr> -->
+                    <!-- <div class="lg:hidden flex flex-col mb-4">
                         <h1 class="font-bold">Date of First Employment</h1>
                         <p>@if (Auth::user()->employment)
                                 {{Auth::user()->employment->date_of_first_employment}}
                             @else
                                 N/A
                             @endif</p>
-                    </div>
+                    </div> -->
                     <tr class="hide-on-small">
                         <th width="30%">Date of Employment</th>
                         <td width="2%">:</td>
