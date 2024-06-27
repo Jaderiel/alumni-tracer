@@ -19,7 +19,9 @@ class AdminController extends Controller
             return redirect()->back()->with('error', 'You are not authorized to view this page.');
         }
 
-        $unverifiedUsers = User::where('is_email_verified', false)->get();
+        $unverifiedUsers = User::where('is_email_verified', false)
+                                ->whereNotNull('email_verified_at')
+                                ->get();
         $gallery = Gallery::where('is_approved', false)->get();
         $jobs = Job::where('is_approved', false)->get();
         $superAdmin = User::where('user_type', "Super Admin")->get();
@@ -91,6 +93,7 @@ class AdminController extends Controller
             'course' => $request->course, 
             'batch' => $request->batch,
             'is_email_verified' => true,
+            'email_verified_at' => \Carbon\Carbon::now(),
         ]);
 
         Mail::to($user->email)->send(new AccountCreated());

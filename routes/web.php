@@ -18,7 +18,10 @@ use App\Http\Controllers\ResetPasswordController;
 use App\Http\Controllers\ReactionController;
 use App\Http\Controllers\ChangePasswordController;
 use App\Http\Controllers\EmploymentHistoryController;
+use App\Http\Controllers\Auth\VerificationController;
 use App\Http\Controllers\DegreeStatusController;
+use Illuminate\Foundation\Auth\EmailVerificationRequest;
+use Illuminate\Http\Request;
 
 // Route::get('/download-pdf', 'PDFController@downloadPDF')->name('download.pdf')->middleware('auth');
 Route::middleware(['auth.redirect'])->group(function () {
@@ -27,9 +30,13 @@ Route::middleware(['auth.redirect'])->group(function () {
     Route::get('/mobile-signup', [AuthController::class, 'mobileSignUp'])->name('mobileSignUp.show');
     // Route::post('/register', 'Auth\RegisterController@register')->name('register');
     Route::post('/register', [RegisterController::class, 'register'])->name('register');
-    Route::get('/verify-email/{token}', [VerificationController::class, 'verifyEmail'])->name('verify.email');
+    // Route::get('/verify-email/{token}', [VerificationController::class, 'verifyEmail'])->name('verify.email');
     Route::post('/', 'App\Http\Controllers\Auth\LoginController@login')->name('login');
 });
+
+Route::post('/email/verify', [VerificationController::class, 'verify'])->name('email.verify');
+Route::post('/resend-verification-code', [RegisterController::class, 'resendVerificationCode'])->name('resend.verification.code');
+Route::get('/ver', [WebsiteController::class, 'ver'])->name('ver.show');
 
 Route::post('/logout', 'App\Http\Controllers\Auth\LoginController@logout')->name('logout');
 

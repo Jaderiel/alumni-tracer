@@ -109,7 +109,11 @@
                         </div>
                         <button type="submit">Sign In</button>
                     </form>
-                    <p><a href="{{ route('password.request') }}" style="text-decoration: none; color: gray;">Forgot password?</a></p>
+                    <div style="display: flex; gap: 10px; justify-content: center; margin-top: 5px">
+                        <p><a href="{{ route('password.request') }}" style="text-decoration: none; color: gray;">Forgot password?</a></p>
+                        <p>|</p>
+                        <p><a href="{{ route('ver.show') }}" style="text-decoration: none; color: gray;">Verify my Account</a></p>
+                    </div>
                     <p>
                         <span>
                             Don't have an account?
@@ -239,36 +243,35 @@
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
 <script>
-    $(document).ready(function() {
-        $('#registerForm').on('submit', function(e) {
-            e.preventDefault();
-            $.ajax({
-                type: 'POST',
-                url: '{{ route("register") }}',
-                data: $(this).serialize(),
-                success: function(response) {
-                    if (response.success) {
-                        $('#successMessage').fadeIn().delay(3000).fadeOut();
-                        $('#registerForm')[0].reset();
-                    } else {
-                        $('#errorMessage').text('Unexpected response from the server.').fadeIn().delay(3000).fadeOut();
-                    }
-                },
-                error: function(xhr) {
-                    if (xhr.status === 422) {
-                        var errors = xhr.responseJSON.errors;
-                        var errorMessage = "";
-                        $.each(errors, function(key, value) {
-                            errorMessage += value[0] + "\n";
-                        });
-                        $('#errorMessage').text(errorMessage).fadeIn().delay(3000).fadeOut();
-                    } else {
-                        $('#errorMessage').text('Registration failed. Please check your input and try again.').fadeIn().delay(3000).fadeOut();
-                    }
+$(document).ready(function() {
+    $('#registerForm').on('submit', function(e) {
+        e.preventDefault();
+        $.ajax({
+            type: 'POST',
+            url: '{{ route("register") }}',
+            data: $(this).serialize(),
+            success: function(response) {
+                if (response.success) {
+                    window.location.href = response.redirect_url;
+                } else {
+                    $('#errorMessage').text('Unexpected response from the server.').fadeIn().delay(3000).fadeOut();
                 }
-            });
+            },
+            error: function(xhr) {
+                if (xhr.status === 422) {
+                    var errors = xhr.responseJSON.errors;
+                    var errorMessage = "";
+                    $.each(errors, function(key, value) {
+                        errorMessage += value[0] + "\n";
+                    });
+                    $('#errorMessage').text(errorMessage).fadeIn().delay(3000).fadeOut();
+                } else {
+                    $('#errorMessage').text('Registration failed. Please check your input and try again.').fadeIn().delay(3000).fadeOut();
+                }
+            }
         });
     });
+});
 </script>
 
 </html>

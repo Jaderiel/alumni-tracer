@@ -24,6 +24,10 @@ class WebsiteController extends Controller
         return view("website.about");
     }
 
+    public function ver() {
+        return view("website.ver");
+    }
+
     public function services() {
         return view("website.services");
     }

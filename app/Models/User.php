@@ -22,12 +22,15 @@ class User extends Authenticatable implements CanResetPassword
         'username',
         'password',
         'profile_pic',
-        'is_email_verified'
+        'is_email_verified',
+        'email_verification_code',
+        'email_verified_at'
     ];
 
     protected $hidden = [
         'password',
         'remember_token',
+        'email_verification_code'
     ];
 
     protected $casts = [
@@ -58,5 +61,4 @@ class User extends Authenticatable implements CanResetPassword
     {
         return $this->hasMany(DegreeStatus::class);
     }
-
 }
