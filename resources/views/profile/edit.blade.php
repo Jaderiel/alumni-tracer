@@ -69,11 +69,13 @@
                     <div class="flex ml-3 h-full">
                             <button type="submit" class="btn-save"><i class="fa-regular fa-bookmark"></i> Save</button>
                         </form>
+                        @if(auth()->check() && (Auth::user()->user_type === 'Super Admin'))
                         <form id="delete-form" action="{{ route('users.destroy', $user->id) }}" method="POST" onsubmit="return confirmDelete();">
                         @csrf
                         @method('DELETE')
                             <button class="delete-button" type="submit"><i class="fa-solid fa-user-xmark"></i> Delete</button>
                         </form>
+                        @endif
                     </div>
                 </div>
 
