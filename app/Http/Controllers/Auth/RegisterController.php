@@ -48,23 +48,24 @@ class RegisterController extends Controller
     }
 
     public function resendVerificationCode(Request $request)
-    {
-        $request->validate([
-            'email' => 'required|email|exists:users,email',
-        ]);
+{
+    $request->validate([
+        'email' => 'required|email|exists:users,email',
+    ]);
 
-        $user = User::where('email', $request->email)->first();
+    $user = User::where('email', $request->email)->first();
 
-        if ($user->is_email_verified) {
-            return response()->json(['error' => 'This account is already verified.'], 400);
-        }
-
-        $verificationCode = Str::random(6);
-        $user->email_verification_code = $verificationCode;
-        $user->save();
-
-        Mail::to($user->email)->send(new VerificationCode($verificationCode));
-
-        return response()->json(['success' => 'Verification code resent successfully! Please check your email.']);
+    if ($user->is_email_verified) {
+        return redirect()->back()->with('error', 'This account is already verified.');
     }
+
+    $verificationCode = Str::random(6);
+    $user->email_verification_code = $verificationCode;
+    $user->save();
+
+    Mail::to($user->email)->send(new VerificationCode($verificationCode));
+
+    return redirect()->back()->with('success', 'Verification code resent successfully! Please check your email.');
+}
+
 }

@@ -30,6 +30,7 @@ module.exports = {
     './resources/views/components/preview.blade.php',
     './resources/views/components/role-setting.blade.php',
     './resources/views/emails/reset-password.blade.php',
+    './resources/views/website/ver.blade.php',
 
 
   ],

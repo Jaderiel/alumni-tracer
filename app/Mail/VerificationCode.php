@@ -32,6 +32,9 @@ class VerificationCode extends Mailable
     public function build()
     {
         return $this->view('emails.verification-code')
+                    ->from('noreply@example.com', 'Alumni Tracking System')
+                    ->subject('Email Verification')
+                    ->replyTo('noreply@example.com')
                     ->with(['code' => $this->code]);
     }
 }
