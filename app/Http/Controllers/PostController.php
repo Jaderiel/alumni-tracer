@@ -16,15 +16,25 @@ use Illuminate\Support\Facades\File;
 class PostController extends Controller
 {
     public function store(Request $request) {
-    // Validate the incoming request
+        // Validate the incoming request
         $request->validate([
             'caption' => 'required|string',
-            'media_url' => 'image|mimes:jpeg,png,jpg,gif|max:10048', // Adjust the validation rules as needed
+            'image' => 'image|mimes:jpeg,png,jpg,gif|max:10048', // Adjust the validation rules as needed
         ]);
-
+    
+        // Check if the user has already created 3 posts today
+        $user = auth()->user();
+        $todaysPostCount = Forum::where('user_id', $user->id)
+                                ->whereDate('created_at', today())
+                                ->count();
+    
+        if ($todaysPostCount >= 3) {
+            return redirect()->back()->with('error', 'You have reached the daily limit of 3 posts.');
+        }
+    
         // Initialize mediaUrl variable
         $mediaUrl = null;
-
+    
         // Handle image upload
         if ($request->hasFile('image')) {
             $image = $request->file('image');
@@ -32,17 +42,18 @@ class PostController extends Controller
             $image->move(public_path('images'), $imageName);
             $mediaUrl = 'images/'.$imageName;
         }
-
+    
         // Create a new post instance
         $post = new Forum();
-        $post->user_id = auth()->id(); // Assuming you are using Laravel's authentication
+        $post->user_id = $user->id;
         $post->caption = $request->caption;
         $post->media_url = $mediaUrl;
         $post->save();
-
+    
         // Redirect back or to a specific route
         return redirect()->back()->with('success', 'Post created successfully!');
     }
+    
 
     public function index()
     {

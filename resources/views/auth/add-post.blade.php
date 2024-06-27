@@ -19,6 +19,10 @@
             Post created successfully!
         </div>
 
+        <div id="errorMessage" class="error-popup">
+            {{ session('error') }}
+        </div>
+
         <div class="bg-white p-4 lg:m-5" style="margin: 20px 40px">
             <div class="panel">
                 <div class="bio-graph-heading">
@@ -65,24 +69,37 @@
         if ("{{ session('success') }}") {
             $('#successMessage').fadeIn().delay(3000).fadeOut();
         }
+        if ("{{ session('error') }}") {
+            $('#errorMessage').fadeIn().delay(3000).fadeOut();
+        }
     });
 </script>
 
 <style>
 
+.success-popup, .error-popup {
+    display: none;
+    position: fixed;
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    padding: 15px;
+    border-radius: 5px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+    z-index: 1000;
+    width: 300px;
+    text-align: center;
+}
+
 .success-popup {
-        display: none;
-        position: fixed;
-        top: 20px;
-        left: 50%;
-        transform: translateX(-50%);
-        background-color: #4CAF50;
-        color: white;
-        padding: 15px;
-        border-radius: 5px;
-        box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
-        z-index: 1000;
-    }
+    background-color: #4CAF50;
+    color: white;
+}
+
+.error-popup {
+    background-color: #F44336;
+    color: white;
+}
 
 .i-name{
     color:#2D55B4;

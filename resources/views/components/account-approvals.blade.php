@@ -45,7 +45,7 @@
                                         <form id="delete-form" action="{{ route('user.delete', ['userId' => $user->id]) }}" method="POST" onsubmit="return confirmDelete();">
                                             @method('DELETE')
                                             @csrf
-                                            <button type="submit" class="button delete-btn" style="background-color: maroon;">Delete</button>
+                                            <button type="submit" class="button delete-btn" style="background-color: maroon;">Reject</button>
                                         </form>
                                     </td>
                                 @else
