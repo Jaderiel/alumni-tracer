@@ -1114,26 +1114,38 @@ button{
     flex: 1; 
 }
 
-.left{
+.left {
     display: flex;
-    justify-content: center; 
+    flex-direction: column; /* Arrange items vertically */
+    justify-content: center;
     align-items: center;
-    width: 15px;
+    width: 150px;
     margin-right: 35px;
-    flex: 0 0 25%; 
+    flex: 0 0 25%;
     margin-left: 50px;
     background-color: #F2DB98;
+    transition: transform 0.3s ease, background 0.3s ease; /* Transition properties */
 }
 
-
+.left:hover {
+    transform: translateY(-10px); /* Move element up */
+    background: linear-gradient(135deg, #F2DB98, #E1C582); /* Change background gradient */
+}
 
 .left img {
     height: 120px;
-    width: 50%; 
+    width: 50%;
     padding: 20px;
     margin: 20px;
+    margin-top: -30px
 }
 
+
+.left p{
+    color: #162F65;
+    margin-top: -20px;
+    font-weight: 500;
+}
 
 .right{
     margin-right: 50px;
