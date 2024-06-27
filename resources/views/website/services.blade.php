@@ -63,6 +63,7 @@
             <div class="wrapper">
                 <div class="left">
                     <img src="{{ asset('images/website-images/forum-icon.png') }}" alt="" title="FORUM">
+                    <p>FORUM PAGE</p>
                 </div>
                 <div class="right">
                     <p>Share memories and achievements to inspire, not to boast. This space allows alumni to reminisce, share accomplishments, and inspire one another through their experiences.</p>
@@ -72,6 +73,7 @@
             <div class="wrapper">
                 <div class="left">
                     <img src="{{ asset('images/website-images/event-icon.png') }}" alt="" title="EVENT">
+                    <p>UPCOMING EVENTS</p>
                 </div>
                 <div class="right">
                     <p>Easily notify alumni of events, announce upcoming events, and allow alumni to accept invitations through the system.</p>
@@ -81,6 +83,7 @@
             <div class="wrapper">
                 <div class="left">
                     <img src="{{ asset('images/website-images/annmnt-icon.png') }}" alt="" title="ANNOUNCEMENT">
+                    <p>ANNOUNCEMENT</p>
                 </div>
                 <div class="right">
                     <p>Provide important updates to the alumni community. Keep alumni informed about significant news, developments, and opportunities related to their alma mater</p>
@@ -90,6 +93,7 @@
             <div class="wrapper">
                 <div class="left">
                     <img src="{{ asset('images/website-images/alumni-icon.png') }}" alt="" title="ALUMNI COMMUNITY">
+                    <p>ALUMNI COMMUNITY</p>
                 </div>
                 <div class="right">
                     <p>Enhance networking and communication by organizing alumni by courses and batches. Access a comprehensive alumni directory for targeted connections and networking.</p>
@@ -99,6 +103,7 @@
             <div class="wrapper">
                 <div class="left">
                     <img src="{{ asset('images/website-images/job-iconn.png') }}" alt="" title="JOB OPPORTUNITIES">
+                    <p>JOB OPPORTUNITIES</p>
                 </div>
                 <div class="right">
                     <p>Connect alumni with job openings and career opportunities. Explore job listings offered to alumni, with options to both apply for positions and post job opportunities within the community.</p>
@@ -108,6 +113,7 @@
             <div class="wrapper">
                 <div class="left">
                     <img src="{{ asset('images/website-images/gallery-icon.png') }}" alt="" title="GALLERY">
+                    <p>GALLERY</p>
                 </div>
                 <div class="right">
                     <p>Share memories from college days, organized by courses. Browse through a collection of photos and memories from alumni's college experiences, conveniently grouped by courses.
@@ -118,6 +124,7 @@
             <div class="wrapper">
                 <div class="left">
                     <img src="{{ asset('images/website-images/analytics-icon.png') }}" alt="" title="ANALYTICS">
+                    <p>ANALYTICS</p>
                 </div>
                 <div class="right">
                     <p>Provide insights into the alumni community's size, growth, and engagement. Gain valuable data on the number of alumni within the system, graduation trends, event participation rates, and other key metrics to inform strategic decisions and measure community engagement.
