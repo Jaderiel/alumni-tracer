@@ -11,20 +11,14 @@ use App\Rules\ValidCourses;
 use App\Rules\ValidBatches;
 use Illuminate\Auth\Events\Registered;
 use App\Mail\VerificationCode;
+use App\Http\Requests\PasswordRequest;
+
 
 class RegisterController extends Controller
 {
-    public function register(Request $request)
+    public function register(PasswordRequest $request)
     {
-        $request->validate([
-            'first_name' => 'required',
-            'last_name' => 'required',
-            'course' => ['required', new ValidCourses],
-            'batch' => ['required', new ValidBatches],
-            'username' => 'required|unique:users',
-            'email' => 'required|email|unique:users',
-            'password' => 'required|min:6|confirmed',
-        ]);
+        $validatedData = $request->validated();
 
         $verificationCode = Str::random(6);
 

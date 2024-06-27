@@ -1303,6 +1303,14 @@ video {
   font-weight: 700;
 }
 
+.uppercase {
+  text-transform: uppercase;
+}
+
+.lowercase {
+  text-transform: lowercase;
+}
+
 .leading-tight {
   line-height: 1.25;
 }

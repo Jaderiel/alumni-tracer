@@ -21,7 +21,13 @@ class ChangePasswordController extends Controller
         // Validate the request data
         $request->validate([
             'current_password' => 'required',
-            'new_password' => 'required|min:6|confirmed',
+            'new_password' => [
+                'required',
+                'string',
+                'min:10',
+                'regex:/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{10,}$/',
+                'confirmed',
+            ],
         ]);
 
         $user = auth()->user();

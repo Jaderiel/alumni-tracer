@@ -16,44 +16,49 @@
             Change Password
         </h3>
 
-        <form action="{{ route('update.password') }}" method="POST" oninput="validatePassword()">
-    {{ csrf_field() }}
-    @method('PUT')
-    <div class="create-account-holder">
-        <div class="flex flex-col gap-4 my-10 justify-center items-center">
-            <div>
-                
-                @if (session('success'))
-                    <span class="text-customGreen text-xs">{{ session('success') }}</span>
-                @endif
-            </div>
-            <div>
-    <label class="form-label" for="current_password">Enter Current Password</label>
-    <input type="password" class="pass" name="current_password" id="current_password" required oninput="validatePassword()">
-    <span id="current_password_error" class="show-error"></span>
-    @error('current_password')
-        <span class="show-error">{{ $message }}</span>
-    @enderror
-</div>
+        <form action="{{ route('update.password') }}" method="POST" onsubmit="return validatePassword()">
+            {{ csrf_field() }}
+            @method('PUT')
+            <div class="create-account-holder">
+                <div class="flex flex-col gap-4 my-10 justify-center items-center">
+                    <div>
+                        @if (session('success'))
+                            <span class="text-customGreen text-xs">{{ session('success') }}</span>
+                        @endif
+                    </div>
+                    <div>
+                        <label class="form-label" for="current_password">Enter Current Password</label>
+                        <input type="password" class="pass" name="current_password" id="current_password" required>
+                        <span id="current_password_error" class="show-error"></span>
+                        @error('current_password')
+                            <span class="show-error">{{ $message }}</span>
+                        @enderror
+                    </div>
 
-            <div>
-                <label class="form-label" for="new_password">Enter New Password</label>
-                <input type="password" class="pass" name="new_password" id="new_password" required>
-                <span id="new_password_error" class="show-error"></span>
-            </div>
+                    <div>
+                        <label class="form-label" for="new_password">Enter New Password</label>
+                        <input type="password" class="pass" name="new_password" id="new_password" required>
+                        <div id="new_password_errors">
+                            <span id="new_password_length_error" class="show-error"></span>
+                            <span id="new_password_lowercase_error" class="show-error"></span>
+                            <span id="new_password_uppercase_error" class="show-error"></span>
+                            <span id="new_password_number_error" class="show-error"></span>
+                            <span id="new_password_specialchar_error" class="show-error"></span>
+                        </div>
+                    </div>
 
-            <div>
-                <label class="form-label" for="new_password_confirmation">Confirm New Password</label>
-                <input type="password" class="pass" name="new_password_confirmation" id="new_password_confirmation" required>
-                <span id="confirm_password_error" class="show-error"></span>
-            </div>
+                    <div>
+                        <label class="form-label" for="new_password_confirmation">Confirm New Password</label>
+                        <input type="password" class="pass" name="new_password_confirmation" id="new_password_confirmation" required>
+                        <span id="confirm_password_error" class="show-error"></span>
+                    </div>
 
-            <div>
-                <button type="submit" class="bg-customGreen text-white text-xs hover:bg-customTextBlue hover:text-black py-2 px-4" style="border-radius: 3px; margin-bottom: 20px">Change password</button>
+                    <div>
+                        <button type="submit" class="bg-customGreen text-white text-xs hover:bg-customTextBlue hover:text-black py-2 px-4" style="border-radius: 3px; margin-bottom: 20px">Change password</button>
+                    </div>
+                </div>
             </div>
-        </div>
-    </div>
-</form>
+        </form>
     </section>
 
 </body>
@@ -65,26 +70,64 @@
         var newPassword = document.getElementById('new_password').value;
         var confirmPassword = document.getElementById('new_password_confirmation').value;
 
+        var hasError = false;
+
         // Check if current password is empty
         if (currentPassword.length === 0) {
             document.getElementById('current_password_error').innerText = 'Current password is required.';
+            hasError = true;
         } else {
             document.getElementById('current_password_error').innerText = '';
         }
 
+        // Clear previous errors
+        document.getElementById('new_password_length_error').innerText = '';
+        document.getElementById('new_password_lowercase_error').innerText = '';
+        document.getElementById('new_password_uppercase_error').innerText = '';
+        document.getElementById('new_password_number_error').innerText = '';
+        document.getElementById('new_password_specialchar_error').innerText = '';
+
         // Check if new password meets length requirement
-        if (newPassword.length > 0 && newPassword.length < 6) {
-            document.getElementById('new_password_error').innerText = 'It should be at least 6 characters.';
-        } else {
-            document.getElementById('new_password_error').innerText = '';
+        if (newPassword.length > 0 && newPassword.length < 10) {
+            document.getElementById('new_password_length_error').innerText = 'Password must be at least 10 characters.';
+            hasError = true;
+        }
+
+        // Check if new password meets complexity requirements
+        var lowercaseRegex = /[a-z]/;
+        var uppercaseRegex = /[A-Z]/;
+        var numberRegex = /\d/;
+        var specialCharRegex = /[@$!%*?&]/;
+
+        if (newPassword.length > 0 && !lowercaseRegex.test(newPassword)) {
+            document.getElementById('new_password_lowercase_error').innerText = 'must include at least one lowercase letter.';
+            hasError = true;
+        }
+
+        if (newPassword.length > 0 && !uppercaseRegex.test(newPassword)) {
+            document.getElementById('new_password_uppercase_error').innerText = 'must include at least one uppercase letter.';
+            hasError = true;
+        }
+
+        if (newPassword.length > 0 && !numberRegex.test(newPassword)) {
+            document.getElementById('new_password_number_error').innerText = 'must include at least one number.';
+            hasError = true;
+        }
+
+        if (newPassword.length > 0 && !specialCharRegex.test(newPassword)) {
+            document.getElementById('new_password_specialchar_error').innerText = 'must include at least one special character.';
+            hasError = true;
         }
 
         // Check if new password and confirmation match
         if (newPassword.length > 0 && confirmPassword.length > 0 && newPassword !== confirmPassword) {
             document.getElementById('confirm_password_error').innerText = 'New password does not match.';
+            hasError = true;
         } else {
             document.getElementById('confirm_password_error').innerText = '';
         }
+
+        return !hasError; // Prevent form submission if there are validation errors
     }
 </script>
 
@@ -135,15 +178,9 @@
         border: 2px solid #ADBCF2;
     }
 
-    .error {
-    border: 1px solid red;
-}
     .show-error {
         color: red;
-    font-size: .7rem;
+        font-size: .7rem;
+        display: block;
     }
-
-    .input-error {
-    border-color: red;
-}
 </style>
