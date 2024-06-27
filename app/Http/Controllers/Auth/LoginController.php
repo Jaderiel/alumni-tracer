@@ -32,10 +32,10 @@ class LoginController extends Controller
 
     $user = Auth::user();
 
-    // if (is_null($user->email_verified_at)) {
-    //     Auth::logout();
-    //     return redirect()->route('ver.show')->withErrors(['message' => 'Your email is not verified. Please check your email to verify your account.']);
-    // }
+    if (is_null($user->email_verified_at)) {
+        Auth::logout();
+        return redirect()->route('ver.show')->withErrors(['message' => 'Your email is not verified. Please check your email to verify your account.']);
+    }
 
     if (!$user->is_email_verified) {
         Auth::logout();
