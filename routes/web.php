@@ -22,6 +22,9 @@ use App\Http\Controllers\Auth\VerificationController;
 use App\Http\Controllers\DegreeStatusController;
 use Illuminate\Foundation\Auth\EmailVerificationRequest;
 use Illuminate\Http\Request;
+use App\Http\Controllers\ActivityLogController;
+
+Route::get('/logs', [ActivityLogController::class, 'index'])->name('logs.index');
 
 // Route::get('/download-pdf', 'PDFController@downloadPDF')->name('download.pdf')->middleware('auth');
 Route::middleware(['auth.redirect'])->group(function () {
