@@ -30,27 +30,20 @@
                                     <td class="py-2 px-4 border-b border-gray-200">{{ $log->activity }}</td>
                                     <td class="py-2 px-4 border-b border-gray-200">
                                         @php
-                                            if (strpos($log->activity, 'Updated a post') !== false) {
-                                                $descriptionParts = explode(', Media URL: ', $log->description);
-                                                $captions = explode(' to ', $descriptionParts[0]);
-                                                $originalCaption = trim(str_replace('from "', '', $captions[0]), '"');
-                                                $newCaption = trim($captions[1], '"');
-                                                $mediaUrl = $descriptionParts[1] ?? null;
-                                            } else {
-                                                $descriptionParts = explode(', Media URL: ', $log->description);
-                                                $caption = $descriptionParts[0];
-                                                $mediaUrl = $descriptionParts[1] ?? null;
+                                            $description = explode(', ', $log->description);
+                                            $caption = $description[0] ?? '';
+                                            $mediaUrl = null;
+                                            foreach ($description as $part) {
+                                                if (strpos($part, 'Media URL:') !== false) {
+                                                    $mediaUrl = trim(str_replace('Media URL:', '', $part));
+                                                    break;
+                                                }
                                             }
                                         @endphp
-                                        @if (strpos($log->activity, 'Updated a post') !== false)
-                                            <div>From: {{ $originalCaption }}</div>
-                                            <div>To: {{ $newCaption }}</div>
-                                        @else
-                                            <div>{{ $caption }}</div>
-                                        @endif
+                                        <div>{{ $caption }}</div>
                                         @if($mediaUrl)
                                             <div>
-                                                <img src="{{ asset($mediaUrl) }}" alt="User Uploaded Image" class="w-10 h-10 mt-2 object-cover rounded-lg">
+                                                <img src="{{ $mediaUrl }}" alt="User Uploaded Image" class="w-10 h-10 mt-2 object-cover rounded-lg">
                                             </div>
                                         @endif
                                     </td>

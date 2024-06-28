@@ -11,6 +11,7 @@ use App\Rules\ValidAnnualSalaryOption;
 use App\Rules\ValidDegrees;
 use App\Rules\ValidCourses;
 use App\Rules\ValidBatches;
+use App\Helpers\ActivityLogHelper;
 
 class UserController extends Controller
 {
@@ -189,29 +190,35 @@ class UserController extends Controller
     }
 
     public function delete($id)
-    {
-        // Find the user by ID
-        $user = User::findOrFail($id);
+{
+    // Find the user by ID
+    $user = User::findOrFail($id);
 
-        // Check if the authenticated user is either an Admin or a Super Admin
-        $currentUserType = auth()->user()->user_type;
-        if ($currentUserType !== 'Admin' && $currentUserType !== 'Super Admin') {
-            // Prevent deletion of other users' accounts
-            return redirect()->back()->with('error', 'You are not authorized to delete other users\' accounts.');
-        }
+    // Check if the authenticated user is either an Admin or a Super Admin
+    $currentUserType = auth()->user()->user_type;
+    if ($currentUserType !== 'Admin' && $currentUserType !== 'Super Admin') {
+        // Prevent deletion of other users' accounts
+        return redirect()->back()->with('error', 'You are not authorized to delete other users\' accounts.');
+    }
 
-        // If the user is trying to delete their own account
-        if ($user->id === auth()->user()->id) {
-            // Delete the user's account
-            $user->delete();
-            return redirect()->route('login.show')->with('success', 'Your account has been deleted.');
-        }
+    // Log the user deletion activity
+    $description = 'Deleted user: ' . $user->first_name . ' ' . $user->last_name;
 
+    // If the user is trying to delete their own account
+    if ($user->id === auth()->user()->id) {
         // Delete the user's account
         $user->delete();
-
-        return redirect()->back()->with('success', 'User account deleted successfully.');
+        ActivityLogHelper::log(auth()->id(), 'Deleted own account', $description);
+        return redirect()->route('login.show')->with('success', 'Your account has been deleted.');
     }
+
+    // Delete the user's account
+    $user->delete();
+    ActivityLogHelper::log(auth()->id(), 'Deleted a user account', $description);
+
+    return redirect()->back()->with('success', 'User account deleted successfully.');
+}
+
 
     public function storeDegreeStatus(Request $request)
     {

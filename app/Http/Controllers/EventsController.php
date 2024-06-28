@@ -8,10 +8,18 @@ use App\Models\User;
 use App\Models\Announcement;
 use App\Models\EventRegistration;
 use Carbon\Carbon;
+use App\Helpers\ActivityLogHelper;
+use Illuminate\Support\Facades\Auth;
 
 class EventsController extends Controller
 {
-    public function events() {
+    private function logActivity($action, $description)
+    {
+        ActivityLogHelper::log(Auth::id(), $action, $description);
+    }
+
+    public function events()
+    {
         $this->deletePastEvents();
         $events = Event::all();
         $announcements = Announcement::all();
@@ -22,7 +30,7 @@ class EventsController extends Controller
 
         return view("auth.events", compact('events', 'announcements'));
     }
-    
+
     public function register($user_id, $event_id)
     {
         $existingRegistration = EventRegistration::where('user_id', $user_id)
@@ -38,6 +46,9 @@ class EventsController extends Controller
             'user_id' => $user_id,
             'event_id' => $event_id,
         ]);
+
+        // Log the activity
+        $this->logActivity('Event Registration', "User ID: $user_id registered for Event ID: $event_id");
 
         // Optionally, you can redirect the user or return a response
         return redirect()->back()->with('success', 'Registration Successful');
@@ -67,16 +78,16 @@ class EventsController extends Controller
         ]);
     }
 
-    public function addEvent() {
+    public function addEvent()
+    {
         return view('auth.add-event');
     }
 
     public function store(Request $request)
     {
-
         $request->validate([
             'event_title' => 'required',
-            'media_url' => 'required|image|mimes:jpeg,png,jpg,gif|max:10048', // Adjust file type and size as needed
+            'media_url' => 'required|image|mimes:jpeg,png,jpg,gif|max:10048',
             'event_date' => 'required',
             'event_time' => 'required',
             'event_details' => 'required',
@@ -92,17 +103,21 @@ class EventsController extends Controller
 
         $event = new Event();
         $event->event_title = $request->event_title;
-        $event->media_url = $mediaUrl; // Use the $mediaUrl variable
+        $event->media_url = $mediaUrl;
         $event->event_details = $request->event_details;
         $event->event_date = $request->event_date;
         $event->event_time = $request->event_time;
         $event->save();
 
-        return redirect()->back()->with('success', 'Event Created Successfully!');
+        // Log the activity
+        $activityDescription = 'Created event: ' . $event->event_title . ', Media URL: ' . asset($mediaUrl);
+        $this->logActivity('Created an event', $activityDescription);
 
+        return redirect()->back()->with('success', 'Event Created Successfully!');
     }
 
-    public function addAnn() {
+    public function addAnn()
+    {
         $currentUserType = auth()->user()->user_type;
         if ($currentUserType !== 'Super Admin' && $currentUserType !== 'Admin' && $currentUserType !== 'Program Head' && $currentUserType !== 'Alumni Officer') {
             return redirect()->back()->with('error', 'You are not authorized to add announcements.');
@@ -112,7 +127,6 @@ class EventsController extends Controller
 
     public function storeAnn(Request $request)
     {
-
         $request->validate([
             'ann_title' => 'required',
             'ann_details' => 'required',
@@ -123,8 +137,11 @@ class EventsController extends Controller
         $ann->ann_details = $request->ann_details;
         $ann->save();
 
-        return redirect()->back()->with('success', 'Announcement Created Successfully!');
+        // Log the activity
+        $activityDescription = 'Created announcement: ' . $ann->ann_title;
+        $this->logActivity('Created an announcement', $activityDescription);
 
+        return redirect()->back()->with('success', 'Announcement Created Successfully!');
     }
 
     public function delete($id)
@@ -136,12 +153,17 @@ class EventsController extends Controller
             return redirect()->back()->with('error', 'You are not authorized to delete this event.');
         }
 
+        // Log the activity
+        $activityDescription = 'Deleted event: ' . $event->event_title;
+        $this->logActivity('Deleted an event', $activityDescription);
+
         $event->delete();
 
         return redirect()->back()->with('success', 'Event Deleted Successfully.');
     }
 
-    public function edit($id) {
+    public function edit($id)
+    {
         $currentUserType = auth()->user()->user_type;
         if ($currentUserType == 'Alumni') {
             return redirect()->back()->with('error', 'You are not authorized to view this page.');
@@ -150,38 +172,52 @@ class EventsController extends Controller
         $event = Event::findOrFail($id);
 
         return view("popups.update-event", compact('event'));
-
     }
 
     public function update(Request $request, Event $event)
-{
-    $request->validate([
-        'event_title' => 'required|string|max:255',
-        'event_date' => 'required|date',
-        'event_time' => 'required',
-        'event_details' => 'required|string',
-        'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
-    ]);
+    {
+        $request->validate([
+            'event_title' => 'required|string|max:255',
+            'event_date' => 'required|date',
+            'event_time' => 'required',
+            'event_details' => 'required|string',
+            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+        ]);
 
-    if ($request->hasFile('image')) {
-        $image = $request->file('image');
-        $imageName = time().'.'.$image->getClientOriginalExtension();
-        $image->move(public_path('images'), $imageName);
-        $mediaUrl = 'images/'.$imageName;
-        $event->media_url = $mediaUrl;
+        // Store the original values for comparison
+        $originalTitle = $event->event_title;
+        $originalMediaUrl = $event->media_url;
+
+        // Update the event with the new values
+        $event->event_title = $request->input('event_title');
+        $event->event_date = $request->input('event_date');
+        $event->event_time = $request->input('event_time');
+        $event->event_details = $request->input('event_details');
+
+        if ($request->hasFile('image')) {
+            $image = $request->file('image');
+            $imageName = time().'.'.$image->getClientOriginalExtension();
+            $image->move(public_path('images'), $imageName);
+            $mediaUrl = 'images/'.$imageName;
+            $event->media_url = $mediaUrl;
+        }
+
+        $event->save();
+
+        // Construct the log message
+        $activityDescription = 'Updated event: ' . $event->event_title;
+        if (isset($mediaUrl) && $mediaUrl !== $originalMediaUrl) {
+            $activityDescription .= ', Media URL updated to ' . asset($mediaUrl);
+        }
+
+        // Log the activity
+        $this->logActivity('Updated an event', $activityDescription);
+
+        return redirect()->back()->with('success', 'Event Updated Successfully!');
     }
 
-    $event->event_title = $request->input('event_title');
-    $event->event_date = $request->input('event_date');
-    $event->event_time = $request->input('event_time');
-    $event->event_details = $request->input('event_details');
-    $event->save();
-
-    return redirect()->back()->with('success', 'Event Edited Successfully!');
-}
-
-
-    public function editAnn($id) {
+    public function editAnn($id)
+    {
         $currentUserType = auth()->user()->user_type;
         if ($currentUserType == 'Alumni') {
             return redirect()->back()->with('error', 'You are not authorized to edit announcements.');
@@ -190,36 +226,37 @@ class EventsController extends Controller
         $ann = Announcement::findOrFail($id);
 
         return view("popups.update-announcement", compact('ann'));
-
     }
 
     public function updateAnn(Request $request, Announcement $announcement)
-{
-    // Validate the form data
-    $request->validate([
-        'ann_title' => 'required|string|max:255',
-        'ann_details' => 'required|string',
-    ]);
+    {
+        $request->validate([
+            'ann_title' => 'required|string|max:255',
+            'ann_details' => 'required|string',
+        ]);
 
-    // Update other fields
-    $announcement->ann_title = $request->input('ann_title');
-    $announcement->ann_details = $request->input('ann_details');
+        $activityDescription = 'Updated announcement: ' . $announcement->ann_title;
 
-    // Save the updated announcement
-    $announcement->save();
+        // Update other fields
+        $announcement->ann_title = $request->input('ann_title');
+        $announcement->ann_details = $request->input('ann_details');
+        $announcement->save();
 
-    // Redirect back to events page after updating with success message
-    return redirect()->back()->with('success', 'Announcement Edited Successfully!');
-}
+        // Log the activity
+        $this->logActivity('Updated an announcement', $activityDescription);
 
+        // Redirect back to events page after updating with success message
+        return redirect()->back()->with('success', 'Announcement Edited Successfully!');
+    }
 
     public function deleteAnn($id)
     {
         $ann = Announcement::findOrFail($id);
-        $currentUserType = auth()->user()->user_type;
-        if ($currentUserType == 'Alumni') {
-            return redirect()->back()->with('error', 'You are not authorized to Delete announcements.');
-        }
+
+        // Log the activity
+        $activityDescription = 'Deleted announcement: ' . $ann->ann_title;
+        $this->logActivity('Deleted an announcement', $activityDescription);
+
         $ann->delete();
 
         return redirect()->route('events')->with('success', 'Announcement Deleted Successfully!');
@@ -229,13 +266,19 @@ class EventsController extends Controller
     {
         $now = Carbon::now();
         
-        Event::where('event_date', '<', $now->toDateString())
+        $pastEvents = Event::where('event_date', '<', $now->toDateString())
             ->orWhere(function($query) use ($now) {
                 $query->where('event_date', '=', $now->toDateString())
                     ->where('event_time', '<', $now->toTimeString());
             })
-            ->delete();
+            ->get();
+
+        foreach ($pastEvents as $event) {
+            // Log the activity
+            $activityDescription = 'Deleted past event: ' . $event->event_title;
+            $this->logActivity('Deleted a past event', $activityDescription);
+            
+            $event->delete();
+        }
     }
-
-
 }
