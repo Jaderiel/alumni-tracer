@@ -9,6 +9,7 @@ use App\Mail\AccountApproved;
 use App\Mail\AccountCreated;
 use App\Models\Gallery;
 use App\Models\Job;
+use App\Models\ActivityLog;
 
 
 class AdminController extends Controller
@@ -28,8 +29,9 @@ class AdminController extends Controller
         $admin = User::where('user_type', "Admin")->get();
         $programHead = User::where('user_type', "Program Head")->get();
         $alumniOfficer = User::where('user_type', "Alumni Officer")->get();
+        $logs = ActivityLog::with('user')->latest()->paginate(20);
 
-        return view('auth.administration', compact('unverifiedUsers', 'gallery', 'jobs', 'superAdmin', 'admin', 'programHead', 'alumniOfficer'));
+        return view('auth.administration', compact('unverifiedUsers', 'gallery', 'jobs', 'superAdmin', 'admin', 'programHead', 'alumniOfficer', 'logs'));
     }
 
     public function approveUser($userId)

@@ -53,7 +53,7 @@ class PostController extends Controller
         $post->save();
 
         // Log the activity with both caption and media URL
-        $description = 'Caption: ' . $post->caption;
+        $description = '' . $post->caption;
         if ($mediaUrl) {
             $description .= ', Media URL: ' . asset($mediaUrl);
         }
@@ -84,98 +84,88 @@ class PostController extends Controller
         return view('auth.dashboard', compact('forumPosts', 'verifiedAlumniCount', 'announcements', 'eventCount', 'jobCount',));
     }
 
-    public function update(Request $request, $id)
-{
-    // Retrieve the post by ID
-    $post = Forum::findOrFail($id);
+
+    public function updatePost(Request $request, $id)
+    {
+        $request->validate([
+            'caption' => 'required|string|max:255',
+            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048'
+        ]);
     
-    // Retrieve the original caption for comparison
-    $originalCaption = $post->caption;
-
-    // Update the caption with the new value from the request
-    $post->caption = $request->input('edited_caption');
+        try {
+            // Retrieve the post by ID
+            $post = Forum::findOrFail($id);
     
-    // Check if a new media file has been uploaded
-    if ($request->hasFile('edited_media')) {
-        // Store the new media file and update the media URL
-        $mediaPath = $request->file('edited_media')->store('public/media');
-        $post->media_url = Storage::url($mediaPath);
-
-        // Log activity including media URL
-        ActivityLogHelper::log(auth()->id(), 'Updated a post', 'Updated caption from "' . $originalCaption . '" to "' . $post->caption . '". Media URL: ' . $post->media_url);
-    } else {
-        // Log activity without media URL
-        ActivityLogHelper::log(auth()->id(), 'Updated a post', 'Updated caption from "' . $originalCaption . '" to "' . $post->caption . '"');
-    }
+            // Retrieve the original caption and media URL for comparison
+            $originalCaption = $post->caption;
+            $originalMediaUrl = $post->media_url;
     
-    // Save the updated post
-    $post->save();
+            // Update the caption with the new value from the request
+            $post->caption = $request->caption;
     
-    // Optionally, return a response indicating success
-    return response()->json(['message' => 'Post updated successfully']);
-}
-
-public function updatePost(Request $request, $id)
-{
-    $request->validate([
-        'caption' => 'required|string|max:255',
-        'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048'
-    ]);
-
-    try {
-        // Retrieve the post by ID
-        $post = Forum::findOrFail($id);
-
-        // Retrieve the original caption for comparison
-        $originalCaption = $post->caption;
-
-        // Update the caption with the new value from the request
-        $post->caption = $request->caption;
-
-        // Check if a new image file has been uploaded
-        if ($request->hasFile('image')) {
-            // Process image upload
-            $image = $request->file('image');
-            $extension = $image->getClientOriginalExtension();
-            $newFileName = 'image_' . time() . '.' . $extension;
-            $destinationPath = 'uploads';
-
-            // Move uploaded file to the desired location
-            $image->move(public_path($destinationPath), $newFileName);
-
-            // Update the post's media_url with the new file path
-            $post->media_url = $destinationPath . '/' . $newFileName;
-
-            // Log activity including media URL
-            ActivityLogHelper::log(auth()->id(), 'Updated a post', 'from "' . $originalCaption . '" to "' . $post->caption . '". Media URL: ' . $post->media_url);
-        } else {
-            // Log activity without media URL
-            ActivityLogHelper::log(auth()->id(), 'Updated a post', 'from "' . $originalCaption . '" to "' . $post->caption . '"');
+            // Check if a new image file has been uploaded
+            if ($request->hasFile('image')) {
+                // Process image upload
+                $image = $request->file('image');
+                $extension = $image->getClientOriginalExtension();
+                $newFileName = 'image_' . time() . '.' . $extension;
+                $destinationPath = 'images';
+    
+                // Move uploaded file to the desired location
+                $image->move(public_path($destinationPath), $newFileName);
+    
+                // Update the post's media_url with the new file path
+                $post->media_url = $destinationPath . '/' . $newFileName;
+    
+                // Log activity including media URL
+                $activityDescription = 'from "' . $originalCaption . '" to "' . $post->caption . '", Media URL: ' . $post->media_url;
+            } else {
+                // Log activity without media URL
+                $activityDescription = 'from "' . $originalCaption . '" to "' . $post->caption . '"';
+            }
+    
+            // Save the updated post
+            $post->save();
+    
+            // Log the activity
+            ActivityLogHelper::log(auth()->id(), 'Updated a post', $activityDescription);
+    
+            // Redirect back with success message
+            return redirect()->back()->with('success', 'Post updated successfully!');
+        } catch (\Exception $e) {
+            // Handle any exceptions and redirect back with error message
+            return redirect()->back()->with('error', 'An error occurred while updating the post: ' . $e->getMessage());
         }
-
-        // Save the updated post
-        $post->save();
-
-        // Redirect back with success message
-        return redirect()->back()->with('success', 'Post updated successfully!');
-    } catch (\Exception $e) {
-        // Handle any exceptions and redirect back with error message
-        return redirect()->back()->with('error', 'An error occurred while updating the post: ' . $e->getMessage());
     }
-}
+    
 
-
-
-
-public function delete($id) {
-    // Find the post by ID
-    $post = Forum::findOrFail($id);
-    $post->delete();
-
-    ActivityLogHelper::log(auth()->id(), 'Deleted a post', '' . $post->caption);
-
-    return redirect()->route('dashboard')->with('success', 'Post deleted successfully.');
-}
+    public function delete($id) {
+        try {
+            // Find the post by ID
+            $post = Forum::findOrFail($id);
+            
+            // Retrieve the caption and media URL
+            $caption = $post->caption;
+            $mediaUrl = $post->media_url;
+            
+            // Delete the post
+            $post->delete();
+            
+            // Prepare the description for the activity log
+            $description = $caption;
+            if ($mediaUrl) {
+                $description .= ', Media URL: ' . asset($mediaUrl);
+            }
+            
+            // Log the activity
+            ActivityLogHelper::log(auth()->id(), 'Deleted a post', $description);
+            
+            return redirect()->route('dashboard')->with('success', 'Post deleted successfully.');
+        } catch (\Exception $e) {
+            return redirect()->route('dashboard')->with('error', 'An error occurred while deleting the post: ' . $e->getMessage());
+        }
+    }
+    
 
     public function addPost() {
         return view('auth.add-post');

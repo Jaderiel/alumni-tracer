@@ -27,6 +27,7 @@
             @if(auth()->check() && (auth()->user()->user_type == 'Super Admin'))
             <a href="#" class="tab" data-tab="role-setting">Role Setting</a>
             <a href="#" class="tab" data-tab="create-account">Create Account</a>
+            <a href="#" class="tab" data-tab="logs">Activity Logs</a>
             @endif
         </div>
 
@@ -44,6 +45,9 @@
         </div>
         <div id="create-account" class="tab-content">
             @include('components.create-account')
+        </div>
+        <div id="logs" class="tab-content overflow-hidden">
+            @include('logs.index')
         </div>
     </section>
 </body>
@@ -106,7 +110,7 @@
         }
         
         .tab {
-            padding: 10px 50px;
+            padding: 10px 40px;
             background-color: #f0f0f0;
             border: 1px solid #ccc;
             border-radius: 5px 5px 0 0;
@@ -115,6 +119,7 @@
             text-decoration: none;
             color: black;
             font-weight: bold;
+            font-size: 14px;
         }
         
         .tab:hover {

@@ -37,12 +37,13 @@ class ReactionController extends Controller
 
         // Log the activity
         $activity = $reaction->is_liked ? 'Liked a post' : 'Unliked a post';
-        $description = '' . $post->caption;
+        $description = 'Caption: ' . $post->caption;
         if ($post->media_url) {
-            $description .= '' . $post->media_url;
+            $description .= ', Media URL: ' . $post->media_url;
         }
         ActivityLogHelper::log($userId, $activity, $description);
 
         return response()->json(['success' => true, 'is_liked' => $reaction->is_liked]);
     }
 }
+

@@ -1,60 +1,67 @@
-<!-- resources/views/logs/index.blade.php -->
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>User Activity Logs</title>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="{{ asset('css/tailwind.css') }}">
 </head>
-<body>
-    <div class="container mt-5">
-        <h1>User Activity Logs</h1>
-        <div class="card">
-            <div class="card-body">
+<body class="bg-gray-100">
+    <div class="container mx-auto mt-5">
+        <h1 class="text-3xl font-bold mb-5">User Activity Logs</h1>
+        <div class="bg-white shadow-md rounded-lg overflow-hidden">
+            <div class="p-5">
                 @if($logs->isEmpty())
-                    <p>No activity logs found.</p>
+                    <p class="text-gray-700">No activity logs found.</p>
                 @else
-                    <table class="table table-bordered">
+                    <table class="min-w-full bg-white">
                         <thead>
                             <tr>
-                                <th>User</th>
-                                <th>Activity</th>
-                                <th>Description</th>
-                                <th>Timestamp</th>
+                                <th class="w-1/4 py-2">User</th>
+                                <th class="w-1/4 py-2">Activity</th>
+                                <th class="w-1/4 py-2">Description</th>
+                                <th class="w-1/4 py-2">Timestamp</th>
                             </tr>
                         </thead>
-                        <tbody>
+                        <tbody class="bg-white">
                             @foreach($logs as $log)
-                                <tr>
-                                    <td>{{ $log->user->first_name }} {{ $log->user->last_name }}</td>
-                                    <td>{{ $log->activity }}</td>
-                                    <td>
+                                <tr class="bg-gray-50">
+                                    <td class="py-2 px-4 border-b border-gray-200">{{ $log->user->first_name }} {{ $log->user->last_name }}</td>
+                                    <td class="py-2 px-4 border-b border-gray-200">{{ $log->activity }}</td>
+                                    <td class="py-2 px-4 border-b border-gray-200">
                                         @php
-                                            $description = explode(', ', $log->description);
-                                            $caption = $description[0] ?? '';
-                                            $mediaUrl = null;
-                                            foreach ($description as $part) {
-                                                if (strpos($part, 'Media URL:') !== false) {
-                                                    $mediaUrl = trim(str_replace('Media URL:', '', $part));
-                                                    break;
-                                                }
+                                            if (strpos($log->activity, 'Updated a post') !== false) {
+                                                $descriptionParts = explode(', Media URL: ', $log->description);
+                                                $captions = explode(' to ', $descriptionParts[0]);
+                                                $originalCaption = trim(str_replace('from "', '', $captions[0]), '"');
+                                                $newCaption = trim($captions[1], '"');
+                                                $mediaUrl = $descriptionParts[1] ?? null;
+                                            } else {
+                                                $descriptionParts = explode(', Media URL: ', $log->description);
+                                                $caption = $descriptionParts[0];
+                                                $mediaUrl = $descriptionParts[1] ?? null;
                                             }
                                         @endphp
-                                        <div>{{ $caption }}</div>
+                                        @if (strpos($log->activity, 'Updated a post') !== false)
+                                            <div>From: {{ $originalCaption }}</div>
+                                            <div>To: {{ $newCaption }}</div>
+                                        @else
+                                            <div>{{ $caption }}</div>
+                                        @endif
                                         @if($mediaUrl)
                                             <div>
-                                                <img src="{{ asset($mediaUrl) }}" alt="User Uploaded Image" style="max-width: 150px; height: auto;">
+                                                <img src="{{ asset($mediaUrl) }}" alt="User Uploaded Image" class="w-10 h-10 mt-2 object-cover rounded-lg">
                                             </div>
                                         @endif
                                     </td>
-                                    <td>{{ \Carbon\Carbon::parse($log->created_at)->format('F j, Y, g:i a') }}</td>
+                                    <td class="py-2 px-4 border-b border-gray-200">{{ \Carbon\Carbon::parse($log->created_at)->format('F j, Y, g:i a') }}</td>
                                 </tr>
                             @endforeach
                         </tbody>
                     </table>
-                    {{ $logs->links() }}
+                    <div class="mt-5">
+                        {{ $logs->links() }}
+                    </div>
                 @endif
             </div>
         </div>
