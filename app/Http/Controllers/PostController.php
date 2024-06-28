@@ -17,51 +17,51 @@ use App\Helpers\ActivityLogHelper;
 class PostController extends Controller
 {
     public function store(Request $request)
-{
-    // Validate the incoming request
-    $request->validate([
-        'caption' => 'required|string',
-        'image' => 'image|mimes:jpeg,png,jpg,gif|max:10048', // Adjust the validation rules as needed
-    ]);
+    {
+        // Validate the incoming request
+        $request->validate([
+            'caption' => 'required|string',
+            'image' => 'image|mimes:jpeg,png,jpg,gif|max:10048', // Adjust the validation rules as needed
+        ]);
 
-    // Check if the user has already created 3 posts today
-    $user = auth()->user();
-    $todaysPostCount = Forum::where('user_id', $user->id)
-                            ->whereDate('created_at', today())
-                            ->count();
+        // Check if the user has already created 3 posts today
+        $user = auth()->user();
+        $todaysPostCount = Forum::where('user_id', $user->id)
+                                ->whereDate('created_at', today())
+                                ->count();
 
-    if ($todaysPostCount >= 3) {
-        return redirect()->back()->with('error', 'You have reached the daily limit of 3 posts.');
+        if ($todaysPostCount >= 3) {
+            return redirect()->back()->with('error', 'You have reached the daily limit of 3 posts.');
+        }
+
+        // Initialize mediaUrl variable
+        $mediaUrl = null;
+
+        // Handle image upload
+        if ($request->hasFile('image')) {
+            $image = $request->file('image');
+            $imageName = time().'.'.$image->getClientOriginalExtension();
+            $image->move(public_path('images'), $imageName);
+            $mediaUrl = 'images/'.$imageName;
+        }
+
+        // Create a new post instance
+        $post = new Forum();
+        $post->user_id = $user->id;
+        $post->caption = $request->caption;
+        $post->media_url = $mediaUrl;
+        $post->save();
+
+        // Log the activity with both caption and media URL
+        $description = 'Caption: ' . $post->caption;
+        if ($mediaUrl) {
+            $description .= ', Media URL: ' . asset($mediaUrl);
+        }
+        ActivityLogHelper::log(auth()->id(), 'Created a post', $description);
+
+        // Redirect back or to a specific route
+        return redirect()->back()->with('success', 'Post created successfully!');
     }
-
-    // Initialize mediaUrl variable
-    $mediaUrl = null;
-
-    // Handle image upload
-    if ($request->hasFile('image')) {
-        $image = $request->file('image');
-        $imageName = time().'.'.$image->getClientOriginalExtension();
-        $image->move(public_path('images'), $imageName);
-        $mediaUrl = 'images/'.$imageName;
-    }
-
-    // Create a new post instance
-    $post = new Forum();
-    $post->user_id = $user->id;
-    $post->caption = $request->caption;
-    $post->media_url = $mediaUrl;
-    $post->save();
-
-    // Log the activity with both caption and media URL
-    $description = '' . $post->caption;
-    if ($mediaUrl) {
-        $description .= '' . $mediaUrl;
-    }
-    ActivityLogHelper::log(auth()->id(), 'Created a post', $description);
-
-    // Redirect back or to a specific route
-    return redirect()->back()->with('success', 'Post created successfully!');
-}
 
     
 
