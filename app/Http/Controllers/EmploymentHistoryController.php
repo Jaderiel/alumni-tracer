@@ -1,12 +1,20 @@
 <?php
+
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\EmploymentHistory;
 use App\Models\UserEmployment;
+use App\Helpers\ActivityLogHelper;
+use Illuminate\Support\Facades\Auth;
 
 class EmploymentHistoryController extends Controller
 {
+    private function logActivity($userId, $action, $description)
+    {
+        ActivityLogHelper::log($userId, $action, $description);
+    }
+
     public function endEmployment(Request $request)
     {
         try {
@@ -25,14 +33,17 @@ class EmploymentHistoryController extends Controller
                 $userEmployment->delete();
             }
 
+            // Log activity
+            $this->logActivity(Auth::id(), 'Employment Ended', 'Ended current employment');
+
             return response()->json(['message' => 'Employment ended successfully.']);
-            } catch (\Exception $e) {
-                return response()->json(['message' => 'Error ending employment: ' . $e->getMessage()], 500);
-            }
+        } catch (\Exception $e) {
+            return response()->json(['message' => 'Error ending employment: ' . $e->getMessage()], 500);
+        }
     }
 
-    public function index() {
-
+    public function index()
+    {
         $user = auth()->user();
         $employmentHistories = EmploymentHistory::where('user_id', $user->id)
                                                 ->orderBy('date_of_employment', 'desc')
@@ -48,13 +59,18 @@ class EmploymentHistoryController extends Controller
         // Check if the authenticated user owns this employment history record
         if ($employmentHistory->user_id == auth()->user()->id) {
             $employmentHistory->delete();
+
+            // Log activity
+            $this->logActivity(Auth::id(), 'Employment History Deleted', "Deleted employment history ID: {$id}");
+
             return response()->json(['message' => 'Employment history deleted successfully.']);
         }
 
         return response()->json(['message' => 'Unauthorized'], 403);
     }
 
-    public function addPastEmployment() {
+    public function addPastEmployment()
+    {
         return view('components.add-past-employment');
     }
 
@@ -79,7 +95,9 @@ class EmploymentHistoryController extends Controller
         $employmentHistory->location = $request->location;
         $employmentHistory->save();
 
+        // Log activity
+        $this->logActivity(Auth::id(), 'Employment History Added', 'Added new employment history');
+
         return response()->json(['message' => 'Employment history added successfully.']);
     }
 }
-

@@ -6,9 +6,16 @@ use Illuminate\Http\Request;
 use App\Models\Job;
 use App\Rules\ValidSalaries;
 use Illuminate\Validation\Rule;
+use App\Helpers\ActivityLogHelper;
+use Illuminate\Support\Facades\Auth;
 
 class JobsController extends Controller
 {
+    private function logActivity($action, $description)
+    {
+        ActivityLogHelper::log(Auth::id(), $action, $description);
+    }
+
     public function jobs() {
         $jobs = Job::where('is_approved', true)->get();
         return view("auth.jobs", compact('jobs'));
@@ -20,48 +27,51 @@ class JobsController extends Controller
     }
 
     public function store(Request $request)
-{
-    $validatedData = $request->validate([
-        'job_title' => 'required|string',
-        'job_location' => 'required|string',
-        'job_type' => ['required', 'string', Rule::in(['full-time', 'part-time'])],
-        'job_description' => 'required|string|max:65535',
-        'company' => 'required|string',
-        'salary' => ['required', new ValidSalaries],
-        'link' => 'required|url',
-    ]);
+    {
+        $validatedData = $request->validate([
+            'job_title' => 'required|string',
+            'job_location' => 'required|string',
+            'job_type' => ['required', 'string', Rule::in(['full-time', 'part-time'])],
+            'job_description' => 'required|string|max:65535',
+            'company' => 'required|string',
+            'salary' => ['required', new ValidSalaries],
+            'link' => 'required|url',
+        ]);
 
-    // Truncate job description if it exceeds the maximum length
-    $jobDescription = substr($validatedData['job_description'], 0, 65535);
+        // Truncate job description if it exceeds the maximum length
+        $jobDescription = substr($validatedData['job_description'], 0, 65535);
 
-    $userId = auth()->user()->id;
-    $userType = auth()->user()->user_type;
+        $userId = auth()->user()->id;
+        $userType = auth()->user()->user_type;
 
-    $job = new Job;
-    $job->user_id = $userId;
-    $job->job_title = $validatedData['job_title'];
-    $job->job_location = $validatedData['job_location'];
-    $job->job_type = $validatedData['job_type'];
-    $job->job_description = $jobDescription;
-    $job->company = $validatedData['company'];
-    $job->salary = $validatedData['salary'];
-    $job->link = $validatedData['link'];
+        $job = new Job;
+        $job->user_id = $userId;
+        $job->job_title = $validatedData['job_title'];
+        $job->job_location = $validatedData['job_location'];
+        $job->job_type = $validatedData['job_type'];
+        $job->job_description = $jobDescription;
+        $job->company = $validatedData['company'];
+        $job->salary = $validatedData['salary'];
+        $job->link = $validatedData['link'];
 
-    // Set is_approved to true if user_type is Super Admin or Admin
-    if ($userType === 'Super Admin' || $userType === 'Admin') {
-        $job->is_approved = true;
+        // Set is_approved to true if user_type is Super Admin or Admin
+        if ($userType === 'Super Admin' || $userType === 'Admin') {
+            $job->is_approved = true;
+            $job->save();
+
+            // Log the activity
+            $this->logActivity('Job Created', "Job titled '{$job->job_title}' created and approved by User ID: $userId");
+
+            return redirect()->back()->with('success', 'Job details saved successfully!');
+        }
+
         $job->save();
-        return redirect()->back()->with('success', 'Job details saved successfully!');
+
+        // Log the activity
+        $this->logActivity('Job Created', "Job titled '{$job->job_title}' created by User ID: $userId and awaiting approval");
+
+        return redirect()->back()->with('success', 'Job details saved successfully. Please wait for approval');
     }
-
-    $job->save();
-
-    return redirect()->back()->with('success', 'Job details saved successfully. Please wait for approval');
-}
-
-    
-
-
 
     public function update(Request $request, Job $job)
     {
@@ -75,9 +85,11 @@ class JobsController extends Controller
             'link' => 'required|url',
         ]);
 
-        $job = Job::find($job->id);
         $job->update($validatedData);
-        
+
+        // Log the activity
+        $this->logActivity('Job Updated', "Job ID: {$job->id} titled '{$job->job_title}' updated by User ID: " . auth()->user()->id);
+
         return redirect()->route('jobs')->with('success', 'Job details saved successfully.');
     }
 
@@ -95,8 +107,12 @@ class JobsController extends Controller
         $job = Job::findOrFail($id);
         $currentUserType = auth()->user()->user_type;
         if ($currentUserType !== 'Super Admin' && $currentUserType !== 'Admin' && $job->user_id !== auth()->user()->id) {
-            return redirect()->back()->with('error', 'You are not authorized to Delete this job post.');
+            return redirect()->back()->with('error', 'You are not authorized to delete this job post.');
         }
+
+        // Log the activity
+        $this->logActivity('Job Deleted', "Job ID: {$job->id} titled '{$job->job_title}' deleted by User ID: " . auth()->user()->id);
+
         $job->delete();
 
         return redirect()->route('jobs')->with('success', 'Job deleted successfully.');

@@ -6,9 +6,16 @@ use Illuminate\Http\Request;
 use App\Models\Gallery;
 use Illuminate\Support\Facades\Session;
 use App\Rules\ValidCourses;
+use App\Helpers\ActivityLogHelper;
+use Illuminate\Support\Facades\Auth;
 
 class GalleryController extends Controller
 {
+    private function logActivity($action, $description)
+    {
+        ActivityLogHelper::log(Auth::id(), $action, $description);
+    }
+
     public function index() {
         $gallery = Gallery::where('is_approved', true)->get();
 
@@ -20,46 +27,46 @@ class GalleryController extends Controller
     }
 
     public function store(Request $request) {
+        // Validate request data
+        $validatedData = $request->validate([
+            'course' => ['required', new ValidCourses],
+            'img_title' => 'required|string',
+            'img_description' => 'required|string',
+            'media_url' => 'image|mimes:jpeg,png,jpg,gif|max:10048',
+        ]);
 
-            // Validate request data
-            $validatedData = $request->validate([
-                'course' => ['required', new ValidCourses],
-                'img_title' => 'required|string',
-                'img_description' => 'required|string',
-                'media_url' => 'image|mimes:jpeg,png,jpg,gif|max:10048',
-            ]);
-    
-            // Handle image upload
-            $mediaUrl = null;
-            if ($request->hasFile('image')) {
-                $image = $request->file('image');
-                $imageName = time().'.'.$image->getClientOriginalExtension();
-                $image->move(public_path('images'), $imageName);
-                $mediaUrl = 'images/'.$imageName;
-            }
-    
-            // Create new Gallery instance and fill with validated data
-            $gallery = new Gallery($validatedData);
-            $gallery->user_id = auth()->id();
-            $gallery->media_url = $mediaUrl;
-    
-            // Check if user is Super Admin or Admin and set is_approved accordingly
-            $user = auth()->user();
-            if ($user->user_type === 'Super Admin' || $user->user_type === 'Admin') {
-                $gallery->is_approved = true;
-                $message = 'Post Saved Successfully!';
-            } else {
-                $message = 'Post Saved Successfully! Please Wait For The Approval.';
-            }
-    
-            // Save the Gallery instance
-            $gallery->save();
-    
-            // Redirect back with success message
-            return redirect()->back()->with('success', $message);
+        // Handle image upload
+        $mediaUrl = null;
+        if ($request->hasFile('image')) {
+            $image = $request->file('image');
+            $imageName = time().'.'.$image->getClientOriginalExtension();
+            $image->move(public_path('images'), $imageName);
+            $mediaUrl = 'images/'.$imageName;
+        }
 
+        // Create new Gallery instance and fill with validated data
+        $gallery = new Gallery($validatedData);
+        $gallery->user_id = auth()->id();
+        $gallery->media_url = $mediaUrl;
+
+        // Check if user is Super Admin or Admin and set is_approved accordingly
+        $user = auth()->user();
+        if ($user->user_type === 'Super Admin' || $user->user_type === 'Admin') {
+            $gallery->is_approved = true;
+            $message = 'Post Saved Successfully!';
+        } else {
+            $message = 'Post Saved Successfully! Please Wait For The Approval.';
+        }
+
+        // Save the Gallery instance
+        $gallery->save();
+
+        // Log the activity
+        $this->logActivity('Gallery Created', "Gallery titled '{$gallery->img_title}' created by User ID: {$gallery->user_id}");
+
+        // Redirect back with success message
+        return redirect()->back()->with('success', $message);
     }
-    
 
     public function edit(Gallery $gallery) {
         $currentUserType = auth()->user()->user_type;
@@ -97,10 +104,12 @@ class GalleryController extends Controller
         // Save the updated event
         $gallery->save();
 
+        // Log the activity
+        $this->logActivity('Gallery Updated', "Gallery ID: {$gallery->id} titled '{$gallery->img_title}' updated by User ID: " . auth()->user()->id);
+
         // Redirect back to events page after updating
         return redirect()->back()->with('success', 'Gallery Edited Successfully!');
     }
-
 
     public function delete($id)
     {
@@ -109,6 +118,10 @@ class GalleryController extends Controller
         if ($currentUserType !== 'Super Admin' && $currentUserType !== 'Admin' && $gallery->user_id !== auth()->user()->id) {
             return redirect()->back()->with('error', 'You are not authorized to delete this gallery post.');
         }
+
+        // Log the activity
+        $this->logActivity('Gallery Deleted', "Gallery ID: {$gallery->id} titled '{$gallery->img_title}' deleted by User ID: " . auth()->user()->id);
+
         $gallery->delete();
 
         return redirect()->route('gallery')->with('success', 'Post deleted successfully.');
