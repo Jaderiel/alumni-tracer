@@ -32,27 +32,32 @@ class EventsController extends Controller
     }
 
     public function register($user_id, $event_id)
-    {
-        $existingRegistration = EventRegistration::where('user_id', $user_id)
-                                                ->where('event_id', $event_id)
-                                                ->first();
+{
+    $existingRegistration = EventRegistration::where('user_id', $user_id)
+                                            ->where('event_id', $event_id)
+                                            ->first();
 
-        if ($existingRegistration) {
-            // User is already registered, show an error message
-            return redirect()->back()->with('error', 'You are already registered for this event');
-        }
-        // Create a new event registration record
-        $registration = EventRegistration::create([
-            'user_id' => $user_id,
-            'event_id' => $event_id,
-        ]);
-
-        // Log the activity
-        $this->logActivity('Event Registration', "User ID: $user_id registered for Event ID: $event_id");
-
-        // Optionally, you can redirect the user or return a response
-        return redirect()->back()->with('success', 'Registration Successful');
+    if ($existingRegistration) {
+        // User is already registered, show an error message
+        return redirect()->back()->with('error', 'You are already registered for this event');
     }
+
+    // Create a new event registration record
+    $registration = EventRegistration::create([
+        'user_id' => $user_id,
+        'event_id' => $event_id,
+    ]);
+
+    // Get the event title
+    $eventTitle = Event::where('id', $event_id)->value('event_title');
+
+    // Log the activity
+    $this->logActivity('Event Registration', "User ID: $user_id registered for Event: $eventTitle");
+
+    // Optionally, you can redirect the user or return a response
+    return redirect()->back()->with('success', 'Registration Successful');
+}
+
 
     public function getRegisteredUsers($eventId)
     {
