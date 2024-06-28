@@ -53,9 +53,9 @@ class PostController extends Controller
     $post->save();
 
     // Log the activity with both caption and media URL
-    $description = 'Caption: ' . $post->caption;
+    $description = '' . $post->caption;
     if ($mediaUrl) {
-        $description .= ', Media URL: ' . $mediaUrl;
+        $description .= '' . $mediaUrl;
     }
     ActivityLogHelper::log(auth()->id(), 'Created a post', $description);
 
