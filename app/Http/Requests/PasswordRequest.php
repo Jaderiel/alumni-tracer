@@ -9,6 +9,7 @@ use App\Rules\PasswordLowercase;
 use App\Rules\PasswordUppercase;
 use App\Rules\PasswordDigit;
 use App\Rules\PasswordSpecialCharacter;
+use App\Rules\UniqueUser;
 
 class PasswordRequest extends FormRequest
 {
@@ -20,7 +21,6 @@ class PasswordRequest extends FormRequest
     public function rules()
     {
         return [
-            'first_name' => 'required',
             'last_name' => 'required',
             'course' => ['required', new ValidCourses],
             'batch' => ['required', new ValidBatches],
@@ -36,6 +36,7 @@ class PasswordRequest extends FormRequest
                 new PasswordSpecialCharacter,
                 'confirmed',
             ],
+            'first_name' => ['required', 'string', 'max:255', new UniqueUser()],
         ];
     }
 

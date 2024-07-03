@@ -12,6 +12,7 @@ use App\Rules\ValidBatches;
 use Illuminate\Auth\Events\Registered;
 use App\Mail\VerificationCode;
 use App\Http\Requests\PasswordRequest;
+use App\Rules\UniqueUser;
 
 
 class RegisterController extends Controller
