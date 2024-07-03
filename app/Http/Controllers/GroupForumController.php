@@ -3,19 +3,12 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\Forum;
 use App\Models\User;
-use App\Models\Announcement;
-use App\Models\Event;
-use App\Models\Job;
-use App\Models\Reaction;
-use Illuminate\Support\Facades\Storage;
-use Illuminate\Support\Facades\File;
-use App\Helpers\ActivityLogHelper;
 use App\Models\GroupForum;
+use App\Helpers\ActivityLogHelper;
+use App\Models\Reaction;
 
-
-class PostController extends Controller
+class GroupForumController extends Controller
 {
     public function store(Request $request)
     {
@@ -27,7 +20,7 @@ class PostController extends Controller
 
         // Check if the user has already created 3 posts today
         $user = auth()->user();
-        $todaysPostCount = Forum::where('user_id', $user->id)
+        $todaysPostCount = GroupForum::where('user_id', $user->id)
                                 ->whereDate('created_at', today())
                                 ->count();
 
@@ -47,8 +40,9 @@ class PostController extends Controller
         }
 
         // Create a new post instance
-        $post = new Forum();
+        $post = new GroupForum();
         $post->user_id = $user->id;
+        $post->course = $user->course;
         $post->caption = $request->caption;
         $post->media_url = $mediaUrl;
         $post->save();
@@ -64,32 +58,14 @@ class PostController extends Controller
         return redirect()->back()->with('success', 'Post created successfully!');
     }
 
-    
-
-    public function index()
-    {
-        // Retrieve forum posts from the database, paginated with 5 posts per page
-        $forumPosts = Forum::orderBy('created_at', 'desc')->paginate(5);
-        
-        $user = auth()->user();
-        $groupforumPosts = GroupForum::where('course', $user->course) // Assuming 'course' is a field in the User model
-            ->orderBy('created_at', 'desc')
-            ->paginate(5);
-        
-        // Retrieve counts for events, jobs, and verified alumni
-        $eventCount = Event::count();
-        $jobCount = Job::where('is_approved', true)->count();
-        $verifiedAlumniCount = User::where('is_email_verified', true)
-            ->where('user_type', 'Alumni')
-            ->count();
-
-        // Retrieve announcements
-        $announcements = Announcement::all();
-
-        // Pass data to the view
-        return view('auth.dashboard', compact('forumPosts', 'verifiedAlumniCount', 'announcements', 'eventCount', 'jobCount', 'groupforumPosts'));
+    public function addPost() {
+        return view('auth.add-post-group');
     }
 
+    public function editPost($id) {
+        $post = GroupForum::findOrFail($id);
+        return view('popups.update-group-post', compact('post'));
+    }
 
     public function updatePost(Request $request, $id)
     {
@@ -100,7 +76,7 @@ class PostController extends Controller
     
         try {
             // Retrieve the post by ID
-            $post = Forum::findOrFail($id);
+            $post = GroupForum::findOrFail($id);
     
             // Retrieve the original caption and media URL for comparison
             $originalCaption = $post->caption;
@@ -143,12 +119,11 @@ class PostController extends Controller
             return redirect()->back()->with('error', 'An error occurred while updating the post: ' . $e->getMessage());
         }
     }
-    
 
     public function delete($id) {
         try {
             // Find the post by ID
-            $post = Forum::findOrFail($id);
+            $post = GroupForum::findOrFail($id);
             
             // Retrieve the caption and media URL
             $caption = $post->caption;
@@ -171,20 +146,4 @@ class PostController extends Controller
             return redirect()->route('dashboard')->with('error', 'An error occurred while deleting the post: ' . $e->getMessage());
         }
     }
-    
-
-    public function addPost() {
-        return view('auth.add-post');
-    }
-
-    public function showUpdatePost($id) {
-        $post = Forum::findOrFail($id);
-    
-        // Check if the authenticated user's ID matches the post's user ID
-        if (auth()->user()->id != $post->user_id && !in_array(auth()->user()->user_type, ['Super Admin', 'Admin'])) {
-            return redirect()->route('dashboard');
-        }
-    
-        return view('popups.update-post', compact('post'));
-    }   
 }

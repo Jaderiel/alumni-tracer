@@ -33,6 +33,7 @@ module.exports = {
     './resources/views/website/ver.blade.php',
     './resources/views/logs/index.blade.php',
     './resources/views/approval-requests.blade.php',
+    './resources/views/forums/index.blade.php',
 
 
   ],

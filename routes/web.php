@@ -23,6 +23,7 @@ use App\Http\Controllers\DegreeStatusController;
 use Illuminate\Foundation\Auth\EmailVerificationRequest;
 use Illuminate\Http\Request;
 use App\Http\Controllers\ActivityLogController;
+use App\Http\Controllers\GroupForumController;
 
 Route::get('/logs', [ActivityLogController::class, 'index'])->name('logs.index');
 
@@ -143,6 +144,7 @@ Route::group(['middleware' => ['auth.user']], function () {
 
 
     Route::post('/like', [ReactionController::class, 'like'])->name('like');
+    Route::post('/grouplike', [ReactionController::class, 'grouplike'])->name('grouplike');
 
     Route::get('/align-users-to-course', [AnalyticsController::class, 'alignUsersToCourse'])->name('align.users.to.course');
 
@@ -157,6 +159,12 @@ Route::group(['middleware' => ['auth.user']], function () {
 
     Route::post('/approve-request/{id}/{approval}', [UserController::class, 'approveRequest'])->name('approve-request');
     Route::get('/approval-requests', [UserController::class, 'showApprovalRequests'])->name('approval-requests');
+
+    Route::get('/group-forum/add', [GroupForumController::class, 'addPost'])->name('group-forum.add');
+    Route::get('/group-forum/{id}', [GroupForumController::class, 'editPost'])->name('group-forum.edit');
+    Route::post('/group-forum/store', [GroupForumController::class, 'store'])->name('group-forum.store');
+    Route::put('/group-forum/{id}', [GroupForumController::class, 'updatePost'])->name('group-forum.update');
+    Route::delete('/group-forum/{id}', [GroupForumController::class, 'delete'])->name('group-forum.delete');
 });
 
 

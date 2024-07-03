@@ -5,15 +5,17 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Reaction extends Model
+class GroupForum extends Model
 {
     use HasFactory;
 
+    protected $table = 'group_forum';
+
     protected $fillable = [
         'user_id',
-        'forum_id',
-        'is_liked',
-        'comment',
+        'course',
+        'caption',
+        'media_url',
     ];
 
     public function user()
@@ -21,13 +23,8 @@ class Reaction extends Model
         return $this->belongsTo(User::class);
     }
 
-    public function forum()
+    public function reactions()
     {
-        return $this->belongsTo(Forum::class);
-    }
-
-    public function groupForum()
-    {
-        return $this->belongsTo(GroupForum::class);
+        return $this->hasMany(Reaction::class);
     }
 }

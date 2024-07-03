@@ -91,7 +91,7 @@
                                     </div>
                                 </div>
                             </div> 
-                            <a href="{{ route('add.post') }}">
+                            <a href="{{ route('group-forum.add') }}">
                                 <button style="background-color: transparent; border: none; cursor: pointer; text-align: left;">
                                     <div class="center-section">
                                         <p>What's on your mind, {{ Auth::user()->username }}?</p>
@@ -99,14 +99,14 @@
                                 </button>
                             </a>
                             <div class="right-section">
-                                <a href="{{ route('add.post') }}">
+                                <a href="{{ route('group-forum.add') }}">
                                     <button type="submit" class="post-button">MAKE A POST</button>
                                 </a>
                             </div>
                         </div>
                         <hr>
                         
-                        @foreach($forumPosts->sortByDesc('created_at') as $post)
+                        @foreach($groupforumPosts->sortByDesc('created_at') as $post)
                         <div class="forum-section p-0">
                             <div class="p-4">
                                 <div style="display: flex; justify-content: space-between; align-items: center">
@@ -124,7 +124,7 @@
                                         </div>
                                     </div>
                                     @if(auth()->check() && (auth()->user()->id == $post->user->id || auth()->user()->user_type == 'Super Admin'))
-                                        <a href="{{ route('showUpdate.post', ['id' => $post->id]) }}">
+                                        <a href="{{ route('group-forum.edit', ['id' => $post->id]) }}">
                                             <div class="elipsis">
                                                 <i class="fas fa-ellipsis-v text-gray-600 ml-"></i>
                                             </div>
