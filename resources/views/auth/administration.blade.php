@@ -33,6 +33,8 @@
 
         <div id="account-approvals" class="tab-content active">
             @include('components.account-approvals')
+
+            @include('approval-requests')
         </div>
         <div id="gallery-approvals" class="tab-content">
             @include('components.gallery-approvals')

@@ -32,6 +32,7 @@ module.exports = {
     './resources/views/emails/reset-password.blade.php',
     './resources/views/website/ver.blade.php',
     './resources/views/logs/index.blade.php',
+    './resources/views/approval-requests.blade.php',
 
 
   ],

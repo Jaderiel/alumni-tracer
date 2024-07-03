@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\User;
+use App\Models\ApprovalRequest;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\AccountApproved;
 use App\Mail\AccountCreated;
@@ -29,9 +30,10 @@ class AdminController extends Controller
         $admin = User::where('user_type', "Admin")->get();
         $programHead = User::where('user_type', "Program Head")->get();
         $alumniOfficer = User::where('user_type', "Alumni Officer")->get();
+        $approvalRequests = ApprovalRequest::where('approved', null)->with('user')->get();
         $logs = ActivityLog::with('user')->latest()->paginate(20);
 
-        return view('auth.administration', compact('unverifiedUsers', 'gallery', 'jobs', 'superAdmin', 'admin', 'programHead', 'alumniOfficer', 'logs'));
+        return view('auth.administration', compact('unverifiedUsers', 'gallery', 'jobs', 'superAdmin', 'admin', 'programHead', 'alumniOfficer', 'logs', 'approvalRequests'));
     }
 
     public function approveUser($userId)

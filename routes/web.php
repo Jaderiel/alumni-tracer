@@ -154,6 +154,9 @@ Route::group(['middleware' => ['auth.user']], function () {
     Route::delete('/employment-history/{id}', [EmploymentHistoryController::class, 'destroy'])->name('employment.history.destroy');
     Route::get('/add-past-employment', [EmploymentHistoryController::class, 'addPastEmployment'])->name('add-past-employment.show');
     Route::post('/add-past-employment', [EmploymentHistoryController::class, 'store'])->name('employment.history.store');
+
+    Route::post('/approve-request/{id}/{approval}', [UserController::class, 'approveRequest'])->name('approve-request');
+    Route::get('/approval-requests', [UserController::class, 'showApprovalRequests'])->name('approval-requests');
 });
 
 

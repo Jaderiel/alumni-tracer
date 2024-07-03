@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use App\Models\ApprovalRequest;
 use App\Models\DegreeStatus;
 use Illuminate\Http\Request;
 use App\Rules\NotSuperAdmin;
@@ -56,7 +57,7 @@ class UserController extends Controller
     public function updateProfile(Request $request)
     {
         $user = auth()->user();
-
+    
         $request->validate([
             'profile_pic' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:10048',
             'is_owned_business' => 'required|in:yes,no',
@@ -72,11 +73,12 @@ class UserController extends Controller
             'is_ongoing' => 'nullable|boolean',
             'last_name' => 'required',
             'first_name' => 'required',
+            'middle_name' => 'nullable',  // Add this line
             'email' => 'required|email',
         ]);
-
+    
         $profilePicUrl = $user->profile_pic;
-
+    
         // Update profile picture if provided
         if ($request->hasFile('profile_pic')) {
             // Handle profile picture upload
@@ -89,35 +91,45 @@ class UserController extends Controller
         } else {
             \Log::info('No profile picture uploaded.');
         }
-
-        // Update user profile data excluding profile_pic, user_type, degree, school, and is_ongoing
-        $user->update($request->except(['profile_pic', 'user_type', 'degree', 'school', 'is_ongoing']));
-
+    
+        // Create approval requests for first_name, middle_name, and last_name
+        $nameFields = ['first_name', 'middle_name', 'last_name'];
+        foreach ($nameFields as $field) {
+            if ($request->filled($field) && $request->input($field) !== $user->$field) {
+                ApprovalRequest::create([
+                    'user_id' => $user->id,
+                    'field' => $field,
+                    'old_value' => $user->$field ?? 'N/A', // Use 'N/A' or another default value if old_value is null
+                    'new_value' => $request->input($field),
+                    'approved' => null
+                ]);
+            }
+        }
+    
+        // Update user profile data excluding profile_pic, user_type, degree, school, is_ongoing, first_name, middle_name, and last_name
+        $user->update($request->except(['profile_pic', 'user_type', 'degree', 'school', 'is_ongoing', 'first_name', 'middle_name', 'last_name']));
+    
         // Handle degree status update if degree and school are provided
         if ($request->filled('degree') && $request->filled('school')) {
-            // Handle degree status update
-            $degreeStatus = $user->degreeStatus; // Retrieve existing degree status if it exists
-
+            $degreeStatus = $user->degreeStatus;
+    
             if (!$degreeStatus) {
                 $degreeStatus = new DegreeStatus();
                 $degreeStatus->user_id = $user->id;
             }
-
-            // Update degree status fields
+    
             $degreeStatus->degree = $request->input('degree');
             $degreeStatus->school = $request->input('school');
-            $degreeStatus->is_ongoing = $request->input('is_ongoing', false); // Default to false if not provided
-
+            $degreeStatus->is_ongoing = $request->input('is_ongoing', false);
+    
             $degreeStatus->save();
         } elseif ($user->degreeStatus) {
-            // Clear existing degree status if degree and school are not provided
             $user->degreeStatus->delete();
         }
-
+    
         // Prepare employment data based on employment status
         $employmentData = [];
         if ($request->employment_status === 'unemployed') {
-            // Handle unemployed status
             $employmentData = [
                 'job_title' => null,
                 'company_name' => null,
@@ -128,7 +140,6 @@ class UserController extends Controller
                 'is_employed' => false,
             ];
         } else {
-            // Handle employed status
             $employmentData = $request->only([
                 'job_title',
                 'company_name',
@@ -137,8 +148,7 @@ class UserController extends Controller
                 'annual_salary',
                 'company_address'
             ]);
-
-            // Check alignment to course (if applicable)
+    
             if (isset($employmentData['industry'])) {
                 if ($user->course === 'Bachelor of Science in Information Systems' && $employmentData['industry'] === 'IT Industry') {
                     $employmentData['is_aligned_to_course'] = true;
@@ -155,19 +165,41 @@ class UserController extends Controller
             }
             $employmentData['is_employed'] = true;
         }
-
-        // Update or create employment record
+    
         $employment = $user->employment()->updateOrCreate([], $employmentData);
-
+    
         $employment->is_owned_business = $request->input('is_owned_business') === 'yes';
         $employment->save();
-
-        // Log the activity
+    
         $this->logActivity(Auth::id(), 'Profile Updated', "Profile updated for {$user->first_name} {$user->last_name}");
-
-        // Redirect back with success message
+    
         return redirect()->back()->with('success', 'Profile updated successfully.');
     }
+    
+
+public function approveRequest($id, $approval)
+{
+    $approvalRequest = ApprovalRequest::findOrFail($id);
+
+    if ($approval === 'approve') {
+        $user = User::find($approvalRequest->user_id);
+        $user->update([$approvalRequest->field => $approvalRequest->new_value]);
+        $approvalRequest->approved = true;
+    } elseif ($approval === 'reject') {
+        $approvalRequest->approved = false;
+    }
+
+    $approvalRequest->save();
+
+    return redirect()->back()->with('success', 'Request processed successfully.');
+}
+
+public function showApprovalRequests()
+{
+    $approvalRequests = ApprovalRequest::where('approved', null)->with('user')->get();
+    return view('approval-requests', compact('approvalRequests'));
+}
+
 
     public function getUserEmployment($userId)
     {

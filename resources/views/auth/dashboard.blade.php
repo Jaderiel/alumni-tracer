@@ -56,7 +56,126 @@
         </div>
 
         <div class="flex">
-            <div class="flex flex-row w-full">
+            <div class="flex flex-col w-full">
+            <div class="tabs flex justify-center">
+                <button id="forum-tab" class="tab-button active p-2 border-b-2 border-blue-500">Forum</button>
+                <button id="group-forum-tab" class="tab-button p-2">Group Forum</button>
+            </div>
+            <div id="group-forum-content" class="tab-content hidden">
+                <div class="flex flex-row px-0 lg:px-10 w-full">
+                    <div class="board-1 w-full">
+                        <table width="100%">
+                            <thead>
+                                <tr>
+                                    <td><h2>Group Forum</h2></td>
+                                </tr>
+                            </thead>
+                        </table>
+                        <hr>
+
+                        <div class="forum-section">
+                            <div class="left-section">
+                                <div class="profile-info">
+                                @if (Auth::user()->profile_pic)
+                                    <img src="{{ Auth::user()->profile_pic }}" alt="Profile Picture">
+                                @else
+                                    @if (Auth::user()->user_type == 'Super Admin')
+                                        <img src="{{ asset('images/SA_avatar.jpg') }}" alt="Super Admin Avatar">
+                                    @else
+                                    <img src="{{ asset('images/user_avatar.jpg') }}" alt="User Avatar">
+                                    @endif
+                                @endif
+                                    <div class="user-details">
+                                        <p class="profile-name">{{ Auth::user()->first_name }} {{ Auth::user()->last_name }}</p>
+                                        <p class="profile-course">{{ Auth::user()->user_type !== 'Alumni' ? Auth::user()->user_type : Auth::user()->course }}</p>
+                                    </div>
+                                </div>
+                            </div> 
+                            <a href="{{ route('add.post') }}">
+                                <button style="background-color: transparent; border: none; cursor: pointer; text-align: left;">
+                                    <div class="center-section">
+                                        <p>What's on your mind, {{ Auth::user()->username }}?</p>
+                                    </div>
+                                </button>
+                            </a>
+                            <div class="right-section">
+                                <a href="{{ route('add.post') }}">
+                                    <button type="submit" class="post-button">MAKE A POST</button>
+                                </a>
+                            </div>
+                        </div>
+                        <hr>
+                        
+                        @foreach($forumPosts->sortByDesc('created_at') as $post)
+                        <div class="forum-section p-0">
+                            <div class="p-4">
+                                <div style="display: flex; justify-content: space-between; align-items: center">
+                                    <div class="profile-info flex items-center">
+                                        @if ($post->user->profile_pic)
+                                            <img src="{{ $post->user->profile_pic }}" alt="Profile Picture" class="w-8 h-8 rounded-full">
+                                        @elseif ($post->user->user_type == 'Super Admin')
+                                            <img src="{{ asset('images/SA_avatar.jpg') }}" alt="Super Admin Avatar">
+                                        @else
+                                            <img src="{{ asset('images/user_avatar.jpg') }}" alt="Placeholder Profile Picture" class="w-8 h-8 rounded-full">
+                                        @endif
+                                        <div class="user-details">
+                                            <p class="profile-name">{{ $post->user->first_name }} {{ $post->user->last_name }}</p>
+                                            <p class="profile-course">{{ $post->user->user_type !== 'Alumni' ? $post->user->user_type : $post->user->course }}</p>
+                                        </div>
+                                    </div>
+                                    @if(auth()->check() && (auth()->user()->id == $post->user->id || auth()->user()->user_type == 'Super Admin'))
+                                        <a href="{{ route('showUpdate.post', ['id' => $post->id]) }}">
+                                            <div class="elipsis">
+                                                <i class="fas fa-ellipsis-v text-gray-600 ml-"></i>
+                                            </div>
+                                        </a>
+                                    @endif
+                                </div>
+                                
+                                <div class="center-section2 flex flex-col mt-4 gap-2">
+                                    <p class="mr-2">{{ $post->caption }}</p>
+                                    @if ($post->media_url)
+                                        <img src="{{ $post->media_url }}" alt="Image" class="image-posted"> <!-- Use the user's profile picture -->
+                                    @else
+                                        <p></p> <!-- Use the placeholder image -->
+                                    @endif
+                                
+                                    <div class="likers" onclick="openPopup3('{{ $post->id }}')">
+                                        <img src="{{ asset('images/like.png') }}" alt="Image" class="like"> 
+                                        <p id="yuzer-{{ $post->id }}">{{ $post->reactions()->where('is_liked', true)->count() }} {{ Str::plural('like', $post->reactions()->where('is_liked', true)->count()) }}</p>
+                                    </div>
+                                </div>
+                            </div>
+                            @php
+                                $user = Auth::user();
+                                $isLiked = $user && $user->reactions()->where('forum_id', $post->id)->where('is_liked', true)->exists();
+                            @endphp
+                            <div class="forum-section2 bg-white rounded-b-xl thumbs-up-iconn" id="thumbsUpIcon-{{ $post->id }}" data-forum-id="{{ $post->id }}">
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <td>
+                                                
+                                                <i  
+                                                class="fa-solid fa-thumbs-up thumbs-up-icon" 
+                                                style="color: {{ $isLiked ? '#228BE6' : 'inherit' }};">
+                                                </i>
+                                            </td>
+                                        </tr>
+                                    </thead>
+                                </table>
+                            </div>
+                        </div>
+                    @endforeach
+
+
+                        <div class="page">
+                        {{ $forumPosts->links('components.pagination') }}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div id="forum-content" class="tab-content">
                 <div class="flex flex-row px-0 lg:px-10 w-full">
                     <div class="board-1 w-full">
                         <table width="100%">
@@ -169,6 +288,7 @@
                         </div>
                     </div>
                 </div>
+            </div>
             </div>
             <div class="hidden lg:flex justify-center w-1/2">
                 @include('components.announcements')
@@ -305,6 +425,28 @@
     }
 });
 </script>
+<script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const forumTab = document.getElementById('forum-tab');
+            const groupForumTab = document.getElementById('group-forum-tab');
+            const forumContent = document.getElementById('forum-content');
+            const groupForumContent = document.getElementById('group-forum-content');
+
+            forumTab.addEventListener('click', function() {
+                forumTab.classList.add('active', 'border-b-2', 'border-blue-500');
+                groupForumTab.classList.remove('active', 'border-b-2', 'border-blue-500');
+                forumContent.classList.remove('hidden');
+                groupForumContent.classList.add('hidden');
+            });
+
+            groupForumTab.addEventListener('click', function() {
+                groupForumTab.classList.add('active', 'border-b-2', 'border-blue-500');
+                forumTab.classList.remove('active', 'border-b-2', 'border-blue-500');
+                groupForumContent.classList.remove('hidden');
+                forumContent.classList.add('hidden');
+            });
+        });
+    </script>
 </html>
 
 <style>
