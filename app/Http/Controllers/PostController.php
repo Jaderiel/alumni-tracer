@@ -72,9 +72,13 @@ class PostController extends Controller
         $forumPosts = Forum::orderBy('created_at', 'desc')->paginate(5);
         
         $user = auth()->user();
-        $groupforumPosts = GroupForum::where('course', $user->course) // Assuming 'course' is a field in the User model
-            ->orderBy('created_at', 'desc')
-            ->paginate(5);
+        if ($user->user_type == 'Admin' || $user->user_type == 'Super Admin') {
+            $groupforumPosts = GroupForum::orderBy('created_at', 'desc')->paginate(5);
+        } else {
+            $groupforumPosts = GroupForum::where('course', $user->course)
+                ->orderBy('created_at', 'desc')
+                ->paginate(5);
+        }
         
         // Retrieve counts for events, jobs, and verified alumni
         $eventCount = Event::count();
