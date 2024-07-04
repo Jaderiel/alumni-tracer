@@ -9,25 +9,15 @@
 <body class="bg-gray-100 p-8">
     <h6 class="text-xl font-bold mt-6 mb-6 text-center">Pending Name Approval Requests</h6>
 
-    <div class="overflow-x-auto bg-white shadow-md rounded-lg">
-        <table class="min-w-full divide-y divide-gray-200">
+    <div class="board-list">
+        <table width="100%">
             <thead class="bg-gray-50">
                 <tr>
-                    <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                        User
-                    </th>
-                    <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                        Field
-                    </th>
-                    <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                        Old Value
-                    </th>
-                    <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                        New Value
-                    </th>
-                    <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                        Action
-                    </th>
+                    <td>User</td>
+                    <td>Field</td>
+                    <td>Old Value</td>
+                    <td>New Value</td>
+                    <td>Action</td>
                 </tr>
             </thead>
             <tbody class="bg-white divide-y divide-gray-200">
