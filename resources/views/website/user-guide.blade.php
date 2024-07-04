@@ -51,7 +51,8 @@
                 <a href="{{ route('login.show') }}">Sign in</a>
             </div>
         </div>
-        <iframe src="https://heyzine.com/flip-book/615d393007.html#page/4" width="100%" height="600px"></iframe>
+        <iframe allowfullscreen="" scrolling="no" class="fp-iframe" style="border: 1px solid lightgray; width: 100%; height: 400px;" src="https://heyzine.com/flip-book/c0d74c5d3a.html"></iframe>
+
        
 
 

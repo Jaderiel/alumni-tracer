@@ -27,7 +27,7 @@
                     <form id="delete-form" action="{{ route('job.delete', $job->id) }}" method="POST" onsubmit="return confirmDelete();" style="display:inline;">
                         @csrf
                         @method('DELETE')
-                        <button type="submit" class="delete-button" onclick="return confirm('Are you sure you want to delete this job post?')">Delete</button>
+                        <button type="submit" class="delete-btn" onclick="return confirm('Are you sure you want to delete this job post?')">Delete</button>
                     </form>
                 </div>
             </div>
@@ -92,25 +92,25 @@
     }
 
     .approve-button:hover {
-        background-color: #2D55B4;
+        background-color: #016443;
     }
 
-    .delete-button {
+    .delete-btn {
         padding: 2px 10px 2px 10px;
-        background-color: maroon;
+        background-color: #BB0237;
         color: white;
         cursor: pointer;
         border: none;
         border-radius: 3px
     }
 
-    .delete-button:hover {
-        background-color: #900C3F;
+    .delete-btn:hover {
+        background-color: #850227;
     }
 
     .button-holder {
         display: flex;
         flex-direction: row;
-        gap: 4px
+        gap: 10px
     }
 </style>

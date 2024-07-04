@@ -13,7 +13,7 @@
                                 <td>Name</td>
                                 <td>Course</td>
                                 <td>Batch</td>
-                                <td>Action</td>
+                                <td style="text-align: center;">Action</td>
                             </tr>
                         </thead>
                         <tbody>
@@ -36,7 +36,7 @@
                                 </div>
                             </td>
                                 @unless($user->is_email_verified)
-                                    <td class="action" style="display: flex">
+                                    <td class="action" style="display: flex; justify-content: center;">
                                         <a href="#" class="button approve-btn" data-form-id="{{ 'form-'.$user->id }}">Approve</a>
                                         <form id="{{ 'form-'.$user->id }}" method="POST" action="{{ route('user.approve', ['userId' => $user->id]) }}">
                                             @method('PUT')
@@ -45,7 +45,7 @@
                                         <form id="delete-form" action="{{ route('user.delete', ['userId' => $user->id]) }}" method="POST" onsubmit="return confirmDelete();">
                                             @method('DELETE')
                                             @csrf
-                                            <button type="submit" class="button delete-btn" style="background-color: maroon;">Reject</button>
+                                            <button type="submit" class=" delete-btn">Reject</button>
                                         </form>
                                     </td>
                                 @else
@@ -67,3 +67,17 @@
                 return confirm('Are you sure you want to delete this post? This action cannot be undone.');
             }
         </script>
+
+<style>
+        .delete-btn {
+            background-color: #BB0237;
+            color: white;
+            padding: 8px 16px;
+            border: none;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        .delete-btn:hover {
+            background-color: #850227;
+        }
+</style>

@@ -74,6 +74,7 @@
         max-width: 1200px;
         margin: 0 auto;
         padding: 20px;
+        overflow: hidden;
     }
 
     .custom-h1 {
@@ -82,9 +83,7 @@
         font-size: 1.5rem;
         font-weight: bold;
         padding: 1rem;
-        position: sticky;
         top: 0;
-        z-index: 999;
     }
 
     .custom-table {
@@ -93,6 +92,7 @@
         border-collapse: collapse;
         box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
         table-layout: fixed;
+        height: 500px;
     }
 
     .custom-th,

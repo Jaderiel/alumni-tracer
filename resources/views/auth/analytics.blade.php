@@ -56,6 +56,22 @@
             grid-column: span 2;
         }
 
+        .generate-btn {
+        background-color: #007bff;
+        }
+
+        .generate-btn:hover {
+            background-color: #0056b3;
+        }
+
+        .download-btn {
+        background-color: #00A36C;
+        }
+
+        .download-btn:hover {
+            background-color: #016443;
+        }
+
     </style>
 
 <body class="w-full bg-customBgColor relative flex">
@@ -76,10 +92,10 @@
         <div class="flex gap-4 justify-end mx-5">
         @if(auth()->check() && (auth()->user()->user_type == 'Admin' || Auth::user()->user_type === 'Super Admin'))
             <a href="{{ route('preview.show') }}">
-                <button class="flex items-center gap-4 px-5 py-1 hover:bg-customTextBlue hover:text-black cursor-pointer rounded-md generate-report-btn" style="background-color: #007bff; color: #fff; font-size: 15px">Generate Report</button>
+                <button class="generate-btn flex items-center gap-4 px-5 py-1 cursor-pointer rounded-md generate-report-btn" style="color: #fff; font-size: 15px">Generate Report</button>
             </a>
             <a href="{{ route('generate.pdf') }}">
-                <button class="flex items-center gap-4 px-5 py-1 hover:bg-customTextBlue hover:text-black cursor-pointer rounded-md generate-report-btn" style="background-color: #28a745; color: #fff; font-size: 15px">Download as PDF</button>
+                <button class="download-btn flex items-center gap-4 px-5 py-1 cursor-pointer rounded-md generate-report-btn" style="color: #fff; font-size: 15px">Download as PDF</button>
             </a>
         @endif
         </div>

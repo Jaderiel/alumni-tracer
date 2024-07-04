@@ -123,7 +123,7 @@
     }
 
     .btn-save:hover {
-        background-color: #2D55B4;
+        background-color: #162F65;
     }
 
     .button-holder {

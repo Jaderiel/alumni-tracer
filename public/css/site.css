@@ -1408,6 +1408,7 @@ button{
     font-weight: 600;
 }
 
+.notice .account p, 
 .notice .controller p, 
 .notice .purpose p,
 .notice .use p,
@@ -1439,6 +1440,7 @@ button{
         margin-left: 30px; 
     }
 
+    .notice .account p, 
     .notice .controller p,
     .notice .purpose p,
     .notice .use p,
