@@ -253,11 +253,17 @@
                     <tr class="hide-on-small">
                         <th width="30%">Degree Status</th>
                         <td width="2%">:</td>
-                        <td>{{ Auth::user()->degree }}</td>
+                        <td>@forelse ($degrees as $degree)
+                            <p class="text-sm">{{ $degree->degree }}</p>
+                            @empty
+                            @endforelse</td>
                     </tr>
                     <div class="lg:hidden flex flex-col mb-4">
                         <h1 class="font-bold">Degree Status</h1>
-                        <p>{{ Auth::user()->degree }}</p>
+                        <p>@forelse ($degrees as $degree)
+                            <p class="text-sm">{{ $degree->degree }}</p>
+                            @empty
+                            @endforelse</p>
                     </div>
                 </table>
             </div>

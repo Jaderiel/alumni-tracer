@@ -16,11 +16,27 @@
 
 html,
 body {
-    
-    font-family:sans-serif;
+    font-family: sans-serif;
     height: 100vh;
     overflow: hidden;
-    background-color: #162F65;
+    position: relative; /* Ensure the pseudo-element is positioned correctly */
+    margin: 0;
+}
+
+body::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: url('../images/alumni.png');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    opacity: 0.7; /* Adjust the opacity as needed */
+    z-index: -1; /* Ensure the background is behind the content */
+    pointer-events: none; /* Prevent the pseudo-element from interfering with interactions */
 }
 
 .logo {
@@ -433,9 +449,9 @@ cursor: pointer;
     top: 0;
     right: 0;
     height: 100vh;
-    width: 300vw;
+    width: 300vw; /* Consider adjusting this value to better fit your design */
     transform: translate(35%, 0);
-    background-image: linear-gradient(-45deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+    background: #162F65;
     transition: 1s ease-in-out;
     z-index: 6;
     box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;

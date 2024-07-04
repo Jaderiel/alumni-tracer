@@ -17,15 +17,15 @@
                     <table class="custom-table">
                         <thead class="custom-thead">
                             <tr class="bg-gray-200">
-                                <th class="custom-th w-1/4 py-2 px-4">User</th>
-                                <th class="custom-th w-1/4 py-2 px-4">Activity</th>
-                                <th class="custom-th w-1/4 py-2 px-4">Description</th>
-                                <th class="custom-th w-1/4 py-2 px-4">Timestamp</th>
+                                <th class="custom-th py-2 px-4">User</th>
+                                <th class="custom-th py-2 px-4">Activity</th>
+                                <th class="custom-th py-2 px-4">Description</th>
+                                <th class="custom-th py-2 px-4">Timestamp</th>
                             </tr>
                         </thead>
                         <tbody class="custom-tbody">
                             @foreach($logs as $log)
-                                <tr class="custom-bg-gray-50 hover:bg-gray-100">
+                                <tr class="custom-tr custom-bg-gray-50 hover:bg-gray-100">
                                     <td class="custom-td py-2 px-4 border-b border-gray-200">{{ $log->user->first_name }} {{ $log->user->last_name }}</td>
                                     <td class="custom-td py-2 px-4 border-b border-gray-200">{{ $log->activity }}</td>
                                     <td class="custom-td py-2 px-4 border-b border-gray-200">
@@ -63,66 +63,73 @@
 </html>
 
 <style>
-        /* Global styles */
-        body {
-            background-color: #f3f4f6; 
-            font-family: Arial, sans-serif; 
-            margin: 0;
-            padding: 0;
-        }
+    body {
+        background-color: #f3f4f6; 
+        font-family: Arial, sans-serif; 
+        margin: 0;
+        padding: 0;
+    }
 
-        /* Custom styles */
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 20px;
-        }
+    .container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 20px;
+    }
 
-        .custom-h1 {
-            background-color: #162F65;
-            color: white;
-            font-size: 2.5rem;
-            font-weight: bold;
-            padding: 1rem;
-            position: sticky;
-            top: 0;
-            z-index: 999;
-        }
+    .custom-h1 {
+        background-color: #162F65;
+        color: white;
+        font-size: 1.5rem;
+        font-weight: bold;
+        padding: 1rem;
+        position: sticky;
+        top: 0;
+        z-index: 999;
+    }
 
-        .custom-table {
-            width: 100%;
-            background-color: #fff;
-            border-collapse: collapse;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-        }
+    .custom-table {
+        width: 100%;
+        background-color: #fff;
+        border-collapse: collapse;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        table-layout: fixed;
+    }
 
-        .custom-th,
-        .custom-td {
-            padding: 12px 15px;
-            text-align: left;
-            border-bottom: 1px solid #ddd;
-        }
+    .custom-th,
+    .custom-td {
+        padding: 12px 15px;
+        text-align: left;
+        border-bottom: 1px solid #ddd;
+        width: 25%; 
+    }
 
-        .custom-th {
-            background-color: #f2f2f2;
-            position: sticky;
-            top: 80px; /* Adjust top offset as needed */
-            z-index: 998;
-        }
+    .custom-th {
+        background-color: #f2f2f2;
+        position: sticky;
+        top: 80px; 
+        z-index: 998;
+    }
 
-        .custom-thead {
-            display: table;
-            width: 100%;
-            table-layout: fixed;
-        }
+    .custom-thead {
+        display: table;
+        width: 100%;
+        table-layout: fixed;
+    }
 
-        .custom-tbody {
-            display: block;
-            max-height: 400px; /* Adjust height as needed */
-            overflow: auto;
-        }
+    .custom-tbody {
+        display: block;
+        max-height: 400px; 
+        overflow: auto;
+        width: 100%;
+    }
 
-        .custom-tr:nth-child(even) {
-            background-color: #f9f9f9;
-        }
-    </style>
+    .custom-tr {
+        display: table;
+        width: 100%;
+        table-layout: fixed;
+    }
+
+    .custom-tr:nth-child(even) {
+        background-color: #f9f9f9;
+    }
+</style>
