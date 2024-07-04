@@ -67,7 +67,28 @@
                         <table width="100%">
                             <thead>
                                 <tr>
-                                    <td><h2>Group Forum</h2></td>
+                                    @if (Auth::user()->user_type == 'Super Admin')
+                                    <select name="course" id="courseFilter" class="w-full p-2">
+                                        <option value="" selected disabled>Course</option>
+                                        <option value="all">All</option>
+                                        <option value="Bachelor of Arts in Broadcasting">Bachelor of Arts in Broadcasting (BAB)</option>
+                                        <option value="Bachelor of Science in Accountancy">Bachelor of Science in Accountancy (BSA)</option>
+                                        <option value="Bachelor of Science in Accounting Technology">Bachelor of Science in Accounting Technology (BSAT)</option>
+                                        <option value="Bachelor of Science in Accounting Information Systems">Bachelor of Science in Accounting Information Systems (BSAIS)</option>
+                                        <option value="Bachelor of Science in Social Work">Bachelor of Science in Social Work (BSSW)</option>
+                                        <option value="Bachelor of Science in Information Systems">Bachelor of Science in Information Systems (BSIS)</option>
+                                        <option value="Associate in Computer Technology">Associate in Computer Technology (ACT)</option>
+                                        <option value="Computer Technology">Computer Technology (CT)</option>
+                                        <option value="Computer Programming">Computer Programming (CP)</option>
+                                        <option value="Health Care Services">Health Care Services (HCS)</option>
+                                        <option value="International Cookery">International Cookery (IC)</option>
+                                        <option value="Mass Communication">Mass Communication (MC)</option>
+                                        <option value="Nursing Student">Nursing Student (NS)</option>
+                                        <option value="Office Management">Office Management (OM)</option>
+                                    </select>
+                                    @else
+                                    <td><h2>{{ Auth::user()->course }}</h2></td>
+                                    @endif
                                 </tr>
                             </thead>
                         </table>
@@ -107,7 +128,7 @@
                         <hr>
                         
                         @foreach($groupforumPosts->sortByDesc('created_at') as $post)
-                        <div class="forum-section p-0">
+                        <div class="forum-section p-0 filterable_cards" data-course="{{ $post->course }}">
                             <div class="p-4">
                                 <div style="display: flex; justify-content: space-between; align-items: center">
                                     <div class="profile-info flex items-center">
@@ -444,6 +465,19 @@
                 forumTab.classList.remove('active', 'border-b-2', 'border-blue-500');
                 groupForumContent.classList.remove('hidden');
                 forumContent.classList.add('hidden');
+            });
+        });
+    </script>
+    <script>
+        $(document).ready(function() {
+            $('#courseFilter').change(function() {
+                var selectedCourse = $(this).val();
+                if (selectedCourse === "all") {
+                    $('.filterable_cards').show();
+                } else {
+                    $('.filterable_cards').hide();
+                    $('.filterable_cards[data-course="' + selectedCourse + '"]').show();
+                }
             });
         });
     </script>

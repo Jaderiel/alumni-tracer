@@ -51,7 +51,7 @@
                         <div class="w-5/6 flex justify-start items-center"><p class="text-lg">Analytics</p></div>
                     </div>
                 </a>
-                @if(auth()->check() && (auth()->user()->user_type == 'Admin' || Auth::user()->user_type === 'Super Admin'))
+                @if(auth()->check() && (auth()->user()->user_type == 'Admin' || Auth::user()->user_type === 'Super Admin' || Auth::user()->user_type === 'Program Head'))
                 <a href="{{ route('administration') }}" class="sidebar-link">
                     <div class="flex text-white hover:bg-customYellow hover:text-customBlue cursor-pointer items-center p-2">
                         <div class="w-1/6 flex justify-center"><i class="fa-solid fa-user-tie text-sm p-0 m-0"></i></div>
