@@ -54,6 +54,26 @@
                             <option value="Alumni Officer">Alumni Officer</option>
                         </select>
                     </div>
+                    <div class="group" id="course-group" style="display: none;">
+                    <label for="Course">Course</label>
+                        <select name="course" id="course" required>
+                            <option value="" selected disabled>Course</option>
+                            <option value="Bachelor of Arts in Broadcasting">Bachelor of Arts in Broadcasting (BAB)</option>
+                            <option value="Bachelor of Science in Accountancy">Bachelor of Science in Accountancy (BSA)</option>
+                            <option value="Bachelor of Science in Accounting Technology">Bachelor of Science in Accounting Technology (BSAT)</option>
+                            <option value="Bachelor of Science in Accounting Information Systems">Bachelor of Science in Accounting Information Systems (BSAIS)</option>
+                            <option value="Bachelor of Science in Social Work">Bachelor of Science in Social Work (BSSW)</option>
+                            <option value="Bachelor of Science in Information Systems">Bachelor of Science in Information Systems (BSIS)</option>
+                            <option value="Associate in Computer Technology">Associate in Computer Technology (ACT)</option>
+                            <option value="Computer Technology">Computer Technology (CT)</option>
+                            <option value="Computer Programming">Computer Programming (CP)</option>
+                            <option value="Health Care Services">Health Care Services (HCS)</option>
+                            <option value="International Cookery">International Cookery (IC)</option>
+                            <option value="Mass Communication">Mass Communication (MC)</option>
+                            <option value="Nursing Student">Nursing Student (NS)</option>
+                            <option value="Office Management">Office Management (OM)</option>
+                        </select>
+                    </div>
                 </div>
                 <div class="inline-group">
                     <div class="group">
@@ -76,6 +96,16 @@
     </form>
 
 </body>
+<script>
+        document.getElementById('role').addEventListener('change', function() {
+            var courseGroup = document.getElementById('course-group');
+            if (this.value === 'Program Head') {
+                courseGroup.style.display = 'block';
+            } else {
+                courseGroup.style.display = 'none';
+            }
+        });
+    </script>
 </html>
 
 <style>

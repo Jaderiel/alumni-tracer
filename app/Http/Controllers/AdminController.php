@@ -21,9 +21,17 @@ class AdminController extends Controller
             return redirect()->back()->with('error', 'You are not authorized to view this page.');
         }
 
-        $unverifiedUsers = User::where('is_email_verified', false)
-                                ->whereNotNull('email_verified_at')
-                                ->get();
+        $authUser = auth()->user();
+        // Fetch unverified users, filtering by course for Program Heads
+        if ($authUser->user_type === 'Program Head') {
+            $unverifiedUsers = User::where('is_email_verified', false)
+                ->where('course', $authUser->course)
+                ->get();
+        } else {
+            // For Admins and Super Admins, fetch all unverified users
+            $unverifiedUsers = User::where('is_email_verified', false)->get();
+        }
+        
         $gallery = Gallery::where('is_approved', false)->get();
         $jobs = Job::where('is_approved', false)->get();
         $superAdmin = User::where('user_type', "Super Admin")->get();
@@ -37,31 +45,40 @@ class AdminController extends Controller
     }
 
     public function approveUser($userId)
-    {
-        // Check if the authenticated user is either an Admin or a Super Admin
-        if (!in_array(auth()->user()->user_type, ['Admin', 'Super Admin'])) {
-            return redirect()->back()->with('error', 'You are not authorized to approve users.');
-        }
-
-        // Find the user by ID
-        $user = User::findOrFail($userId);
-
-        // Update the user's verification status
-        $user->is_email_verified = true;
-        $user->save();
-
-        // Send the approval email
-        Mail::to($user->email)->send(new AccountApproved());
-
-        // Redirect back or to a success page
-        return redirect()->back()->with('success', 'User account approved successfully.');
+{
+    $authUser = auth()->user();
+    
+    // Check if the authenticated user is an Admin, Super Admin, or Program Head
+    if (!in_array($authUser->user_type, ['Admin', 'Super Admin', 'Program Head'])) {
+        return redirect()->back()->with('error', 'You are not authorized to approve users.');
     }
+
+    // Find the user by ID
+    $user = User::findOrFail($userId);
+
+    // If the authenticated user is a Program Head, check if the user's course matches
+    if ($authUser->user_type === 'Program Head' && $authUser->course !== $user->course) {
+        return redirect()->back()->with('error', 'You are not authorized to approve users from different courses.');
+    }
+
+    // Update the user's verification status
+    $user->is_email_verified = true;
+    $user->save();
+
+    // Send the approval email
+    Mail::to($user->email)->send(new AccountApproved());
+
+    // Redirect back or to a success page
+    return redirect()->back()->with('success', 'User account approved successfully.');
+}
+
 
 
     public function createAccount(Request $request) {
         if (auth()->user()->user_type !== 'Super Admin') {
             return redirect()->back()->with('error', 'You are not authorized to create user accounts.');
         }
+    
         // Define validation rules
         $rules = [
             'user_type' => 'required',
@@ -72,12 +89,17 @@ class AdminController extends Controller
             'password' => 'required|min:6|confirmed',
         ];
     
-        // If user_type is Alumni, make course required
-        if ($request->input('user_type') === 'Alumni') {
+        // Make 'course' and 'batch' required if user_type is Alumni or Program Head
+        if ($request->input('user_type') === 'Alumni' || $request->input('user_type') === 'Program Head') {
             $rules['course'] = 'required';
-            $rules['batch'] = 'required';
+            if ($request->input('user_type') === 'Alumni') {
+                $rules['batch'] = 'required';
+            } else {
+                // If user_type is Program Head, set batch to 'N/A'
+                $request->merge(['batch' => 'N/A']);
+            }
         } else {
-            // If user_type is not Alumni, set course and batch to 'N/A'
+            // If user_type is not Alumni or Program Head, set course and batch to 'N/A'
             $request->merge(['course' => 'N/A']);
             $request->merge(['batch' => 'N/A']);
         }
@@ -99,11 +121,12 @@ class AdminController extends Controller
             'is_email_verified' => true,
             'email_verified_at' => \Carbon\Carbon::now(),
         ]);
-
+    
         Mail::to($user->email)->send(new AccountCreated());
     
         return redirect()->back()->with('success', 'User account created successfully.');
     }
+    
 
     public function approveGallery($id)
     {

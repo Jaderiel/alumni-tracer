@@ -7,6 +7,7 @@
     <link rel="stylesheet" href="{{ asset('css/tailwind.css') }}">
 </head>
 <body class="bg-gray-100 p-8">
+    @if (auth()->user()->user_type === 'Admin' || auth()->user()->user_type === 'Super Admin')
     <h6 class="text-xl font-bold mt-6 mb-6 text-center">Pending Name Approval Requests</h6>
 
     <div class="board-list">
@@ -56,5 +57,10 @@
             </tbody>
         </table>
     </div>
+    @else
+    <div class="text-center text-red-500 mt-4">
+        You are not authorized to view some approvals here.
+    </div>
+    @endif
 </body>
 </html>
