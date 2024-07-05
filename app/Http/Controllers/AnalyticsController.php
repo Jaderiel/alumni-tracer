@@ -103,7 +103,7 @@ class AnalyticsController extends Controller
     // Retrieve count of employed and unemployed users, excluding users with user_type 'Admin'
     $employmentCounts = UserEmployment::join('users', 'user_employment.user_id', '=', 'users.id')
                                     ->where('user_employment.is_employed', true)
-                                    ->where('users.user_type', '!=', 'Admin')
+                                    ->where('users.user_type', '=', 'Alumni')
                                     ->groupBy('users.id')
                                     ->selectRaw('count(*) as count')
                                     ->get();
@@ -112,7 +112,7 @@ class AnalyticsController extends Controller
 
     $unemploymentCounts = UserEmployment::join('users', 'user_employment.user_id', '=', 'users.id')
                                     ->where('user_employment.is_employed', false)
-                                    ->where('users.user_type', '!=', 'Admin')
+                                    ->where('users.user_type', '=', 'Alumni')
                                     ->groupBy('users.id')
                                     ->selectRaw('count(*) as count')
                                     ->get();
@@ -126,7 +126,7 @@ class AnalyticsController extends Controller
         // Retrieve count of employed and unemployed users, excluding users with user_type 'Admin'
     $alignedUsersCounts = UserEmployment::join('users', 'user_employment.user_id', '=', 'users.id')
                                     ->where('user_employment.is_aligned_to_course', true)
-                                    ->where('users.user_type', '!=', 'Admin')
+                                    ->where('users.user_type', '=', 'Alumni')
                                     ->groupBy('users.id')
                                     ->selectRaw('count(*) as count')
                                     ->get();
@@ -135,7 +135,7 @@ class AnalyticsController extends Controller
 
     $unalignedUsersCounts = UserEmployment::join('users', 'user_employment.user_id', '=', 'users.id')
                                     ->where('user_employment.is_aligned_to_course', false)
-                                    ->where('users.user_type', '!=', 'Admin')
+                                    ->where('users.user_type', '=', 'Alumni')
                                     ->groupBy('users.id')
                                     ->selectRaw('count(*) as count')
                                     ->get();
