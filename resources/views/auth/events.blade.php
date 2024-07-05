@@ -59,16 +59,16 @@
                                         @if(auth()->check() && (auth()->user()->user_type != 'Alumni'))
                                         <div class="w-full flex flex-col items-center lg:items-end">
                                             <div class="text-right" style="padding: 10px">
-                                                <a href="{{ route('get.registered.users', ['eventId' => $event->id]) }}" style="display: inline-block; padding: 10px 20px; background-color: #007bff; color: #fff; text-decoration: none; border-radius: 5px;" class="view">View Registered Users</a>
+                                                <a href="{{ route('get.registered.users', ['eventId' => $event->id]) }}" style="display: inline-block; padding: 10px 20px; color: #fff; text-decoration: none; border-radius: 5px;" class="view-btn">View Registered Users</a>
                                             </div>
                                             <div class="text-right" style="padding: 10px">
                                                 <form id="delete-form" action="{{ route('delete.event', ['id' => $event->id]) }}" method="POST" onsubmit="return confirmDelete();" style="display: inline-block; width: 100px;">
                                                 @method('DELETE')
                                                 @csrf
-                                                <button type="submit" style="width: 100%; background-color: #dc3545; color: #fff; padding: 8px 16px; border: none; border-radius: 5px;">Delete</button>
+                                                <button type="submit" style="width: 100%; color: #fff; padding: 8px 16px; border: none; border-radius: 5px;" class="delete-btn">Delete</button>
                                                 </form>
                                                 <a href="{{ route('update-event', ['id' => $event->id]) }}" style="display: inline-block; width: 100px; margin-left: 10px;">
-                                                <button type="submit" style="width: 100%; background-color: #28a745; color: #fff; padding: 8px 16px; border: none; border-radius: 5px;">Edit</button>
+                                                <button type="submit" style="width: 100%; color: #fff; padding: 8px 16px; border: none; border-radius: 5px;" class="edit-btn">Edit</button>
                                                 </a>
                                             </div>
                                         </div>
@@ -173,6 +173,30 @@
             padding: 15px 130px;
             margin: 15px 0 20px;
             text-align: center;
+        }
+
+        .view-btn {
+        background-color: #007bff;
+        }
+
+        .view-btn:hover {
+            background-color: #0056b3;
+        }
+
+        .delete-btn {
+            background-color: #BB0237;
+        }
+
+        .delete-btn:hover {
+            background-color: #850227;
+        }
+
+        .edit-btn {
+        background-color: #00A36C;
+        }
+
+        .edit-btn:hover {
+            background-color: #016443;
         }
     </style>
 </body>

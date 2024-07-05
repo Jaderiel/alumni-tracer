@@ -106,6 +106,16 @@ body::before {
     margin: .5rem auto;
 }
 
+.required-asterisk {
+    position: absolute;
+    top: 60%;
+    right: 10px; 
+    transform: translateY(-50%);
+    color: red; 
+    font-size: 18px; 
+    font-weight: bold;
+}
+
 .input-group select {
     display: inline-block;
     width: 100%;
@@ -117,8 +127,12 @@ body::before {
     pointer-events: auto;
     padding-left: 0.60rem;
     color: var(--gray-2);
-    
+    -webkit-appearance: none; 
+    -moz-appearance: none; 
+    appearance: none;
 }
+
+
 
 .sign-uppp .input-group input {
     display: inline-block;

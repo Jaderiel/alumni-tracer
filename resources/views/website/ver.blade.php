@@ -6,7 +6,7 @@
     <title>Email Verification</title>
     <link rel="stylesheet" href="{{ asset('css/tailwind.css') }}">
 </head>
-<body class="bg-gray-100 flex items-center justify-center min-h-screen">
+<body class="flex items-center justify-center min-h-screen" style="background-color: #162F65;">
     <div class="w-full max-w-md bg-white rounded-lg shadow-md p-8">
         @if(session('success'))
             <div class="bg-green-100 text-green-700 p-4 mb-4 rounded">
@@ -36,8 +36,7 @@
             </div>
         @endif
 
-        <p class="text-lg mb-4">Please verify your email to notify admin about your registration</p>
-        <p class="text-sm mb-6">Check your email for the verification code</p>
+        <p class="text-md mb-4" style="text-align:center; font-weight:600">Please verify your email to notify the admin about your registration and kindly check your email for the verification code. Thank you! </p>
 
         <form action="{{ route('email.verify') }}" method="POST" class="mb-6">
             @csrf

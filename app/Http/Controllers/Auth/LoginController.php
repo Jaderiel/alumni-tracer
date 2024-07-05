@@ -23,7 +23,7 @@ class LoginController extends Controller
             $disabledUntil = Session::get('loginDisabledUntil');
             if ($disabledUntil && Carbon::now()->lt(Carbon::parse($disabledUntil))) {
                 $disabledMinutes = Carbon::now()->diffInMinutes(Carbon::parse($disabledUntil));
-                return redirect()->back()->withErrors(['message' => "Login is disabled. Please try again after $disabledMinutes minutes."])->withInput($request->except('password'));
+                return redirect()->back()->withErrors(['message' => "Login has been disabled. Please try again after $disabledMinutes minutes."])->withInput($request->except('password'));
             }
         }
 

@@ -55,10 +55,10 @@
                                     <h3 class="title font-bold">{{ $job->job_title }}</h3>
                                 </div>
                                 <div class="flex gap-2">
-                                    <a href="{{ $job->link }}" class="bg-yellow-400 text-white px-4 py-1 rounded-sm" target="_blank">Apply</a>
+                                    <a href="{{ $job->link }}" class="apply-btn text-white px-4 py-1 rounded-sm" target="_blank">Apply</a>
                                     @if(Auth::check() && (Auth::user()->user_type === 'Super Admin' || Auth::user()->id === $job->user_id))
                                         <a href="{{ route('jobs.show', ['job' => $job->id]) }}">
-                                            <button class="bg-yellow-400 text-white px-4 py-1 rounded-sm">Edit</button>
+                                            <button class="apply-btn text-white px-4 py-1 rounded-sm">Edit</button>
                                         </a>
                                     @endif
                                 </div>
@@ -187,6 +187,14 @@
 
         .error-popup {
             background-color: #F44336;
+        }
+
+        .apply-btn {
+        background-color: #FACC15;
+        }
+
+        .apply-btn:hover {
+            background-color: #d4aa00;
         }
     </style>
 </body>

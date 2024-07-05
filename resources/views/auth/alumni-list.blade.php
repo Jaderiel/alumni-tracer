@@ -68,7 +68,7 @@
                             <td>Name</td>
                             <td class="hide-on-small">Course</td>
                             <td class="hide-on-small">Batch</td>
-                            <td>Action</td>
+                            <td style="text-align: center;">Action</td>
                         </tr>
                     </thead>
                     <tbody>
@@ -94,12 +94,12 @@
                                     <p>{{ $user->batch }}</p>
                                 </div>
                             </td>
-                            <td class="action flex-col flex lg:flex-row items-center gap-2">
+                            <td class="action flex-col flex lg:flex-row items-center gap-2" style="display: flex; justify-content: center;">
                                 <a href="{{ route('profile.show', ['id' => $user->id]) }}">
                                     @if(auth()->check() && 
                                         (auth()->user()->id == $user->id || 
                                         in_array(auth()->user()->user_type, ['Admin', 'Super Admin'])))
-                                        <button style="background-color: #00A36C;">View</button>
+                                        <button class="view-button">View</button>
                                     @endif
                                 </a>
 
@@ -107,7 +107,7 @@
                                     <form id="delete-form" action="{{ route('user.delete', ['userId' => $user->id]) }}" method="POST" onsubmit="return confirmDelete();">
                                         @method('DELETE')
                                         @csrf
-                                        <button type="submit" class="" style="background-color: maroon;">Delete</button>
+                                        <button type="submit" class="delete-btn">Delete</button>
                                     </form>
                                 @endif
                             </td>
@@ -176,5 +176,21 @@
         .hide-on-small {
             display: none;
         }
+    }
+
+    .view-button {
+        background-color: #00A36C;
+    }
+
+    .view-button:hover {
+        background-color: #016443;
+    }
+
+    .delete-btn {
+        background-color: #BB0237;
+    }
+
+    .delete-btn:hover {
+        background-color: #850227;
     }
 </style>

@@ -70,6 +70,11 @@
                     </ul>
                 </div>
 
+                <div class="account">
+                    <h4>ACCOUNT DELETION POLICY</h4>
+                    <p>Upon registration, users are informed that account deletion is not permitted. This policy is implemented to maintain accurate alumni records and comply with institutional data retention protocols.</p>
+                </div>
+
                 <div class="controller">
                     <h4>CONTROLLER</h4>
                     <p>The data controller responsible for the collection and processing of your personal information is the Capstone Team. The Capstone Team is responsible for managing and maintaining the System. As the project continues, the team remains actively involved in its development and operation.</p>
@@ -97,7 +102,7 @@
                     <p>By using the System, you consent to the collection and use of your personal information as described in this Privacy Notice.
                        <br> <br> If you have any questions or concerns about our privacy practices or this notice, please contact us at <u>jade.admin@gmail.com</u> Thank you!
                        <br> <br>
-                       <strong>Last updated:</strong> June 1, 2024
+                       <strong>Last updated:</strong> July 5, 2024
                         </p>
                 </div>
             </div>

@@ -20,12 +20,14 @@
                         @csrf
                         <div class="input-group">
                             <input type="text" name="first_name" placeholder="First Name" required>
+                            <span class="required-asterisk">*</span>
                         </div>
                         <div class="input-group">
                             <input type="text" name="middle_name" placeholder="Middle Name">
                         </div>
                         <div class="input-group">
                             <input type="text" name="last_name" placeholder="Last Name" required>
+                            <span class="required-asterisk">*</span>
                         </div>
                         <div class="input-group">
                             <select name="course" id="course" required>
@@ -45,6 +47,7 @@
                                 <option value="Nursing Student">Nursing Student (NS)</option>
                                 <option value="Office Management">Office Management (OM)</option>
                             </select>
+                            <span class="required-asterisk">*</span>
                         </div>
 
                         <div class="input-group">
@@ -57,19 +60,24 @@
                                     <option value="{{ $year }} - {{ $nextYear }}">{{ $year }}-{{ $nextYear }}</option>
                                 @endfor
                             </select>
+                            <span class="required-asterisk">*</span>
                         </div>
 
                         <div class="input-group">
                             <input type="email" name="email" id="email" placeholder="Email" required>
+                            <span class="required-asterisk">*</span>
                         </div>
                         <div class="input-group">
                             <input type="text" name="username" placeholder="Username" required>
+                            <span class="required-asterisk">*</span>
                         </div>
                         <div class="input-group">
                             <input type="password" name="password" id="password" placeholder="Password" required>
+                            <span class="required-asterisk">*</span>
                         </div>
                         <div class="input-group">
                             <input type="password" name="password_confirmation" id="password_confirmation" placeholder="Confirm Password" required>
+                            <span class="required-asterisk">*</span>
                         </div>
                         <div class="input-group">
                             <input type="checkbox" id="termsCheckbox" required>
@@ -112,7 +120,7 @@
                     <div style="display: flex; gap: 10px; justify-content: center; margin-top: 5px">
                         <p><a href="{{ route('password.request') }}" style="text-decoration: none; color: gray;">Forgot password?</a></p>
                         <p>|</p>
-                        <p><a href="{{ route('ver.show') }}" style="text-decoration: none; color: gray;">Verify my Account</a></p>
+                        <p><a href="{{ route('ver.show') }}" style="text-decoration: none; color: gray;">Account Verification</a></p>
                     </div>
                     <p>
                         <span>
@@ -179,6 +187,10 @@
         <li>
             <h4><strong>User Registration</strong></h4>
             <p>To access certain features of the System, you may be required to register and provide accurate and complete information about yourself. You are responsible for maintaining the confidentiality of your account credentials and for all activities that occur under your account.</p>
+        </li>
+        <li>
+            <h4><strong>Account Management</strong></h4>
+            <p>Upon registration, users acknowledge that account deletion is not permitted. This policy ensures the accuracy of alumni records and complies with institutional data retention protocols.</p>
         </li>
         <li>
             <h4><strong>Use of Information</strong></h4>

@@ -14,7 +14,7 @@
                 <thead>
                     <tr>
                         <td>Name</td>
-                        <td>Action</td>
+                        <td style="text-align: center;">Action</td>
                     </tr>
                 </thead>
                 <tbody>
@@ -25,14 +25,14 @@
                                 <h5>{{ $superadmin->first_name }} {{ $superadmin->last_name }}</h5>
                             </div>
                         </td>
-                        <td class="action" style="display: flex">
+                        <td class="action" style="display: flex; justify-content: center;">
                             @if(auth()->check() && auth()->user()->user_type === 'Super Admin')
                             <div class="flex gap-1">
                                 <a href="#" class="button openModal" data-user-id="{{ $superadmin->id }}" data-user-name="{{ $superadmin->first_name }} {{ $superadmin->last_name }}" data-user-role="{{ $superadmin->user_type }}">Edit Role</a>
                                 <form action="{{ route('deleteAdmin', $superadmin->id) }}" method="POST" class="deleteForm">
                                     @csrf
                                     @method('DELETE')
-                                    <button type="submit" class="bg-customDelete text-white text-sm flex justify-center items-center px-4 py-1 rounded-sm cursor-pointer">Delete</button>
+                                    <button type="submit" class="delete-button">Delete</button>
                                 </form>
                             </div>
                             @endif
@@ -52,7 +52,7 @@
                 <thead>
                     <tr>
                         <td>Name</td>
-                        <td>Action</td>
+                        <td style="text-align: center;">Action</td>
                     </tr>
                 </thead>
                 <tbody>
@@ -63,14 +63,14 @@
                                 <h5>{{ $adminUser->first_name }} {{ $adminUser->last_name }}</h5>
                             </div>
                         </td>
-                        <td class="action" style="display: flex">
+                        <td class="action" style="display: flex; justify-content: center;">
                             @if(auth()->check() && auth()->user()->user_type === 'Super Admin')
                             <div class="flex gap-1">
                                 <a href="#" class="button openModal" data-user-id="{{ $adminUser->id }}" data-user-name="{{ $adminUser->first_name }} {{ $adminUser->last_name }}" data-user-role="{{ $adminUser->user_type }}">Edit Role</a>
                                 <form action="{{ route('deleteAdmin', $adminUser->id) }}" method="POST" class="deleteForm">
                                     @csrf
                                     @method('DELETE')
-                                    <button type="submit" class="bg-customDelete text-white text-sm flex justify-center items-center px-4 py-1 rounded-sm cursor-pointer">Delete</button>
+                                    <button type="submit" class="delete-button">Delete</button>
                                 </form>
                             </div>
                             @endif
@@ -90,7 +90,7 @@
                 <thead>
                     <tr>
                         <td>Name</td>
-                        <td>Action</td>
+                        <td style="text-align: center;">Action</td>
                     </tr>
                 </thead>
                 <tbody>
@@ -101,14 +101,14 @@
                                 <h5>{{ $programhead->first_name }} {{ $programhead->last_name }}</h5>
                             </div>
                         </td>
-                        <td class="action" style="display: flex">
+                        <td class="action" style="display: flex; justify-content: center;">
                             @if(auth()->check() && auth()->user()->user_type === 'Super Admin')
                             <div class="flex gap-1">
                                 <a href="#" class="button openModal" data-user-id="{{ $programhead->id }}" data-user-name="{{ $programhead->first_name }} {{ $programhead->last_name }}" data-user-role="{{ $programhead->user_type }}">Edit Role</a>
                                 <form action="{{ route('deleteAdmin', $programhead->id) }}" method="POST" class="deleteForm">
                                     @csrf
                                     @method('DELETE')
-                                    <button type="submit" class="bg-customDelete text-white text-sm flex justify-center items-center px-4 py-1 rounded-sm cursor-pointer">Delete</button>
+                                    <button type="submit" class="delete-button">Delete</button>
                                 </form>
                             </div>
                             @endif
@@ -128,7 +128,7 @@
                 <thead>
                     <tr>
                         <td>Name</td>
-                        <td>Action</td>
+                        <td style="text-align: center;">Action</td>
                     </tr>
                 </thead>
                 <tbody>
@@ -139,14 +139,14 @@
                                 <h5>{{ $alumniofficer->first_name }} {{ $alumniofficer->last_name }}</h5>
                             </div>
                         </td>
-                        <td class="action" style="display: flex">
+                        <td class="action" style="display: flex; justify-content: center;">
                             @if(auth()->check() && auth()->user()->user_type === 'Super Admin')
                             <div class="flex gap-1">
                                 <a href="#" class="button openModal" data-user-id="{{ $alumniofficer->id }}" data-user-name="{{ $alumniofficer->first_name }} {{ $alumniofficer->last_name }}" data-user-role="{{ $alumniofficer->user_type }}">Edit Role</a>
                                 <form action="{{ route('deleteAdmin', $alumniofficer->id) }}" method="POST" class="deleteForm">
                                     @csrf
                                     @method('DELETE')
-                                    <button type="submit" class="bg-customDelete text-white text-sm flex justify-center items-center px-4 py-1 rounded-sm cursor-pointer">Delete</button>
+                                    <button type="submit" class="delete-button">Delete</button>
                                 </form>
                             </div>
                             @endif
@@ -310,6 +310,23 @@
 
     .update-button:hover {
         background-color: #2D55B4;
+    }
+
+    .delete-button {
+        background-color: #BB0237;
+        color: white;
+        padding: 4px 8px;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        width: 55%;
+        font-size: 13px;
+        align-items: center;
+        text-align: center;
+    }
+
+    .delete-button:hover {
+        background-color: #850227;
     }
 
 </style>
