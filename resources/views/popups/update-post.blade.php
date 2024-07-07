@@ -59,7 +59,7 @@
                     <form id="delete-form" action="{{ route('delete.post', $post->id) }}" method="POST" onsubmit="return confirmDelete();">
                         @csrf
                         @method('DELETE')
-                        <button type="submit" class="delete-button-ann text-white">SET AS INACTIVE</button>
+                        <button type="submit" class="delete-button-ann text-white">ARCHIVE</button>
                     </form>
                 </div>
             </div>
@@ -87,7 +87,7 @@
     });
 
     function confirmDelete() {
-        return confirm('Are you sure you want set this post as inactive? This action cannot be undone.');
+        return confirm('Are you sure you want to archive this post? This action cannot be undone.');
     }
 </script>
 
