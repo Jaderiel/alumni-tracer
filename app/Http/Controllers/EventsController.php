@@ -21,8 +21,8 @@ class EventsController extends Controller
     public function events()
     {
         $this->deletePastEvents();
-        $events = Event::all();
-        $announcements = Announcement::all();
+        $events = Event::where('inactive', false)->get();
+        $announcements = Announcement::where('inactive', false)->get();
 
         foreach ($events as $event) {
             $event->event_date = Carbon::parse($event->event_date); // Convert string to DateTime object
@@ -159,12 +159,13 @@ class EventsController extends Controller
         }
 
         // Log the activity
-        $activityDescription = 'Deleted event: ' . $event->event_title;
-        $this->logActivity('Deleted an event', $activityDescription);
+        $activityDescription = 'Event Archived: ' . $event->event_title;
+        $this->logActivity('Event Archived', $activityDescription);
 
-        $event->delete();
+        $event->inactive = true;
+        $event->save();
 
-        return redirect()->back()->with('success', 'Event Deleted Successfully.');
+        return redirect()->back()->with('success', 'Event Archived Successfully.');
     }
 
     public function edit($id)
@@ -259,12 +260,13 @@ class EventsController extends Controller
         $ann = Announcement::findOrFail($id);
 
         // Log the activity
-        $activityDescription = 'Deleted announcement: ' . $ann->ann_title;
-        $this->logActivity('Deleted an announcement', $activityDescription);
+        $activityDescription = 'Announcement is set as inactive: ' . $ann->ann_title;
+        $this->logActivity('Announcement is set as inactive', $activityDescription);
 
-        $ann->delete();
+        $ann->inactive = true;
+        $ann->save();
 
-        return redirect()->route('events')->with('success', 'Announcement Deleted Successfully!');
+        return redirect()->route('events')->with('success', 'Announcement is set as inactive!');
     }
 
     public function deletePastEvents()
@@ -283,7 +285,8 @@ class EventsController extends Controller
             $activityDescription = 'Deleted past event: ' . $event->event_title;
             $this->logActivity('Deleted a past event', $activityDescription);
             
-            $event->delete();
+            $event->inactive = true;
+            $event->save();
         }
     }
 }

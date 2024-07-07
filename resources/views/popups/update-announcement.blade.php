@@ -92,7 +92,7 @@
                                 <form id="delete-form" action="{{ route('delete.ann', $ann->id) }}" method="POST" onsubmit="return confirmDelete();">
                                 @csrf
                                 @method('DELETE')
-                                <button type="submit" class="delete-button-ann text-white">DELETE</button>
+                                <button type="submit" class="delete-button-ann text-white">SET AS INACTIVE</button>
                                 </form>
                             </div>
                         </div>

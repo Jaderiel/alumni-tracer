@@ -65,7 +65,7 @@
                                                 <form id="delete-form" action="{{ route('delete.event', ['id' => $event->id]) }}" method="POST" onsubmit="return confirmDelete();" style="display: inline-block; width: 100px;">
                                                 @method('DELETE')
                                                 @csrf
-                                                <button type="submit" style="width: 100%; color: #fff; padding: 8px 16px; border: none; border-radius: 5px;" class="delete-btn">Delete</button>
+                                                <button type="submit" style="width: 100%; color: #fff; padding: 8px 16px; border: none; border-radius: 5px;" class="delete-btn">Archive</button>
                                                 </form>
                                                 <a href="{{ route('update-event', ['id' => $event->id]) }}" style="display: inline-block; width: 100px; margin-left: 10px;">
                                                 <button type="submit" style="width: 100%; color: #fff; padding: 8px 16px; border: none; border-radius: 5px;" class="edit-btn">Edit</button>
@@ -106,7 +106,7 @@
     <script src="{{ asset('js/events.js') }}"></script>
     <script>
         function confirmDelete() {
-            return confirm('Are you sure you want to delete this post? This action cannot be undone.');
+            return confirm('Are you sure you want to archive this event? This action cannot be undone.');
         }
 
         function confirmRegistration(url) {
