@@ -86,14 +86,15 @@ class PostController extends Controller
         }
         
         // Retrieve counts for events, jobs, and verified alumni
-        $eventCount = Event::count();
-        $jobCount = Job::where('is_approved', true)->count();
+        $eventCount = Event::where('inactive', false)->count();
+        $jobCount = Job::where('is_approved', true)->where('inactive', false)->count();
         $verifiedAlumniCount = User::where('is_email_verified', true)
+            ->where('inactive', false)
             ->where('user_type', 'Alumni')
             ->count();
 
         // Retrieve announcements
-        $announcements = Announcement::all();
+        $announcements = Announcement::where('inactive', false)->get();
 
         // Pass data to the view
         return view('auth.dashboard', compact('forumPosts', 'verifiedAlumniCount', 'announcements', 'eventCount', 'jobCount', 'groupforumPosts'));
