@@ -130,7 +130,8 @@ class GroupForumController extends Controller
             $mediaUrl = $post->media_url;
             
             // Delete the post
-            $post->delete();
+            $post->inactive = true;
+            $post->save();
             
             // Prepare the description for the activity log
             $description = $caption;

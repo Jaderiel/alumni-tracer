@@ -59,7 +59,7 @@
                     <form id="delete-form" action="{{ route('group-forum.delete', $post->id) }}" method="POST" onsubmit="return confirmDelete();">
                         @csrf
                         @method('DELETE')
-                        <button type="submit" class="delete-button-ann text-white">DELETE</button>
+                        <button type="submit" class="delete-button-ann text-white">SET AS INACTIVE</button>
                     </form>
                 </div>
             </div>
@@ -87,7 +87,7 @@
     });
 
     function confirmDelete() {
-        return confirm('Are you sure you want to delete this post? This action cannot be undone.');
+        return confirm('Are you sure you want to set this post as inactive? This action cannot be undone.');
     }
 </script>
 

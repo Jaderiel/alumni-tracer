@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dashboard Page</title>
+    <title>Dashboard</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
     <link rel="stylesheet" href="{{ asset('css/dashboard.css') }}">
     <link rel="stylesheet" href="{{ asset('css/sidebar.css') }}">
@@ -259,11 +259,15 @@
                                         </div>
                                     </div>
                                     @if(auth()->check() && (auth()->user()->id == $post->user->id || auth()->user()->user_type == 'Super Admin'))
+                                        @if ($post->inactive)
+                                        <p class="text-xs text-red-500">Inactive</p>
+                                        @else
                                         <a href="{{ route('showUpdate.post', ['id' => $post->id]) }}">
                                             <div class="elipsis">
                                                 <i class="fas fa-ellipsis-v text-gray-600 ml-"></i>
                                             </div>
                                         </a>
+                                        @endif
                                     @endif
                                 </div>
                                 

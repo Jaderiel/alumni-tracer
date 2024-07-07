@@ -16,6 +16,7 @@ class GroupForum extends Model
         'course',
         'caption',
         'media_url',
+        'inactive',
     ];
 
     public function user()

@@ -67,15 +67,20 @@ class PostController extends Controller
     
 
     public function index()
-    {
-        // Retrieve forum posts from the database, paginated with 5 posts per page
-        $forumPosts = Forum::orderBy('created_at', 'desc')->paginate(5);
-        
+    {        
         $user = auth()->user();
+
+        $forumPosts = Forum::where('inactive', false)
+                    ->orderBy('created_at', 'desc')
+                    ->paginate(5);
+
         if ($user->user_type == 'Admin' || $user->user_type == 'Super Admin') {
-            $groupforumPosts = GroupForum::orderBy('created_at', 'desc')->paginate(5);
+            $groupforumPosts = GroupForum::where('inactive', false)
+            ->orderBy('created_at', 'desc')
+            ->paginate(5);
         } else {
             $groupforumPosts = GroupForum::where('course', $user->course)
+                ->where('inactive', false)
                 ->orderBy('created_at', 'desc')
                 ->paginate(5);
         }
@@ -153,28 +158,30 @@ class PostController extends Controller
         try {
             // Find the post by ID
             $post = Forum::findOrFail($id);
-            
+    
             // Retrieve the caption and media URL
             $caption = $post->caption;
             $mediaUrl = $post->media_url;
-            
-            // Delete the post
-            $post->delete();
-            
+    
+            // Set the inactive column to true
+            $post->inactive = true;
+            $post->save();
+    
             // Prepare the description for the activity log
             $description = $caption;
             if ($mediaUrl) {
                 $description .= ', Media URL: ' . asset($mediaUrl);
             }
-            
+    
             // Log the activity
-            ActivityLogHelper::log(auth()->id(), 'Deleted a post', $description);
-            
-            return redirect()->route('dashboard')->with('success', 'Post deleted successfully.');
+            ActivityLogHelper::log(auth()->id(), 'Marked a post as inactive', $description);
+    
+            return redirect()->route('dashboard')->with('success', 'Post marked as inactive successfully.');
         } catch (\Exception $e) {
-            return redirect()->route('dashboard')->with('error', 'An error occurred while deleting the post: ' . $e->getMessage());
+            return redirect()->route('dashboard')->with('error', 'An error occurred while marking the post as inactive: ' . $e->getMessage());
         }
     }
+    
     
 
     public function addPost() {
