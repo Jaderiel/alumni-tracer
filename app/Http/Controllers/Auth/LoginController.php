@@ -52,6 +52,11 @@ class LoginController extends Controller
 
         $user = Auth::user();
 
+        if ($user->inactive) {
+            Auth::logout();
+            return redirect()->back()->withErrors(['message' => 'Your account is inactive. Please contact the admin for further assistance.'])->withInput($request->except('password'));
+        }
+
         if (is_null($user->email_verified_at)) {
             Auth::logout();
             return redirect()->route('ver.show')->withErrors(['message' => 'Your email is not verified. Please check your email to verify your account.']);

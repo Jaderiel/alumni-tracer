@@ -24,7 +24,8 @@ class User extends Authenticatable implements CanResetPassword
         'profile_pic',
         'is_email_verified',
         'email_verification_code',
-        'email_verified_at'
+        'email_verified_at',
+        'inactive'
     ];
 
     protected $hidden = [

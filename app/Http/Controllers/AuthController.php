@@ -34,7 +34,10 @@ class AuthController extends Controller
     }
 
     public function alumniList() {
-        $verifiedAlumni = User::where('is_verified', true)->paginate(10); // Fetch 10 alumni per page
+        $verifiedAlumni = User::where('is_verified', true)
+        ->where('inactive', false)
+        ->paginate(10); // Fetch 10 alumni per page
+        
         return view("auth.alumni-list", compact('verifiedAlumni'));
     }
 

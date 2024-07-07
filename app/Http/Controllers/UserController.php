@@ -40,6 +40,7 @@ class UserController extends Controller
     {
         $verifiedAlumni = User::where('user_type', 'Alumni')
                             ->where('is_email_verified', true)
+                            ->where('inactive', false)
                             ->paginate(20);
 
         return view('auth.alumni-list', ['verifiedAlumni' => $verifiedAlumni]);
@@ -257,10 +258,12 @@ public function showApprovalRequests()
         }
 
         // Delete the user's account
-        $user->delete();
+        $user->inactive = true;
+        $user->save();
+
         $this->logActivity(Auth::id(), 'Deleted User Account', $description);
 
-        return redirect()->back()->with('success', 'User account deleted successfully.');
+        return redirect()->back()->with('success', 'User account is inactive.');
     }
 
 

@@ -107,7 +107,7 @@
                                     <form id="delete-form" action="{{ route('user.delete', ['userId' => $user->id]) }}" method="POST" onsubmit="return confirmDelete();">
                                         @method('DELETE')
                                         @csrf
-                                        <button type="submit" class="delete-btn">Delete</button>
+                                        <button type="submit" class="delete-btn text-xs">Deactivate</button>
                                     </form>
                                 @endif
                             </td>
@@ -157,7 +157,7 @@
         });
 
         function confirmDelete() {
-            return confirm('Are you sure you want to delete this post? This action cannot be undone.');
+            return confirm('Are you sure you want to deactivate this user? This action cannot be undone.');
         }
     </script>
 
