@@ -110,7 +110,7 @@
                     <form id="delete-form" action="{{ route('gallery.delete', $gallery->id) }}" method="POST" onsubmit="return confirmDelete();">
                         @csrf
                         @method('DELETE')
-                        <button type="submit" class="delete-button-ann text-white">DELETE</button>
+                        <button type="submit" class="delete-button-ann text-white">ARCHIVE</button>
                     </form>
                 </div>
             </div>
@@ -149,7 +149,7 @@
         });
 
         function confirmDelete() {
-            return confirm('Are you sure you want to delete this post? This action cannot be undone.');
+            return confirm('Are you sure you want to archive this post? This action cannot be undone.');
         }
     </script>
 </body>

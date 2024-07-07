@@ -142,7 +142,7 @@
                             <form id="delete-form" action="{{ route('delete.job', $job->id) }}" method="POST" onsubmit="return confirmDelete();">
                                 @csrf
                                 @method('DELETE')
-                                <button class="delete-button-annn" type="submit">DELETE</button>
+                                <button class="delete-button-annn" type="submit">ARCHIVE</button>
                             </form>
                         </div>
                     </div>
@@ -165,7 +165,7 @@
 <script src="{{ asset('js/job-location.js') }}"></script>
 <script>
     function confirmDelete() {
-        return confirm('Are you sure you want to delete this post? This action cannot be undone.');
+        return confirm('Are you sure you want to archive this post? This action cannot be undone.');
     }
 </script>
 </html>

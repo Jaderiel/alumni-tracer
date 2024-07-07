@@ -17,7 +17,10 @@ class JobsController extends Controller
     }
 
     public function jobs() {
-        $jobs = Job::where('is_approved', true)->get();
+        $jobs = Job::where('is_approved', true)
+        ->where('inactive', false)
+        ->get();
+
         return view("auth.jobs", compact('jobs'));
     }
 
@@ -111,11 +114,12 @@ class JobsController extends Controller
         }
 
         // Log the activity
-        $this->logActivity('Job Deleted', "Job ID: {$job->id} titled '{$job->job_title}' deleted by User ID: " . auth()->user()->id);
+        $this->logActivity('Job archived', "Job ID: {$job->id} titled '{$job->job_title}' archived by User ID: " . auth()->user()->id);
 
-        $job->delete();
+        $job->inactive = true;
+        $job->save();
 
-        return redirect()->route('jobs')->with('success', 'Job deleted successfully.');
+        return redirect()->route('jobs')->with('success', 'Job archived successfully.');
     }
 
     public function showLocationComponent() {

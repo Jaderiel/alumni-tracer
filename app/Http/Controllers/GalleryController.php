@@ -17,7 +17,9 @@ class GalleryController extends Controller
     }
 
     public function index() {
-        $gallery = Gallery::where('is_approved', true)->get();
+        $gallery = Gallery::where('is_approved', true)
+        ->where('inactive', false)
+        ->get();
 
         return view("auth.gallery", compact('gallery'));
     }
@@ -120,10 +122,11 @@ class GalleryController extends Controller
         }
 
         // Log the activity
-        $this->logActivity('Gallery Deleted', "Gallery ID: {$gallery->id} titled '{$gallery->img_title}' deleted by User ID: " . auth()->user()->id);
+        $this->logActivity('Gallery archived', "Gallery ID: {$gallery->id} titled '{$gallery->img_title}' archived by User ID: " . auth()->user()->id);
 
-        $gallery->delete();
+        $gallery->inactive = true;
+        $gallery->save();
 
-        return redirect()->route('gallery')->with('success', 'Post deleted successfully.');
+        return redirect()->route('gallery')->with('success', 'Post archived successfully.');
     }
 }
