@@ -226,13 +226,24 @@ public function showApprovalRequests()
     public function destroy($id)
     {
         $user = User::findOrFail($id);
-        $user->delete();
+        $user->inactive = true;
+        $user->save();
 
         // Log activity
-        $this->logActivity(Auth::id(), 'User Deleted', "Deleted user {$user->first_name} {$user->last_name}");
+        $this->logActivity(Auth::id(), 'User Deactivated', "Deactivated user {$user->first_name} {$user->last_name}");
 
-        return redirect()->route('login.show')->with('success', 'User deleted successfully.');
+        // Log the user out
+        Auth::logout();
+
+        // Invalidate the session
+        request()->session()->invalidate();
+
+        // Regenerate the CSRF token
+        request()->session()->regenerateToken();
+
+        return redirect()->route('login.show')->with('success', 'Account Deactivated successfully.');
     }
+
 
     public function delete($id)
     {

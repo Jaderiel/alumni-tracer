@@ -28,7 +28,7 @@
                     <form id="delete-form" action="{{ route('gallery.deletee', $gal->id) }}" method="POST" style="display:inline;" onsubmit="return confirmDelete();">
                         @csrf
                         @method('DELETE')
-                        <button type="submit" class="delete-btn" onclick="return confirm('Are you sure you want to delete this gallery post?')">Delete</button>
+                        <button type="submit" class="delete-btn" onclick="return confirm('Are you sure you want to reject this gallery post?')">Reject</button>
                     </form>
                 </div>
             </div>

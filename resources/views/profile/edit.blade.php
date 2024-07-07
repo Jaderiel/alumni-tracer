@@ -73,7 +73,7 @@
                         <form id="delete-form" action="{{ route('users.destroy', $user->id) }}" method="POST" onsubmit="return confirmDelete();">
                         @csrf
                         @method('DELETE')
-                            <button class="delete-button" type="submit"><i class="fa-solid fa-user-xmark"></i> Delete</button>
+                            <button class="delete-button" type="submit"><i class="fa-solid fa-user-xmark"></i> Deactivate</button>
                         </form>
                         @endif
                     </div>
@@ -417,7 +417,7 @@
 <script src="{{ asset('js/job-location.js') }}"></script>
 <script>
     function confirmDelete() {
-        return confirm('Are you sure you want to delete this post? This action cannot be undone.');
+        return confirm('Are you sure you want to deactivate you account? This action cannot be undone.');
     }
 </script>
 <script>

@@ -32,7 +32,7 @@
                                 <form action="{{ route('deleteAdmin', $superadmin->id) }}" method="POST" class="deleteForm">
                                     @csrf
                                     @method('DELETE')
-                                    <button type="submit" class="delete-button">Delete</button>
+                                    <button type="submit" class="delete-button">Deactivate</button>
                                 </form>
                             </div>
                             @endif
@@ -70,7 +70,7 @@
                                 <form action="{{ route('deleteAdmin', $adminUser->id) }}" method="POST" class="deleteForm">
                                     @csrf
                                     @method('DELETE')
-                                    <button type="submit" class="delete-button">Delete</button>
+                                    <button type="submit" class="delete-button">Deactivate</button>
                                 </form>
                             </div>
                             @endif
@@ -108,7 +108,7 @@
                                 <form action="{{ route('deleteAdmin', $programhead->id) }}" method="POST" class="deleteForm">
                                     @csrf
                                     @method('DELETE')
-                                    <button type="submit" class="delete-button">Delete</button>
+                                    <button type="submit" class="delete-button">Deactivate</button>
                                 </form>
                             </div>
                             @endif
@@ -146,7 +146,7 @@
                                 <form action="{{ route('deleteAdmin', $alumniofficer->id) }}" method="POST" class="deleteForm">
                                     @csrf
                                     @method('DELETE')
-                                    <button type="submit" class="delete-button">Delete</button>
+                                    <button type="submit" class="delete-button">Deactivate</button>
                                 </form>
                             </div>
                             @endif
@@ -211,7 +211,7 @@
 
         document.querySelectorAll('.deleteForm').forEach(form => {
             form.addEventListener('submit', function(event) {
-                if (!confirm('Are you sure you want to delete this user?')) {
+                if (!confirm('Are you sure you want to deactivate this user?')) {
                     event.preventDefault();
                 }
             });

@@ -34,10 +34,10 @@ class AdminController extends Controller
         
         $gallery = Gallery::where('is_approved', false)->get();
         $jobs = Job::where('is_approved', false)->get();
-        $superAdmin = User::where('user_type', "Super Admin")->get();
-        $admin = User::where('user_type', "Admin")->get();
-        $programHead = User::where('user_type', "Program Head")->get();
-        $alumniOfficer = User::where('user_type', "Alumni Officer")->get();
+        $superAdmin = User::where('user_type', "Super Admin")->where('inactive', false)->get();
+        $admin = User::where('user_type', "Admin")->where('inactive', false)->get();
+        $programHead = User::where('user_type', "Program Head")->where('inactive', false)->get();
+        $alumniOfficer = User::where('user_type', "Alumni Officer")->where('inactive', false)->get();
         $approvalRequests = ApprovalRequest::where('approved', null)->with('user')->get();
         $logs = ActivityLog::with('user')->latest()->paginate(20);
 
@@ -226,8 +226,9 @@ class AdminController extends Controller
         $user = User::find($id);
 
         if ($user) {
-            $user->delete();
-            return redirect()->back()->with('success', 'User deleted successfully.');
+            $user->inactive = true;
+            $user->save();
+            return redirect()->back()->with('success', 'Account Deactivated  successfully.');
         }
 
         return redirect()->back()->with('error', 'User not found.');
