@@ -82,7 +82,7 @@
                     </div>
                 </table>
                 <div class="flex justify-end">
-                    <div class="bg-customDanger text-white w-20 py-1 flex justify-center items-center text-xs cursor-pointer delete-btn" style="padding: 8px 16px; border: none; border-radius: 5px; margin-bottom: 5px">Delete</div>
+                    <div class="bg-customDanger text-white w-20 py-1 flex justify-center items-center text-xs cursor-pointer delete-btn" style="padding: 8px 16px; border: none; border-radius: 5px; margin-bottom: 5px">Archive</div>
                 </div>
             </div>
         @endforeach
@@ -95,7 +95,7 @@
 
             deleteButtons.forEach(function(button) {
                 button.addEventListener('click', function() {
-                    if (confirm('Are you sure you want to delete this employment history?')) {
+                    if (confirm('Are you sure you want to archive this employment?')) {
                         var parentDiv = button.closest('.bg-white');
                         var id = parentDiv.getAttribute('data-id');
 
@@ -110,7 +110,7 @@
                         xhr.onreadystatechange = function() {
                             if (xhr.readyState === XMLHttpRequest.DONE) {
                                 if (xhr.status === 200) {
-                                    alert('Employment history deleted successfully.');
+                                    alert('Archived!');
                                     location.reload(); // Reload the page after successful deletion
                                 } else {
                                     alert('Error deleting employment history.');

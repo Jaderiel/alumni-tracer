@@ -46,6 +46,7 @@ class EmploymentHistoryController extends Controller
     {
         $user = auth()->user();
         $employmentHistories = EmploymentHistory::where('user_id', $user->id)
+                                                ->where('inactive', false)
                                                 ->orderBy('date_of_employment', 'desc')
                                                 ->get();
 
@@ -58,12 +59,13 @@ class EmploymentHistoryController extends Controller
 
         // Check if the authenticated user owns this employment history record
         if ($employmentHistory->user_id == auth()->user()->id) {
-            $employmentHistory->delete();
+            $employmentHistory->inactive = true;
+            $employmentHistory->save();
 
             // Log activity
-            $this->logActivity(Auth::id(), 'Employment History Deleted', "Deleted employment history ID: {$id}");
+            $this->logActivity(Auth::id(), 'Employment Archived', "archived employment history ID: {$id}");
 
-            return response()->json(['message' => 'Employment history deleted successfully.']);
+            return response()->json(['message' => 'Archived!']);
         }
 
         return response()->json(['message' => 'Unauthorized'], 403);
